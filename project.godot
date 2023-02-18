@@ -1,0 +1,249 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "ReferenceRect",
+"class": "CGChart",
+"language": "GDScript",
+"path": "res://addons/ChartGraph/core/chart.gd"
+}, {
+"base": "CGChart",
+"class": "CGLine",
+"language": "GDScript",
+"path": "res://addons/ChartGraph/line_chart/line_chart.gd"
+}, {
+"base": "",
+"class": "GitAPI",
+"language": "NativeScript",
+"path": "res://git_api.gdns"
+} ]
+_global_script_class_icons={
+"CGChart": "",
+"CGLine": "",
+"GitAPI": ""
+}
+
+[application]
+
+config/name="Cyde"
+config/description="CYDE"
+run/main_scene="res://PreGameHUDRelated/PreGameScreen.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="cyde"
+boot_splash/image="res://game_icon.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://game_icon.png"
+config/windows_native_icon="res://game_icon.ico"
+
+[autoload]
+
+PreGameManager="*res://PreGameRelated/PreGameManager.gd"
+TowerDominantColors="*res://GameInfoRelated/TowerDominantColors.gd"
+TowerCompositionColors="*res://GameInfoRelated/TowerCompositionColors.gd"
+ZIndexStore="*res://GameInfoRelated/ZIndexStore.gd"
+StoreOfEnemyEffectsUUID="*res://GameInfoRelated/EnemyEffectRelated/StoreOfEnemyEffectsUUID.gd"
+StoreOfTowerEffectsUUID="*res://GameInfoRelated/TowerEffectRelated/StoreOfTowerEffectsUUID.gd"
+StoreOfAttackModuleID="*res://TowerRelated/Modules/StoreOfAttackModuleID.gd"
+StoreOfRNG="*res://GameInfoRelated/StoreOfRNG.gd"
+StoreOfIngredientLimitModifierID="*res://GameInfoRelated/TowerIngredientRelated/StoreOfIngredientLimitModifierID.gd"
+StoreOfAbilityEffectsUUID="*res://GameInfoRelated/AbilityRelated/AbilityEffectRelated/StoreOfAbilityEffectsUUID.gd"
+Targeting="*res://GameInfoRelated/Targeting.gd"
+CollidableSourceAndDest="*res://GameInfoRelated/CollidableSourceAndDest.gd"
+StoreOfScreenEffectsUUID="*res://MiscRelated/ScreenEffectsRelated/StoreOfScreenEffectsUUID.gd"
+StoreOfPactUUID="*res://GameInfoRelated/ColorSynergyRelated/DominantSynergies/DomSyn_Red_Related/DomSyn_Red_PactRelated/StoreOfPactUUID.gd"
+StoreOfFonts="*res://GameHUDRelated/StoreOfFonts.gd"
+Towers="*res://GameInfoRelated/Towers.gd"
+EnemyConstants="*res://EnemyRelated/EnemyConstants.gd"
+StoreOfMaps="*res://MapsRelated/StoreOfMaps.gd"
+StoreOfEnemyMetadataIdsFromIns="*res://EnemyRelated/StoreOfEnemyMetadataIdsFromIns.gd"
+StoreOfSharedPassiveUuid="*res://GameInfoRelated/SharedTowerPassiveRelated/StoreOfSharedPassiveUUID.gd"
+StoreOfTrailType="*res://MiscRelated/TrailRelated/StoreOfTrailType.gd"
+StoreOfGameMode="*res://GameplayRelated/GameModeRelated/StoreOfGameMode.gd"
+CommsForBetweenScenes="*res://SingletonForCommsRelated/CommsForBetweenScenes.gd"
+StoreOfGameModifiers="*res://GameplayRelated/GameModifiersRelated/StoreOfGameModifiers.gd"
+GameSettingsManager="*res://GameElementsRelated/GameSettingsManager.gd"
+GameSaveManager="*res://GameSaveRelated/GameSaveManager.gd"
+AlmanacManager="*res://GeneralGUIRelated/AlmanacGUI/Subs/Singletons/AlmanacManager.gd"
+StatsManager="*res://GameSaveRelated/StatsManager.gd"
+StoreOfTextTidbit="*res://GeneralInfoRelated/TextTidbitRelated/StoreOfTextTidbit.gd"
+
+[debug]
+
+gdscript/warnings/enable=false
+gdscript/warnings/unused_argument=false
+shapes/collision/shape_color=Color( 0, 0.6, 0.701961, 0.231373 )
+shapes/collision/contact_color=Color( 1, 0.2, 0.101961, 0.8 )
+
+[display]
+
+window/size/width=960
+window/size/height=540
+window/size/borderless=true
+window/size/fullscreen=true
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[editor]
+
+version_control_autoload_on_startup=true
+version_control_plugin_name="GitAPI"
+
+[gdnative]
+
+singletons=[ "res://git_api.gdnlib" ]
+
+[global]
+
+"message queue"=false
+max_size=false
+max_size_kb=false
+layer=false
+"use gpu"=false
+wdw=false
+
+[input]
+
+ui_accept={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777222,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_round_toggle={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_tower_sell={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ingredient_toggle={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ability_01={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ability_02={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":50,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ability_03={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":51,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ability_04={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":52,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ability_05={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":53,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ability_06={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":54,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ability_07={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":55,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_ability_08={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":56,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_tower_targeting_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_tower_targeting_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_combine_combinables={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_shop_refresh={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_description_mode_toggle={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_tower_panel_ability_01={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_tower_panel_ability_02={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_tower_panel_ability_03={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+game_show_tower_extra_info_panel={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="TowerBaseArea"
+2d_physics/layer_2="TowerRangeArea"
+2d_physics/layer_3="TowerBullet"
+2d_physics/layer_4="TowerAura"
+2d_physics/layer_6="EnemyGround"
+2d_physics/layer_7="EnemyAir"
+2d_physics/layer_8="EnemyBullets"
+2d_physics/layer_9="EnemyAuraToAllies"
+2d_physics/layer_10="EnemyAuraToTowers"
+2d_physics/layer_11="Terrain"
+2d_physics/layer_16="TowerPlacables"
+2d_physics/layer_17="TowerClickableArea"
+
+[memory]
+
+limits/message_queue/max_size_kb=2048
+
+[physics]
+
+common/physics_fps=120
+
+[rendering]
+
+2d/snapping/use_gpu_pixel_snap=true
+environment/default_environment="res://default_env.tres"

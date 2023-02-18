@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://GameElementsRelated/AreaTowerPlacablesRelated/TowerBenchSlot.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameElementsRelated/TowerInventoryRelated/TowerInventoryBackground.png" type="Texture" id=2]
+[ext_resource path="res://GameElementsRelated/TowerInventoryRelated/TowerInventoryBench.gd" type="Script" id=3]
+
+[node name="TowerInventoryBench" type="Node2D"]
+position = Vector2( 530.192, 400.025 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="BenchSlot01" parent="." instance=ExtResource( 1 )]
+position = Vector2( -270, 0 )
+
+[node name="BenchSlot02" parent="." instance=ExtResource( 1 )]
+position = Vector2( -210, 0 )
+
+[node name="BenchSlot03" parent="." instance=ExtResource( 1 )]
+position = Vector2( -150, 0 )
+
+[node name="BenchSlot04" parent="." instance=ExtResource( 1 )]
+position = Vector2( -90, 0 )
+
+[node name="BenchSlot05" parent="." instance=ExtResource( 1 )]
+position = Vector2( -30, 0 )
+
+[node name="BenchSlot06" parent="." instance=ExtResource( 1 )]
+position = Vector2( 30, 0 )
+
+[node name="BenchSlot07" parent="." instance=ExtResource( 1 )]
+position = Vector2( 90, 0 )
+
+[node name="BenchSlot08" parent="." instance=ExtResource( 1 )]
+position = Vector2( 150, 0 )
+
+[node name="BenchSlot09" parent="." instance=ExtResource( 1 )]
+position = Vector2( 210, 0 )
+
+[node name="BenchSlot10" parent="." instance=ExtResource( 1 )]
+position = Vector2( 270, 0 )

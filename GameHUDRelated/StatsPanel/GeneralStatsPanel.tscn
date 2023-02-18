@@ -1,0 +1,302 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Fonts/consolas/CONSOLA.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://GameHUDRelated/StatsPanel/Assets/GoldIndicatorBackground.png" type="Texture" id=2]
+[ext_resource path="res://GameHUDRelated/StatsPanel/GeneralStatsPanel.gd" type="Script" id=3]
+[ext_resource path="res://GameHUDRelated/StatsPanel/Assets/LevelIndicatorBackground.png" type="Texture" id=4]
+[ext_resource path="res://GameHUDRelated/StatsPanel/ShopPercentStatsPanel.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GameHUDRelated/StatsPanel/Assets/RelicIndicatorBackground.png" type="Texture" id=6]
+[ext_resource path="res://MiscRelated/GUI_Category_Related/AdvancedButton/AdvancedButtonWithTooltip.tscn" type="PackedScene" id=7]
+[ext_resource path="res://GameHUDRelated/StatsPanel/StreakPanel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://GameHUDRelated/StatsPanel/RoundDamageStatsButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://GameHUDRelated/BuySellPanel/GoldPic.png" type="Texture" id=10]
+[ext_resource path="res://GameHUDRelated/BuySellPanel/RelicPic.png" type="Texture" id=11]
+[ext_resource path="res://MiscRelated/GUI_Category_Related/AdvancedButton/AdvancedButton.tscn" type="PackedScene" id=12]
+[ext_resource path="res://GameHUDRelated/WholeScreenRelicGeneralStorePanel/Assets/Buttons/ButtonToRelicGeneralStore_Small_Normal.png" type="Texture" id=13]
+[ext_resource path="res://GameHUDRelated/WholeScreenRelicGeneralStorePanel/Assets/Buttons/ButtonToRelicGeneralStore_Small_Highlighted.png" type="Texture" id=14]
+
+[sub_resource type="DynamicFont" id=1]
+size = 10
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 13
+font_data = ExtResource( 1 )
+
+[node name="GeneralStatsPanel" type="MarginContainer"]
+margin_right = 270.0
+margin_bottom = 19.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+script = ExtResource( 3 )
+
+[node name="HBoxContainer" type="MarginContainer" parent="."]
+margin_right = 270.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 10
+
+[node name="LeftSide" type="HBoxContainer" parent="HBoxContainer"]
+margin_right = 270.0
+margin_bottom = 19.0
+size_flags_horizontal = 2
+size_flags_vertical = 10
+
+[node name="LevelPanel" type="MarginContainer" parent="HBoxContainer/LeftSide"]
+margin_right = 76.0
+margin_bottom = 19.0
+size_flags_horizontal = 2
+
+[node name="LevelBackground" type="TextureRect" parent="HBoxContainer/LeftSide/LevelPanel"]
+margin_right = 76.0
+margin_bottom = 19.0
+mouse_filter = 2
+texture = ExtResource( 4 )
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/LeftSide/LevelPanel"]
+margin_right = 76.0
+margin_bottom = 19.0
+custom_constants/margin_right = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/LeftSide/LevelPanel/MarginContainer3"]
+margin_right = 35.0
+margin_bottom = 19.0
+mouse_filter = 2
+size_flags_horizontal = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 5
+
+[node name="LevelTextLabel" type="Label" parent="HBoxContainer/LeftSide/LevelPanel/MarginContainer3/MarginContainer"]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 35.0
+margin_bottom = 19.0
+size_flags_horizontal = 5
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0.992157, 0.752941, 0.0313726, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Level"
+valign = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/LeftSide/LevelPanel/MarginContainer3"]
+margin_left = 40.0
+margin_right = 74.0
+margin_bottom = 19.0
+mouse_filter = 2
+size_flags_horizontal = 10
+custom_constants/margin_right = 20
+custom_constants/margin_top = 1
+
+[node name="LevelLabel" type="Label" parent="HBoxContainer/LeftSide/LevelPanel/MarginContainer3/MarginContainer2"]
+margin_top = 1.0
+margin_right = 14.0
+margin_bottom = 19.0
+grow_horizontal = 0
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0.992157, 0.752941, 0.0313726, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "10"
+valign = 1
+
+[node name="ShopPercentStatsPanel" parent="HBoxContainer/LeftSide" instance=ExtResource( 5 )]
+margin_left = 80.0
+margin_top = 3.0
+margin_right = 270.0
+margin_bottom = 19.0
+size_flags_horizontal = 2
+
+[node name="Middle" type="HBoxContainer" parent="HBoxContainer"]
+margin_left = 79.0
+margin_right = 190.0
+margin_bottom = 19.0
+size_flags_horizontal = 6
+size_flags_vertical = 10
+custom_constants/separation = 0
+
+[node name="GoldPanel" type="MarginContainer" parent="HBoxContainer/Middle"]
+margin_right = 70.0
+margin_bottom = 19.0
+mouse_filter = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+
+[node name="GoldButton" parent="HBoxContainer/Middle/GoldPanel" instance=ExtResource( 7 )]
+margin_right = 70.0
+margin_bottom = 19.0
+button_mask = 3
+texture_normal = ExtResource( 2 )
+about_button_index_trigger = -1002
+define_tooltip_construction_in_button = false
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/Middle/GoldPanel"]
+margin_right = 70.0
+margin_bottom = 19.0
+mouse_filter = 2
+custom_constants/margin_right = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Middle/GoldPanel/MarginContainer3"]
+margin_right = 68.0
+margin_bottom = 19.0
+mouse_filter = 2
+custom_constants/separation = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Middle/GoldPanel/MarginContainer3/HBoxContainer"]
+margin_right = 29.0
+margin_bottom = 19.0
+mouse_filter = 2
+size_flags_horizontal = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 5
+
+[node name="GoldTextLabel" type="Label" parent="HBoxContainer/Middle/GoldPanel/MarginContainer3/HBoxContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 29.0
+margin_bottom = 19.0
+size_flags_horizontal = 5
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0.992157, 0.752941, 0.0313726, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Gold"
+valign = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Middle/GoldPanel/MarginContainer3/HBoxContainer"]
+margin_left = 46.0
+margin_right = 53.0
+margin_bottom = 19.0
+mouse_filter = 2
+size_flags_horizontal = 10
+custom_constants/margin_top = 1
+
+[node name="GoldAmountLabel" type="Label" parent="HBoxContainer/Middle/GoldPanel/MarginContainer3/HBoxContainer/MarginContainer2"]
+margin_top = 1.0
+margin_right = 7.0
+margin_bottom = 19.0
+grow_horizontal = 0
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0.992157, 0.752941, 0.0313726, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "0"
+valign = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/Middle/GoldPanel/MarginContainer3/HBoxContainer"]
+margin_left = 54.0
+margin_right = 68.0
+margin_bottom = 19.0
+mouse_filter = 2
+custom_constants/margin_right = 1
+
+[node name="GoldIcon" type="TextureRect" parent="HBoxContainer/Middle/GoldPanel/MarginContainer3/HBoxContainer/MarginContainer3"]
+margin_top = 3.0
+margin_right = 13.0
+margin_bottom = 16.0
+mouse_filter = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource( 10 )
+
+[node name="StreakPanel" parent="HBoxContainer/Middle" instance=ExtResource( 8 )]
+margin_left = 70.0
+margin_right = 111.0
+size_flags_horizontal = 6
+size_flags_vertical = 10
+
+[node name="Right" type="HBoxContainer" parent="HBoxContainer"]
+margin_left = 162.0
+margin_right = 270.0
+margin_bottom = 19.0
+size_flags_horizontal = 10
+size_flags_vertical = 10
+custom_constants/separation = 0
+
+[node name="RelicPanel" type="MarginContainer" parent="HBoxContainer/Right"]
+margin_right = 70.0
+margin_bottom = 19.0
+size_flags_vertical = 10
+
+[node name="RelicBackground" type="TextureRect" parent="HBoxContainer/Right/RelicPanel"]
+margin_right = 70.0
+margin_bottom = 19.0
+mouse_filter = 2
+texture = ExtResource( 6 )
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/Right/RelicPanel"]
+margin_right = 70.0
+margin_bottom = 19.0
+custom_constants/margin_right = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Right/RelicPanel/MarginContainer3"]
+margin_right = 68.0
+margin_bottom = 19.0
+mouse_filter = 2
+custom_constants/separation = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Right/RelicPanel/MarginContainer3/HBoxContainer"]
+margin_right = 35.0
+margin_bottom = 19.0
+mouse_filter = 2
+size_flags_horizontal = 2
+custom_constants/margin_top = 2
+custom_constants/margin_left = 5
+
+[node name="RelicTextLabel" type="Label" parent="HBoxContainer/Right/RelicPanel/MarginContainer3/HBoxContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 35.0
+margin_bottom = 19.0
+size_flags_horizontal = 5
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0.992157, 0.752941, 0.0313726, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Relic"
+valign = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/Right/RelicPanel/MarginContainer3/HBoxContainer"]
+margin_left = 47.0
+margin_right = 54.0
+margin_bottom = 19.0
+mouse_filter = 2
+size_flags_horizontal = 10
+custom_constants/margin_top = 1
+
+[node name="RelicAmountLabel" type="Label" parent="HBoxContainer/Right/RelicPanel/MarginContainer3/HBoxContainer/MarginContainer2"]
+margin_top = 1.0
+margin_right = 7.0
+margin_bottom = 19.0
+grow_horizontal = 0
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0.992157, 0.752941, 0.0313726, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "0"
+valign = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/Right/RelicPanel/MarginContainer3/HBoxContainer"]
+margin_left = 55.0
+margin_right = 68.0
+margin_bottom = 19.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Right/RelicPanel/MarginContainer3/HBoxContainer/MarginContainer3"]
+margin_top = 3.0
+margin_right = 13.0
+margin_bottom = 16.0
+mouse_filter = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource( 11 )
+
+[node name="RelicGeneralStoreButton" parent="HBoxContainer/Right" instance=ExtResource( 12 )]
+margin_left = 70.0
+margin_right = 89.0
+margin_bottom = 19.0
+texture_normal = ExtResource( 13 )
+texture_hover = ExtResource( 14 )
+
+[node name="RoundDamageStatsButton" parent="HBoxContainer/Right" instance=ExtResource( 9 )]
+margin_left = 89.0
+margin_right = 108.0
+size_flags_vertical = 10
+
+[connection signal="about_tooltip_construction_requested" from="HBoxContainer/Middle/GoldPanel/GoldButton" to="." method="_on_GoldButton_about_tooltip_construction_requested"]
+[connection signal="pressed_mouse_event" from="HBoxContainer/Right/RelicGeneralStoreButton" to="." method="_on_RelicGeneralStoreButton_pressed_mouse_event"]

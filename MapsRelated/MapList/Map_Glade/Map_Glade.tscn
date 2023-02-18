@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://GameElementsRelated/InMapPlacablesRelated/InMapAreaPlacable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://EnemyRelated/EnemyPath.tscn" type="PackedScene" id=2]
+[ext_resource path="res://MapsRelated/BaseMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://MapsRelated/MapList/TestMap/MapTemplate.png" type="Texture" id=4]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 289.495, 381.743, 0, 0, 0, 0, 339.797, 280.276, 0, 0, 0, 0, 596.841, 265.684, 0, 0, 0, 0, 614.8, 187.111, 0, 0, 0, 0, 382.451, 203.948, 0, 0, 0, 0, 315.018, 177.96, 0, 0, 0, 0, 259.581, 72.7569, 0, 0, 0, 0, 87.5635, 73.1319 )
+}
+
+[node name="Map_Glade" instance=ExtResource( 3 )]
+
+[node name="Background" type="TextureRect" parent="Environment" index="0"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource( 4 )
+
+[node name="InMapAreaPlacable" parent="InMapPlacables" index="0" instance=ExtResource( 1 )]
+position = Vector2( 401.48, 147.703 )
+
+[node name="InMapAreaPlacable4" parent="InMapPlacables" index="1" instance=ExtResource( 1 )]
+position = Vector2( 480.339, 157.515 )
+
+[node name="InMapAreaPlacable5" parent="InMapPlacables" index="2" instance=ExtResource( 1 )]
+position = Vector2( 415.885, 239.079 )
+
+[node name="InMapAreaPlacable2" parent="InMapPlacables" index="3" instance=ExtResource( 1 )]
+position = Vector2( 350.733, 337.907 )
+
+[node name="InMapAreaPlacable3" parent="InMapPlacables" index="4" instance=ExtResource( 1 )]
+position = Vector2( 586.014, 303.66 )
+
+[node name="InMapAreaPlacable6" parent="InMapPlacables" index="5" instance=ExtResource( 1 )]
+position = Vector2( 285.389, 286.805 )
+
+[node name="InMapAreaPlacable7" parent="InMapPlacables" index="6" instance=ExtResource( 1 )]
+position = Vector2( 485.37, 234.595 )
+
+[node name="InMapAreaPlacable8" parent="InMapPlacables" index="7" instance=ExtResource( 1 )]
+position = Vector2( 552.063, 231.822 )
+
+[node name="InMapAreaPlacable9" parent="InMapPlacables" index="8" instance=ExtResource( 1 )]
+position = Vector2( 340.603, 242.242 )
+
+[node name="InMapAreaPlacable10" parent="InMapPlacables" index="9" instance=ExtResource( 1 )]
+position = Vector2( 567.928, 159.466 )
+
+[node name="InMapAreaPlacable11" parent="InMapPlacables" index="10" instance=ExtResource( 1 )]
+position = Vector2( 246.837, 167.514 )
+
+[node name="InMapAreaPlacable12" parent="InMapPlacables" index="11" instance=ExtResource( 1 )]
+position = Vector2( 493.403, 309.889 )
+
+[node name="InMapAreaPlacable13" parent="InMapPlacables" index="12" instance=ExtResource( 1 )]
+position = Vector2( 422.045, 318.685 )
+
+[node name="InMapAreaPlacable14" parent="InMapPlacables" index="13" instance=ExtResource( 1 )]
+position = Vector2( 343.895, 112.344 )
+
+[node name="InMapAreaPlacable15" parent="InMapPlacables" index="14" instance=ExtResource( 1 )]
+position = Vector2( 212.786, 113.034 )
+
+[node name="InMapAreaPlacable16" parent="InMapPlacables" index="15" instance=ExtResource( 1 )]
+position = Vector2( 650.964, 150.07 )
+
+[node name="InMapAreaPlacable17" parent="InMapPlacables" index="16" instance=ExtResource( 1 )]
+position = Vector2( 260.391, 225.564 )
+
+[node name="InMapAreaPlacable18" parent="InMapPlacables" index="17" instance=ExtResource( 1 )]
+position = Vector2( 683.094, 215.614 )
+
+[node name="InMapAreaPlacable19" parent="InMapPlacables" index="18" instance=ExtResource( 1 )]
+position = Vector2( 666.716, 279.24 )
+
+[node name="InMapAreaPlacable20" parent="InMapPlacables" index="19" instance=ExtResource( 1 )]
+position = Vector2( 312.594, 63.6406 )
+
+[node name="InMapAreaPlacable21" parent="InMapPlacables" index="20" instance=ExtResource( 1 )]
+position = Vector2( 678.93, 66.6372 )
+
+[node name="InMapAreaPlacable22" parent="InMapPlacables" index="21" instance=ExtResource( 1 )]
+position = Vector2( 780.815, 104.095 )
+
+[node name="EnemyPath" parent="EnemyPaths" index="0" instance=ExtResource( 2 )]
+curve = SubResource( 1 )

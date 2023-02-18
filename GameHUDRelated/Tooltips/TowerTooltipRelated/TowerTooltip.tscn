@@ -1,0 +1,326 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://GameHUDRelated/Tooltips/TowerTooltipRelated/TowerTooltip.gd" type="Script" id=1]
+[ext_resource path="res://GameHUDRelated/Tooltips/TowerTooltipRelated/TowerTooltipHeader.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/consolas/CONSOLA.TTF" type="DynamicFontData" id=3]
+[ext_resource path="res://GameHUDRelated/Tooltips/TowerTooltipRelated/TowerTooltipLeftAndRightSide.png" type="Texture" id=4]
+[ext_resource path="res://GameHUDRelated/Tooltips/TooltipBodyConstructors/TooltipBody.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GameHUDRelated/Tooltips/TowerTooltipRelated/TowerTooltipMidSeparator.png" type="Texture" id=6]
+[ext_resource path="res://GameHUDRelated/Tooltips/TowerTooltipRelated/TowerTooltipBottomSide.png" type="Texture" id=7]
+[ext_resource path="res://GameHUDRelated/Tooltips/TowerTooltipRelated/TowerTooltipEnder.png" type="Texture" id=8]
+[ext_resource path="res://GameInfoRelated/TowerStatsIcons/StatIcon_BaseAtkSpeed.png" type="Texture" id=9]
+[ext_resource path="res://GameInfoRelated/TowerStatsIcons/StatIcon_BaseRange.png" type="Texture" id=10]
+[ext_resource path="res://GameInfoRelated/TowerStatsIcons/StatIcon_BaseDamageType.png" type="Texture" id=11]
+[ext_resource path="res://GameInfoRelated/TowerStatsIcons/StatIcon_BaseDamage.png" type="Texture" id=12]
+[ext_resource path="res://GameInfoRelated/TowerStatsIcons/StatIcon_OnHitMultiplier.png" type="Texture" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 9
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 8
+font_data = ExtResource( 3 )
+
+[node name="TowerTooltip" type="MarginContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+size_flags_vertical = 10
+script = ExtResource( 1 )
+
+[node name="RowsMainContainer" type="VBoxContainer" parent="."]
+margin_right = 210.0
+margin_bottom = 124.0
+mouse_filter = 2
+size_flags_vertical = 10
+custom_constants/separation = 0
+
+[node name="HeaderContainer" type="MarginContainer" parent="RowsMainContainer"]
+margin_right = 210.0
+margin_bottom = 20.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="RowsMainContainer/HeaderContainer"]
+margin_right = 210.0
+margin_bottom = 20.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+
+[node name="Marginer" type="MarginContainer" parent="RowsMainContainer/HeaderContainer"]
+margin_right = 210.0
+margin_bottom = 20.0
+mouse_filter = 2
+custom_constants/margin_right = 7
+custom_constants/margin_top = 3
+custom_constants/margin_left = 7
+custom_constants/margin_bottom = 0
+
+[node name="HeaderColumns" type="HBoxContainer" parent="RowsMainContainer/HeaderContainer/Marginer"]
+margin_left = 7.0
+margin_top = 3.0
+margin_right = 203.0
+margin_bottom = 20.0
+mouse_filter = 2
+
+[node name="TowerName" type="Label" parent="RowsMainContainer/HeaderContainer/Marginer/HeaderColumns"]
+margin_bottom = 17.0
+size_flags_vertical = 1
+custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+custom_fonts/font = SubResource( 1 )
+valign = 1
+
+[node name="Marginer" type="MarginContainer" parent="RowsMainContainer/HeaderContainer/Marginer/HeaderColumns"]
+margin_left = 192.0
+margin_right = 196.0
+margin_bottom = 17.0
+mouse_filter = 2
+size_flags_horizontal = 10
+custom_constants/margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RowsMainContainer/HeaderContainer/Marginer/HeaderColumns/Marginer"]
+margin_right = 4.0
+margin_bottom = 14.0
+
+[node name="TowerColor02" type="TextureRect" parent="RowsMainContainer/HeaderContainer/Marginer/HeaderColumns/Marginer/HBoxContainer"]
+margin_top = 7.0
+margin_bottom = 7.0
+mouse_filter = 2
+size_flags_vertical = 6
+
+[node name="TowerColor01" type="TextureRect" parent="RowsMainContainer/HeaderContainer/Marginer/HeaderColumns/Marginer/HBoxContainer"]
+margin_left = 4.0
+margin_top = 7.0
+margin_right = 4.0
+margin_bottom = 7.0
+mouse_filter = 2
+size_flags_vertical = 6
+
+[node name="StatsContainer" type="MarginContainer" parent="RowsMainContainer"]
+margin_top = 20.0
+margin_right = 210.0
+margin_bottom = 89.0
+mouse_filter = 2
+size_flags_vertical = 10
+
+[node name="TextureRect" type="TextureRect" parent="RowsMainContainer/StatsContainer"]
+margin_right = 210.0
+margin_bottom = 69.0
+mouse_filter = 2
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="StatsAndInfoDivider" type="HBoxContainer" parent="RowsMainContainer/StatsContainer"]
+margin_right = 210.0
+margin_bottom = 69.0
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="CombineAndPowerInfoPanel" type="MarginContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider"]
+margin_right = 138.0
+margin_bottom = 69.0
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_constants/margin_right = 3
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 3
+
+[node name="InfoRow" type="VBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/CombineAndPowerInfoPanel"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 135.0
+margin_bottom = 66.0
+mouse_filter = 2
+custom_constants/separation = 3
+
+[node name="IngInfoLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/CombineAndPowerInfoPanel/InfoRow"]
+margin_right = 130.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Ingredient Effect:"
+
+[node name="IngInfoBody" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/CombineAndPowerInfoPanel/InfoRow" instance=ExtResource( 5 )]
+margin_top = 13.0
+margin_right = 130.0
+margin_bottom = 18.0
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+default_font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+
+[node name="TowerStatsPanel" type="MarginContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider"]
+margin_left = 138.0
+margin_right = 210.0
+margin_bottom = 69.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.52
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 3
+
+[node name="StatsRow" type="VBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel"]
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 67.0
+margin_bottom = 66.0
+mouse_filter = 2
+
+[node name="BaseDamagePanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
+margin_right = 64.0
+margin_bottom = 9.0
+mouse_filter = 2
+
+[node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/BaseDamagePanel"]
+margin_right = 60.0
+margin_bottom = 9.0
+mouse_filter = 2
+size_flags_horizontal = 3
+texture = ExtResource( 12 )
+
+[node name="BaseDamageLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/BaseDamagePanel"]
+margin_left = 64.0
+margin_right = 64.0
+margin_bottom = 9.0
+size_flags_horizontal = 9
+custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+custom_fonts/font = SubResource( 4 )
+valign = 1
+
+[node name="DamageTypePanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
+margin_top = 13.0
+margin_right = 64.0
+margin_bottom = 22.0
+mouse_filter = 2
+
+[node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/DamageTypePanel"]
+margin_right = 60.0
+margin_bottom = 9.0
+mouse_filter = 2
+size_flags_horizontal = 3
+texture = ExtResource( 11 )
+
+[node name="DamageTypeLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/DamageTypePanel"]
+margin_left = 64.0
+margin_right = 64.0
+margin_bottom = 9.0
+size_flags_horizontal = 9
+custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+custom_fonts/font = SubResource( 4 )
+valign = 1
+
+[node name="AttkSpeedPanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
+margin_top = 26.0
+margin_right = 64.0
+margin_bottom = 35.0
+mouse_filter = 2
+
+[node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/AttkSpeedPanel"]
+margin_right = 60.0
+margin_bottom = 9.0
+mouse_filter = 2
+size_flags_horizontal = 3
+texture = ExtResource( 9 )
+
+[node name="AttkSpeedLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/AttkSpeedPanel"]
+margin_left = 64.0
+margin_right = 64.0
+margin_bottom = 9.0
+size_flags_horizontal = 9
+custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+custom_fonts/font = SubResource( 4 )
+valign = 1
+
+[node name="RangePanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
+margin_top = 39.0
+margin_right = 64.0
+margin_bottom = 48.0
+mouse_filter = 2
+
+[node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/RangePanel"]
+margin_right = 60.0
+margin_bottom = 9.0
+mouse_filter = 2
+size_flags_horizontal = 3
+texture = ExtResource( 10 )
+
+[node name="RangeLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/RangePanel"]
+margin_left = 64.0
+margin_right = 64.0
+margin_bottom = 9.0
+size_flags_horizontal = 9
+custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+custom_fonts/font = SubResource( 4 )
+valign = 1
+
+[node name="OnHitMultiplierPanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
+margin_top = 52.0
+margin_right = 64.0
+margin_bottom = 61.0
+mouse_filter = 2
+
+[node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/OnHitMultiplierPanel"]
+margin_right = 60.0
+margin_bottom = 9.0
+mouse_filter = 2
+size_flags_horizontal = 3
+texture = ExtResource( 13 )
+
+[node name="OnHitMultiplierLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/OnHitMultiplierPanel"]
+margin_left = 64.0
+margin_right = 64.0
+margin_bottom = 9.0
+size_flags_horizontal = 9
+custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+custom_fonts/font = SubResource( 4 )
+valign = 1
+
+[node name="MidSeparator" type="TextureRect" parent="RowsMainContainer"]
+margin_top = 89.0
+margin_right = 210.0
+margin_bottom = 91.0
+mouse_filter = 2
+texture = ExtResource( 6 )
+
+[node name="DescriptionContainer" type="MarginContainer" parent="RowsMainContainer"]
+margin_top = 91.0
+margin_right = 210.0
+margin_bottom = 121.0
+mouse_filter = 2
+size_flags_vertical = 10
+
+[node name="TextureRect" type="TextureRect" parent="RowsMainContainer/DescriptionContainer"]
+margin_right = 210.0
+margin_bottom = 30.0
+mouse_filter = 2
+texture = ExtResource( 7 )
+stretch_mode = 2
+
+[node name="Marginer" type="MarginContainer" parent="RowsMainContainer/DescriptionContainer"]
+margin_right = 210.0
+margin_bottom = 30.0
+mouse_filter = 2
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 3
+
+[node name="DescriptionsBody" parent="RowsMainContainer/DescriptionContainer/Marginer" instance=ExtResource( 5 )]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 205.0
+margin_bottom = 27.0
+default_font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
+
+[node name="EndBorder" type="TextureRect" parent="RowsMainContainer"]
+margin_top = 121.0
+margin_right = 210.0
+margin_bottom = 124.0
+mouse_filter = 2
+texture = ExtResource( 8 )

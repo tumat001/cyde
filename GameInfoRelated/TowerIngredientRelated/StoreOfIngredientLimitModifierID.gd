@@ -1,0 +1,25 @@
+extends Node
+
+
+enum {
+	
+	LEVEL = 10,
+	RELIC = 11,
+	
+	VIOLET_SYNERGY = 100,
+	YELVIO_SYNERGY = 101,
+	
+	ING_VIOLET_FRUIT = 200,
+	
+	
+	HERO = 1000,
+	
+	#
+	
+	DOMSYN_RED__COMBINATION_EXPERTISE = 10000,
+	
+	#
+	
+	TUTORIAL = 100000,
+	
+}

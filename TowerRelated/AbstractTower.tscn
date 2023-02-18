@@ -1,0 +1,113 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://TowerRelated/AbstractTower.gd" type="Script" id=1]
+[ext_resource path="res://GameHUDRelated/BottomPanel/IngredientMode_CannotCombine.png" type="Texture" id=2]
+[ext_resource path="res://EnemyRelated/Infobar/LifeBar/LifeBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://MiscRelated/ControlStatusBarRelated/BaseControlStatusBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://MiscRelated/CommonTextures/CommonTexture_TowerCannotApply.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 0, 0 )
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/Healthbar_separator.png-0bf2073b766d2f902b1fd6e61ea4f0aa.stex"
+
+[sub_resource type="StreamTexture" id=4]
+flags = 4
+load_path = "res://.import/Healtbar_background.png-f0c87b528ad8b31b986f1a7c68785b17.stex"
+
+[sub_resource type="StreamTexture" id=5]
+flags = 4
+load_path = "res://.import/Healtbar_health.png-46e9df2e5b75a965b897a60417b5b1f6.stex"
+
+[node name="AbstractTower" type="Area2D"]
+position = Vector2( -0.749146, -0.749146 )
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TowerBase" type="Node2D" parent="."]
+
+[node name="KnockUpLayer" type="Node2D" parent="TowerBase"]
+use_parent_material = true
+
+[node name="BaseSprites" type="AnimatedSprite" parent="TowerBase/KnockUpLayer"]
+use_parent_material = true
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+
+[node name="PlacableDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32768
+
+[node name="DetectorShape" type="CollisionShape2D" parent="PlacableDetector"]
+shape = SubResource( 1 )
+
+[node name="ClickableArea" type="Area2D" parent="."]
+collision_layer = 65536
+collision_mask = 0
+
+[node name="ClickableShape" type="CollisionShape2D" parent="ClickableArea"]
+shape = SubResource( 2 )
+
+[node name="IngredientDeclinePic" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="DoesNotApplyPic" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+
+[node name="InfoBarLayer" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+
+[node name="InfoBar" type="MarginContainer" parent="InfoBarLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoBarLayer/InfoBar"]
+margin_left = 20.0
+margin_right = 20.0
+margin_bottom = 40.0
+grow_vertical = 0
+mouse_filter = 2
+size_flags_horizontal = 6
+custom_constants/separation = 2
+
+[node name="TowerStatusBar" parent="InfoBarLayer/InfoBar/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 19.0
+margin_right = 0.0
+margin_bottom = 19.0
+size_flags_horizontal = 6
+size_flags_vertical = 10
+
+[node name="LifeBar" parent="InfoBarLayer/InfoBar/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 40.0
+margin_right = 0.0
+size_flags_horizontal = 6
+size_flags_vertical = 10
+value_per_chunk = 5.0
+display_chunks = true
+chunk_separator_pic = SubResource( 3 )
+bar_background_pic = SubResource( 4 )
+fill_health_foreground_pic = SubResource( 5 )
+fill_foreground_margin_top = 2.0
+fill_foreground_margin_left = 2.0
+current_health_value = 0
+current_shield_value = 0
+
+[connection signal="body_entered" from="." to="." method="_on_AbstractTower_body_entered"]
+[connection signal="area_entered" from="PlacableDetector" to="." method="_on_PlacableDetector_area_entered"]
+[connection signal="area_exited" from="PlacableDetector" to="." method="_on_PlacableDetector_area_exited"]
+[connection signal="input_event" from="ClickableArea" to="." method="_on_ClickableArea_input_event"]
+[connection signal="mouse_entered" from="ClickableArea" to="." method="_on_ClickableArea_mouse_entered"]
+[connection signal="mouse_exited" from="ClickableArea" to="." method="_on_ClickableArea_mouse_exited"]
