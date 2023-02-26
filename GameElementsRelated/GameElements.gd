@@ -48,6 +48,8 @@ signal unhandled_key_input(arg_input, any_action_taken_by_game_elements)
 signal before_game_quit()
 
 
+var _is_game_quitting : bool = false
+
 var panel_buy_sell_level_roll : BuySellLevelRollPanel
 var synergy_manager
 var inner_bottom_panel : InnerBottomPanel
@@ -97,6 +99,7 @@ onready var tutotial_notif_panel = $TutorialNotifPanel#$NotificationNode/Tutoria
 onready var top_left_coord_of_map = $TopLeft
 onready var bottom_right_coord_of_map = $BottomRight
 onready var fov_node = $FOVNode
+onready var almanac_button = $BottomPanel/HBoxContainer/AlmanacButtonPanel
 
 onready var synergy_interactable_panel : SynergyInteractablePanel = $BottomPanel/HBoxContainer/SynergyInteractablePanel
 
@@ -166,6 +169,7 @@ func _ready():
 	game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_Common_Modifiers)
 	
 	game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_ExampleStage)
+	#game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_World_01)
 	
 	####### MODIFIER LIST END
 	
@@ -220,6 +224,10 @@ func _ready():
 	#
 	
 	map_manager.set_chosen_map_id(map_id)
+	
+	#
+	
+	almanac_button.game_elements = self
 	
 	#
 	
@@ -457,28 +465,22 @@ func _on_BuySellLevelRollPanel_level_up():
 var even : bool = false
 func _on_BuySellLevelRollPanel_reroll():
 	
-	shop_manager.roll_towers_in_shop_with_cost()
+	#shop_manager.roll_towers_in_shop_with_cost()
 	
-#	#todo
-#	if !even:
-#		panel_buy_sell_level_roll.update_new_rolled_towers([
-#			Towers.BOUNDED,
-#			Towers.PING,
-#			Towers.ACCUMULAE,
-#			Towers.OUTREACH,
-#			Towers.CELESTIAL,
-#			Towers.SEEDER,
-#		])
-#	else:
-#		panel_buy_sell_level_roll.update_new_rolled_towers([
-#			Towers.PESTILENCE,
-#			Towers.ACCUMULAE,
-#			Towers.WAVE,
-#			Towers.BIOMORPH,
-#			Towers.TESLA,
-#			Towers.SPIKE
-#		])
-#	even = !even
+	#todo
+	if !even:
+		panel_buy_sell_level_roll.update_new_rolled_towers([
+			Towers.MINI_TESLA,
+			Towers.STRIKER,
+			Towers.SPRINKLER,
+		])
+	else:
+		panel_buy_sell_level_roll.update_new_rolled_towers([
+			Towers.MINI_TESLA,
+			Towers.STRIKER,
+			Towers.SPRINKLER,
+		])
+	even = !even
 
 
 func _on_BuySellLevelRollPanel_tower_bought(tower_id):
@@ -570,8 +572,11 @@ func _unhandled_key_input(event):
 				
 				
 			elif event.is_action("game_combine_combinables"):
-				combination_manager.on_combination_activated()
-				any_action_taken = true
+				pass
+				#combination_manager.on_combination_activated()
+				#any_action_taken = true
+				
+				#this is now automatically done
 				
 			elif event.is_action("game_description_mode_toggle"):
 				game_settings_manager.toggle_descriptions_mode()
@@ -974,10 +979,17 @@ func _get_highest_from_angle(arg_curr_highest : float, arg_candidate_angle : flo
 
 # called by HubPausePanel
 func quit_game():
+	_is_game_quitting = true
 	emit_signal("before_game_quit")
 	
 	pause_manager.unpause_game__accessed_for_scene_change()
 	CommsForBetweenScenes.goto_starting_screen(self)
+
+func _exit_tree():
+	if !_is_game_quitting:
+		_is_game_quitting = true
+		emit_signal("before_game_quit")
+
 
 ####
 

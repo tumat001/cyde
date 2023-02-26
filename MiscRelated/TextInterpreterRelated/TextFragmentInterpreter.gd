@@ -6,6 +6,7 @@ const TowerStatTextFragment = preload("res://MiscRelated/TextInterpreterRelated/
 const OutcomeTextFragment = preload("res://MiscRelated/TextInterpreterRelated/TextFragments/OutcomeTextFragment.gd")
 const PlainTextFragment = preload("res://MiscRelated/TextInterpreterRelated/TextFragments/PlainTextFragment.gd")
 const EnemyStatTextFragment = preload("res://MiscRelated/TextInterpreterRelated/TextFragments/EnemyStatTextFragment.gd")
+const RawImageFragment = preload("res://MiscRelated/TextInterpreterRelated/TextFragments/RawImageFragment.gd")
 
 const DamageType = preload("res://GameInfoRelated/DamageType.gd")
 const BaseAbility = preload("res://GameInfoRelated/AbilityRelated/BaseAbility.gd")

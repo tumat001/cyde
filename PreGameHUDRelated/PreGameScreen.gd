@@ -120,3 +120,8 @@ func _on_BackButton_on_button_released_with_button_left():
 		if current_visible_control.has_method("_exit_to_previous"):
 			current_visible_control._exit_to_previous()
 
+####
+
+func get_control_child_adding_node():
+	return content_panel
+

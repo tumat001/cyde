@@ -25,6 +25,7 @@ signal before_enemy_is_added_to_path(enemy, path)
 signal enemy_spawned(enemy)
 signal on_enemy_spawned_and_finished_ready_prep(enemy)
 
+signal before_enemy_escape(enemy)
 signal enemy_escaped(enemy)
 signal first_enemy_escaped(enemy, first_damage)
 signal enemy_escaped_dealing_x_damage(enemy, damage)
@@ -454,19 +455,22 @@ func _check_if_no_enemies_left():
 # Enemy leaving / health related
 
 func _enemy_reached_end(enemy : AbstractEnemy):
-	var total_damage = enemy.calculate_final_player_damage()
-	
-	if !_enemy_first_damage_applied:
-		_enemy_first_damage_applied = true
-		total_damage += enemy_first_damage
+	emit_signal("before_enemy_escape", enemy)
+	if enemy.deal_damage_and_emit_escape_signals_when_escaping:
+		var total_damage = enemy.calculate_final_player_damage()
 		
-		emit_signal("first_enemy_escaped", enemy, enemy_first_damage)
+		if !_enemy_first_damage_applied:
+			_enemy_first_damage_applied = true
+			total_damage += enemy_first_damage
+			
+			emit_signal("first_enemy_escaped", enemy, enemy_first_damage)
+		
+		#health_manager.decrease_health_by(total_damage, HealthManager.DecreaseHealthSource.ENEMY, enemy.current_path.path_end_global_pos)
+		health_manager.decrease_health_by__using_player_dmg_particle(total_damage, HealthManager.DecreaseHealthSource.ENEMY, enemy.current_path.path_end_global_pos)
+		
+		emit_signal("enemy_escaped", enemy)
+		emit_signal("enemy_escaped_dealing_x_damage", enemy, total_damage)
 	
-	#health_manager.decrease_health_by(total_damage, HealthManager.DecreaseHealthSource.ENEMY, enemy.current_path.path_end_global_pos)
-	health_manager.decrease_health_by__using_player_dmg_particle(total_damage, HealthManager.DecreaseHealthSource.ENEMY, enemy.current_path.path_end_global_pos)
-	
-	emit_signal("enemy_escaped", enemy)
-	emit_signal("enemy_escaped_dealing_x_damage", enemy, total_damage)
 	enemy.queue_free()
 
 

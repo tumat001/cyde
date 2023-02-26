@@ -26,7 +26,7 @@ var _all_page_categories : Array
 
 #
 
-onready var page_category_container = $MarginContainer/HBoxContainer/MarginContainer/ScrollContainer/PageCategoryContainer
+onready var page_category_container = $MarginContainer/HBoxContainer/ChoicesContainer/ScrollContainer/PageCategoryContainer
 onready var scrl_container_for_metadata = $MarginContainer/HBoxContainer/RightSideContainer/HBoxContainer/VBoxContainer/ScrlContainerForSideData
 
 onready var right_side_container = $MarginContainer/HBoxContainer/RightSideContainer
@@ -38,7 +38,7 @@ onready var descriptive_mode_checkbox = $MarginContainer/HBoxContainer/RightSide
 #
 
 onready var x_type_info_panel = $MarginContainer/HBoxContainer/RightSideContainer/HBoxContainer/VBoxContainer/ScrlContainerForSideData/Almanac_XTypeInfoPanel
-
+onready var choices_container = $MarginContainer/HBoxContainer/ChoicesContainer
 
 #
 
@@ -47,7 +47,9 @@ func _ready():
 	emit_signal("is_ready_finished")
 	
 	connect("visibility_changed", self, "_on_visibility_changed")
+	x_type_info_panel.connect("visibility_changed", self, "_on_x_type_info_panel_visibility_changed", [], CONNECT_PERSIST)
 	_on_visibility_changed()
+	_on_x_type_info_panel_visibility_changed()
 	
 	hide_right_side_container()
 	
@@ -64,6 +66,13 @@ func _on_visibility_changed():
 		if AlmanacManager != null:
 			AlmanacManager.update_state_of__all_options()
 
+func _on_x_type_info_panel_visibility_changed():
+	if x_type_info_panel.visible:
+		page_category_container.size_flags_horizontal = SIZE_FILL | SIZE_EXPAND
+		page_category_container.size_flags_vertical = SIZE_FILL
+	else:
+		page_category_container.size_flags_horizontal = SIZE_EXPAND | SIZE_SHRINK_CENTER
+		page_category_container.size_flags_vertical = SIZE_EXPAND | SIZE_SHRINK_CENTER
 
 #
 

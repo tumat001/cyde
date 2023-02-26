@@ -339,16 +339,20 @@ func _update_applicable_combinations_on_towers():
 	var towers_combination_candidates : Array = _get_towers_with_tower_combination_requirements_met()
 	current_combination_candidates = towers_combination_candidates
 	
-	if (towers_combination_candidates.size() > 0):
-		if !_if_previous_candidates_are_equal_to_new_candidates(combination_indicator_shower.get_towers_with_particle_indicators(), towers_combination_candidates):
-			combination_indicator_shower.destroy_indicators_from_towers()
-			
-		
-		combination_indicator_shower.show_indicators_to_towers(towers_combination_candidates, false)
-	else:
-		combination_indicator_shower.destroy_indicators_from_towers()
+	if towers_combination_candidates.size() > 0:
+		call_deferred("on_combination_activated")
 	
-	emit_signal("updated_applicable_combinations_on_towers")
+	
+#	if (towers_combination_candidates.size() > 0):
+#		if !_if_previous_candidates_are_equal_to_new_candidates(combination_indicator_shower.get_towers_with_particle_indicators(), towers_combination_candidates):
+#			combination_indicator_shower.destroy_indicators_from_towers()
+#
+#
+#		combination_indicator_shower.show_indicators_to_towers(towers_combination_candidates, false)
+#	else:
+#		combination_indicator_shower.destroy_indicators_from_towers()
+#
+#	emit_signal("updated_applicable_combinations_on_towers")
 
 
 func _if_previous_candidates_are_equal_to_new_candidates(prev_candidates : Array, new_candidates : Array) -> bool:

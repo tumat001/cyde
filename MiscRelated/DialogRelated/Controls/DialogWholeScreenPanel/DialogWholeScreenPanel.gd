@@ -7,6 +7,8 @@ const BaseDialogBackgroundElementControl = preload("res://MiscRelated/DialogRela
 signal resolve_block_advanced_requested_status(arg_status)
 signal dialog_element_control_constructed(arg_element, arg_ins, arg_id)
 
+signal shown_all_DBE_and_finished_display(arg_dia_seg)
+
 #
 
 var current_dialog_segment : DialogSegment setget set_dialog_segment
@@ -16,7 +18,7 @@ var _latest_BDE_index : int = 0
 var last_calculated_not_all_BDEs_are_shown : bool
 
 var absolute_block_timer : Timer
-const absolute_block_duration : float = 0.20
+const absolute_block_duration : float = 0.40
 var _is_absolute_block_active : bool
 
 #
@@ -96,7 +98,8 @@ func _start_show_dia_main_panel_element_using_construction_ins__and_increment_in
 		
 	else:
 		last_calculated_not_all_BDEs_are_shown = false
-
+		current_dialog_segment.emit_fully_displayed_signal()
+		emit_signal("shown_all_DBE_and_finished_display", current_dialog_segment)
 
 #func _on_mod_a_increase_to_target__of_latest_DEC_finished():
 #	if !_latest_base_dialog_ele_control._block_next_element_show():
@@ -143,7 +146,12 @@ func resolve_block_advance():
 
 
 func _emit_resolve_block_advanced_requested_status():
-	emit_signal("resolve_block_advanced_requested_status", !is_block_advance())
+	var is_not_block_advance = !is_block_advance()
+	emit_signal("resolve_block_advanced_requested_status", is_not_block_advance)
+	
+	if is_not_block_advance:
+		current_dialog_segment.emit_fully_displayed_signal()
+		emit_signal("shown_all_DBE_and_finished_display", current_dialog_segment)
 
 
 ###############

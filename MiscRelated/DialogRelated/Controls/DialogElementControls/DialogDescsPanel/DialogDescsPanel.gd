@@ -76,7 +76,7 @@ func _turn_char_to_visible(var amount = char_appear_count_per_delta):
 		all_text_is_visible = true
 		
 		is_fully_finished_conditional_clauses.remove_clause(IsFullyFinishedClauseIds.DESCS_PANEL__TEXT_RUNNING)
-	
+		
 
 ##
 

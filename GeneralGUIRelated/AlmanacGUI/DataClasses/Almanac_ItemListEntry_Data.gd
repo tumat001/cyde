@@ -21,7 +21,7 @@ signal is_hidden_changed(me)
 var is_hidden : bool setget set_is_hidden
 var is_obscured : bool setget set_is_obscured
 
-var footer_text : String
+#var footer_text : String
 
 var _max_texture_index : int
 var _current_texture_index : int
@@ -37,6 +37,14 @@ var is_hidden_determiner_source
 var border_texture__normal : Texture
 var border_texture__highlighted : Texture
 var background_texture : Texture
+
+#
+
+var button_text_header : String = ""
+var button_descriptions : Array
+
+var button_min_size : Vector2 = Vector2(64, 64)
+
 
 #
 
@@ -115,7 +123,7 @@ func set_x_type_info(arg_info, arg_info_classification : int):
 	_texture_list.append_array(_x_type_info.get_atlased_image_as_list__for_almanac_use())
 	_max_texture_index = _x_type_info.get_altasted_image_list_size()
 	_current_texture_index = 0
-	footer_text = _x_type_info.get_name__for_almanac_use()
+	#footer_text = _x_type_info.get_name__for_almanac_use()
 
 func set_x_type_info_classification(arg_info_classification : int):
 	_x_type_info_classification = arg_info_classification

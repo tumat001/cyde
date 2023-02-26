@@ -19,7 +19,9 @@ signal dialog_elements_changed(arg_all_dialog_elements)
 signal background_elements_changed(arg_all_background_elements)
 #
 
-signal mouse_filter_changed(arg_filter)
+signal fully_displayed()
+
+#signal mouse_filter_changed(arg_filter)
 
 #
 
@@ -231,5 +233,8 @@ func immediately_resolve_block_advance():
 		resolve_block_advance_func_source.call(resolve_block_advance_func_name, self)
 	
 
+#
 
+func emit_fully_displayed_signal():
+	emit_signal("fully_displayed")
 

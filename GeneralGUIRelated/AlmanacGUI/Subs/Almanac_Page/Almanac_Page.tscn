@@ -67,18 +67,18 @@ margin_right = 930.0
 margin_bottom = 510.0
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+[node name="ChoicesContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 margin_right = 579.0
 margin_bottom = 480.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/ChoicesContainer"]
 margin_right = 579.0
 margin_bottom = 480.0
 theme = SubResource( 6 )
 
-[node name="PageCategoryContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer/ScrollContainer"]
+[node name="PageCategoryContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/ChoicesContainer/ScrollContainer"]
 mouse_filter = 2
 
 [node name="RightSideContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
@@ -111,8 +111,8 @@ rect_min_size = Vector2( 300, 440 )
 theme = SubResource( 6 )
 
 [node name="Almanac_XTypeInfoPanel" parent="MarginContainer/HBoxContainer/RightSideContainer/HBoxContainer/VBoxContainer/ScrlContainerForSideData" instance=ExtResource( 5 )]
-margin_right = 134.0
-margin_bottom = 451.0
+margin_right = 300.0
+margin_bottom = 440.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

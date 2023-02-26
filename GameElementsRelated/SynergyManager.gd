@@ -27,6 +27,8 @@ enum DontAllowSameTotalsContionalClauseIds {
 	
 	SYN_RED__DOMINANCE_SUPPLEMENT = 11
 	SYN_RED__COMPLEMENTARY_SUPPLEMENT = 12
+	
+	CYDE_ALL_SYNS_ALLOWED = 100
 }
 
 signal synergies_updated()
@@ -48,11 +50,11 @@ var game_elements
 
 #
 
-var base_dominant_synergy_limit : int = 1
+var base_dominant_synergy_limit : int = 100
 var _flat_dominant_synergy_limit_modi : Dictionary = {}
 var last_calculated_dominant_synergy_limit : int
 
-var base_composite_synergy_limit : int = 1
+var base_composite_synergy_limit : int = 100
 var _flat_composite_synergy_limit_modi : Dictionary = {}
 var last_calculated_composite_synergy_limit : int
 
@@ -80,14 +82,21 @@ var _modi_id_to_composite_synergy_ids_to_always_activate_map : Dictionary = {}
 var _syn_id_to__syn_tier_to_first_time_activated_map : Dictionary = {}
 
 var color_id_to_basis_color_map : Dictionary = {
-	TowerColors.BLACK : Color(0.3, 0.3, 0.3),
-	TowerColors.WHITE : Color(0.9, 0.9, 0.9),
-	TowerColors.BLUE : Color(2/255.0, 57/255.0, 217/255.0),
-	TowerColors.GREEN : Color(30/255.0, 218/255.0, 2/255.0),
-	TowerColors.ORANGE : Color(255/255.0, 128/255.0, 0/255.0),
-	TowerColors.RED : Color(218/255.0, 2/255.0, 5/255.0),
-	TowerColors.VIOLET : Color(163/255.0, 77/255.0, 253/255.0),
-	TowerColors.YELLOW : Color(232/255.0, 253/255.0, 0/255.0),
+#	TowerColors.BLACK : Color(0.3, 0.3, 0.3),
+#	TowerColors.WHITE : Color(0.9, 0.9, 0.9),
+#	TowerColors.BLUE : Color(2/255.0, 57/255.0, 217/255.0),
+#	TowerColors.GREEN : Color(30/255.0, 218/255.0, 2/255.0),
+#	TowerColors.ORANGE : Color(255/255.0, 128/255.0, 0/255.0),
+#	TowerColors.RED : Color(218/255.0, 2/255.0, 5/255.0),
+#	TowerColors.VIOLET : Color(163/255.0, 77/255.0, 253/255.0),
+#	TowerColors.YELLOW : Color(232/255.0, 253/255.0, 0/255.0),
+#
+	###
+	
+	TowerColors.CONFIDENTIALITY : Color(218/255.0, 2/255.0, 5/255.0),
+	TowerColors.INTEGRITY : Color(2/255.0, 57/255.0, 217/255.0),
+	TowerColors.AVAILABILITY : Color(232/255.0, 253/255.0, 0/255.0),
+	
 }
 const basis_color_to_ripple_color_multiplier : float = 0.8
 
@@ -142,6 +151,8 @@ func _ready():
 	dont_allow_same_total_conditonal_clause.connect("clause_inserted", self, "_dont_allow_same_total_clause_added_or_removed", [], CONNECT_PERSIST)
 	dont_allow_same_total_conditonal_clause.connect("clause_removed", self, "_dont_allow_same_total_clause_added_or_removed", [], CONNECT_PERSIST)
 	
+	#
+	
 	calculate_final_composite_synergy_limit()
 	calculate_final_dominant_synergy_limit()
 	
@@ -178,6 +189,12 @@ func _ready():
 	allow_start_color_aesthetic_display_clauses.connect("clause_inserted", self, "_on_allow_start_color_aesthetic_display_clauses_updated", [], CONNECT_PERSIST)
 	allow_start_color_aesthetic_display_clauses.connect("clause_removed", self, "_on_allow_start_color_aesthetic_display_clauses_updated", [], CONNECT_PERSIST)
 	_update_allow_start_color_aesth_display()
+	
+	call_deferred("_deferred_ready")
+
+
+func _deferred_ready():
+	dont_allow_same_total_conditonal_clause.attempt_insert_clause(DontAllowSameTotalsContionalClauseIds.CYDE_ALL_SYNS_ALLOWED)
 	
 
 
@@ -433,14 +450,14 @@ func _dont_allow_same_total_clause_added_or_removed(id):
 
 func is_dom_color_synergy_active(syn) -> bool:
 	for res in active_dom_color_synergies_res:
-		if res.synergy == syn:
+		if res.synergy.synergy_name == syn:
 			return true
 	
 	return false
 
 func is_compo_color_synergy_active(syn) -> bool:
 	for res in active_compo_color_synergies_res:
-		if res.synergy == syn:
+		if res.synergy.synergy_name == syn:
 			return true
 	
 	return false
@@ -553,8 +570,8 @@ func _start_color_aesthetic_display():
 		var first_time = _syn_id_to__syn_tier_to_first_time_activated_map[id][res.synergy_tier]
 		
 		if first_time:
-			#_start_play_color_fill_circle_for_syn(res.synergy.colors_required, id, res.synergy_tier)
-			_start_play_color_splatter_for_syn(res.synergy.colors_required, id, res.synergy_tier)
+			_start_play_color_fill_circle_for_syn(res.synergy.colors_required, id, res.synergy_tier)
+			#_start_play_color_splatter_for_syn(res.synergy.colors_required, id, res.synergy_tier)
 			_syn_id_to__syn_tier_to_first_time_activated_map[id][res.synergy_tier] = false
 	
 	for res in active_compo_color_synergies_res:

@@ -18,9 +18,13 @@ const GameModiIds__ModiTutorialPhase_04 = "%s%s" % [SynTD_HeaderIDName, "ModiTut
 
 
 const CYDE_HeaderIdName = "Cyde_"
+const CYDEWorldModis__HeaderIdName = "CydeWorldModis_"  # used by CydeConstants for saving purposes
 
 const GameModiIds__CYDE_Common_Modifiers = "%s%s" % [CYDE_HeaderIdName, "CommonModifiers"]
 const GameModiIds__CYDE_ExampleStage = "%s%s" % [CYDE_HeaderIdName, "ExampleStage"]
+
+const GameModiIds__CYDE_World_01 = "%s%s" % [CYDEWorldModis__HeaderIdName, "World01"]
+
 
 #enum GameModiIds {
 #
@@ -64,9 +68,15 @@ const game_modifier_id_to_script_name_map : Dictionary = {
 	
 	
 	GameModiIds__CYDE_Common_Modifiers : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/CommonModifiers/Cyde_CommonModifiers.gd",
-	GameModiIds__CYDE_ExampleStage : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/StageExample/Imp_DialogeSM_StageExample.gd"
+	GameModiIds__CYDE_ExampleStage : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/StageExample/Imp_DialogeSM_StageExample.gd",
 	#GameModiIds.CYDE__EXAMPLE_STAGE : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/StageExample/Imp_DialogeSM_StageExample.gd"
+	
+	GameModiIds__CYDE_World_01 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World01/Imp_DialogSM_World01.gd",
+	
+	
 }
+
+var all_cyde_world_modi_names : Array = []
 
 
 static func get_game_modifier_from_id(arg_id):
@@ -79,7 +89,9 @@ static func get_game_modifier_from_id(arg_id):
 ###
 
 func _on_singleton_initialize():
-	pass
+	for modi_name in game_modifier_id_to_script_name_map.keys():
+		if CYDEWorldModis__HeaderIdName in modi_name:
+			all_cyde_world_modi_names.append(modi_name)
 
 
 func add_game_modifier(arg_modi_id, arg_modi_script_name):

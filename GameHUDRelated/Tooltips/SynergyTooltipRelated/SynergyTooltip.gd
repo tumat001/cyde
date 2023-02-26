@@ -73,8 +73,8 @@ func update_display():
 		
 		
 		if game_settings_manager.show_synergy_difficulty_mode == GameSettingsManager.ShowSynergyDifficulty.SHOW:
-			synergy_difficulty_panel.set_difficulty(synergy.synergy_difficulty_num)
-			synergy_difficulty_panel.visible = true
+			#synergy_difficulty_panel.set_difficulty(synergy.synergy_difficulty_num)
+			synergy_difficulty_panel.visible = false
 		elif game_settings_manager.show_synergy_difficulty_mode == GameSettingsManager.ShowSynergyDifficulty.DONT_SHOW:
 			synergy_difficulty_panel.visible = false
 

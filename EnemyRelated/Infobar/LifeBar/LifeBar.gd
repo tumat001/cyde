@@ -1,6 +1,8 @@
 extends MarginContainer
 
 
+signal update_first_time_finished()
+
 export(float) var value_per_chunk : float = 10.0
 export(int) var big_chunk_interval : int = 5
 export(bool) var display_chunks : bool = false
@@ -86,7 +88,8 @@ func update_first_time():
 	bar_fill_foreground_marginer.rect_size.y = 0
 	bar_fill_foreground_marginer.rect_min_size.y = 0
 	#chunks_container.rect_position.y -= fill_health_foreground_pic.get_size().y
-
+	
+	emit_signal("update_first_time_finished")
 
 
 func set_current_health_value(value : float):

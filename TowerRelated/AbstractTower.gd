@@ -555,6 +555,11 @@ enum LayerOnTerrainModiIds {
 var _layer_on_terrain_modi_to_val_map : Dictionary = {}
 var last_calculated_layer_on_terrain : int
 
+#
+
+var is_ready_prepping : bool = true # becomes false when all is initialized (to prevent queue free and yield errors)
+var is_queue_free_called_during_ready_prepping : bool = false
+
 
 # SYN RELATED ---------------------------- #
 # Yellow
@@ -697,6 +702,7 @@ func _post_inherit_ready():
 	info_bar_layer_base_position = info_bar_layer.position
 	
 	info_bar.rect_size.x = life_bar.rect_size.x
+	life_bar.connect("update_first_time_finished", self, "_on_first_time_update_finished", [], CONNECT_ONESHOT)
 	life_bar.update_first_time()
 	
 	connect("on_any_post_mitigation_damage_dealt", self, "_on_tower_any_post_mitigation_damage_dealt", [], CONNECT_PERSIST)
@@ -713,7 +719,21 @@ func _post_inherit_ready():
 		anim_face_dir_component.initialize_with_sprite_frame_to_monitor(sprite_frames_of_base, tower_base_sprites, _anim_face__custom_anim_names_to_use, _anim_face__custom_dir_name_to_primary_rad_angle_map, _anim_face__custom_initial_dir_hierarchy)
 		anim_face_dir_component.set_animated_sprite_animation_to_default(tower_base_sprites)
 		connect("on_main_attack_module_commanded_to_attack_enemies_or_poses", self, "_on_attk_module__commanded_to_attack_enemies_or_poses", [], CONNECT_PERSIST)
-		
+	
+	##
+	
+#	_deferred_set_ready_prepping_false_and_relateds()
+#
+#func _deferred_set_ready_prepping_false_and_relateds():
+#	is_ready_prepping = false
+#	if is_queue_free_called_during_ready_prepping:
+#		queue_free()
+
+func _on_first_time_update_finished():
+	is_ready_prepping = false
+	if is_queue_free_called_during_ready_prepping:
+		queue_free()
+
 
 
 func set_range_module(arg_module):
@@ -3262,21 +3282,24 @@ func _on_ClickableArea_mouse_exited():
 
 
 func queue_free():
-	#is_contributing_to_synergy = false
-	contributing_to_synergy_clauses.attempt_insert_clause(ContributingToSynergyClauses.IN_QUEUE_FREE)
 	
-	if is_instance_valid(current_placable):
-		current_placable.tower_occupying = null
-	
-	# ORDER CHANGED FROM bottom to top (see commented code)
-	.queue_free()
-	for module in all_attack_modules:
-		module.queue_free()
-	
-	emit_signal("tower_in_queue_free", self) # synergy updated from tower manager
-	
-	
-	#.queue_free()
+	if !is_ready_prepping:
+		#is_contributing_to_synergy = false
+		contributing_to_synergy_clauses.attempt_insert_clause(ContributingToSynergyClauses.IN_QUEUE_FREE)
+		
+		if is_instance_valid(current_placable):
+			current_placable.tower_occupying = null
+		
+		# ORDER CHANGED FROM bottom to top (see commented code)
+		.queue_free()
+		for module in all_attack_modules:
+			module.queue_free()
+		
+		emit_signal("tower_in_queue_free", self) # synergy updated from tower manager
+		
+	else:
+		
+		is_queue_free_called_during_ready_prepping = true
 
 
 func _physics_process(delta):

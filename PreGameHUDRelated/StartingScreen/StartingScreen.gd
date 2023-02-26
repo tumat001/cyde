@@ -87,10 +87,17 @@ func _on_TutorialButton_on_button_released_with_button_left():
 
 func _on_AlmanacButton_on_button_released_with_button_left():
 	if !is_instance_valid(almanac_page):
-		almanac_page = Almanac_Page_Scene.instance()
-		if !AlmanacManager.is_connected("requested_exit_almanac", self, "_on_requested_exit_almanac"):
-			AlmanacManager.connect("requested_exit_almanac", self, "_on_requested_exit_almanac", [], CONNECT_PERSIST)
+		if !is_instance_valid(AlmanacManager.almanac_page_gui):
+			almanac_page = Almanac_Page_Scene.instance()
+		else:
+			almanac_page = AlmanacManager.almanac_page_gui
 	
+	if is_instance_valid(almanac_page.get_parent()) and almanac_page.get_parent() != pre_game_screen.get_control_child_adding_node():
+		almanac_page.get_parent().remove_child(almanac_page)
+	
+	if !AlmanacManager.is_connected("requested_exit_almanac", self, "_on_requested_exit_almanac"):
+		AlmanacManager.connect("requested_exit_almanac", self, "_on_requested_exit_almanac", [], CONNECT_PERSIST)
+
 	pre_game_screen.show_control(almanac_page)
 	AlmanacManager.set_almanac_page_gui(almanac_page)
 	

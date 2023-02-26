@@ -24,8 +24,8 @@ func _ready():
 	
 	#
 	
-	call_deferred("_deferred_ready")
-	
+	#call_deferred("_deferred_ready")
+	_deferred_ready()
 	
 
 

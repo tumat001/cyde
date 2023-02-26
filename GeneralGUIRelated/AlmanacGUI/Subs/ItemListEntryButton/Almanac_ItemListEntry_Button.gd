@@ -29,7 +29,10 @@ onready var inner_border_right = $MarginContainer/RightBorder
 onready var inner_border_top = $MarginContainer/TopBorder
 onready var inner_border_bottom = $MarginContainer/BottomBorder
 
-onready var icon_texture_rect = $MarginContainer/MarginContainer/Icon
+onready var icon_texture_rect = $MarginContainer/MarginContainer/VBoxContainer/Icon
+
+onready var header_label = $MarginContainer/MarginContainer/VBoxContainer/HeaderLabel
+onready var tooltip_body = $MarginContainer/MarginContainer/VBoxContainer/TooltipBody
 
 #
 
@@ -61,6 +64,7 @@ func set_almanac_item_list_entry_data(arg_data):
 		
 		icon_texture_rect.texture = almanac_item_list_entry_data.get_texture_to_use_based_on_properties()
 		update_border_texture_based_on_properties()
+		update_label_and_tooltip_body_based_on_properties()
 		
 		#
 		icon_texture_rect.modulate = almanac_item_list_entry_data.get_modulate_to_use_based_on_properties()
@@ -73,6 +77,9 @@ func set_almanac_item_list_entry_data(arg_data):
 		#
 		almanac_item_list_entry_data.connect("is_obscured_changed", self, "_on_data_is_obscured_changed")
 		almanac_item_list_entry_data.connect("is_hidden_changed", self, "_on_data_is_hidden_changed")
+		
+		rect_min_size = almanac_item_list_entry_data.button_min_size
+		rect_size = almanac_item_list_entry_data.button_min_size
 
 func _on_data_is_obscured_changed(_arg_data : Almanac_ItemListEntry_Data):
 	icon_texture_rect.modulate = almanac_item_list_entry_data.get_modulate_to_use_based_on_properties()
@@ -134,6 +141,25 @@ func set_is_selected(arg_val):
 		_set_texture_of_outer_borders(YellowLine_3x3)
 	else:
 		_set_texture_of_outer_borders(GrayLine_3x3)
+
+
+func update_label_and_tooltip_body_based_on_properties():
+	if almanac_item_list_entry_data.button_descriptions.size() != 0:
+		tooltip_body.visible = true
+		tooltip_body.descriptions = almanac_item_list_entry_data.button_descriptions
+		tooltip_body.update_display()
+	else:
+		tooltip_body.visible = false
+	
+	##
+	if almanac_item_list_entry_data.button_text_header.length() != 0:
+		header_label.visible = true
+		header_label.text = almanac_item_list_entry_data.button_text_header
+		
+	else:
+		header_label.visible = false
+	
+
 
 #
 

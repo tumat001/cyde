@@ -169,13 +169,13 @@ text = "x >> y"
 [node name="DescContainer" type="MarginContainer" parent="VBoxContainer/MainContentContainer/Marginer/VBoxContainer"]
 margin_top = 34.0
 margin_right = 197.0
-margin_bottom = 79.0
+margin_bottom = 37.0
 custom_constants/margin_top = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainContentContainer/Marginer/VBoxContainer/DescContainer"]
 margin_top = 3.0
 margin_right = 197.0
-margin_bottom = 45.0
+margin_bottom = 3.0
 custom_constants/separation = 16
 
 [node name="TooltipBody" parent="VBoxContainer/MainContentContainer/Marginer/VBoxContainer/DescContainer/VBoxContainer" instance=ExtResource( 9 )]
@@ -183,6 +183,7 @@ margin_right = 197.0
 default_font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
 
 [node name="SynergyDifficultyPanel" parent="VBoxContainer/MainContentContainer/Marginer/VBoxContainer/DescContainer/VBoxContainer" instance=ExtResource( 1 )]
+visible = false
 margin_top = 16.0
 margin_right = 197.0
 margin_bottom = 42.0

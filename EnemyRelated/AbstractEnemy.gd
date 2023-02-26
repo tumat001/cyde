@@ -276,6 +276,9 @@ var exits_when_at_map_end_clauses : ConditionalClauses
 var last_calculated_exits_when_at_map_end : bool
 var _attempted_exit_when_prevented_by_clause_at_prev_frame : bool = false
 
+var deal_damage_and_emit_escape_signals_when_escaping : bool = true
+
+
 var respect_stage_round_health_scale : bool = true
 
 

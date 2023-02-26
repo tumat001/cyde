@@ -29,7 +29,7 @@ func add_almanac_item_list_entry_data_to_category(arg_item : Almanac_ItemListEnt
 	_category_type_id_to_almanac_item_list_entries_data[arg_category_data.cat_type_id].append(arg_item)
 	
 	if !has_at_least_one_non_page_entry_data:
-		has_at_least_one_non_page_entry_data = arg_item.page_id_to_go_to == 0
+		has_at_least_one_non_page_entry_data = arg_item.page_id_to_go_to != Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE
 	arg_item.connect("page_to_go_to_changed", self, "_on_item_page_to_go_to_changed")
 	
 	
@@ -39,7 +39,7 @@ func add_almanac_item_list_entry_data_to_category(arg_item : Almanac_ItemListEnt
 
 func _on_item_page_to_go_to_changed(arg_item):
 	if !has_at_least_one_non_page_entry_data:
-		has_at_least_one_non_page_entry_data = arg_item.page_id_to_go_to == 0
+		has_at_least_one_non_page_entry_data = arg_item.page_id_to_go_to != Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE
 
 func emit_update_signal_for_almanac_item_list_entry_changed():
 	emit_signal("almanac_item_list_entries_data_changed")
@@ -64,10 +64,10 @@ func get_first_almanac_item_list_entry_data():
 	return _category_type_id_to_almanac_item_list_entries_data.values()[0][0]
 
 func get_first_unobscured_almanac_item_list_entry_data():
-	var datas = _category_type_id_to_almanac_item_list_entries_data.values()[0]
-	for data in datas:
-		if !data.is_obscured and !data.is_hidden:
-			return data
+	for cat in _category_type_id_to_almanac_item_list_entries_data.values():
+		for data in cat:
+			if !data.is_obscured and !data.is_hidden:
+				return data
 	
 	return null
 

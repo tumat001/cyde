@@ -5,6 +5,8 @@ const hotkey_controls_file_path = "user://game_hotkey_controls.save"
 const map_selection_default_vals_file_path = "user://map_selection_default_vals.save"
 const stats_file_path = "user://stats.save"
 
+const cyde_related_data_file_path = "user://cyde_related_data.save"
+
 
 const game_controls_action_name_to_ignore_save : Array = [
 	"ui_select",
@@ -205,3 +207,34 @@ func load_stats__of_stats_manager():
 		
 		StatsManager._initialize_stats_from_scratch()
 		return false
+
+
+## CYDE ------------------------------------
+
+func save_cyde_related_data__of_cyde_singleton():
+	var save_dict = CydeSingleton._get_save_dict_for_data()
+	var err_msg = "Saving error! -- CydeSingleton"
+	_save_using_dict(save_dict, cyde_related_data_file_path, err_msg)
+	
+	
+
+func load_stats__of_cyde_singleton():
+	var load_file = File.new()
+	
+	if load_file.file_exists(cyde_related_data_file_path):
+		var err_stat = load_file.open(cyde_related_data_file_path, File.READ)
+		
+		if err_stat != OK:
+			print("Loading error! -- CydeSingleton")
+			return false
+		
+		CydeSingleton._load_save_data(load_file)
+		
+		load_file.close()
+		return true
+		
+	else:
+		
+		CydeSingleton._initialize_save_data_from_scratch()
+		return false
+

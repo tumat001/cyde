@@ -35,7 +35,7 @@ func _initialize_tidbit_map():
 func _construct_tidbit__orange_12():
 	var tidbit = TextTidbitTypeInfo.new()
 	
-	var orange_tower_count_for_activation : int = TowerDominantColors.get_synergy_with_id(TowerDominantColors.SynergyID__Orange).number_of_towers_in_tier[0]
+	var orange_tower_count_for_activation : int = 12 #TowerDominantColors.get_synergy_with_id(TowerDominantColors.SynergyID__Orange).number_of_towers_in_tier[0]
 	var plain_fragment__max_orange_synergy = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.COLOR_ORANGE, "%s orange synergy" % orange_tower_count_for_activation)
 	
 	tidbit.descriptions = [

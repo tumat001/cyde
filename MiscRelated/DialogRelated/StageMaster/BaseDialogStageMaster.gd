@@ -10,6 +10,9 @@ const DialogChoicesPanel_Scene = preload("res://MiscRelated/DialogRelated/Contro
 const DialogTimeBarPanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogTimeBarPanel/DialogTimeBarPanel.gd")
 const DialogTimeBarPanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogTimeBarPanel/DialogTimeBarPanel.tscn")
 const DialogChoicesModiPanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogChoicesModiPanel/DialogChoicesModiPanel.gd")
+const DialogImagePanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogImagePanel/DialogImagePanel.gd")
+const DialogImagePanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogImagePanel/DialogImagePanel.tscn")
+
 
 const BackDialogImagePanel = preload("res://MiscRelated/DialogRelated/Controls/DialogBackgroundElementsControls/BackDialogImagePanel/BackDialogImagePanel.gd")
 const BackDialogImagePanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogBackgroundElementsControls/BackDialogImagePanel/BackDialogImagePanel.tscn")
@@ -53,15 +56,32 @@ var dialog_whole_screen_panel setget set_dialog_whole_screen_panel
 
 var _current_dialog_segment : DialogSegment
 
+var world_completion_num_state : int
+
 ##
+
+# not the only way to set towers in shop refresh. Just for convenience
+var towers_offered_on_shop_refresh : Array = [
+	
+]
+var _current_index_of_towers_offered_on_shop_refresh : int = 0
+
+#
 
 var _towers_placed_in_map_for_multiple_listen : Array
 var _towers_bought_for_multiple_listen : Array = []
 
-##
+var _nodes_to_queue_free_on_dia_seg_advance : Array = []
+
+#
+
+var rng_to_use_for_randomized_questions_and_ans : RandomNumberGenerator
+
+#
 
 func _init(arg_id, arg_breakpoint, arg_name).(arg_id, arg_breakpoint, arg_name):
 	pass
+	
 
 #
 
@@ -77,6 +97,12 @@ func set_dialog_whole_screen_panel(arg_panel):
 	dialog_whole_screen_panel.connect("resolve_block_advanced_requested_status", self, "_on_resolve_block_advanced_requested_status")
 
 func play_dialog_segment_or_advance_or_finish_elements(arg_segment : DialogSegment):
+	for node in _nodes_to_queue_free_on_dia_seg_advance:
+		if is_instance_valid(node) and !node.is_queued_for_deletion():
+			node.queue_free()
+	_nodes_to_queue_free_on_dia_seg_advance.clear()
+	
+	#
 	
 	_current_dialog_segment = arg_segment
 	dialog_whole_screen_panel.current_dialog_segment = _current_dialog_segment
@@ -88,6 +114,13 @@ func play_dialog_segment_or_advance_or_finish_elements(arg_segment : DialogSegme
 
 func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	._apply_game_modifier_to_elements(arg_elements)
+	
+	
+	rng_to_use_for_randomized_questions_and_ans = StoreOfRNG.get_rng(StoreOfRNG.RNGSource.NON_ESSENTIAL)
+	
+	if CydeSingleton.world_id_to_world_completion_num_state_dict.has(modifier_id):
+		world_completion_num_state = CydeSingleton.world_id_to_world_completion_num_state_dict[modifier_id]
+		print('setted num state')
 	
 	game_elements.connect("unhandled_input", self, "_game_elements_unhandled_input")
 	game_elements.connect("unhandled_key_input", self, "_game_elements_unhandled_key_input")
@@ -138,8 +171,8 @@ func _player_requests_advance_to_next_dia_seg():
 
 func _on_resolve_block_advanced_requested_status(arg_resolved):
 	if arg_resolved:
-		_current_dialog_segment.request_advance()
-	
+		#_current_dialog_segment.request_advance()
+		pass
 
 ########### DIA SEG signals
 
@@ -282,6 +315,29 @@ func _construct_default_templated_time_bar_panel_for_dia_seg(arg_params : Array)
 	return panel
 
 
+## IMAGE PANEL
+
+func _configure_dia_seg_to_default_templated_dialog_image_panel(
+			arg_seg : DialogSegment, 
+			arg_image : Texture):
+	
+	var diag_construction_ins := DialogSegment.DialogElementsConstructionIns.new()
+	diag_construction_ins.func_source = self
+	diag_construction_ins.func_name_for_construction = "_construct_default_templated_image_panel_for_dia_seg"
+	diag_construction_ins.func_params = [arg_seg, arg_image]
+	
+	arg_seg.add_dialog_element_construction_ins(diag_construction_ins)
+
+func _construct_default_templated_image_panel_for_dia_seg(arg_params):
+	var dia_seg : DialogSegment = arg_params[0]
+	var image : Texture = arg_params[1]
+	
+	var panel = DialogImagePanel_Scene.instance()
+	panel.image_to_use = image
+	
+	return panel
+
+
 # pos and sizes
 
 func _configure_dia_set_to_standard_pos_and_size(arg_seg : DialogSegment):
@@ -325,6 +381,135 @@ func _construct_default_templated_background_ele_dia_texture_image_for_dia_seg(a
 	return arg_background_element
 
 
+
+#
+
+# func name expects 1 arg: DialogSegment
+func listen_for_dia_seg_finish_display__on_whole_screen_panel(arg_expected_dia_seg, arg_func_source, arg_func_name):
+	dialog_whole_screen_panel.connect("shown_all_DBE_and_finished_display", self, "_on_DWSP_shown_all_DBE_and_finished_display__for_listen", [arg_expected_dia_seg, arg_func_name, arg_func_source])
+
+func _on_DWSP_shown_all_DBE_and_finished_display__for_listen(arg_dia_seg, arg_expected_dia_seg, arg_func_source, arg_func_name):
+	if arg_dia_seg == arg_expected_dia_seg:
+		dialog_whole_screen_panel.disconnect("shown_all_DBE_and_finished_display", self, "_on_DWSP_shown_all_DBE_and_finished_display__for_listen")
+		arg_func_source.call(arg_func_name, arg_dia_seg)
+
+
+#
+
+func set_next_shop_towers_and_increment_counter():
+	var tower_ids = towers_offered_on_shop_refresh[_current_index_of_towers_offered_on_shop_refresh]
+	_current_index_of_towers_offered_on_shop_refresh += 1
+	
+	if tower_ids != null:
+		game_elements.shop_manager.roll_towers_in_shop__specific_ids(tower_ids)
+
+
+
+##### HELPER FUNC FOR QUESTIONS/CHOICES
+
+class AllPossibleQuestionsAndChoices_AndMiscInfo:
+	
+	var _next_id = 1
+	
+	var _id_to_question_info_for_choices_panel_map : Dictionary = {}
+	var _ids_taken : Array
+	
+	var rng_to_use
+	
+	#
+	
+#	var func_source_for_all
+#
+#	var show_dialog_choices_modi_panel_func_name
+#	var build_dialog_choices_modi_panel_config_func_name
+#
+#	var on_dialog_choices_modi_panel__removed_choices_func_name
+#	var on_dialog_choices_modi_panel__change_question_func_name
+	
+	#
+	
+	func _init(arg_rng_to_use):
+		rng_to_use = arg_rng_to_use
+	
+	##
+	
+	func add_question_info_for_choices_panel(arg_question_info):
+		_id_to_question_info_for_choices_panel_map[_next_id] = arg_question_info
+		var id = _next_id
+		
+		_next_id += 1
+		return id
+	
+	
+	func get_all_untaken_question_info_ids():
+		var bucket = []
+		for id in _id_to_question_info_for_choices_panel_map:
+			if !_ids_taken.has(id):
+				bucket.append(id)
+		
+		return bucket
+	
+	func get_random_question_and_choices__and_set_id_taken() -> QuestionInfoForChoicesPanel:
+		var all_untaken_info_ids = get_all_untaken_question_info_ids()
+		var rand_id = StoreOfRNG.randomly_select_one_element(all_untaken_info_ids, rng_to_use)
+		
+		_ids_taken.append(rand_id)
+		return _id_to_question_info_for_choices_panel_map[rand_id]
+	
+	
+
+class QuestionInfoForChoicesPanel:
+	
+	var question_as_desc : Array
+	var choices_for_questions : ChoicesForQuestionsInfo
+	
+
+class ChoicesForQuestionsInfo:
+	
+	var _wrong_choices_list : Array
+	var _right_choices_list : Array
+	
+	var rng_to_use : RandomNumberGenerator
+	
+	
+	func _init(arg_rng_to_use):
+		rng_to_use = arg_rng_to_use
+	
+	func add_choice(arg_choice): #: DialogChoicesPanel.ChoiceButtonInfo):
+		if arg_choice.choice_result_type == arg_choice.ChoiceResultType.WRONG:
+			_wrong_choices_list.append(arg_choice)
+		else:
+			_right_choices_list.append(arg_choice)
+	
+	#
+	
+	# by default, gives at least 1 right choice
+	func get_random_list_of_choices(arg_count : int) -> Array:
+		var copy_of_wrong_choices_list = _wrong_choices_list.duplicate()
+		
+		var bucket = []
+		for i in arg_count - 1:
+			var rand_wrong_choice = StoreOfRNG.randomly_select_one_element(copy_of_wrong_choices_list, rng_to_use)
+			copy_of_wrong_choices_list.erase(rand_wrong_choice)
+			bucket.append(rand_wrong_choice)
+		
+		
+		var rand_right_choice = StoreOfRNG.randomly_select_one_element(_right_choices_list, rng_to_use)
+		var rand_index_of_right_choice = rng_to_use.randi_range(0, arg_count - 1)
+		
+		bucket.insert(rand_index_of_right_choice, rand_right_choice)
+		
+		
+		return bucket
+
+
+#func set_up_all_possible_questions_and_answers_as_choices_panel(arg_dia_seg, all_possible_question_and_ans_misc_info):
+#	pass
+#
+#
+
+#########################################
+#########################################
 ########## GAME ELEMENTS STUFFS RELATED (Mostly imported from Tutorials) ############
 
 func set_tower_is_draggable(arg_tower, arg_val):
@@ -339,6 +524,101 @@ func set_tower_is_sellable(arg_tower, arg_val):
 	else:
 		arg_tower.can_be_sold_conditonal_clauses.attempt_insert_clause(arg_tower.CanBeSoldClauses.TUTORIAL_DISABLED_CLAUSE)
 
+func set_can_do_combination(arg_val : bool):
+	if arg_val:
+		game_elements.combination_manager.can_do_combination_clauses.remove_clause(game_elements.CombinationManager.CanDoCombinationClauses.TUTORIAL_DISABLE)
+	else:
+		game_elements.combination_manager.can_do_combination_clauses.attempt_insert_clause(game_elements.CombinationManager.CanDoCombinationClauses.TUTORIAL_DISABLE)
+
+func add_gold_amount(arg_amount : int):
+	game_elements.gold_manager.increase_gold_by(arg_amount, game_elements.GoldManager.IncreaseGoldSource.SYNERGY)
+
+func set_player_level(arg_level : int):
+	game_elements.level_manager.set_current_level(arg_level)
+
+func set_ingredient_limit_modi(arg_amount : int):
+	game_elements.tower_manager.set_ing_cap_changer(StoreOfIngredientLimitModifierID.TUTORIAL, arg_amount)
+
+func set_can_return_to_round_panel(arg_val : bool):
+	game_elements.can_return_to_round_panel = arg_val
+
+
+
+func set_round_is_startable(arg_val : bool):
+	game_elements.round_status_panel.can_start_round = arg_val
+	game_elements.round_status_panel.round_speed_and_start_panel.visible = arg_val
+
+func set_can_level_up(arg_val : bool):
+	if arg_val:
+		game_elements.level_manager.can_level_up_clauses.remove_clause(game_elements.LevelManager.CanLevelUpClauses.TUTORIAL_DISABLE)
+	else:
+		game_elements.level_manager.can_level_up_clauses.attempt_insert_clause(game_elements.LevelManager.CanLevelUpClauses.TUTORIAL_DISABLE)
+
+func set_can_refresh_shop__panel_based(arg_val : bool):
+	if arg_val:
+		game_elements.panel_buy_sell_level_roll.can_refresh_shop_clauses.remove_clause(game_elements.panel_buy_sell_level_roll.CanRefreshShopClauses.TUTORIAL_DISABLE)
+	else:
+		game_elements.panel_buy_sell_level_roll.can_refresh_shop_clauses.attempt_insert_clause(game_elements.panel_buy_sell_level_roll.CanRefreshShopClauses.TUTORIAL_DISABLE)
+
+func set_can_refresh_shop_at_round_end_clauses(arg_val):
+	if arg_val:
+		game_elements.shop_manager.can_refresh_shop_at_round_end_clauses.remove_clause(game_elements.ShopManager.CanRefreshShopAtRoundEndClauses.TUTORIAL_DISABLE)
+	else:
+		game_elements.shop_manager.can_refresh_shop_at_round_end_clauses.attempt_insert_clause(game_elements.ShopManager.CanRefreshShopAtRoundEndClauses.TUTORIAL_DISABLE)
+
+
+func set_enabled_buy_slots(arg_array : Array): # ex: [1, 2] = the first and second buy slots (from the left) are enabled
+	for i in game_elements.panel_buy_sell_level_roll.all_buy_slots.size():
+		i += 1
+		var buy_slot = game_elements.panel_buy_sell_level_roll.all_buy_slots[i - 1]
+		var clause = game_elements.panel_buy_sell_level_roll.buy_slot_to_disabled_clauses[buy_slot]
+		
+		if arg_array.has(i):
+			clause.remove_clause(game_elements.panel_buy_sell_level_roll.BuySlotDisabledClauses.TUTORIAL_DISABLE)
+		else:
+			clause.attempt_insert_clause(game_elements.panel_buy_sell_level_roll.BuySlotDisabledClauses.TUTORIAL_DISABLE)
+
+func set_can_sell_towers(arg_val : bool):
+	if arg_val:
+		game_elements.sell_panel.can_sell_clauses.remove_clause(game_elements.SellPanel.CanSellClauses.TUTORIAL_DISABLE)
+	else:
+		game_elements.sell_panel.can_sell_clauses.attempt_insert_clause(game_elements.SellPanel.CanSellClauses.TUTORIAL_DISABLE)
+
+func set_can_toggle_to_ingredient_mode(arg_val : bool):
+	if arg_val:
+		game_elements.tower_manager.can_toggle_to_ingredient_mode_clauses.remove_clause(game_elements.tower_manager.CanToggleToIngredientModeClauses.TUTORIAL_DISABLE)
+	else:
+		game_elements.tower_manager.can_toggle_to_ingredient_mode_clauses.attempt_insert_clause(game_elements.tower_manager.CanToggleToIngredientModeClauses.TUTORIAL_DISABLE)
+
+func set_can_towers_swap_positions_to_another_tower(arg_val):
+	if arg_val:
+		game_elements.tower_manager.can_towers_swap_positions_clauses.remove_clause(game_elements.tower_manager.CanTowersSwapPositionsClauses.TUTORIAL_DISABLE)
+	else:
+		game_elements.tower_manager.can_towers_swap_positions_clauses.attempt_insert_clause(game_elements.tower_manager.CanTowersSwapPositionsClauses.TUTORIAL_DISABLE)
+
+func set_bonus_ingredient_limit_amount(arg_amount : int):
+	game_elements.tower_manager.set_tower_limit_id_amount(StoreOfIngredientLimitModifierID.TUTORIAL, arg_amount)
+
+func add_shop_per_refresh_modifier(arg_modi : int):
+	game_elements.shop_manager.add_towers_per_refresh_amount_modifier(game_elements.ShopManager.TowersPerShopModifiers.TUTORIAL, arg_modi)
+
+
+#
+
+func clear_all_tower_cards_from_shop():
+	game_elements.panel_buy_sell_level_roll.remove_tower_card_from_all_buy_slots()
+
+
+#### Map related
+
+func set_visiblity_of_all_placables(arg_val):
+	for placable in game_elements.map_manager.base_map.all_in_map_placables:
+		placable.visible = arg_val
+
+func set_visiblity_of_placable(arg_placable, arg_val):
+	arg_placable.visible = arg_val
+
+
 #
 
 func create_tower_at_placable(arg_tower_id, arg_placable):
@@ -347,7 +627,7 @@ func create_tower_at_placable(arg_tower_id, arg_placable):
 
 
 # expects a method that accepts a tower instance
-func listen_for_tower_with_id__bought__then_call_func(arg_tower_id : int, arg_func_name : String, arg_func_source):
+func listen_for_tower_with_id__bought__then_call_func(arg_tower_id, arg_func_name : String, arg_func_source):
 	game_elements.tower_manager.connect("tower_added", self, "_on_tower_added", [arg_tower_id, arg_func_name, arg_func_source])
 
 func _on_tower_added(arg_tower_instance, arg_expected_tower_id, arg_func_name, arg_func_source):
@@ -451,4 +731,122 @@ func _on_round_end__into_stageround_listen(arg_stageround, arg_expected_stagerou
 		game_elements.stage_round_manager.disconnect("round_ended", self, "_on_round_end__into_stageround_listen")
 		arg_func_source.call(arg_func_name_to_call, arg_expected_stageround_id)
 
+
+
+# Get nodes related
+
+func get_tower_buy_card_at_buy_slot_index(arg_index):
+	var buy_slot = game_elements.panel_buy_sell_level_roll.all_buy_slots[arg_index]
+	return buy_slot.get_current_tower_buy_card()
+
+
+func get_round_speed_button_01():
+	return game_elements.round_status_panel.round_speed_and_start_panel.speed_button_01
+
+func get_round_status_button():
+	return game_elements.round_status_panel.round_speed_and_start_panel.start_button
+
+func get_round_start_and_speed_panel():
+	return game_elements.round_status_panel.round_speed_and_start_panel
+
+
+func get_extra_info_button_from_tower_info_panel(): # the little "i" button that displays the tower's description
+	return game_elements.tower_info_panel.tower_name_and_pic_panel.extra_info_button
+
+func get_tower_stats_panel_from_tower_info_panel():
+	return game_elements.tower_info_panel.tower_stats_panel
+
+func get_level_up_button_from_shop_panel():
+	return game_elements.panel_buy_sell_level_roll.level_up_panel
+
+func get_reroll_button_from_shop_panel():
+	return game_elements.panel_buy_sell_level_roll.reroll_panel
+
+func get_shop_odds_panel():
+	return game_elements.general_stats_panel.shop_percentage_stat_panel
+
+func get_single_syn_displayer_with_synergy_name__from_left_panel(arg_syn_name):
+	return game_elements.left_panel.get_single_syn_displayer_with_synergy_name(arg_syn_name)
+
+func get_color_wheel_on_bottom_panel_side():
+	#return game_elements.color_wheel_sprite_button
+	return game_elements.color_wheel_gui
+
+func get_tower_icon_with_tower_id__on_combination_top_panel(arg_id):
+	return game_elements.combination_top_panel.get_tower_icon_with_tower_id(arg_id)
+
+func get_more_combination_info__on_combi_top_panel():
+	return game_elements.combination_top_panel.combination_more_details_button
+
+func get_player_level_panel():
+	return game_elements.general_stats_panel.level_label
+
+func get_streak_panel():
+	return game_elements.general_stats_panel.streak_panel
+
+func get_gold_panel():
+	return game_elements.general_stats_panel.gold_amount_label
+
+func get_round_indicator_panel():
+	return game_elements.right_side_panel.round_status_panel.round_info_panel_v2.round_indicator_panel
+
+func get_player_health_bar_panel():
+	return game_elements.right_side_panel.round_status_panel.round_info_panel_v2.player_health_panel
+
+# INDICATORS
+
+# returns the two arrows (or one, as specified). Returns [horizontal, vertical]
+func display_white_arrows_pointed_at_node(arg_node, arg_display_for_horizontal = true, arg_display_for_vertical = true) -> Array:
+	var bucket = []
+	if arg_display_for_horizontal:
+		var arrow = _construct_tutorial_white_arrow(arg_node, false)
+		bucket.append(arrow)
+	
+	if arg_display_for_vertical:
+		var arrow = _construct_tutorial_white_arrow(arg_node, true)
+		bucket.append(arrow)
+	
+	return bucket
+
+func _construct_tutorial_white_arrow(arg_node, arg_is_vertical : bool):
+	var arrow = Tutorial_WhiteArrow_Particle_Scene.instance()
+	arrow.node_to_point_at = arg_node
+	arrow.is_vertical = arg_is_vertical
+	
+	#game_elements.get_tree().get_root().add_child(arrow)
+	CommsForBetweenScenes.ge_add_child_to_below_screen_effects_node_hoster(arrow)
+	
+	_nodes_to_queue_free_on_dia_seg_advance.append(arrow)
+	
+	return arrow
+
+
+func display_white_circle_at_node(arg_node):
+	var circle = Tutorial_WhiteCircle_Particle_Scene.instance()
+	circle.node_to_point_at = arg_node
+	
+	#game_elements.get_tree().get_root().add_child(circle)
+	CommsForBetweenScenes.ge_add_child_to_below_screen_effects_node_hoster(circle)
+	
+	_nodes_to_queue_free_on_dia_seg_advance.append(circle)
+	
+	return circle
+
+
+######### BITWISE STUFFS
+
+static func flag_is_enabled(b, flag):
+	return b & flag != 0
+
+static func set_flag(b, flag):
+	b = b|flag
+	return b
+
+static func unset_flag(b, flag):
+	b = b & ~flag
+	return b
+
+
+func set_CYDE_Singleton_world_completion_state_num(arg_num):
+	CydeSingleton.set_world_completion_state_num_to_world_id(arg_num, modifier_id)
 

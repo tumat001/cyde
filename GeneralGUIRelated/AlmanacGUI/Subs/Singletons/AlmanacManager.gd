@@ -43,6 +43,10 @@ const tidbit_val_min_for_unobscure : int = 1
 
 #
 
+const button_min_size__for_intro_standard := Vector2(75, 125)
+
+#
+
 var main_page : Almanac_ItemListPage_Data
 var tidbit_option__in_main_page : Almanac_ItemListEntry_Data
 
@@ -64,6 +68,8 @@ var tidbit_page : Almanac_ItemListPage_Data
 
 var tower_multi_stats_data : Almanac_MultiStatsData
 var enemy_multi_stats_data : Almanac_MultiStatsData
+var synergy_multi_stats_data : Almanac_MultiStatsData
+var tidbit_multi_stats_data : Almanac_MultiStatsData
 
 #
 
@@ -169,8 +175,7 @@ var tower_tier_to_border_texture_map__highlight : Dictionary = {
 var tidbit_tier_to_border_texture_map__normal : Dictionary = {
 	1 : preload("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage/Line_Tier01OptionPage_6x6_Normal.png"),
 	2 : preload("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage/Line_Tier02OptionPage_6x6_Normal.png"),
-	#TODO
-	#3 : preload("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage/Line_Tier03OptionPage_6x6_Normal.png"),
+	3 : preload("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage/Line_Tier03OptionPage_6x6_Normal.png"),
 	4 : preload("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage/Line_Tier04OptionPage_6x6_Normal.png"),
 	5 : preload("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage/Line_Tier05OptionPage_6x6_Normal.png"),
 	6 : preload("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage/Line_Tier06OptionPage_6x6_Normal.png"),
@@ -266,8 +271,9 @@ func _on_page__requested_return_to_assigned_page_id(arg_page, arg_page_id_to_go_
 func _transfer_to_page(arg_page):
 	almanac_page_gui.set_almanac_item_list_page_data(arg_page)
 	
-	if arg_page.has_at_least_one_non_page_entry_data:
-		var first_unobscured_option = arg_page.get_first_unobscured_almanac_item_list_entry_data()
+	#if arg_page.has_at_least_one_non_page_entry_data:
+	var first_unobscured_option = arg_page.get_first_unobscured_almanac_item_list_entry_data()
+	if first_unobscured_option != null:
 		
 		call_deferred("_deferred_right_side_init_of_transfer_page", first_unobscured_option)
 
@@ -277,6 +283,11 @@ func _deferred_right_side_init_of_transfer_page(first_unobscured_option):
 			almanac_page_gui.configure_almanac_x_type_info_panel(first_unobscured_option, tower_multi_stats_data, first_unobscured_option.get_x_type_info(), first_unobscured_option.button_associated)
 		elif first_unobscured_option.get_x_type_info_classification() == first_unobscured_option.TypeInfoClassification.ENEMY:
 			almanac_page_gui.configure_almanac_x_type_info_panel(first_unobscured_option, enemy_multi_stats_data, first_unobscured_option.get_x_type_info(), first_unobscured_option.button_associated)
+		elif first_unobscured_option.get_x_type_info_classification() == first_unobscured_option.TypeInfoClassification.SYNERGY:
+			almanac_page_gui.configure_almanac_x_type_info_panel(first_unobscured_option, synergy_multi_stats_data, first_unobscured_option.get_x_type_info(), first_unobscured_option.button_associated)
+		elif first_unobscured_option.get_x_type_info_classification() == first_unobscured_option.TypeInfoClassification.TEXT_TIDBIT:
+			almanac_page_gui.configure_almanac_x_type_info_panel(first_unobscured_option, tidbit_multi_stats_data, first_unobscured_option.get_x_type_info(), first_unobscured_option.button_associated)
+	
 
 func _on_option_pressed__display_enemy_info(button, type_info, arg_option):
 	if !arg_option.is_obscured:
@@ -601,7 +612,11 @@ func _construct_main_page():
 	tower_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/MainMenu/Line_TowerOptionPage_6x6_Highlighted.png")
 	tower_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/MainMenu/TowerOption_MainMenu_Icon_40x40.png"))
 	tower_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	tower_option.footer_text = "Towers"
+	tower_option.button_text_header = "Towers"
+	tower_option.button_descriptions = [
+		
+	]
+	tower_option.button_min_size = button_min_size__for_intro_standard
 	tower_option.page_id_to_go_to = PageIds.TOWER_PAGE
 	tower_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [tower_option], CONNECT_PERSIST)
 	
@@ -611,7 +626,11 @@ func _construct_main_page():
 	enemy_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/MainMenu/Line_EnemyOptionPage_6x6_Highlighted.png")
 	enemy_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/MainMenu/EnemyOption_MainMenu_Icon_40x40.png"))
 	enemy_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	enemy_option.footer_text = "Enemies"
+	enemy_option.button_text_header = "Enemies"
+	enemy_option.button_descriptions = [
+		
+	]
+	enemy_option.button_min_size = button_min_size__for_intro_standard
 	enemy_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE
 	enemy_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [enemy_option], CONNECT_PERSIST)
 	
@@ -621,7 +640,11 @@ func _construct_main_page():
 	synergy_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/MainMenu/Line_SynergyOptionPage_6x6_Highlighted.png")
 	synergy_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/MainMenu/SynergyOption_MainMenu_Icon_40x40.png"))
 	synergy_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	synergy_option.footer_text = "Synergies"
+	synergy_option.button_text_header = "Synergies"
+	synergy_option.button_descriptions = [
+		
+	]
+	synergy_option.button_min_size = button_min_size__for_intro_standard
 	synergy_option.page_id_to_go_to = PageIds.SYNERGY_PAGE
 	synergy_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [synergy_option], CONNECT_PERSIST)
 	
@@ -631,7 +654,7 @@ func _construct_main_page():
 	tidbit_option__in_main_page.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/MainMenu/Line_TidbitOptionPage_6x6_Highlighted.png")
 	tidbit_option__in_main_page.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/MainMenu/TidbitOption_MainMenu_Icon_40x40.png"))
 	tidbit_option__in_main_page.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	tidbit_option__in_main_page.footer_text = "Tidbits"
+	tidbit_option__in_main_page.button_text_header = "Tidbits"
 	tidbit_option__in_main_page.page_id_to_go_to = PageIds.TIDBIT_PAGE
 	tidbit_option__in_main_page.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [tidbit_option__in_main_page], CONNECT_PERSIST)
 	
@@ -678,7 +701,7 @@ func _construct_enemy_factions_page():
 	basic_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionBasicOptionPage_6x6_Highlighted.png")
 	basic_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacBasicOption_FactionsPage_Icon_40x40.png"))
 	basic_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	basic_option.footer_text = "Basic"
+	basic_option.button_text_header = "Basic"
 	basic_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__BASIC
 	basic_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [basic_option], CONNECT_PERSIST)
 	
@@ -687,7 +710,7 @@ func _construct_enemy_factions_page():
 	expert_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionExpertOptionPage_6x6_Highlighted.png")
 	expert_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacExpertOption_FactionsPage_Icon_40x40.png"))
 	expert_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	expert_option.footer_text = "Expert"
+	expert_option.button_text_header = "Expert"
 	expert_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__EXPERT
 	expert_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [expert_option], CONNECT_PERSIST)
 	
@@ -696,7 +719,7 @@ func _construct_enemy_factions_page():
 	faithful_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionFaithfulOptionPage_6x6_Highlighted.png")
 	faithful_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacFaithfulOption_FactionsPage_Icon_40x40.png"))
 	faithful_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	faithful_option.footer_text = "Expert"
+	faithful_option.button_text_header = "Expert"
 	faithful_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__FAITHFUL
 	faithful_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [faithful_option], CONNECT_PERSIST)
 	
@@ -705,7 +728,7 @@ func _construct_enemy_factions_page():
 	skirmisher_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionSkirmisherOptionPage_6x6_Highlighted.png")
 	skirmisher_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacSkirmisherOption_FactionsPage_Icon_40x40.png"))
 	skirmisher_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	skirmisher_option.footer_text = "Expert"
+	skirmisher_option.button_text_header = "Expert"
 	skirmisher_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__SKIRMISHER
 	skirmisher_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [skirmisher_option], CONNECT_PERSIST)
 	
@@ -866,15 +889,19 @@ func _construct_tower_page():
 	
 	##
 	
-	_construct_tower_category_with_towers__with_color(TowerColors.RED, tower_page)
-	_construct_tower_category_with_towers__with_color(TowerColors.ORANGE, tower_page)
-	_construct_tower_category_with_towers__with_color(TowerColors.YELLOW, tower_page)
-	_construct_tower_category_with_towers__with_color(TowerColors.GREEN, tower_page)
-	_construct_tower_category_with_towers__with_color(TowerColors.BLUE, tower_page)
-	_construct_tower_category_with_towers__with_color(TowerColors.VIOLET, tower_page)
-	_construct_tower_category_with_towers__with_color(TowerColors.BLACK, tower_page)
-	_construct_tower_category_with_towers__with_color(TowerColors.GRAY, tower_page)
+	_construct_tower_category_with_towers__with_color(TowerColors.CONFIDENTIALITY, tower_page)
+	_construct_tower_category_with_towers__with_color(TowerColors.INTEGRITY, tower_page)
+	_construct_tower_category_with_towers__with_color(TowerColors.AVAILABILITY, tower_page)
 	
+#	_construct_tower_category_with_towers__with_color(TowerColors.RED, tower_page)
+#	_construct_tower_category_with_towers__with_color(TowerColors.ORANGE, tower_page)
+#	_construct_tower_category_with_towers__with_color(TowerColors.YELLOW, tower_page)
+#	_construct_tower_category_with_towers__with_color(TowerColors.GREEN, tower_page)
+#	_construct_tower_category_with_towers__with_color(TowerColors.BLUE, tower_page)
+#	_construct_tower_category_with_towers__with_color(TowerColors.VIOLET, tower_page)
+#	_construct_tower_category_with_towers__with_color(TowerColors.BLACK, tower_page)
+#	_construct_tower_category_with_towers__with_color(TowerColors.GRAY, tower_page)
+#
 
 func _construct_tower_category_with_towers__with_color(arg_color : int, arg_page_to_add_to):
 	var tower_type_info_list : Array = []
@@ -934,6 +961,9 @@ func _on_option_pressed__display_tower_info(button, type_info, arg_option):
 ##############
 
 func _construct_synergy_page():
+	synergy_multi_stats_data = Almanac_MultiStatsData.new()
+	
+	
 	synergy_page = Almanac_ItemListPage_Data.new()
 	synergy_page.page_id_to_return_to = PageIds.MAIN_PAGE
 	synergy_page.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
@@ -962,8 +992,8 @@ func _construct_synergy_page():
 	
 	for syn_id in TowerDominantColors.available_synergy_ids:
 		_construct_synergy_option__with_category(TowerDominantColors.get_synergy_with_id(syn_id), dom_syn_page_category, synergy_page)
-	for syn_id in TowerCompositionColors.available_synergy_ids:
-		_construct_synergy_option__with_category(TowerCompositionColors.get_synergy_with_id(syn_id), compo_syn_page_category, synergy_page)
+	#for syn_id in TowerCompositionColors.available_synergy_ids:
+	#	_construct_synergy_option__with_category(TowerCompositionColors.get_synergy_with_id(syn_id), compo_syn_page_category, synergy_page)
 	
 
 func _construct_synergy_option__with_category(arg_syn, arg_category_to_use, arg_page_to_add_to):
@@ -992,6 +1022,8 @@ func _on_option_pressed__display_syn_info(button, type_info, arg_option):
 ##########
 
 func _construct_tidbit_page():
+	tidbit_multi_stats_data = Almanac_MultiStatsData.new()
+	
 	tidbit_page = Almanac_ItemListPage_Data.new()
 	tidbit_page.page_id_to_return_to = PageIds.MAIN_PAGE
 	tidbit_page.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)

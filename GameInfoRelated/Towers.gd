@@ -280,104 +280,109 @@ enum {
 
 # Can be used as official list of all towers
 const TowerTiersMap : Dictionary = {
-	HEALING_SYMBOL : 1,
-	NIGHTWATCHER : 6,
-	YELVIO_RIFT_AXIS : 3,
-	DUNED : 2,
-	MAP_PASSAGE__FIRE_PATH : 1,
-	MAP_ENCHANT__ATTACKS : 1,
 	
-	#MONO : 1,
-	SPRINKLER : 1,
-	SIMPLEX : 1,
-	MINI_TESLA : 1,
-	EMBER : 1,
-	COAL_LAUNCHER : 1,
-	SPIKE : 1,
-	REBOUND : 1,
 	STRIKER : 1,
-	PINECONE : 1,
-	TRAPPER : 1,
+	MINI_TESLA : 1,
+	SPRINKLER : 1,
 	
-	RAILGUN : 2,
-	SCATTER : 2,
-	#ENTHALPHY : 2,
-	ENTROPY : 2,
-	BLEACH : 2,
-	TIME_MACHINE : 2,
-	CANNON : 2,
-	SHOCKER : 2,
-	TRANSMUTATOR : 2,
-	HERO : 2,
-	FRUIT_TREE_FRUIT : 2,
-	COIN : 2,
-	PROPEL : 2,
-	VACUUM : 2,
-	SOLITAR : 2,
-	BLAST : 2,
-	CELESTIAL : 2,
-	BIOMORPH : 2,
-	
-	#SIMPLE_OBELISK : 3,
-	BEACON_DISH : 3,
-	CHARGE : 3,
-	CAMPFIRE : 3,
-	FLAMEBURST : 3,
-	GRAND : 3,
-	DOUSER : 3,
-	WAVE : 3,
-	SEEDER : 3,
-	#SOUL : 3,
-	#BERRY_BUSH : 3,
-	PROBE : 3,
-	BREWD : 3,
-	SHACKLED : 3,
-	AMALGAMATOR : 3,
-	SE_PROPAGER : 3,
-	LES_SEMIS : 3,
-	ENERVATE : 3,
-	FULGURANT : 3,
-	BOUNDED : 3,
-	
-	#RE : 4,
-	PING : 4,
-	MAGNETIZER : 4,
-	SUNFLOWER : 4,
-	_704 : 4,
-	#IEU : 4,
-	IMPALE : 4,
-	REAPER : 4,
-	ADEPT : 4,
-	LEADER : 4,
-	FRUIT_TREE : 4,
-	L_ASSAUT : 4,
-	PAROXYSM : 4,
-	VARIANCE : 4,
-	VARIANCE_VESSEL : 4,
-	TRUDGE : 4,
-	WYVERN : 4,
-	
-	VOLCANO : 5,
-	LAVA_JET : 5,
-	BLOSSOM : 5,
-	TRANSPORTER : 5,
-	NUCLEUS : 5,
-	ORB : 5,
-	BURGEON : 5,
-	LA_CHASSEUR : 5,
-	ASHEND : 5,
-	IOTA : 5,
-	SOPHIST : 5,
-	
-	TESLA : 6,
-	CHAOS : 6,
-	ROYAL_FLAME : 6,
-	PESTILENCE : 6,
-	PROMINENCE : 6,
-	ACCUMULAE : 6,
-	HEXTRIBUTE : 6,
-	LA_NATURE : 6,
-	OUTREACH : 6,
+#	HEALING_SYMBOL : 1,
+#	NIGHTWATCHER : 6,
+#	YELVIO_RIFT_AXIS : 3,
+#	DUNED : 2,
+#	MAP_PASSAGE__FIRE_PATH : 1,
+#	MAP_ENCHANT__ATTACKS : 1,
+#
+#	#MONO : 1,
+#	SPRINKLER : 1,
+#	SIMPLEX : 1,
+#	MINI_TESLA : 1,
+#	EMBER : 1,
+#	COAL_LAUNCHER : 1,
+#	SPIKE : 1,
+#	REBOUND : 1,
+#	STRIKER : 1,
+#	PINECONE : 1,
+#	TRAPPER : 1,
+#
+#	RAILGUN : 2,
+#	SCATTER : 2,
+#	#ENTHALPHY : 2,
+#	ENTROPY : 2,
+#	BLEACH : 2,
+#	TIME_MACHINE : 2,
+#	CANNON : 2,
+#	SHOCKER : 2,
+#	TRANSMUTATOR : 2,
+#	HERO : 2,
+#	FRUIT_TREE_FRUIT : 2,
+#	COIN : 2,
+#	PROPEL : 2,
+#	VACUUM : 2,
+#	SOLITAR : 2,
+#	BLAST : 2,
+#	CELESTIAL : 2,
+#	BIOMORPH : 2,
+#
+#	#SIMPLE_OBELISK : 3,
+#	BEACON_DISH : 3,
+#	CHARGE : 3,
+#	CAMPFIRE : 3,
+#	FLAMEBURST : 3,
+#	GRAND : 3,
+#	DOUSER : 3,
+#	WAVE : 3,
+#	SEEDER : 3,
+#	#SOUL : 3,
+#	#BERRY_BUSH : 3,
+#	PROBE : 3,
+#	BREWD : 3,
+#	SHACKLED : 3,
+#	AMALGAMATOR : 3,
+#	SE_PROPAGER : 3,
+#	LES_SEMIS : 3,
+#	ENERVATE : 3,
+#	FULGURANT : 3,
+#	BOUNDED : 3,
+#
+#	#RE : 4,
+#	PING : 4,
+#	MAGNETIZER : 4,
+#	SUNFLOWER : 4,
+#	_704 : 4,
+#	#IEU : 4,
+#	IMPALE : 4,
+#	REAPER : 4,
+#	ADEPT : 4,
+#	LEADER : 4,
+#	FRUIT_TREE : 4,
+#	L_ASSAUT : 4,
+#	PAROXYSM : 4,
+#	VARIANCE : 4,
+#	VARIANCE_VESSEL : 4,
+#	TRUDGE : 4,
+#	WYVERN : 4,
+#
+#	VOLCANO : 5,
+#	LAVA_JET : 5,
+#	BLOSSOM : 5,
+#	TRANSPORTER : 5,
+#	NUCLEUS : 5,
+#	ORB : 5,
+#	BURGEON : 5,
+#	LA_CHASSEUR : 5,
+#	ASHEND : 5,
+#	IOTA : 5,
+#	SOPHIST : 5,
+#
+#	TESLA : 6,
+#	CHAOS : 6,
+#	ROYAL_FLAME : 6,
+#	PESTILENCE : 6,
+#	PROMINENCE : 6,
+#	ACCUMULAE : 6,
+#	HEXTRIBUTE : 6,
+#	LA_NATURE : 6,
+#	OUTREACH : 6,
 }
 
 const tier_attk_speed_map : Dictionary = {
@@ -546,7 +551,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Sprinkler", SPRINKLER)
 		info.tower_tier = TowerTiersMap[SPRINKLER]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.BLUE)
+		info.colors.append(TowerColors.INTEGRITY)
 		info.base_tower_image = sprinkler_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1199,7 +1204,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Mini Tesla", MINI_TESLA)
 		info.tower_tier = TowerTiersMap[MINI_TESLA]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.YELLOW)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = mini_tesla_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -3380,7 +3385,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Striker", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.RED)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = striker_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
