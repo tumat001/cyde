@@ -120,9 +120,11 @@ func set_body_background_normal_texture(arg_texture):
 	if is_inside_tree():
 		body_background_texture_rect.texture = background_texture_normal
 
-
 func set_body_background_highlighted_texture(arg_texture):
 	background_texture_highlighted = arg_texture
+	
+	#if is_inside_tree():
+	#	
 
 #
 

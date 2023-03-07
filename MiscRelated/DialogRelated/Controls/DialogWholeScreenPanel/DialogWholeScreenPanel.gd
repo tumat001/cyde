@@ -27,8 +27,9 @@ var _is_absolute_block_active : bool
 
 #
 
-onready var dialog_main_panel = $DialogMainPanel
+onready var dialog_main_panel = $CenterContainer/DialogMainPanel
 onready var dialog_background_ele_container = $DialogBackgrounElementsContainer
+onready var center_container = $CenterContainer
 
 #
 

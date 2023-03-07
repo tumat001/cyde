@@ -16,4 +16,15 @@ margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 3 )
 
-[node name="DialogMainPanel" parent="." instance=ExtResource( 1 )]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_top = 100.0
+margin_right = 960.0
+margin_bottom = 540.0
+mouse_filter = 2
+
+[node name="DialogMainPanel" parent="CenterContainer" instance=ExtResource( 1 )]
+anchor_bottom = 0.0
+margin_left = 473.0
+margin_top = 213.0
+margin_right = 487.0
+margin_bottom = 227.0

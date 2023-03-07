@@ -25,6 +25,10 @@ onready var tower_type__tier_and_ing_panel = $Content/VBoxContainer/HBoxContaine
 
 onready var syn_type__tier_descriptions = $Content/VBoxContainer/Almanac_SynTypeInfo_TierDescriptions
 
+onready var tidbit_type__page_displayer_panel = $Content/VBoxContainer/Almanac_TidbitTypeInfo_PageDisplayerPanel
+
+
+#
 
 onready var background = $Background
 onready var top_border = $TopBorder
@@ -47,6 +51,9 @@ func _ready():
 	_all_components.append(tower_type__color_panel)
 	_all_components.append(tower_type__tier_and_ing_panel)
 	_all_components.append(syn_type__tier_descriptions)
+	_all_components.append(tidbit_type__page_displayer_panel)
+	
+	tidbit_type__page_displayer_panel.set_descs_panel(x_descriptions)
 
 #
 
@@ -86,10 +93,12 @@ func set_properties(arg_item_list_entry : Almanac_ItemListEntry_Data,
 		
 	elif x_type_info_classification == arg_item_list_entry.TypeInfoClassification.TEXT_TIDBIT:
 		_configure_self_on_type_info__tidbit(arg_item_list_entry)
+		
 
 func update_descriptions_panel():
 	x_descriptions.descriptions = GameSettingsManager.get_descriptions_to_use_based_on_x_type_info(_x_info_type, GameSettingsManager)
 	x_descriptions.update_display()
+	
 
 ##
 
@@ -137,4 +146,6 @@ func _configure_self_on_type_info__tidbit(arg_item_list_entry):
 	x_name.visible = true
 	x_descriptions.visible = true
 	
+	tidbit_type__page_displayer_panel.tidbit_type_info = _x_info_type
+	tidbit_type__page_displayer_panel.visible = true
 

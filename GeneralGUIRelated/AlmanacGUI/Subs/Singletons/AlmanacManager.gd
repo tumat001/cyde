@@ -50,12 +50,14 @@ const button_min_size__for_intro_standard := Vector2(75, 125)
 var main_page : Almanac_ItemListPage_Data
 var tidbit_option__in_main_page : Almanac_ItemListEntry_Data
 
-var enemy_factions_page : Almanac_ItemListPage_Data
+var enemy_page : Almanac_ItemListPage_Data
 
-var enemy_faction_page__basic : Almanac_ItemListPage_Data
-var enemy_faction_page__expert : Almanac_ItemListPage_Data
-var enemy_faction_page__faithful : Almanac_ItemListPage_Data
-var enemy_faction_page__skirmisher : Almanac_ItemListPage_Data
+#var enemy_factions_page : Almanac_ItemListPage_Data
+
+#var enemy_faction_page__basic : Almanac_ItemListPage_Data
+#var enemy_faction_page__expert : Almanac_ItemListPage_Data
+#var enemy_faction_page__faithful : Almanac_ItemListPage_Data
+#var enemy_faction_page__skirmisher : Almanac_ItemListPage_Data
 
 
 var tower_page : Almanac_ItemListPage_Data
@@ -87,12 +89,14 @@ enum PageIds {
 	MAIN_PAGE = 1,
 	
 	#
-	ENEMY_FACTION_PAGE = 100,
+	ENEMY_PAGE = 100
 	
-	ENEMY_FACTION_PAGE__BASIC = 101,
-	ENEMY_FACTION_PAGE__EXPERT = 102,
-	ENEMY_FACTION_PAGE__FAITHFUL = 103,
-	ENEMY_FACTION_PAGE__SKIRMISHER = 104,
+	#ENEMY_FACTION_PAGE = 100,
+	
+	#ENEMY_FACTION_PAGE__BASIC = 101,
+	#ENEMY_FACTION_PAGE__EXPERT = 102,
+	#ENEMY_FACTION_PAGE__FAITHFUL = 103,
+	#ENEMY_FACTION_PAGE__SKIRMISHER = 104,
 	
 	
 	#
@@ -218,12 +222,14 @@ func _deferred_ready():
 	
 	_construct_main_page()
 	
-	_construct_enemy_factions_page()
+	#_construct_enemy_factions_page()
 	#
-	_construct_enemy_faction_basic_page()
-	_construct_enemy_faction_expert_page()
-	_construct_enemy_faction_faithful_page()
-	_construct_enemy_faction_skirmisher_page()
+	#_construct_enemy_faction_basic_page()
+	#_construct_enemy_faction_expert_page()
+	#_construct_enemy_faction_faithful_page()
+	#_construct_enemy_faction_skirmisher_page()
+	
+	_construct_enemy_page()
 	
 	#########
 	
@@ -631,7 +637,7 @@ func _construct_main_page():
 		
 	]
 	enemy_option.button_min_size = button_min_size__for_intro_standard
-	enemy_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE
+	enemy_option.page_id_to_go_to = PageIds.ENEMY_PAGE
 	enemy_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [enemy_option], CONNECT_PERSIST)
 	
 	
@@ -682,172 +688,187 @@ func _update_tidbit_option_in_main_page_visibility():
 
 
 #### ENEMY FACTION PAGE ########
+#
+#func _construct_enemy_factions_page():
+#	var enemy_fac_first_half_category_empty = Almanac_Category_Data.new()
+#	enemy_fac_first_half_category_empty.border_texture = CategoryBorder_Default
+#	enemy_fac_first_half_category_empty.cat_type_id = CategoryIds.ENEMY_FACTION__FIRST_HALF
+#	enemy_fac_first_half_category_empty.cat_text = "First Half Factions"
+#
+#	var enemy_fac_sec_half_category_empty = Almanac_Category_Data.new()
+#	enemy_fac_sec_half_category_empty.border_texture = CategoryBorder_Default
+#	enemy_fac_sec_half_category_empty.cat_type_id = CategoryIds.ENEMY_FACTION__SECOND_HALF
+#	enemy_fac_sec_half_category_empty.cat_text = "Second Half Factions"
+#
+#	#
+#
+#	var basic_option = Almanac_ItemListEntry_Data.new()
+#	basic_option.border_texture__normal = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionBasicOptionPage_6x6_Normal.png")
+#	basic_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionBasicOptionPage_6x6_Highlighted.png")
+#	basic_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacBasicOption_FactionsPage_Icon_40x40.png"))
+#	basic_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
+#	basic_option.button_text_header = "Basic"
+#	basic_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__BASIC
+#	basic_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [basic_option], CONNECT_PERSIST)
+#
+#	var expert_option = Almanac_ItemListEntry_Data.new()
+#	expert_option.border_texture__normal = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionExpertOptionPage_6x6_Normal.png")
+#	expert_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionExpertOptionPage_6x6_Highlighted.png")
+#	expert_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacExpertOption_FactionsPage_Icon_40x40.png"))
+#	expert_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
+#	expert_option.button_text_header = "Expert"
+#	expert_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__EXPERT
+#	expert_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [expert_option], CONNECT_PERSIST)
+#
+#	var faithful_option = Almanac_ItemListEntry_Data.new()
+#	faithful_option.border_texture__normal = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionFaithfulOptionPage_6x6_Normal.png")
+#	faithful_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionFaithfulOptionPage_6x6_Highlighted.png")
+#	faithful_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacFaithfulOption_FactionsPage_Icon_40x40.png"))
+#	faithful_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
+#	faithful_option.button_text_header = "Expert"
+#	faithful_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__FAITHFUL
+#	faithful_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [faithful_option], CONNECT_PERSIST)
+#
+#	var skirmisher_option = Almanac_ItemListEntry_Data.new()
+#	skirmisher_option.border_texture__normal = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionSkirmisherOptionPage_6x6_Normal.png")
+#	skirmisher_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionSkirmisherOptionPage_6x6_Highlighted.png")
+#	skirmisher_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacSkirmisherOption_FactionsPage_Icon_40x40.png"))
+#	skirmisher_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
+#	skirmisher_option.button_text_header = "Expert"
+#	skirmisher_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__SKIRMISHER
+#	skirmisher_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [skirmisher_option], CONNECT_PERSIST)
+#
+#
+#	enemy_factions_page = Almanac_ItemListPage_Data.new()
+#	enemy_factions_page.add_almanac_item_list_entry_data_to_category(basic_option, enemy_fac_first_half_category_empty)
+#
+#	enemy_factions_page.add_almanac_item_list_entry_data_to_category(expert_option, enemy_fac_sec_half_category_empty)
+#	enemy_factions_page.add_almanac_item_list_entry_data_to_category(faithful_option, enemy_fac_sec_half_category_empty)
+#	enemy_factions_page.add_almanac_item_list_entry_data_to_category(skirmisher_option, enemy_fac_sec_half_category_empty)
+#	enemy_factions_page.page_id_to_return_to = PageIds.MAIN_PAGE
+#	enemy_factions_page.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
+#
+#	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE] = enemy_factions_page
+#
 
-func _construct_enemy_factions_page():
-	var enemy_fac_first_half_category_empty = Almanac_Category_Data.new()
-	enemy_fac_first_half_category_empty.border_texture = CategoryBorder_Default
-	enemy_fac_first_half_category_empty.cat_type_id = CategoryIds.ENEMY_FACTION__FIRST_HALF
-	enemy_fac_first_half_category_empty.cat_text = "First Half Factions"
+
+### ALL ENEMIES
+
+func _construct_enemy_page():
+	enemy_page = Almanac_ItemListPage_Data.new()
+	enemy_page.page_id_to_return_to = PageIds.MAIN_PAGE
+	enemy_page.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
 	
-	var enemy_fac_sec_half_category_empty = Almanac_Category_Data.new()
-	enemy_fac_sec_half_category_empty.border_texture = CategoryBorder_Default
-	enemy_fac_sec_half_category_empty.cat_type_id = CategoryIds.ENEMY_FACTION__SECOND_HALF
-	enemy_fac_sec_half_category_empty.cat_text = "Second Half Factions"
+	page_id_to_page_data[PageIds.ENEMY_PAGE] = enemy_page
 	
-	#
-	
-	var basic_option = Almanac_ItemListEntry_Data.new()
-	basic_option.border_texture__normal = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionBasicOptionPage_6x6_Normal.png")
-	basic_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionBasicOptionPage_6x6_Highlighted.png")
-	basic_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacBasicOption_FactionsPage_Icon_40x40.png"))
-	basic_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	basic_option.button_text_header = "Basic"
-	basic_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__BASIC
-	basic_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [basic_option], CONNECT_PERSIST)
-	
-	var expert_option = Almanac_ItemListEntry_Data.new()
-	expert_option.border_texture__normal = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionExpertOptionPage_6x6_Normal.png")
-	expert_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionExpertOptionPage_6x6_Highlighted.png")
-	expert_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacExpertOption_FactionsPage_Icon_40x40.png"))
-	expert_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	expert_option.button_text_header = "Expert"
-	expert_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__EXPERT
-	expert_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [expert_option], CONNECT_PERSIST)
-	
-	var faithful_option = Almanac_ItemListEntry_Data.new()
-	faithful_option.border_texture__normal = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionFaithfulOptionPage_6x6_Normal.png")
-	faithful_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionFaithfulOptionPage_6x6_Highlighted.png")
-	faithful_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacFaithfulOption_FactionsPage_Icon_40x40.png"))
-	faithful_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	faithful_option.button_text_header = "Expert"
-	faithful_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__FAITHFUL
-	faithful_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [faithful_option], CONNECT_PERSIST)
-	
-	var skirmisher_option = Almanac_ItemListEntry_Data.new()
-	skirmisher_option.border_texture__normal = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionSkirmisherOptionPage_6x6_Normal.png")
-	skirmisher_option.border_texture__highlighted = preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/Line_FactionSkirmisherOptionPage_6x6_Highlighted.png")
-	skirmisher_option.add_texture_to_texture_list(preload("res://GeneralGUIRelated/AlmanacGUI/Assets/EnemyFactionPage/EnemyFacSkirmisherOption_FactionsPage_Icon_40x40.png"))
-	skirmisher_option.set_x_type_info_classification(Almanac_ItemListEntry_Data.TypeInfoClassification.PAGE)
-	skirmisher_option.button_text_header = "Expert"
-	skirmisher_option.page_id_to_go_to = PageIds.ENEMY_FACTION_PAGE__SKIRMISHER
-	skirmisher_option.connect("button_associated_pressed", self, "_on_option_pressed__go_to_page_id_to_go_to", [skirmisher_option], CONNECT_PERSIST)
-	
-	
-	enemy_factions_page = Almanac_ItemListPage_Data.new()
-	enemy_factions_page.add_almanac_item_list_entry_data_to_category(basic_option, enemy_fac_first_half_category_empty)
-	
-	enemy_factions_page.add_almanac_item_list_entry_data_to_category(expert_option, enemy_fac_sec_half_category_empty)
-	enemy_factions_page.add_almanac_item_list_entry_data_to_category(faithful_option, enemy_fac_sec_half_category_empty)
-	enemy_factions_page.add_almanac_item_list_entry_data_to_category(skirmisher_option, enemy_fac_sec_half_category_empty)
-	enemy_factions_page.page_id_to_return_to = PageIds.MAIN_PAGE
-	enemy_factions_page.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
-	
-	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE] = enemy_factions_page
-	
+	#_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BASIC, enemy_page, any_page_category_empty)
+	for enemy_id in EnemyConstants.all_cyde_specific_enemy_ids:
+		_construct_and_add_enemy_option_for_enemy(enemy_id, enemy_page, any_page_category_empty)
+
 
 ## BASIC
-func _construct_enemy_faction_basic_page():
-	enemy_faction_page__basic = Almanac_ItemListPage_Data.new()
-	enemy_faction_page__basic.page_id_to_return_to = PageIds.ENEMY_FACTION_PAGE
-	enemy_faction_page__basic.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
-	
-	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE__BASIC] = enemy_faction_page__basic
-	
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BASIC, enemy_faction_page__basic, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.PAIN, enemy_faction_page__basic, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.HEALER, enemy_faction_page__basic, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.DASH, enemy_faction_page__basic, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BRUTE, enemy_faction_page__basic, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.WIZARD, enemy_faction_page__basic, any_page_category_empty)
-	
-
-## EXPERT
-func _construct_enemy_faction_expert_page():
-	enemy_faction_page__expert = Almanac_ItemListPage_Data.new()
-	enemy_faction_page__expert.page_id_to_return_to = PageIds.ENEMY_FACTION_PAGE
-	enemy_faction_page__expert.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
-	
-	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE__EXPERT] = enemy_faction_page__expert
-	
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.EXPERIENCED, enemy_faction_page__expert, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.ASSASSIN, enemy_faction_page__expert, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.ENCHANTRESS, enemy_faction_page__expert, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.CHARGE, enemy_faction_page__expert, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.FIEND, enemy_faction_page__expert, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.MAGUS, enemy_faction_page__expert, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.GRANDMASTER, enemy_faction_page__expert, any_page_category_empty)
-	
-
-## FAITHFUL
-func _construct_enemy_faction_faithful_page():
-	enemy_faction_page__faithful = Almanac_ItemListPage_Data.new()
-	enemy_faction_page__faithful.page_id_to_return_to = PageIds.ENEMY_FACTION_PAGE
-	enemy_faction_page__faithful.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
-	
-	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE__FAITHFUL] = enemy_faction_page__faithful
-	
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.DEITY, enemy_faction_page__faithful, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BELIEVER, enemy_faction_page__faithful, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.CROSS_BEARER, enemy_faction_page__faithful, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.PRIEST, enemy_faction_page__faithful, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.SACRIFICER, enemy_faction_page__faithful, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.SEER, enemy_faction_page__faithful, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.DVARAPALA, enemy_faction_page__faithful, any_page_category_empty)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.PROVIDENCE, enemy_faction_page__faithful, any_page_category_empty)
-	
-
-## SKIRMISHER
-func _construct_enemy_faction_skirmisher_page():
-	enemy_faction_page__skirmisher = Almanac_ItemListPage_Data.new()
-	enemy_faction_page__skirmisher.page_id_to_return_to = PageIds.ENEMY_FACTION_PAGE
-	enemy_faction_page__skirmisher.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
-	
-	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE__SKIRMISHER] = enemy_faction_page__skirmisher
-	
-	
-	var skirm_blue_page_category = Almanac_Category_Data.new()
-	skirm_blue_page_category.border_texture = CategoryBorder_Default
-	skirm_blue_page_category.cat_type_id = CategoryIds.ENEMY_SKIRM_BLUE
-	skirm_blue_page_category.cat_text = "Blue Sided"
-	skirm_blue_page_category.cat_description = [
-		"Blue Skirmishers appear and traverse in the standard path normally."
-	]
-	
-	var skirm_red_page_category = Almanac_Category_Data.new()
-	skirm_red_page_category.border_texture = CategoryBorder_Default
-	skirm_red_page_category.cat_type_id = CategoryIds.ENEMY_SKIRM_RED
-	skirm_red_page_category.cat_text = "Red Sided"
-	skirm_red_page_category.cat_description = [
-		"Red Skirmishers appear and traverse in the standard path but reversed (Enters at Blue side exit, exits at Blue side entrance)."
-	]
-	
-	var skirm_both_page_category = Almanac_Category_Data.new()
-	skirm_both_page_category.border_texture = CategoryBorder_Default
-	skirm_both_page_category.cat_type_id = CategoryIds.ENEMY_SKIRM_BOTH
-	skirm_both_page_category.cat_text = "Dual Sided"
-	skirm_both_page_category.cat_description = [
-		"These Skirmishers can appear as Blue and Red."
-	]
-	
-	# BLUE
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.SMOKE, enemy_faction_page__skirmisher, skirm_blue_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BLESSER, enemy_faction_page__skirmisher, skirm_blue_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.PROXIMITY, enemy_faction_page__skirmisher, skirm_blue_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.RALLIER, enemy_faction_page__skirmisher, skirm_blue_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.COSMIC, enemy_faction_page__skirmisher, skirm_blue_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.ASCENDER, enemy_faction_page__skirmisher, skirm_blue_page_category)
-	
-	# RED
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BLASTER, enemy_faction_page__skirmisher, skirm_red_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.DANSEUR, enemy_faction_page__skirmisher, skirm_red_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.TOSSER, enemy_faction_page__skirmisher, skirm_red_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.ARTILLERY, enemy_faction_page__skirmisher, skirm_red_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.FINISHER, enemy_faction_page__skirmisher, skirm_red_page_category)
-	
-	# BOTH
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.RUFFIAN, enemy_faction_page__skirmisher, skirm_both_page_category)
-	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.HOMERUNNER, enemy_faction_page__skirmisher, skirm_both_page_category)
-	
+#func _construct_enemy_faction_basic_page():
+#	enemy_faction_page__basic = Almanac_ItemListPage_Data.new()
+#	enemy_faction_page__basic.page_id_to_return_to = PageIds.ENEMY_FACTION_PAGE
+#	enemy_faction_page__basic.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
+#
+#	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE__BASIC] = enemy_faction_page__basic
+#
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BASIC, enemy_faction_page__basic, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.PAIN, enemy_faction_page__basic, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.HEALER, enemy_faction_page__basic, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.DASH, enemy_faction_page__basic, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BRUTE, enemy_faction_page__basic, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.WIZARD, enemy_faction_page__basic, any_page_category_empty)
+#
+#
+### EXPERT
+#func _construct_enemy_faction_expert_page():
+#	enemy_faction_page__expert = Almanac_ItemListPage_Data.new()
+#	enemy_faction_page__expert.page_id_to_return_to = PageIds.ENEMY_FACTION_PAGE
+#	enemy_faction_page__expert.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
+#
+#	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE__EXPERT] = enemy_faction_page__expert
+#
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.EXPERIENCED, enemy_faction_page__expert, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.ASSASSIN, enemy_faction_page__expert, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.ENCHANTRESS, enemy_faction_page__expert, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.CHARGE, enemy_faction_page__expert, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.FIEND, enemy_faction_page__expert, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.MAGUS, enemy_faction_page__expert, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.GRANDMASTER, enemy_faction_page__expert, any_page_category_empty)
+#
+#
+### FAITHFUL
+#func _construct_enemy_faction_faithful_page():
+#	enemy_faction_page__faithful = Almanac_ItemListPage_Data.new()
+#	enemy_faction_page__faithful.page_id_to_return_to = PageIds.ENEMY_FACTION_PAGE
+#	enemy_faction_page__faithful.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
+#
+#	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE__FAITHFUL] = enemy_faction_page__faithful
+#
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.DEITY, enemy_faction_page__faithful, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BELIEVER, enemy_faction_page__faithful, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.CROSS_BEARER, enemy_faction_page__faithful, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.PRIEST, enemy_faction_page__faithful, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.SACRIFICER, enemy_faction_page__faithful, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.SEER, enemy_faction_page__faithful, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.DVARAPALA, enemy_faction_page__faithful, any_page_category_empty)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.PROVIDENCE, enemy_faction_page__faithful, any_page_category_empty)
+#
+#
+### SKIRMISHER
+#func _construct_enemy_faction_skirmisher_page():
+#	enemy_faction_page__skirmisher = Almanac_ItemListPage_Data.new()
+#	enemy_faction_page__skirmisher.page_id_to_return_to = PageIds.ENEMY_FACTION_PAGE
+#	enemy_faction_page__skirmisher.connect("requested_return_to_assigned_page_id", self, "_on_page__requested_return_to_assigned_page_id", [], CONNECT_PERSIST)
+#
+#	page_id_to_page_data[PageIds.ENEMY_FACTION_PAGE__SKIRMISHER] = enemy_faction_page__skirmisher
+#
+#
+#	var skirm_blue_page_category = Almanac_Category_Data.new()
+#	skirm_blue_page_category.border_texture = CategoryBorder_Default
+#	skirm_blue_page_category.cat_type_id = CategoryIds.ENEMY_SKIRM_BLUE
+#	skirm_blue_page_category.cat_text = "Blue Sided"
+#	skirm_blue_page_category.cat_description = [
+#		"Blue Skirmishers appear and traverse in the standard path normally."
+#	]
+#
+#	var skirm_red_page_category = Almanac_Category_Data.new()
+#	skirm_red_page_category.border_texture = CategoryBorder_Default
+#	skirm_red_page_category.cat_type_id = CategoryIds.ENEMY_SKIRM_RED
+#	skirm_red_page_category.cat_text = "Red Sided"
+#	skirm_red_page_category.cat_description = [
+#		"Red Skirmishers appear and traverse in the standard path but reversed (Enters at Blue side exit, exits at Blue side entrance)."
+#	]
+#
+#	var skirm_both_page_category = Almanac_Category_Data.new()
+#	skirm_both_page_category.border_texture = CategoryBorder_Default
+#	skirm_both_page_category.cat_type_id = CategoryIds.ENEMY_SKIRM_BOTH
+#	skirm_both_page_category.cat_text = "Dual Sided"
+#	skirm_both_page_category.cat_description = [
+#		"These Skirmishers can appear as Blue and Red."
+#	]
+#
+#	# BLUE
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.SMOKE, enemy_faction_page__skirmisher, skirm_blue_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BLESSER, enemy_faction_page__skirmisher, skirm_blue_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.PROXIMITY, enemy_faction_page__skirmisher, skirm_blue_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.RALLIER, enemy_faction_page__skirmisher, skirm_blue_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.COSMIC, enemy_faction_page__skirmisher, skirm_blue_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.ASCENDER, enemy_faction_page__skirmisher, skirm_blue_page_category)
+#
+#	# RED
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.BLASTER, enemy_faction_page__skirmisher, skirm_red_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.DANSEUR, enemy_faction_page__skirmisher, skirm_red_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.TOSSER, enemy_faction_page__skirmisher, skirm_red_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.ARTILLERY, enemy_faction_page__skirmisher, skirm_red_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.FINISHER, enemy_faction_page__skirmisher, skirm_red_page_category)
+#
+#	# BOTH
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.RUFFIAN, enemy_faction_page__skirmisher, skirm_both_page_category)
+#	_construct_and_add_enemy_option_for_enemy(EnemyConstants.Enemies.HOMERUNNER, enemy_faction_page__skirmisher, skirm_both_page_category)
+#
 
 #
 

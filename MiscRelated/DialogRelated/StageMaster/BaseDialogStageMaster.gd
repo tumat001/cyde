@@ -13,7 +13,6 @@ const DialogChoicesModiPanel = preload("res://MiscRelated/DialogRelated/Controls
 const DialogImagePanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogImagePanel/DialogImagePanel.gd")
 const DialogImagePanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogImagePanel/DialogImagePanel.tscn")
 
-
 const BackDialogImagePanel = preload("res://MiscRelated/DialogRelated/Controls/DialogBackgroundElementsControls/BackDialogImagePanel/BackDialogImagePanel.gd")
 const BackDialogImagePanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogBackgroundElementsControls/BackDialogImagePanel/BackDialogImagePanel.tscn")
 
@@ -49,6 +48,8 @@ const dia_portrait__pos__standard_right := Vector2(600, 150)
 
 
 const dia_time_duration__very_short : float = 10.0
+const dia_time_duration__short : float = 15.0
+const dia_time_duration__long : float = 60.0
 
 ######
 
@@ -280,6 +281,177 @@ func _construct_default_templated_choices_panel_for_dia_seg(arg_params : Array):
 	return panel
 
 
+
+# CHOICES PANEL -- WITH QuestionInfoForChoices
+# returns [created_dia_seg, diag_cons_ins]
+func _construct_dia_seg_to_default_templated__questions_from_pool(arg_seg_func_source, arg_seg_func_name, all_possible_choices_info : AllPossibleQuestionsAndChoices_AndMiscInfo, 
+		func_source_for_properties, func_name_for_is_show_dia_modi_panel, func_name_for_dia_choices_modi):#, arg_pos : Vector2, arg_size : Vector2):
+	
+	var rand_ques_for_choices : QuestionInfoForChoicesPanel = all_possible_choices_info.get_random_question_and_choices__and_set_id_taken()
+	var question_as_desc = rand_ques_for_choices.question_as_desc
+	var choices_for_questions = rand_ques_for_choices.choices_for_questions
+	
+	var arg_seg : DialogSegment = arg_seg_func_source.call(arg_seg_func_name, [rand_ques_for_choices])
+	
+	
+	# diag const ins FOR DESCS
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(arg_seg, question_as_desc)
+	
+	# diag const ins FOR CHOICES
+	var diag_construction_ins := DialogSegment.DialogElementsConstructionIns.new()
+	diag_construction_ins.func_source = self
+	diag_construction_ins.func_name_for_construction = "_construct_default_templated_choices_panel_for_dia_seg__with_choices_as_info"
+	diag_construction_ins.func_params = [arg_seg, choices_for_questions, func_source_for_properties, func_name_for_is_show_dia_modi_panel, func_name_for_dia_choices_modi]
+	
+	arg_seg.add_dialog_element_construction_ins(diag_construction_ins)
+	
+	# diag const ins FOR TIME
+	if rand_ques_for_choices.has_time:
+		var time = rand_ques_for_choices.time_for_question
+		var timeout_func_source = rand_ques_for_choices.timeout_func_source
+		var timeout_func_name = rand_ques_for_choices.timeout_func_name
+		var timeout_func_params = rand_ques_for_choices.timeout_func_params
+		
+		_configure_dia_seg_to_default_templated_dialog_time_bar_panel(arg_seg, time, time, timeout_func_source, timeout_func_name, timeout_func_params)
+		
+	
+	return [arg_seg, diag_construction_ins]
+
+func _construct_default_templated_choices_panel_for_dia_seg__with_choices_as_info(arg_params : Array):
+	var dia_seg : DialogSegment = arg_params[0]
+	var choices_for_questions : ChoicesForQuestionsInfo = arg_params[1]
+	var func_source_for_properties = arg_params[2]
+	var func_name_for_show_dia_modi_panel = arg_params[3]
+	var func_name_for_dia_modi_config = arg_params[4]
+	
+	
+	var panel = DialogChoicesPanel_Scene.instance()
+	for choice in choices_for_questions.get_random_list_of_choices():
+		panel.add_choice_button_info(choice)
+	
+	panel.func_source_for__properties = func_source_for_properties
+	panel.func_name_for__is_display_dialog_choices_modi = func_name_for_show_dia_modi_panel
+	panel.func_name_for__modi_panel_config = func_name_for_dia_modi_config
+	
+	dia_seg.block_advance_conditional_clauses.attempt_insert_clause(DialogSegment.BlockAdvanceClauseIds.BUTTON_CHOICES_WAIT)
+	
+	return panel
+
+
+
+##### HELPER FUNC FOR QUESTIONS/CHOICES
+
+class AllPossibleQuestionsAndChoices_AndMiscInfo:
+	
+	var _next_id = 1
+	
+	var _id_to_question_info_for_choices_panel_map : Dictionary = {}
+	var _ids_taken : Array
+	
+	var rng_to_use
+	
+	#
+	
+#	var func_source_for_all
+#
+#	var show_dialog_choices_modi_panel_func_name
+#	var build_dialog_choices_modi_panel_config_func_name
+#
+#	var on_dialog_choices_modi_panel__removed_choices_func_name
+#	var on_dialog_choices_modi_panel__change_question_func_name
+	
+	#
+	
+	func _init(arg_rng_to_use):
+		rng_to_use = arg_rng_to_use
+	
+	##
+	
+	func add_question_info_for_choices_panel(arg_question_info):
+		_id_to_question_info_for_choices_panel_map[_next_id] = arg_question_info
+		var id = _next_id
+		
+		_next_id += 1
+		return id
+	
+	
+	func get_all_untaken_question_info_ids():
+		var bucket = []
+		for id in _id_to_question_info_for_choices_panel_map:
+			if !_ids_taken.has(id):
+				bucket.append(id)
+		
+		return bucket
+	
+	func get_random_question_and_choices__and_set_id_taken() -> QuestionInfoForChoicesPanel:
+		var all_untaken_info_ids = get_all_untaken_question_info_ids()
+		var rand_id = StoreOfRNG.randomly_select_one_element(all_untaken_info_ids, rng_to_use)
+		
+		_ids_taken.append(rand_id)
+		return _id_to_question_info_for_choices_panel_map[rand_id]
+	
+	
+
+class QuestionInfoForChoicesPanel:
+	
+	var question_as_desc : Array
+	var choices_for_questions : ChoicesForQuestionsInfo
+	
+	#
+	
+	var time_for_question : float = 20.0 setget set_time_for_question
+	var has_time : bool = true
+	
+	var timeout_func_source
+	var timeout_func_name
+	var timeout_func_params
+	
+	func set_time_for_question(arg_time):
+		time_for_question = arg_time
+		has_time = time_for_question > 0
+	
+	
+
+class ChoicesForQuestionsInfo:
+	
+	var _wrong_choices_list : Array
+	var _right_choices_list : Array
+	
+	var rng_to_use : RandomNumberGenerator
+	var choice_count
+	
+	func _init(arg_rng_to_use, arg_choice_count):
+		rng_to_use = arg_rng_to_use
+		choice_count = arg_choice_count
+	
+	func add_choice(arg_choice): #: DialogChoicesPanel.ChoiceButtonInfo):
+		if arg_choice.choice_result_type == arg_choice.ChoiceResultType.WRONG:
+			_wrong_choices_list.append(arg_choice)
+		else:
+			_right_choices_list.append(arg_choice)
+	
+	#
+	
+	# by default, gives at least 1 right choice
+	func get_random_list_of_choices(arg_count : int = choice_count) -> Array:
+		var copy_of_wrong_choices_list = _wrong_choices_list.duplicate()
+		
+		var bucket = []
+		for i in arg_count - 1:
+			var rand_wrong_choice = StoreOfRNG.randomly_select_one_element(copy_of_wrong_choices_list, rng_to_use)
+			copy_of_wrong_choices_list.erase(rand_wrong_choice)
+			bucket.append(rand_wrong_choice)
+		
+		
+		var rand_right_choice = StoreOfRNG.randomly_select_one_element(_right_choices_list, rng_to_use)
+		var rand_index_of_right_choice = rng_to_use.randi_range(0, arg_count - 1)
+		
+		bucket.insert(rand_index_of_right_choice, rand_right_choice)
+		
+		
+		return bucket
+
+
 ## TIMER PANEL
 
 func _configure_dia_seg_to_default_templated_dialog_time_bar_panel(
@@ -404,103 +576,6 @@ func set_next_shop_towers_and_increment_counter():
 		game_elements.shop_manager.roll_towers_in_shop__specific_ids(tower_ids)
 
 
-
-##### HELPER FUNC FOR QUESTIONS/CHOICES
-
-class AllPossibleQuestionsAndChoices_AndMiscInfo:
-	
-	var _next_id = 1
-	
-	var _id_to_question_info_for_choices_panel_map : Dictionary = {}
-	var _ids_taken : Array
-	
-	var rng_to_use
-	
-	#
-	
-#	var func_source_for_all
-#
-#	var show_dialog_choices_modi_panel_func_name
-#	var build_dialog_choices_modi_panel_config_func_name
-#
-#	var on_dialog_choices_modi_panel__removed_choices_func_name
-#	var on_dialog_choices_modi_panel__change_question_func_name
-	
-	#
-	
-	func _init(arg_rng_to_use):
-		rng_to_use = arg_rng_to_use
-	
-	##
-	
-	func add_question_info_for_choices_panel(arg_question_info):
-		_id_to_question_info_for_choices_panel_map[_next_id] = arg_question_info
-		var id = _next_id
-		
-		_next_id += 1
-		return id
-	
-	
-	func get_all_untaken_question_info_ids():
-		var bucket = []
-		for id in _id_to_question_info_for_choices_panel_map:
-			if !_ids_taken.has(id):
-				bucket.append(id)
-		
-		return bucket
-	
-	func get_random_question_and_choices__and_set_id_taken() -> QuestionInfoForChoicesPanel:
-		var all_untaken_info_ids = get_all_untaken_question_info_ids()
-		var rand_id = StoreOfRNG.randomly_select_one_element(all_untaken_info_ids, rng_to_use)
-		
-		_ids_taken.append(rand_id)
-		return _id_to_question_info_for_choices_panel_map[rand_id]
-	
-	
-
-class QuestionInfoForChoicesPanel:
-	
-	var question_as_desc : Array
-	var choices_for_questions : ChoicesForQuestionsInfo
-	
-
-class ChoicesForQuestionsInfo:
-	
-	var _wrong_choices_list : Array
-	var _right_choices_list : Array
-	
-	var rng_to_use : RandomNumberGenerator
-	
-	
-	func _init(arg_rng_to_use):
-		rng_to_use = arg_rng_to_use
-	
-	func add_choice(arg_choice): #: DialogChoicesPanel.ChoiceButtonInfo):
-		if arg_choice.choice_result_type == arg_choice.ChoiceResultType.WRONG:
-			_wrong_choices_list.append(arg_choice)
-		else:
-			_right_choices_list.append(arg_choice)
-	
-	#
-	
-	# by default, gives at least 1 right choice
-	func get_random_list_of_choices(arg_count : int) -> Array:
-		var copy_of_wrong_choices_list = _wrong_choices_list.duplicate()
-		
-		var bucket = []
-		for i in arg_count - 1:
-			var rand_wrong_choice = StoreOfRNG.randomly_select_one_element(copy_of_wrong_choices_list, rng_to_use)
-			copy_of_wrong_choices_list.erase(rand_wrong_choice)
-			bucket.append(rand_wrong_choice)
-		
-		
-		var rand_right_choice = StoreOfRNG.randomly_select_one_element(_right_choices_list, rng_to_use)
-		var rand_index_of_right_choice = rng_to_use.randi_range(0, arg_count - 1)
-		
-		bucket.insert(rand_index_of_right_choice, rand_right_choice)
-		
-		
-		return bucket
 
 
 #func set_up_all_possible_questions_and_answers_as_choices_panel(arg_dia_seg, all_possible_question_and_ans_misc_info):

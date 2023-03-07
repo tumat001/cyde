@@ -94,7 +94,18 @@ enum Enemies {
 	DOMSYN_RED_ORACLES_EYE_SHADOW = 10001,
 	MAP_ENCHANT_ANTI_MAGIK = 10002,
 	
+	#############
+	
+	## CYDE SPECIFIC (1000)
+	
+	
+	
 }
+
+var all_cyde_specific_enemy_ids : Array = [
+	Enemies.BASIC,  #todo
+]
+
 
 
 var first_half_faction_id_pool : Array

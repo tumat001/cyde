@@ -38,11 +38,17 @@ func _construct_tidbit__orange_12():
 	var orange_tower_count_for_activation : int = 12 #TowerDominantColors.get_synergy_with_id(TowerDominantColors.SynergyID__Orange).number_of_towers_in_tier[0]
 	var plain_fragment__max_orange_synergy = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.COLOR_ORANGE, "%s orange synergy" % orange_tower_count_for_activation)
 	
-	tidbit.descriptions = [
+#	tidbit.descriptions = [
+#		"Beyond all limitations.",
+#		"",
+#		["Gained from activating |0|.", [plain_fragment__max_orange_synergy]]
+#	]
+	
+	tidbit.add_description([
 		"Beyond all limitations.",
 		"",
 		["Gained from activating |0|.", [plain_fragment__max_orange_synergy]]
-	]
+	])
 	
 	tidbit.id = TidbitId.ORANGE_12
 	tidbit.name = "%s Orange" % orange_tower_count_for_activation

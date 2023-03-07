@@ -16,6 +16,7 @@ signal toggle_mode_changed(val)
 var is_toggle_mode_on : bool = false setget set_is_toggle_mode_on, get_is_toggle_mode_on
 var current_button_group
 export(bool) var is_toggle_on_by_hover_instead_of_click : bool = false setget set_is_toggle_on_by_hover_instead_of_click
+export(bool) var use_texture_defaults : bool = true setget set_use_texture_defaults
 
 export(bool) var can_be_untoggled_if_is_toggled : bool = true
 
@@ -42,13 +43,16 @@ func _on_mouse_entered():
 func set_is_toggle_on_by_hover_instead_of_click(arg_val):
 	is_toggle_on_by_hover_instead_of_click = arg_val
 	
-	if !is_toggle_on_by_hover_instead_of_click: #default
-		set_body_background_normal_texture(PlayerGUI_ButtonStandard_FillBackground_Normal)
-		set_body_background_highlighted_texture(PlayerGUI_ButtonStandard_FillBackground_Highlighted)
+	if use_texture_defaults:
+		if !is_toggle_on_by_hover_instead_of_click: #default
+			set_body_background_normal_texture(PlayerGUI_ButtonStandard_FillBackground_Normal)
+			set_body_background_highlighted_texture(PlayerGUI_ButtonStandard_FillBackground_Highlighted)
+		else:
+			set_body_background_normal_texture(PlayerGUI_ButtonToggleStandard_HoverTypeFillBackground)
+			set_body_background_highlighted_texture(PlayerGUI_ButtonToggleStandard_HoverTypeFillBackground)
 	else:
-		set_body_background_normal_texture(PlayerGUI_ButtonToggleStandard_HoverTypeFillBackground)
-		set_body_background_highlighted_texture(PlayerGUI_ButtonToggleStandard_HoverTypeFillBackground)
-
+		set_body_background_normal_texture(background_texture_normal)
+		set_body_background_highlighted_texture(background_texture_highlighted)
 
 func set_is_toggle_mode_on(arg_mode):
 	is_toggle_mode_on = arg_mode
@@ -70,5 +74,10 @@ func configure_self_with_button_group(arg_group):
 		arg_group._add_toggle_button_to_group(self)
 		current_button_group = arg_group # this should be below the add button to group
 
+##
 
+func set_use_texture_defaults(arg_val):
+	use_texture_defaults = arg_val
+	
+	set_is_toggle_on_by_hover_instead_of_click(is_toggle_on_by_hover_instead_of_click)
 

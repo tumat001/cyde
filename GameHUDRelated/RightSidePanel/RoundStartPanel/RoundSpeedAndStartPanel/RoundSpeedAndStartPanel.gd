@@ -3,6 +3,8 @@ extends MarginContainer
 const CustomButtonGroup = preload("res://MiscRelated/PlayerGUI_Category_Related/ButtonToggleStandard/ButtonGroup.gd")
 const GameResultManager = preload("res://GameElementsRelated/GameResultManager.gd")
 
+const ValTransition = preload("res://MiscRelated/ValTransitionRelated/ValTransition.gd")
+
 
 signal round_start_pressed()
 

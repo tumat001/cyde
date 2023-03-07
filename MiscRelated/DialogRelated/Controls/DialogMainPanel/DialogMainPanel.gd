@@ -152,16 +152,18 @@ func set_dialog_segment(arg_segment, arg_set_to_visible : bool = true):
 		final_time_taken_for_size_change_transition = 0
 	
 	if final_time_taken_for_pos_change_transition != 0:
-		var reached_x = val_transition__top_left_pos__x.configure_self(rect_position.x, rect_position.x, dialog_segment.final_dialog_top_left_pos.x, final_time_taken_for_pos_change_transition, ValTransition.VALUE_UNSET, dialog_segment.final_dialog_top_left_pos_val_trans_mode)
-		var reached_y = val_transition__top_left_pos__y.configure_self(rect_position.y, rect_position.y, dialog_segment.final_dialog_top_left_pos.y, final_time_taken_for_pos_change_transition, ValTransition.VALUE_UNSET, dialog_segment.final_dialog_top_left_pos_val_trans_mode)
+		pass
+		#var reached_x = val_transition__top_left_pos__x.configure_self(rect_position.x, rect_position.x, dialog_segment.final_dialog_top_left_pos.x, final_time_taken_for_pos_change_transition, ValTransition.VALUE_UNSET, dialog_segment.final_dialog_top_left_pos_val_trans_mode)
+		#var reached_y = val_transition__top_left_pos__y.configure_self(rect_position.y, rect_position.y, dialog_segment.final_dialog_top_left_pos.y, final_time_taken_for_pos_change_transition, ValTransition.VALUE_UNSET, dialog_segment.final_dialog_top_left_pos_val_trans_mode)
 		
-		if !reached_x:
-			is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.POS_X)
-		if !reached_y:
-			is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.POS_Y)
+		#if !reached_x:
+		#	is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.POS_X)
+		#if !reached_y:
+		#	is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.POS_Y)
 		
 	else:
-		rect_position = dialog_segment.final_dialog_top_left_pos
+		pass
+		#rect_position = dialog_segment.final_dialog_top_left_pos
 	
 	if final_time_taken_for_size_change_transition != 0:
 		var reached_x = val_transition__size__x.configure_self(rect_size.x, rect_size.x, dialog_segment.final_dialog_custom_size.x, final_time_taken_for_size_change_transition, ValTransition.VALUE_UNSET, dialog_segment.final_dialog_custom_size_val_trans_mode)
@@ -172,7 +174,8 @@ func set_dialog_segment(arg_segment, arg_set_to_visible : bool = true):
 		if !reached_y:
 			is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.SIZE_Y)
 	else:
-		#rect_min_size = dialog_segment.final_dialog_custom_size
+		rect_min_size = dialog_segment.final_dialog_custom_size
+		
 		rect_size = dialog_segment.final_dialog_custom_size
 	
 	if dialog_segment.make_dialog_main_panel_visible and (modulate.a != 1 or !visible):
@@ -228,26 +231,30 @@ func _process(delta):
 			var val_transition = transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_X]
 			val_transition.delta_pass(delta)
 			
-			rect_position.x = val_transition.get_current_val()
+			#todo
+			#rect_position.x = val_transition.get_current_val()
 		
 		if transitioning_id_to_is_active_map[TransitioningClauseIds.POS_Y]:
 			var val_transition = transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_Y]
 			val_transition.delta_pass(delta)
 			
-			rect_position.y = val_transition.get_current_val()
+			#todo
+			#rect_position.y = val_transition.get_current_val()
 		
 		if transitioning_id_to_is_active_map[TransitioningClauseIds.SIZE_X]:
 			var val_transition = transitioning_id_to_val_trans_map[TransitioningClauseIds.SIZE_X]
 			val_transition.delta_pass(delta)
 			
-			#rect_min_size.x = val_transition.get_current_val()
+			rect_min_size.x = val_transition.get_current_val()
+			
 			rect_size.x = val_transition.get_current_val()
 		
 		if transitioning_id_to_is_active_map[TransitioningClauseIds.SIZE_Y]:
 			var val_transition = transitioning_id_to_val_trans_map[TransitioningClauseIds.SIZE_Y]
 			val_transition.delta_pass(delta)
 			
-			#rect_min_size.y = val_transition.get_current_val()
+			rect_min_size.y = val_transition.get_current_val()
+			
 			rect_size.y = val_transition.get_current_val()
 		
 		if transitioning_id_to_is_active_map[TransitioningClauseIds.MOD_A]:

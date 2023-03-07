@@ -75,6 +75,7 @@ AlmanacManager="*res://GeneralGUIRelated/AlmanacGUI/Subs/Singletons/AlmanacManag
 StatsManager="*res://GameSaveRelated/StatsManager.gd"
 StoreOfTextTidbit="*res://GeneralInfoRelated/TextTidbitRelated/StoreOfTextTidbit.gd"
 CydeSingleton="*res://CYDE_SPECIFIC_ONLY/Singletons/CYDE_Singleton.gd"
+AudioManager="*res://AudioRelated/AudioManager.gd"
 
 [debug]
 
@@ -247,4 +248,3 @@ common/physics_fps=120
 [rendering]
 
 2d/snapping/use_gpu_pixel_snap=true
-environment/default_environment="res://default_env.tres"

@@ -5,3 +5,5 @@
 
 [node name="PlayerGUI_ButtonToggleStandard" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+is_toggle_on_by_hover_instead_of_click = false
+can_be_untoggled_if_is_toggled = true

@@ -17,7 +17,10 @@ class ModiPanelConfig:
 	
 	var func_source_for_actions
 	var func_name_for__change_question
+	var func_param_for__change_question
+	
 	var func_name_for__remove_false_answer
+	var func_param_for__remove_false_answer
 	
 
 var modi_panel_config : ModiPanelConfig
@@ -28,11 +31,15 @@ var modi_panel_config : ModiPanelConfig
 func _initialize():
 	if modi_panel_config.show_change_question:
 		change_question_button.visible = true
+	else:
+		change_question_button.visible = false
 	
 	if modi_panel_config.remove_false_answer_count > 0:
 		var text = "Remove %s\nfalse answers." % modi_panel_config.remove_false_answer_count
 		remove_button.set_text_for_text_label(text)
 		remove_button.visible = true
+	else:
+		remove_button.visible = false
 
 func _update_status():
 	_initialize()
@@ -40,14 +47,14 @@ func _update_status():
 
 
 func _on_ChangeQuestionButton_on_button_released_with_button_left():
-	modi_panel_config.func_source_for_actions.call(modi_panel_config.func_name_for__change_question)
+	modi_panel_config.func_source_for_actions.call(modi_panel_config.func_name_for__change_question, modi_panel_config.func_param_for__change_question)
 	change_question_button.is_button_enabled = false
 	
 	#emit_signal("change_question")
 
 
 func _on_RemoveFalseAnswer_on_button_released_with_button_left():
-	modi_panel_config.func_source_for_actions.call(modi_panel_config.func_name_for__remove_false_answer)
+	modi_panel_config.func_source_for_actions.call(modi_panel_config.func_name_for__remove_false_answer, modi_panel_config.func_param_for__remove_false_answer)
 	remove_button.is_button_enabled = false
 	
 	emit_signal("remove_false_answer_requested", modi_panel_config.remove_false_answer_count)

@@ -47,6 +47,12 @@ var dia_seg__intro_04_sequence_004 : DialogSegment
 var dia_seg__intro_05_sequence_001 : DialogSegment
 
 
+# questions
+
+var all_possible_ques_and_ans__for_virus_01
+var all_possible_ques_and_ans__for_virus_02
+var all_possible_ques_and_ans__for_virus_03
+
 #
 
 var tower_id_to_buy_at_intro_tutorial = Towers.SPRINKLER
@@ -640,4 +646,394 @@ func _construct_dia_seg__intro_05_sequence_001():
 
 func _play_dia_seg__intro_05_sequence_001():
 	pass
+
+
+
+
+
+############### QUESTIONS ##############
+
+func _construct_questions_and_choices_for__virus_Q01():
+	var choice_01__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_01__ques_01.id = 1
+	choice_01__ques_01.display_text = "Particular kind of software that, when run,\ncopies itself by altering other programs\n and incorporating its own code into those programs."
+	choice_01__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_01__ques_01.func_source_on_click = self
+	choice_01__ques_01.func_name_on_click = "_on_virus_Q01_choice_right_clicked"
+	choice_01__ques_01.choice_result_type = choice_01__ques_01.ChoiceResultType.CORRECT
+	
+	var choice_02__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_02__ques_01.id = 2
+	choice_02__ques_01.display_text = "Malware that disguises itself as legitimate code or software."
+	choice_02__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_02__ques_01.func_source_on_click = self
+	choice_02__ques_01.func_name_on_click = "_on_virus_Q01_choice_wrong_clicked"
+	choice_02__ques_01.choice_result_type = choice_02__ques_01.ChoiceResultType.WRONG
+	
+	var choice_03_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_03_ques_01.id = 3
+	choice_03_ques_01.display_text = "A type of malware whose primary function\n is to self-replicate and infect other computers\n while remaining active on infected systems."
+	choice_03_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_03_ques_01.func_source_on_click = self
+	choice_03_ques_01.func_name_on_click = "_on_virus_Q01_choice_wrong_clicked"
+	choice_03_ques_01.choice_result_type = choice_03_ques_01.ChoiceResultType.WRONG
+	
+	var choice_04_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_04_ques_01.id = 3
+	choice_04_ques_01.display_text = "Type of malware that provides the creator (usually an attacker, but not always)\n with a backdoor into systems."
+	choice_04_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_04_ques_01.func_source_on_click = self
+	choice_04_ques_01.func_name_on_click = "_on_virus_Q01_choice_wrong_clicked"
+	choice_04_ques_01.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
+	
+	
+	var choices_for_question_info__01 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
+	choices_for_question_info__01.add_choice(choice_01__ques_01)
+	choices_for_question_info__01.add_choice(choice_02__ques_01)
+	choices_for_question_info__01.add_choice(choice_03_ques_01)
+	choices_for_question_info__01.add_choice(choice_04_ques_01)
+	
+	
+	var question_01_desc = [
+		"What is a computer virus?"
+	]
+	
+	var question_info__01 = QuestionInfoForChoicesPanel.new()
+	question_info__01.choices_for_questions = choices_for_question_info__01
+	question_info__01.question_as_desc = question_01_desc
+	question_info__01.time_for_question = dia_time_duration__long
+	question_info__01.timeout_func_source = self
+	question_info__01.timeout_func_name = "_on_virus_Q01_timeout"
+	
+	#######
+	
+	var choice_01__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_01__ques_02.id = 1
+	choice_01__ques_02.display_text = "1971"
+	choice_01__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_01__ques_02.func_source_on_click = self
+	choice_01__ques_02.func_name_on_click = "_on_virus_Q01_choice_right_clicked"
+	choice_01__ques_02.choice_result_type = choice_01__ques_02.ChoiceResultType.CORRECT
+	
+	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_02__ques_02.id = 2
+	choice_02__ques_02.display_text = "1940"
+	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_02__ques_02.func_source_on_click = self
+	choice_02__ques_02.func_name_on_click = "_on_virus_Q01_choice_wrong_clicked"
+	choice_02__ques_02.choice_result_type = choice_02__ques_02.ChoiceResultType.WRONG
+	
+	var choice_03_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_03_ques_02.id = 3
+	choice_03_ques_02.display_text = "1982"
+	choice_03_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_03_ques_02.func_source_on_click = self
+	choice_03_ques_02.func_name_on_click = "_on_virus_Q01_choice_wrong_clicked"
+	choice_03_ques_02.choice_result_type = choice_03_ques_02.ChoiceResultType.WRONG
+	
+	var choice_04_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_04_ques_02.id = 3
+	choice_04_ques_02.display_text = "1986"
+	choice_04_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_04_ques_02.func_source_on_click = self
+	choice_04_ques_02.func_name_on_click = "_on_virus_Q01_choice_wrong_clicked"
+	choice_04_ques_02.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
+	
+	
+	var choices_for_question_info__02 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
+	choices_for_question_info__02.add_choice(choice_01__ques_02)
+	choices_for_question_info__02.add_choice(choice_02__ques_02)
+	choices_for_question_info__02.add_choice(choice_03_ques_02)
+	choices_for_question_info__02.add_choice(choice_04_ques_02)
+	
+	
+	var question_02_desc = [
+		"In what year Bob Thomas developed the Creeper program, which is frequently referred to as the first virus?"
+	]
+	
+	var question_info__02 = QuestionInfoForChoicesPanel.new()
+	question_info__02.choices_for_questions = choices_for_question_info__02
+	question_info__02.question_as_desc = question_02_desc
+	question_info__02.time_for_question = dia_time_duration__short
+	question_info__02.timeout_func_source = self
+	question_info__02.timeout_func_name = "_on_virus_Q01_timeout"
+	
+	
+	#######
+	#######
+	
+	all_possible_ques_and_ans__for_virus_01 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	all_possible_ques_and_ans__for_virus_01.add_question_info_for_choices_panel(question_info__01)
+	all_possible_ques_and_ans__for_virus_01.add_question_info_for_choices_panel(question_info__02)
+
+func _on_virus_Q01_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	pass
+	
+
+func _on_virus_Q01_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	pass
+	
+
+func _on_virus_Q01_timeout(arg_params):
+	pass
+	
+
+
+
+func _construct_questions_and_choices_for__virus_Q02():
+	var choice_01__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_01__ques_01.id = 1
+	choice_01__ques_01.display_text = "Propagation"
+	choice_01__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_01__ques_01.func_source_on_click = self
+	choice_01__ques_01.func_name_on_click = "_on_virus_Q02_choice_right_clicked"
+	choice_01__ques_01.choice_result_type = choice_01__ques_01.ChoiceResultType.CORRECT
+	
+	var choice_02__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_02__ques_01.id = 2
+	choice_02__ques_01.display_text = "Dormant"
+	choice_02__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_02__ques_01.func_source_on_click = self
+	choice_02__ques_01.func_name_on_click = "_on_virus_Q02_choice_wrong_clicked"
+	choice_02__ques_01.choice_result_type = choice_02__ques_01.ChoiceResultType.WRONG
+	
+	var choice_03_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_03_ques_01.id = 3
+	choice_03_ques_01.display_text = "Triggering"
+	choice_03_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_03_ques_01.func_source_on_click = self
+	choice_03_ques_01.func_name_on_click = "_on_virus_Q02_choice_wrong_clicked"
+	choice_03_ques_01.choice_result_type = choice_03_ques_01.ChoiceResultType.WRONG
+	
+	var choice_04_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_04_ques_01.id = 3
+	choice_04_ques_01.display_text = "Execution"
+	choice_04_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_04_ques_01.func_source_on_click = self
+	choice_04_ques_01.func_name_on_click = "_on_virus_Q02_choice_wrong_clicked"
+	choice_04_ques_01.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
+	
+	
+	var choices_for_question_info__01 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
+	choices_for_question_info__01.add_choice(choice_01__ques_01)
+	choices_for_question_info__01.add_choice(choice_02__ques_01)
+	choices_for_question_info__01.add_choice(choice_03_ques_01)
+	choices_for_question_info__01.add_choice(choice_04_ques_01)
+	
+	
+	var question_01_desc = [
+		"What phase is the virus where they self-replicate, stashing copies of itself in files, programs, or other parts of your disk?"
+	]
+	
+	var question_info__01 = QuestionInfoForChoicesPanel.new()
+	question_info__01.choices_for_questions = choices_for_question_info__01
+	question_info__01.question_as_desc = question_01_desc
+	question_info__01.time_for_question = dia_time_duration__long
+	question_info__01.timeout_func_source = self
+	question_info__01.timeout_func_name = "_on_virus_Q02_timeout"
+	
+	#######
+	
+	var choice_01__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_01__ques_02.id = 1
+	choice_01__ques_02.display_text = "Triggering"
+	choice_01__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_01__ques_02.func_source_on_click = self
+	choice_01__ques_02.func_name_on_click = "_on_virus_Q02_choice_right_clicked"
+	choice_01__ques_02.choice_result_type = choice_01__ques_02.ChoiceResultType.CORRECT
+	
+	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_02__ques_02.id = 2
+	choice_02__ques_02.display_text = "Dormant"
+	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_02__ques_02.func_source_on_click = self
+	choice_02__ques_02.func_name_on_click = "_on_virus_Q02_choice_wrong_clicked"
+	choice_02__ques_02.choice_result_type = choice_02__ques_02.ChoiceResultType.WRONG
+	
+	var choice_03_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_03_ques_02.id = 3
+	choice_03_ques_02.display_text = "Propagation"
+	choice_03_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_03_ques_02.func_source_on_click = self
+	choice_03_ques_02.func_name_on_click = "_on_virus_Q02_choice_wrong_clicked"
+	choice_03_ques_02.choice_result_type = choice_03_ques_02.ChoiceResultType.WRONG
+	
+	var choice_04_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_04_ques_02.id = 3
+	choice_04_ques_02.display_text = "Execution"
+	choice_04_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_04_ques_02.func_source_on_click = self
+	choice_04_ques_02.func_name_on_click = "_on_virus_Q02_choice_wrong_clicked"
+	choice_04_ques_02.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
+	
+	
+	var choices_for_question_info__02 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
+	choices_for_question_info__02.add_choice(choice_01__ques_02)
+	choices_for_question_info__02.add_choice(choice_02__ques_02)
+	choices_for_question_info__02.add_choice(choice_03_ques_02)
+	choices_for_question_info__02.add_choice(choice_04_ques_02)
+	
+	
+	var question_02_desc = [
+		"What phase is the virus where this could be a user action, like clicking an icon or opening an app"
+	]
+	
+	var question_info__02 = QuestionInfoForChoicesPanel.new()
+	question_info__02.choices_for_questions = choices_for_question_info__02
+	question_info__02.question_as_desc = question_02_desc
+	question_info__02.time_for_question = dia_time_duration__short
+	question_info__02.timeout_func_source = self
+	question_info__02.timeout_func_name = "_on_virus_Q02_timeout"
+	
+	
+	#######
+	#######
+	
+	all_possible_ques_and_ans__for_virus_02 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	all_possible_ques_and_ans__for_virus_02.add_question_info_for_choices_panel(question_info__01)
+	all_possible_ques_and_ans__for_virus_02.add_question_info_for_choices_panel(question_info__02)
+
+
+func _on_virus_Q02_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	pass
+	
+
+func _on_virus_Q02_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	pass
+	
+
+func _on_virus_Q02_timeout(arg_params):
+	pass
+	
+
+
+###########
+
+func _construct_questions_and_choices_for__virus_Q03():
+	var choice_01__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_01__ques_01.id = 1
+	choice_01__ques_01.display_text = "Use your spam blocking or filtering tools\nto block unsolicited emails, instant messages and pop-ups"
+	choice_01__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_01__ques_01.func_source_on_click = self
+	choice_01__ques_01.func_name_on_click = "_on_virus_Q03_choice_right_clicked"
+	choice_01__ques_01.choice_result_type = choice_01__ques_01.ChoiceResultType.CORRECT
+	
+	var choice_02__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_02__ques_01.id = 2
+	choice_02__ques_01.display_text = "Don’t open email attachments\nor click on hyperlinks from unknown senders."
+	choice_02__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_02__ques_01.func_source_on_click = self
+	choice_02__ques_01.func_name_on_click = "_on_virus_Q03_choice_wrong_clicked"
+	choice_02__ques_01.choice_result_type = choice_02__ques_01.ChoiceResultType.WRONG
+	
+	var choice_03_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_03_ques_01.id = 3
+	choice_03_ques_01.display_text = "Use passwords that are hard to guess and change them regularly.\nDo not store user names and passwords on websites."
+	choice_03_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_03_ques_01.func_source_on_click = self
+	choice_03_ques_01.func_name_on_click = "_on_virus_Q03_choice_wrong_clicked"
+	choice_03_ques_01.choice_result_type = choice_03_ques_01.ChoiceResultType.WRONG
+	
+	var choice_04_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_04_ques_01.id = 3
+	choice_04_ques_01.display_text = "Exercise caution when downloading files from the Internet.\nOnly download from trusted sources."
+	choice_04_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_04_ques_01.func_source_on_click = self
+	choice_04_ques_01.func_name_on_click = "_on_virus_Q03_choice_wrong_clicked"
+	choice_04_ques_01.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
+	
+	
+	var choices_for_question_info__01 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
+	choices_for_question_info__01.add_choice(choice_01__ques_01)
+	choices_for_question_info__01.add_choice(choice_02__ques_01)
+	choices_for_question_info__01.add_choice(choice_03_ques_01)
+	choices_for_question_info__01.add_choice(choice_04_ques_01)
+	
+	
+	var question_01_desc = [
+		"What are the basic rules that prevent you from accidentally clicking a malicious email that contains a virus?"
+	]
+	
+	var question_info__01 = QuestionInfoForChoicesPanel.new()
+	question_info__01.choices_for_questions = choices_for_question_info__01
+	question_info__01.question_as_desc = question_01_desc
+	question_info__01.time_for_question = dia_time_duration__long
+	question_info__01.timeout_func_source = self
+	question_info__01.timeout_func_name = "_on_virus_Q03_timeout"
+	
+	#######
+	
+	var choice_01__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_01__ques_02.id = 1
+	choice_01__ques_02.display_text = "Prepare back-up files"
+	choice_01__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_01__ques_02.func_source_on_click = self
+	choice_01__ques_02.func_name_on_click = "_on_virus_Q03_choice_right_clicked"
+	choice_01__ques_02.choice_result_type = choice_01__ques_02.ChoiceResultType.CORRECT
+	
+	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_02__ques_02.id = 2
+	choice_02__ques_02.display_text = "Don't open malicious email"
+	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_02__ques_02.func_source_on_click = self
+	choice_02__ques_02.func_name_on_click = "_on_virus_Q03_choice_wrong_clicked"
+	choice_02__ques_02.choice_result_type = choice_02__ques_02.ChoiceResultType.WRONG
+	
+	var choice_03_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_03_ques_02.id = 3
+	choice_03_ques_02.display_text = "Always scan viruses on your device every week"
+	choice_03_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_03_ques_02.func_source_on_click = self
+	choice_03_ques_02.func_name_on_click = "_on_virus_Q03_choice_wrong_clicked"
+	choice_03_ques_02.choice_result_type = choice_03_ques_02.ChoiceResultType.WRONG
+	
+	var choice_04_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
+	choice_04_ques_02.id = 3
+	choice_04_ques_02.display_text = "Install anti-virus"
+	choice_04_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
+	choice_04_ques_02.func_source_on_click = self
+	choice_04_ques_02.func_name_on_click = "_on_virus_Q03_choice_wrong_clicked"
+	choice_04_ques_02.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
+	
+	
+	var choices_for_question_info__02 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
+	choices_for_question_info__02.add_choice(choice_01__ques_02)
+	choices_for_question_info__02.add_choice(choice_02__ques_02)
+	choices_for_question_info__02.add_choice(choice_03_ques_02)
+	choices_for_question_info__02.add_choice(choice_04_ques_02)
+	
+	
+	var question_02_desc = [
+		"What do you need to do to make sure you will not lose your important files?"
+	]
+	
+	var question_info__02 = QuestionInfoForChoicesPanel.new()
+	question_info__02.choices_for_questions = choices_for_question_info__02
+	question_info__02.question_as_desc = question_02_desc
+	question_info__02.time_for_question = dia_time_duration__short
+	question_info__02.timeout_func_source = self
+	question_info__02.timeout_func_name = "_on_virus_Q03_timeout"
+	
+	
+	#######
+	#######
+	
+	all_possible_ques_and_ans__for_virus_03 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	all_possible_ques_and_ans__for_virus_03.add_question_info_for_choices_panel(question_info__01)
+	all_possible_ques_and_ans__for_virus_03.add_question_info_for_choices_panel(question_info__02)
+	
+
+func _on_virus_Q03_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	pass
+	
+
+func _on_virus_Q03_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	pass
+	
+
+func _on_virus_Q03_timeout(arg_params):
+	pass
+	
+
+
 

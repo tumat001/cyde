@@ -114,3 +114,13 @@ func set_world_completion_state_num_to_world_id(arg_state, arg_id):
 func get_world_completion_state_num_to_world_id(arg_id):
 	return world_id_to_world_completion_num_state_dict[arg_id]
 
+
+####### QUESTIONS #########
+
+
+
+
+
+
+
+

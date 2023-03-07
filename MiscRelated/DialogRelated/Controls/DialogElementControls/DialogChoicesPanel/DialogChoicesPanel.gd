@@ -3,7 +3,13 @@ extends "res://MiscRelated/DialogRelated/Controls/DialogElementControls/BaseDial
 
 const PlayerGUI_ButtonStandard = preload("res://MiscRelated/PlayerGUI_Category_Related/ButtonStandard/PlayerGUI_ButtonStandard.gd")
 const PlayerGUI_ButtonStandard_Scene = preload("res://MiscRelated/PlayerGUI_Category_Related/ButtonStandard/PlayerGUI_ButtonStandard.tscn")
+const PlayerGUI_ButtonToggleStandard = preload("res://MiscRelated/PlayerGUI_Category_Related/ButtonToggleStandard/PlayerGUI_ButtonToggleStandard.gd")
+const PlayerGUI_ButtonToggleStandard_Scene = preload("res://MiscRelated/PlayerGUI_Category_Related/ButtonToggleStandard/PlayerGUI_ButtonToggleStandard.tscn")
+const PlayerGUI_ButtonGroup = preload("res://MiscRelated/PlayerGUI_Category_Related/ButtonToggleStandard/ButtonGroup.gd")
+
 const DialogChoicesModiPanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogChoicesModiPanel/DialogChoicesModiPanel.gd")
+
+
 
 signal choice_buttons_changed()
 
@@ -42,6 +48,8 @@ var func_name_for__modi_panel_config
 
 var _already_initialized_choices_modi_panel : bool = false
 
+var player_gui__button_group : PlayerGUI_ButtonGroup
+
 #
 
 class ChoiceButtonInfo:
@@ -59,6 +67,9 @@ class ChoiceButtonInfo:
 	
 	var is_button_enabled : bool = true setget set_is_button_enabled
 	
+	#
+	var display_default_blue_background : bool = false
+	var is_toggle_button : bool = true
 	
 	# func should expect (id, choice_button_info, choice_panel / self)
 	var func_source_on_click
@@ -95,11 +106,14 @@ var val_transition_for_button_mod_a : ValTransition
 
 onready var grid_container = $VBoxContainer/GridContainer
 onready var dialog_choice_modi_panel = $VBoxContainer/DialogChoicesModiPanel
+onready var confirm_button = $VBoxContainer/ConfirmButton
 
 #
 
 func _init():
 	val_transition_for_button_mod_a = ValTransition.new()
+	
+	player_gui__button_group = PlayerGUI_ButtonGroup.new()
 	
 
 
@@ -118,7 +132,31 @@ func _construct_and_configure_buttons_based_on_properties__on_start():
 	_initialize_choices_modi_panel()
 
 func _construct_and_add_button_choice_type_standard(arg_choice_button_info : ChoiceButtonInfo, arg_modulate_a : float, arg_index : int, arg_should_always_be_disabled : bool):
-	var button = PlayerGUI_ButtonStandard_Scene.instance()
+	var button
+	if !arg_choice_button_info.is_toggle_button:
+		button = PlayerGUI_ButtonStandard_Scene.instance()
+		button.connect("on_button_released_with_button_left", self, "_on_button_standard_released_with_button_left", [arg_choice_button_info], CONNECT_DEFERRED)
+		
+	else:
+		button = PlayerGUI_ButtonToggleStandard_Scene.instance()
+		button.configure_self_with_button_group(player_gui__button_group)
+		_set_confirm_button_as_visible()
+	
+	#button.use_texture_defaults = false
+	
+	if arg_choice_button_info.display_default_blue_background:
+		
+		button.background_texture_normal = PlayerGUI_ButtonStandard.Background_NormalTexture
+		button.background_texture_highlighted = PlayerGUI_ButtonStandard.Background_HighlightedTexture
+	else:
+		
+		button.background_texture_normal = null
+		button.background_texture_highlighted = null
+		
+		#button.set_body_background_normal_texture(null)
+		#button.set_body_background_highlighted_texture(null)
+		
+	
 	button.text_for_label = arg_choice_button_info.display_text
 	button.button_icon = arg_choice_button_info.texture
 	
@@ -132,7 +170,6 @@ func _construct_and_add_button_choice_type_standard(arg_choice_button_info : Cho
 	arg_choice_button_info.connect("is_disabled_changed", self, "_on_arg_choice_button_info_is_disabled_changed", [button, arg_choice_button_info])
 	
 	button.modulate.a = arg_modulate_a
-	button.connect("on_button_released_with_button_left", self, "_on_button_standard_released_with_button_left", [arg_choice_button_info], CONNECT_DEFERRED)
 	
 	grid_container.add_child(button)
 	if arg_index != -1:
@@ -195,8 +232,22 @@ func remove_choice_button_info(arg_index):
 		button_changes_rem.choice_button_info = info
 		_add_to_queue_of_choice_button_changes(button_changes_rem)
 		
+		_update_confirm_button_vis_based_on_choices_button()
 	
 	emit_signal("choice_buttons_changed")
+
+
+func _set_confirm_button_as_visible():
+	confirm_button.visible = true
+
+func _update_confirm_button_vis_based_on_choices_button():
+	for info in _all_choice_button_info:
+		if info.is_toggle_button:
+			confirm_button.visible = true
+			return
+	
+	confirm_button.visible = false
+
 
 
 #func immediate_remove_choice_button_info(arg_index):
@@ -295,6 +346,7 @@ func _on_button_standard_released_with_button_left(arg_choice_button_info : Choi
 	if arg_choice_button_info.func_source_on_click != null:
 		arg_choice_button_info.func_source_on_click.call(arg_choice_button_info.func_name_on_click, arg_choice_button_info.id, arg_choice_button_info, self)
 
+
 #########
 
 
@@ -331,5 +383,23 @@ func remove_wrong_choices_count(arg_count : int):
 		#remove_choice_button_info(_all_choice_button_info.find(choice))
 		var button = choice.associated_button
 		button.is_button_enabled = false
+
+
+
+####
+
+func _on_ConfirmButton_on_button_released_with_button_left():
+	
+	var selected_button = player_gui__button_group.get_toggled_on_button()
+	
+	if is_instance_valid(selected_button):
+		for info in _all_choice_button_info:
+			if info.associated_button == selected_button:
+				
+				if info.func_source_on_click != null:
+					info.func_source_on_click.call(info.func_name_on_click, info.id, info, self)
+				
+				return
+
 
 
