@@ -65,6 +65,8 @@ onready var sv_texture_rect = $VBoxContainer/HBoxContainer2/MarginContainerSV/SV
 onready var sv_label = $VBoxContainer/HBoxContainer2/MarginContainerSV/TextMarginer/SVLabel
 onready var sv_container = $VBoxContainer/HBoxContainer2/MarginContainerSV
 
+onready var rounds_count_container = $VBoxContainer/HBoxContainer2/MarginContainer2/MiddlePanel2/RoundsCountContaner
+
 #
 
 func _ready():

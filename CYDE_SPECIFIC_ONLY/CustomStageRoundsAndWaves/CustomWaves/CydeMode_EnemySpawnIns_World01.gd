@@ -1,0 +1,62 @@
+extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
+
+
+func get_instructions_for_stageround(uuid : String):
+	if uuid == "11":
+		return _get_instructions_for_0_1()
+	elif uuid == "12":
+		return _get_instructions_for_0_2()
+	elif uuid == "13":
+		return _get_instructions_for_0_3()
+	elif uuid == "14":
+		return _get_instructions_for_0_4()
+	
+	
+	return null
+
+
+func is_transition_time_in_stageround(uuid : String) -> bool:
+	return uuid == "41"
+	
+	#return uuid == "01"  # to transfer to other factions
+
+
+
+func _get_instructions_for_0_1():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+	]
+
+func _get_instructions_for_0_2():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(3.5, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(5.5, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(10.5, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(18, EnemyConstants.Enemies.BASIC),
+	]
+
+func _get_instructions_for_0_3():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(3.5, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(5.5, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(10.5, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(18, EnemyConstants.Enemies.BASIC),
+	]
+
+func _get_instructions_for_0_4():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+	]
+
+
+

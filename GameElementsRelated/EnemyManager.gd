@@ -901,6 +901,11 @@ func _update_sv_flat_value_modi_map__non_average_moving():
 
 ################### EFFECTS RELATED
 
+func add_effect_to_apply_to_all_enemies(arg_effect):
+	for enemy in get_all_targetable_and_invisible_enemies():
+		enemy._add_effect(arg_effect)
+
+
 func add_effect_to_apply_on_enemy_spawn__regular(arg_effect):
 	_effects_to_apply_on_spawn__regular[arg_effect.effect_uuid] = arg_effect
 

@@ -63,7 +63,15 @@ var _all_background_element_construction_inses : Array
 #
 
 var is_previous_executable : bool = false
+
+
+
+var func_source_for__is_skip_exec
+var func_name_for__is_skip_exec
+var func_param_for__is_skip_exec
 var is_skip_executable : bool = false
+var skip_button_text : String
+
 
 var top_border_texture : Texture = Border_Pic_Default
 var left_border_texture : Texture = Border_Pic_Default 
@@ -118,6 +126,15 @@ var resolve_block_advance_func_name
 #var _time_limit : float = FLOAT_UNDEFINED
 #var _time_limit_reached_func_source
 #var _time_limit_reached_func_name
+
+###
+
+var disable_almanac_button : bool
+var disable_almanac_button_clause_id : int
+
+
+var show_dialog_main_panel_borders : bool = true
+var show_dialog_main_panel_background : bool = true
 
 #
 
@@ -232,6 +249,12 @@ func immediately_resolve_block_advance():
 	if resolve_block_advance_func_source != null:
 		resolve_block_advance_func_source.call(resolve_block_advance_func_name, self)
 	
+
+#
+
+func evaluate_is_skip_exec__from_func_source():
+	if func_source_for__is_skip_exec != null:
+		is_skip_executable = func_source_for__is_skip_exec.call(func_name_for__is_skip_exec, func_param_for__is_skip_exec)
 
 #
 

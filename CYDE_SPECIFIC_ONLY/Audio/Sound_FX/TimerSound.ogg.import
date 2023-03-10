@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/TimerSound.ogg-a2444f244817fb1119c364041c4025da.oggstr"
+
+[deps]
+
+source_file="res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TimerSound.ogg"
+dest_files=[ "res://.import/TimerSound.ogg-a2444f244817fb1119c364041c4025da.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

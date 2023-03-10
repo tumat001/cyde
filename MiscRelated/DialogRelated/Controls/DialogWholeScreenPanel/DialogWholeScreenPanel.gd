@@ -21,6 +21,9 @@ var absolute_block_timer : Timer
 const absolute_block_duration : float = 0.40
 var _is_absolute_block_active : bool
 
+
+var game_elements
+
 #
 
 #var last_calculated_dialog_main_panel__block_advance
@@ -68,9 +71,15 @@ func set_dialog_segment(arg_segment : DialogSegment):
 		
 		_configure_and_build_background_elements(arg_segment)
 		
+		if arg_segment.disable_almanac_button:
+			game_elements.almanac_button.is_disabled_conditional_clauses.attempt_insert_clause(arg_segment.disable_almanac_button_clause_id)
+		else:
+			game_elements.almanac_button.is_disabled_conditional_clauses.remove_all_clauses()
+		
 	else:
 		dialog_main_panel.visible = false
 		visible = false
+		game_elements.almanac_button.is_disabled_conditional_clauses.remove_all_clauses()
 
 
 func _start_show_dia_main_panel_element_using_construction_ins__and_increment_index(cons_ins : DialogSegment.DialogElementsConstructionIns):

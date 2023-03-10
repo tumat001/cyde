@@ -9,6 +9,9 @@ const Almanac_Page_Scene = preload("res://GeneralGUIRelated/AlmanacGUI/Subs/Alma
 
 const AdvancedQueue = preload("res://MiscRelated/QueueRelated/AdvancedQueue.gd")
 
+const ConditionalClauses = preload("res://MiscRelated/ClauseRelated/ConditionalClauses.gd")
+
+
 
 #
 
@@ -21,8 +24,18 @@ var reservation_for_whole_screen_gui
 
 #
 
-var _is_disabled : bool
-var _is_disabled_reason : Array
+#var _is_disabled : bool
+#var _is_disabled_reason : Array
+
+enum IsDisabledClauseId {
+	QUESTION_IN_PROGRESS = 0
+	
+}
+var is_disabled_clause_id_to_reason_descs_map : Dictionary
+
+var is_disabled_conditional_clauses : ConditionalClauses
+var last_calculated_is_disabled : bool
+
 
 onready var button = $Button
 
@@ -31,6 +44,19 @@ onready var button = $Button
 func _init():
 	reservation_for_whole_screen_gui = AdvancedQueue.Reservation.new(self)
 	reservation_for_whole_screen_gui.on_entertained_method = "_on_queue_reservation_entertained"
+	
+	is_disabled_conditional_clauses = ConditionalClauses.new()
+	#is_disabled_conditional_clauses.connect("clause_inserted", self, "_on_is_disabled_clause_added_or_removed", [], CONNECT_PERSIST)
+	#is_disabled_conditional_clauses.connect("clause_removed", self, "_on_is_disabled_clause_added_or_removed", [], CONNECT_PERSIST)
+	is_disabled_conditional_clauses.connect("all_clause_changed", self, "_on_is_disabled_clause_added_or_removed", [], CONNECT_PERSIST)
+	_on_is_disabled_clause_added_or_removed()
+	
+	######## Construction of reasons
+	
+	is_disabled_clause_id_to_reason_descs_map[IsDisabledClauseId.QUESTION_IN_PROGRESS] = [
+		"You cannot browse the almanac while answering a question."
+	]
+	
 
 func _on_queue_reservation_entertained():
 	pass
@@ -39,14 +65,23 @@ func _on_queue_reservation_entertained():
 
 #
 
-func set_is_disabled(arg_is_disabled, arg_is_disabled_reason : Array):
-	_is_disabled = arg_is_disabled
-	_is_disabled_reason = arg_is_disabled_reason
+func _on_is_disabled_clause_added_or_removed():
+	last_calculated_is_disabled = !is_disabled_conditional_clauses.is_passed
 	
 	_update_disp_based_on_is_disabled()
 
+
+#func set_is_disabled(arg_is_disabled, arg_is_disabled_reason : Array):
+#	_is_disabled = arg_is_disabled
+#	_is_disabled_reason = arg_is_disabled_reason
+#
+#	_update_disp_based_on_is_disabled()
+
+
+
+
 func _update_disp_based_on_is_disabled():
-	if _is_disabled:
+	if last_calculated_is_disabled:
 		modulate = Color(0.3, 0.3, 0.3, 0.8)
 	else:
 		modulate = Color(1, 1, 1, 1)
@@ -77,16 +112,22 @@ func _on_tidbit_id_val_changed(arg_id, arg_val):
 #
 
 func _on_Button_about_tooltip_construction_requested():
-	var a_tooltip = BaseTowerSpecificTooltip_Scene.instance()
-	a_tooltip.descriptions = _is_disabled_reason
-	#a_tooltip.header_left_text = "Partner Configuration"
-	
-	button.display_requested_about_tooltip(a_tooltip)
-	
+	if last_calculated_is_disabled:
+		var a_tooltip = BaseTowerSpecificTooltip_Scene.instance()
+		a_tooltip.descriptions = _get_is_disabled_reason_for_tooltip() #_is_disabled_reason
+		#a_tooltip.header_left_text = "Partner Configuration"
+		
+		button.display_requested_about_tooltip(a_tooltip)
+
+func _get_is_disabled_reason_for_tooltip():
+	var first_clause_in_list = is_disabled_conditional_clauses._clauses[0]
+	return is_disabled_clause_id_to_reason_descs_map[first_clause_in_list]
+
+
 
 func _on_Button_pressed_mouse_event(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		if !_is_disabled:
+		if !last_calculated_is_disabled:
 			_construct_and_configure_and_show_almanac_gui_for_game_elements()
 			
 
@@ -114,3 +155,8 @@ func _construct_and_configure_and_show_almanac_gui_for_game_elements():
 
 func _on_requested_exit_almanac():
 	game_elements.whole_screen_gui.hide_control(almanac_page)
+
+
+
+
+

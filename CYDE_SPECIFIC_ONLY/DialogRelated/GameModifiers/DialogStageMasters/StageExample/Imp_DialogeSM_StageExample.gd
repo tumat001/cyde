@@ -55,9 +55,10 @@ func _construct_dialog_segments():
 	#_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg_intro_01, dia_seg_intro_01_02_descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg_intro_01)
 	
-	
 	dia_seg_intro_02__questions_pool = _construct_and_configure_choices_for_intro_02_questions()[0]
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg_intro_01, dia_seg_intro_02__questions_pool)
+	_set_dialog_segment_to_block_almanac_button(dia_seg_intro_02__questions_pool, AlmanacButtonPanel.IsDisabledClauseId.QUESTION_IN_PROGRESS)
+	
 	
 #	dia_seg_intro_02 = DialogSegment.new()
 #	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg_intro_01, dia_seg_intro_02)
@@ -85,6 +86,9 @@ func _construct_dialog_segments():
 	custom_pos.x = 0
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg_intro_03, TestPortrait_Pic, dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait_test)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg_intro_03)
+	
+	# for skip
+	configure_dia_seg_to_skip_to_next_on_player_skip(dia_seg_intro_01, dia_seg_intro_03, SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	
 	var dia_seg_intro_04 = DialogSegment.new()

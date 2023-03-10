@@ -70,6 +70,8 @@ onready var bottom_border = $BottomBorder
 
 onready var content_panel = $Marginer/VBoxContainer/ContentPanel
 
+onready var skip_button = $Marginer/VBoxContainer/SkipButton
+
 #
 
 func _init():
@@ -143,6 +145,23 @@ func set_dialog_segment(arg_segment, arg_set_to_visible : bool = true):
 		#dialog_segment.disconnect("mouse_filter_changed", self, "_on_mouse_filter_of_dia_segment_changed")
 	
 	dialog_segment = arg_segment
+	
+	#
+	
+	var border_vis_val : bool = dialog_segment.show_dialog_main_panel_borders
+	for border in _all_borders:
+		border.visible = border_vis_val
+	
+	var background_vis_val : bool = dialog_segment.show_dialog_main_panel_background
+	background.visible = background_vis_val
+	
+	#
+	
+	dialog_segment.evaluate_is_skip_exec__from_func_source()
+	skip_button.text_for_label = dialog_segment.skip_button_text
+	skip_button.visible = dialog_segment.is_skip_executable
+	
+	#
 	
 	var final_time_taken_for_pos_change_transition = time_taken_for_pos_change_transition
 	var final_time_taken_for_size_change_transition = time_taken_for_size_change_transition
@@ -282,10 +301,12 @@ func resolve_block_advance():
 			val_transition.instantly_finish_transition()
 			
 			if val_transition == transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_X]:
-				rect_position.x = val_transition.get_current_val()
+				pass
+				#rect_position.x = val_transition.get_current_val()
 				
 			elif val_transition == transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_Y]:
-				rect_position.y = val_transition.get_current_val()
+				pass
+				#rect_position.y = val_transition.get_current_val()
 				
 			elif val_transition == transitioning_id_to_val_trans_map[TransitioningClauseIds.SIZE_X]:
 				rect_size.x = val_transition.get_current_val()
@@ -334,4 +355,6 @@ func _emit_resolve_block_advanced_requested_status():
 
 
 
-
+func _on_SkipButton_on_button_released_with_button_left():
+	dialog_segment.skip()
+	

@@ -1,7 +1,8 @@
 
+
 signal clause_inserted(clause)
 signal clause_removed(clause)
-
+signal all_clause_changed()
 
 var _clauses : Array = []
 var blacklisted_clauses : Array = []
@@ -37,6 +38,7 @@ func attempt_insert_clause(clause, clause_emit_signal : bool = true) -> bool:
 				
 				if clause_emit_signal:
 					emit_signal("clause_inserted", clause)
+					emit_signal("all_clause_changed")
 			
 		else: 
 			if !_clauses.has(clause):
@@ -45,6 +47,7 @@ func attempt_insert_clause(clause, clause_emit_signal : bool = true) -> bool:
 				
 				if clause_emit_signal:
 					emit_signal("clause_inserted", clause)
+					emit_signal("all_clause_changed")
 		
 		return true
 	else:
@@ -52,7 +55,6 @@ func attempt_insert_clause(clause, clause_emit_signal : bool = true) -> bool:
 
 
 func remove_clause(clause, clause_emit_signal : bool = true):
-	
 	if clause is Object and clause.get_script() == get_script():
 		_composite_clauses.erase(clause)
 		if clause.is_connected("clause_inserted", self, "_compo_clause_clause_inserted"):
@@ -67,6 +69,24 @@ func remove_clause(clause, clause_emit_signal : bool = true):
 	
 	if clause_emit_signal:
 		emit_signal("clause_removed", clause)
+		emit_signal("all_clause_changed")
+
+
+func remove_all_clauses(clause_emit_signal : bool = true):
+	for clause in _clauses:
+		remove_clause(clause, false)
+	
+	for clause in _composite_clauses:
+		remove_clause(clause, false)
+	
+	_update_is_passed()
+	
+	
+	if clause_emit_signal:
+		emit_signal("all_clause_changed")
+	
+
+
 
 
 func has_clause(clause):
@@ -88,12 +108,13 @@ func get_all_clause_ids__of_non_composite__non_copy():
 func _compo_clause_clause_inserted(val_inserted):
 	_update_is_passed()
 	emit_signal("clause_inserted", val_inserted)
+	emit_signal("all_clause_changed")
 	
 
 func _compo_clause_clause_removed(val_removed):
 	_update_is_passed()
 	emit_signal("clause_removed", val_removed)
-
+	emit_signal("all_clause_changed")
 
 #
 

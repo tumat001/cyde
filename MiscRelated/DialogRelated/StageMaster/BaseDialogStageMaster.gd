@@ -12,6 +12,10 @@ const DialogTimeBarPanel_Scene = preload("res://MiscRelated/DialogRelated/Contro
 const DialogChoicesModiPanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogChoicesModiPanel/DialogChoicesModiPanel.gd")
 const DialogImagePanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogImagePanel/DialogImagePanel.gd")
 const DialogImagePanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogImagePanel/DialogImagePanel.tscn")
+const Dialog_AlmanacXTypeInfoPanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/Dialog_AlamancXTypeInfoPanel/Dialog_AlmanacXTypeInfoPanel.gd")
+const Dialog_AlmanacXTypeInfoPanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/Dialog_AlamancXTypeInfoPanel/Dialog_AlmanacXTypeInfoPanel.tscn")
+
+const AlmanacButtonPanel = preload("res://GameHUDRelated/AlmanacButtonPanel/AlmanacButtonPanel.gd")
 
 const BackDialogImagePanel = preload("res://MiscRelated/DialogRelated/Controls/DialogBackgroundElementsControls/BackDialogImagePanel/BackDialogImagePanel.gd")
 const BackDialogImagePanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogBackgroundElementsControls/BackDialogImagePanel/BackDialogImagePanel.tscn")
@@ -29,6 +33,15 @@ const Tutorial_WhiteArrow_Particle = preload("res://GameplayRelated/GameModifier
 const Tutorial_WhiteArrow_Particle_Scene = preload("res://GameplayRelated/GameModifiersRelated/GameModis/TutorialsRelated/Sub/Tutorial_WhiteArrow_Particle.tscn")
 const Tutorial_WhiteCircle_Particle = preload("res://GameplayRelated/GameModifiersRelated/GameModis/TutorialsRelated/Sub/Tutorial_WhiteCircle_Particle.gd")
 const Tutorial_WhiteCircle_Particle_Scene = preload("res://GameplayRelated/GameModifiersRelated/GameModis/TutorialsRelated/Sub/Tutorial_WhiteCircle_Particle.tscn")
+
+###
+
+
+const TowerAttributesEffect = preload("res://GameInfoRelated/TowerEffectRelated/TowerAttributesEffect.gd")
+const EnemyAttributesEffect = preload("res://GameInfoRelated/EnemyEffectRelated/EnemyAttributesEffect.gd")
+
+
+######
 
 
 signal current_dialog_segment_changed(arg_seg)
@@ -50,6 +63,10 @@ const dia_portrait__pos__standard_right := Vector2(600, 150)
 const dia_time_duration__very_short : float = 10.0
 const dia_time_duration__short : float = 15.0
 const dia_time_duration__long : float = 60.0
+
+
+const SKIP_BUTTON__DEFAULT_TEXT = "Skip"
+const SKIP_BUTTON__SKIP_DIALOG_TEXT = "Skip Dialog"
 
 ######
 
@@ -78,6 +95,11 @@ var _nodes_to_queue_free_on_dia_seg_advance : Array = []
 
 var rng_to_use_for_randomized_questions_and_ans : RandomNumberGenerator
 
+
+######
+
+var almanac_button_bot_right
+
 #
 
 func _init(arg_id, arg_breakpoint, arg_name).(arg_id, arg_breakpoint, arg_name):
@@ -89,6 +111,7 @@ func _init(arg_id, arg_breakpoint, arg_name).(arg_id, arg_breakpoint, arg_name):
 func create_dialog_whole_screen_panel_and_add_to_GE():
 	var panel = DialogWholeScreenPanel_Scene.instance()
 	game_elements.add_child_to_below_below_screen_effects_manager(panel)
+	panel.game_elements = game_elements
 	
 	set_dialog_whole_screen_panel(panel)
 
@@ -117,15 +140,20 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	._apply_game_modifier_to_elements(arg_elements)
 	
 	
+	almanac_button_bot_right = arg_elements.almanac_button
+	
 	rng_to_use_for_randomized_questions_and_ans = StoreOfRNG.get_rng(StoreOfRNG.RNGSource.NON_ESSENTIAL)
 	
 	if CydeSingleton.world_id_to_world_completion_num_state_dict.has(modifier_id):
 		world_completion_num_state = CydeSingleton.world_id_to_world_completion_num_state_dict[modifier_id]
-		print('setted num state')
 	
 	game_elements.connect("unhandled_input", self, "_game_elements_unhandled_input")
 	game_elements.connect("unhandled_key_input", self, "_game_elements_unhandled_key_input")
-	game_elements.connect("before_game_start", self, "_on_game_elements_before_game_start__base_class", [], CONNECT_ONESHOT)
+	
+	if breakpoint_activation != BreakpointActivation.BEFORE_GAME_START:
+		game_elements.connect("before_game_start", self, "_on_game_elements_before_game_start__base_class", [], CONNECT_ONESHOT)
+	else:
+		_on_game_elements_before_game_start__base_class()
 	
 	create_dialog_whole_screen_panel_and_add_to_GE()
 
@@ -193,6 +221,39 @@ func configure_dia_seg_to_call_func_on_player_click_or_enter(arg_seg : DialogSeg
 	arg_seg.connect("requested_action_advance", self, "_on_configured_dia_seg_to_call_func_on_player_click_or_enter", [arg_seg, arg_func_source, arg_func_name, arg_func_params], CONNECT_ONESHOT)
 
 
+func configure_dia_seg_to_skip_to_next_on_player_skip__based_on_checks(arg_seg : DialogSegment, arg_next_seg : DialogSegment, 
+		arg_func_source_bool_check, arg_func_name_bool_check, arg_func_params_bool_check, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT):
+	
+	arg_seg.func_source_for__is_skip_exec = arg_func_source_bool_check
+	arg_seg.func_name_for__is_skip_exec = arg_func_name_bool_check
+	arg_seg.func_param_for__is_skip_exec = arg_func_params_bool_check
+	arg_seg.connect("requested_action_skip", self, "_on_configured_dia_seg_requested_advance_to_next_seg__thru_skip", [arg_next_seg], CONNECT_ONESHOT)
+	
+	arg_seg.skip_button_text = arg_text_to_use
+
+func configure_dia_seg_to_skip_to_next_on_player_skip(arg_seg : DialogSegment, arg_next_seg : DialogSegment, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT):
+	
+	arg_seg.func_source_for__is_skip_exec = self
+	arg_seg.func_name_for__is_skip_exec = "_on_dia_seg_requested_action_skip__always_pass_bool_check"
+	arg_seg.func_param_for__is_skip_exec = null
+	arg_seg.connect("requested_action_skip", self, "_on_configured_dia_seg_requested_advance_to_next_seg__thru_skip", [arg_next_seg], CONNECT_ONESHOT)
+	
+	arg_seg.skip_button_text = arg_text_to_use
+
+func configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(arg_seg : DialogSegment, arg_func_source_for_next_seg, arg_func_name_for_next_seg, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT):
+	
+	arg_seg.func_source_for__is_skip_exec = self
+	arg_seg.func_name_for__is_skip_exec = "_on_dia_seg_requested_action_skip__always_pass_bool_check"
+	arg_seg.func_param_for__is_skip_exec = null
+	arg_seg.connect("requested_action_skip", self, "_on_configured_dia_seg_requested_advance_to_next_seg__thru_skip__next_seg_as_func_name", [arg_func_source_for_next_seg, arg_func_name_for_next_seg], CONNECT_ONESHOT)
+	
+	arg_seg.skip_button_text = arg_text_to_use
+
+
+func _on_dia_seg_requested_action_skip__always_pass_bool_check(arg_params):
+	return true
+
+
 #func configure_dia_seg_to_previous_on_player_click_or_enter
 
 func _on_configured_dia_seg_requested_advance_to_next_seg(arg_next_seg : DialogSegment):
@@ -200,6 +261,19 @@ func _on_configured_dia_seg_requested_advance_to_next_seg(arg_next_seg : DialogS
 
 func _on_configured_dia_seg_to_call_func_on_player_click_or_enter(arg_seg : DialogSegment, arg_func_source, arg_func_name, arg_func_params):
 	arg_func_source.call(arg_func_name, arg_seg, arg_func_params)
+
+func _on_configured_dia_seg_requested_advance_to_next_seg__thru_skip(arg_seg : DialogSegment):
+	play_dialog_segment_or_advance_or_finish_elements(arg_seg)
+
+func _on_configured_dia_seg_requested_advance_to_next_seg__thru_skip__next_seg_as_func_name(arg_seg_func_source, arg_seg_func_name):
+	#play_dialog_segment_or_advance_or_finish_elements(arg_seg_func_source.call(arg_seg_func_name))
+	arg_seg_func_source.call(arg_seg_func_name)
+
+########## HELPER FUNS FOR DIALOG ELEMENTS -- CONFIG
+
+func _set_dialog_segment_to_block_almanac_button(arg_seg : DialogSegment, arg_clause_id_to_use : int):
+	arg_seg.disable_almanac_button = true
+	arg_seg.disable_almanac_button_clause_id = arg_clause_id_to_use
 
 
 ########## HELPER FUNCS FOR DIALOG ELEMENTS
@@ -510,6 +584,32 @@ func _construct_default_templated_image_panel_for_dia_seg(arg_params):
 	return panel
 
 
+## Alamanc XTypeInfoPanel
+# input entered method should expect 2 args (x_type_info, x_type (type classification : int. Ex = TEXT_TIDBIT, ENEMY, TOWER))
+func _configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(arg_seg : DialogSegment, arg_x_type_info, arg_x_type_classification):#, arg_pos : Vector2, arg_size : Vector2):
+	var diag_construction_ins := DialogSegment.DialogElementsConstructionIns.new()
+	diag_construction_ins.func_source = self
+	diag_construction_ins.func_name_for_construction = "_construct_default_templated_almanac_x_type_info_panel_for_dia_seg"
+	diag_construction_ins.func_params = [arg_seg, arg_x_type_info, arg_x_type_classification] #arg_pos, arg_size]
+	
+	arg_seg.add_dialog_element_construction_ins(diag_construction_ins)
+
+func _construct_default_templated_almanac_x_type_info_panel_for_dia_seg(arg_params : Array):
+	var dia_seg : DialogSegment = arg_params[0]
+	var x_type_info = arg_params[1]
+	var x_type_classification = arg_params[2]
+	
+	var panel = Dialog_AlmanacXTypeInfoPanel_Scene.instance()
+	panel.x_type_info = x_type_info
+	panel.x_type = x_type_classification
+	
+	dia_seg.show_dialog_main_panel_background = false
+	dia_seg.show_dialog_main_panel_borders = false
+	
+	return panel
+
+
+
 # pos and sizes
 
 func _configure_dia_set_to_standard_pos_and_size(arg_seg : DialogSegment):
@@ -622,6 +722,7 @@ func set_can_return_to_round_panel(arg_val : bool):
 func set_round_is_startable(arg_val : bool):
 	game_elements.round_status_panel.can_start_round = arg_val
 	game_elements.round_status_panel.round_speed_and_start_panel.visible = arg_val
+
 
 func set_can_level_up(arg_val : bool):
 	if arg_val:
@@ -807,6 +908,24 @@ func _on_round_end__into_stageround_listen(arg_stageround, arg_expected_stagerou
 		arg_func_source.call(arg_func_name_to_call, arg_expected_stageround_id)
 
 
+# expects a method that accepts tower ids (array)
+func listen_for_shop_refresh(arg_func_source, arg_func_name):
+	game_elements.shop_manager.connect("shop_rolled_with_towers", self, "_on_shop_rolled_with_towers", [arg_func_source, arg_func_name])
+
+func _on_shop_rolled_with_towers(arg_tower_ids, arg_func_source, arg_func_name):
+	game_elements.shop_manager.disconnect("shop_rolled_with_towers", self, "_on_shop_rolled_with_towers")
+	arg_func_source.call(arg_func_name, arg_tower_ids)
+
+
+# expects a method that accepts player level
+func listen_for_player_level_up(arg_expected_level : int, arg_func_source, arg_func_name):
+	game_elements.level_manager.connect("on_current_level_changed", self, "_on_player_curr_level_changed", [arg_expected_level, arg_func_source, arg_func_name])
+
+func _on_player_curr_level_changed(arg_level, arg_expected_lvl, arg_func_source, arg_func_name):
+	if arg_expected_lvl == -1 or arg_level == arg_expected_lvl:
+		game_elements.level_manager.disconnect("on_current_level_changed", self, "_on_player_curr_level_changed")
+		arg_func_source.call(arg_func_name, arg_level)
+
 
 # Get nodes related
 
@@ -865,8 +984,20 @@ func get_gold_panel():
 func get_round_indicator_panel():
 	return game_elements.right_side_panel.round_status_panel.round_info_panel_v2.round_indicator_panel
 
+func get_rounds_count_panel():
+	return game_elements.right_side_panel.round_status_panel.round_info_panel_v2.round_indicator_panel.rounds_count_container
+
+func get_round_first_enemy_damage_container_panel():
+	return game_elements.right_side_panel.round_status_panel.round_info_panel_v2.round_indicator_panel.first_enemy_damage_container
+
+
 func get_player_health_bar_panel():
 	return game_elements.right_side_panel.round_status_panel.round_info_panel_v2.player_health_panel
+
+func get_almanac_button_bot_right():
+	return almanac_button_bot_right
+
+
 
 # INDICATORS
 
@@ -924,4 +1055,29 @@ static func unset_flag(b, flag):
 
 func set_CYDE_Singleton_world_completion_state_num(arg_num):
 	CydeSingleton.set_world_completion_state_num_to_world_id(arg_num, modifier_id)
+
+
+##################################### Powerup Related
+
+func apply_tower_power_up_effects():
+	pass
+	
+	
+
+#
+
+func _apply_tower_power_up_effects__bonus_dmg__to_tower(arg_tower):
+	pass
+	
+
+
+
+func apply_enemy_power_up_effects():
+	pass
+	
+	
+
+
+
+
 

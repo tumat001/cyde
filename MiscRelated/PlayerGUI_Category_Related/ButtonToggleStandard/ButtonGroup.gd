@@ -1,6 +1,8 @@
 extends Reference
 
 
+signal toggled_on_button_changed(arg_toggled_button)
+
 # does not need to be the player gui button toggle. Only these things are needed:
 # method: "set_is_toggle_mode_on()"
 # method: "get_is_toggle_mode_on()"
@@ -36,9 +38,13 @@ func _on_button_toggle_mode_changed(arg_val, arg_button):
 		for button in _all_toggle_buttons:
 			if button != arg_button:
 				button.set_is_toggle_mode_on(false)
+				
+				emit_signal("toggled_on_button_changed", get_toggled_on_button())
 
 func _on_button_tree_exiting(arg_button):
 	_all_toggle_buttons.erase(arg_button)
+	
+	emit_signal("toggled_on_button_changed", get_toggled_on_button())
 
 #
 

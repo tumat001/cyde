@@ -135,6 +135,14 @@ var _attempted_start_color_aesthetic_display : bool
 
 #
 
+enum AllowSynergiesClauseIds {
+	CYDE__STAGE_01_CLAUSE = 0
+}
+var allow_synergies_clauses : ConditonalClause
+var last_calculated_allow_synergies : bool
+
+#
+
 var _dominant_synergy_ids_banned_this_game : Array = []
 var _composite_synergy_ids_banned_this_game : Array = []
 
@@ -150,6 +158,10 @@ func _ready():
 	dont_allow_same_total_conditonal_clause = ConditonalClause.new()
 	dont_allow_same_total_conditonal_clause.connect("clause_inserted", self, "_dont_allow_same_total_clause_added_or_removed", [], CONNECT_PERSIST)
 	dont_allow_same_total_conditonal_clause.connect("clause_removed", self, "_dont_allow_same_total_clause_added_or_removed", [], CONNECT_PERSIST)
+	
+	allow_synergies_clauses = ConditonalClause.new()
+	allow_synergies_clauses.connect("all_clause_changed", self, "_on_allow_synergy_clauses_changed", [], CONNECT_PERSIST)
+	_update_last_calc_allow_synergy(false)
 	
 	#
 	
@@ -261,14 +273,15 @@ func update_synergies(towers : Array):
 	active_compo_color_synergies_res = []
 	
 	
-	for res in dom_to_activate:
-		syn_res_to_activate.append(res)
-		results_of_dom.erase(res)
-		active_dom_color_synergies_res.append(res)
-	for res in compo_to_activate:
-		syn_res_to_activate.append(res)
-		results_of_compo.erase(res)
-		active_compo_color_synergies_res.append(res)
+	if last_calculated_allow_synergies:
+		for res in dom_to_activate:
+			syn_res_to_activate.append(res)
+			results_of_dom.erase(res)
+			active_dom_color_synergies_res.append(res)
+		for res in compo_to_activate:
+			syn_res_to_activate.append(res)
+			results_of_compo.erase(res)
+			active_compo_color_synergies_res.append(res)
 	
 	# Assign-ments
 	
@@ -445,6 +458,16 @@ func calculate_final_composite_synergy_limit() -> int:
 func _dont_allow_same_total_clause_added_or_removed(id):
 	#update_synergies(tower_manager.get_all_active_towers())
 	tower_manager.update_active_synergy__called_from_syn_manager()
+
+func _on_allow_synergy_clauses_changed():
+	_update_last_calc_allow_synergy(true)
+	
+
+func _update_last_calc_allow_synergy(arg_cause_update):
+	last_calculated_allow_synergies = allow_synergies_clauses.is_passed
+	
+	if arg_cause_update:
+		tower_manager.update_active_synergy__called_from_syn_manager()
 
 ###### QUERIES related
 

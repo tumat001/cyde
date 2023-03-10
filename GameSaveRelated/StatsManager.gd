@@ -333,11 +333,12 @@ func _on_synergies_updated():
 		for syn_res in synergy_manager.active_synergies_res:
 			_add_syn_id_to_current_syn_ids_if_none(syn_res.synergy.current_synergy_tier_id)
 	
-	_updated_synergies__for_orange_12_purposes()
+	#_updated_synergies__for_orange_12_purposes()
 
 
 #######
 
+# normally at 0 when locked, and 1 if unlocked.
 func set_val_of_tidbit_val_map(arg_tidbit_id, arg_val):
 	text_tidbit_id_to_int_val_map[arg_tidbit_id] = arg_val
 	
@@ -347,11 +348,11 @@ func set_val_of_tidbit_val_map(arg_tidbit_id, arg_val):
 
 ## TIDBIT SPECIFIC CONDITIONS related
 
-func _updated_synergies__for_orange_12_purposes():
-	if text_tidbit_id_to_int_val_map[StoreOfTextTidbit.TidbitId.ORANGE_12] == 0:
-		if synergy_manager.is_color_synergy_id_active__with_tier_being_equal_to(TowerDominantColors.SynergyID__Orange, 1):
-			set_val_of_tidbit_val_map(StoreOfTextTidbit.TidbitId.ORANGE_12, 1)
-	
+#func _updated_synergies__for_orange_12_purposes():
+#	if text_tidbit_id_to_int_val_map[StoreOfTextTidbit.TidbitId.ORANGE_12] == 0:
+#		if synergy_manager.is_color_synergy_id_active__with_tier_being_equal_to(TowerDominantColors.SynergyID__Orange, 1):
+#			set_val_of_tidbit_val_map(StoreOfTextTidbit.TidbitId.ORANGE_12, 1)
+#
 
 
 # MAP ID UNLOCK VAL Related
@@ -398,7 +399,6 @@ func if_tidbit_map_has_at_least_one_tidbit_with_non_zero_val():
 #	for id in text_tidbit_id_to_int_val_map:
 #		if text_tidbit_id_to_int_val_map[id] != 0:
 #			return true
-#
 #	return false
 
 func if_map_id_has_at_least_x_val(arg_map_id, arg_min_val):

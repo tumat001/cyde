@@ -71,7 +71,7 @@ var tidbit_page : Almanac_ItemListPage_Data
 var tower_multi_stats_data : Almanac_MultiStatsData
 var enemy_multi_stats_data : Almanac_MultiStatsData
 var synergy_multi_stats_data : Almanac_MultiStatsData
-var tidbit_multi_stats_data : Almanac_MultiStatsData
+var tidbit_multi_stats_data : Almanac_MultiStatsData    # used by Dialog_AlmanacXTypeInfoPanel as well
 
 #
 
@@ -136,6 +136,21 @@ enum CategoryIds {
 	
 	SYNERGY_DOMINANT = 200,
 	SYNERGY_COMPOSITE = 201,
+	
+	##
+	
+	TIDBIT_CATEGORY_X_VAL_BASIS = 300,
+	TIDBIT_VIRUS = 300,
+	TIDBIT_TROJAN = 301,
+	TIDBIT_WORM = 302,
+	TIDBIT_ADWARE = 303,
+	TIDBIT_RANSOMWARE = 304,
+	TIDBIT_SPYWARE = 305,
+	TIDBIT_ROOTKIT = 306,
+	TIDBIT_FILELESS = 307,
+	TIDBIT_MALWARE_BOTS = 308,
+	TIDBIT_MOBILE_MALWARE = 309,
+	
 	
 #	ENEMY_TYPE__NORMAL = 20
 #	ENEMY_TYPE__ELITE = 21
@@ -1053,10 +1068,27 @@ func _construct_tidbit_page():
 	
 	#########
 	
-	for id in StoreOfTextTidbit.TidbitId.values():
-		var tidbit = StoreOfTextTidbit.tidbit_id_to_info_singleton_map[id]
+	for cat_id in StoreOfTextTidbit.tidbit_category_id_to_tidbit_category_name.keys():
+		var page_cat = Almanac_Category_Data.new()
+		page_cat.border_texture = CategoryBorder_Default
+		page_cat.cat_type_id = CategoryIds.TIDBIT_CATEGORY_X_VAL_BASIS + cat_id
+		page_cat.cat_text = StoreOfTextTidbit.tidbit_category_id_to_tidbit_category_name[cat_id]
 		
-		_construct_option_for_tidbit(tidbit, any_page_category_empty, tidbit_page)
+		
+		if StoreOfTextTidbit.tidbit_category_id_to_tidbit_ids_arr_map.has(cat_id):
+			var tidbit_id_arr = StoreOfTextTidbit.tidbit_category_id_to_tidbit_ids_arr_map[cat_id]
+			for tidbit_id in tidbit_id_arr:
+				var tidbit = StoreOfTextTidbit.tidbit_id_to_info_singleton_map[tidbit_id]
+				
+				_construct_option_for_tidbit(tidbit, page_cat, tidbit_page)
+	
+	#
+	
+	
+	#for id in StoreOfTextTidbit.TidbitId.values():
+	#	var tidbit = StoreOfTextTidbit.tidbit_id_to_info_singleton_map[id]
+	#	
+	#	_construct_option_for_tidbit(tidbit, any_page_category_empty, tidbit_page)
 
 
 

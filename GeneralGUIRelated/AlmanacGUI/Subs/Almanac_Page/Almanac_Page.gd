@@ -170,6 +170,8 @@ func configure_almanac_x_type_info_panel(arg_item_list_entry : Almanac_ItemListE
 	curr_selected_button = arg_selected_button
 	if curr_selected_button != null:
 		curr_selected_button.set_is_selected(true)
+	
+	
 
 func hide_right_side_container():
 	
@@ -190,4 +192,9 @@ func hide_right_side_container():
 #	pass
 
 
+func _on_Almanac_XTypeInfoPanel_resized():
+	if is_inside_tree() and scrl_container_for_metadata != null:
+		scrl_container_for_metadata.rect_min_size.x = x_type_info_panel.rect_min_size.x
+		scrl_container_for_metadata.rect_size.x = x_type_info_panel.rect_size.x
+		
 

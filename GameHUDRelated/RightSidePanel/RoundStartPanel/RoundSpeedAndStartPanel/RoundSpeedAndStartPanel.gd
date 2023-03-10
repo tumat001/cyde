@@ -20,6 +20,8 @@ onready var status_label = $Control/StatusLabel
 
 onready var stats_button = $StatsButton
 
+onready var ready_button = $Control/ReadyButton
+
 #
 
 var speed_of_engine_time_scale_arr : Array = [
@@ -34,7 +36,7 @@ var game_stats_manager setget set_game_stats_manager
 var _curr_time_scale_to_use_on_ongoing_round : int = speed_of_engine_time_scale_arr[0]
 var _curr_time_scale_index : int
 var _button_group : CustomButtonGroup
-var can_start_round : bool
+var can_start_round : bool setget set_can_start_round
 
 #
 
@@ -54,6 +56,9 @@ func _ready():
 		button.configure_self_with_button_group(_button_group)
 	
 	stats_button.visible = false
+	
+	
+	set_can_start_round(can_start_round)
 
 func set_stage_round_manager(arg_manager):
 	stage_round_manager = arg_manager
@@ -173,3 +178,10 @@ func _on_StatsButton_on_button_released_with_button_left():
 func _on_SRM_last_calculated_block_start_of_round_changed(_arg_val):  # val is unused
 	start_button.is_button_enabled = !stage_round_manager.last_calculated_block_start_of_round
 	
+
+#####
+
+func set_can_start_round(arg_val):
+	can_start_round = arg_val
+	
+	ready_button.is_button_enabled = arg_val

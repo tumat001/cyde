@@ -132,7 +132,7 @@ func _init():
 	
 	var world_id__02 = MapsId_World02
 	add_map(world_id__02, "World 02",
-			"res://MapsRelated/MapList/Map_Riverside/Map_Riverside.tscn", #todo
+			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World02/WorldMap_02.tscn",
 			self,
 			"_construct_map_type_info__map_world_02",
 			MapIdsAvailableFromMenu.has(world_id__02))

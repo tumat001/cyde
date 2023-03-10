@@ -7,8 +7,10 @@ enum AlignmentType {
 	RIGHT = 2,
 }
 
+var alignment_type : int = AlignmentType.LEFT
+
 var image_path : String
-var alignment_type : int
+
 
 func _init(arg_img_path : String, arg_alignment_type : int).(false):
 	image_path = arg_img_path

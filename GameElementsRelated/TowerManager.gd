@@ -295,6 +295,16 @@ var _pos_aesthetic_queue_arr : Array = []
 
 var non_essential_rng : RandomNumberGenerator
 
+
+var audio_player_adv_params
+
+# effects
+
+var _effects_to_apply_on_spawn__regular : Dictionary   # clears itself on round end
+var _effects_to_apply_on_spawn__time_reduced_by_process : Dictionary
+
+
+
 ################ setters
 
 func set_game_elements(arg_elements):
@@ -361,6 +371,8 @@ func _ready():
 	#
 	
 	_initialize_absorb_ing_particle_pool_components()
+	
+	_initialize_audio_relateds()
 
 # Generic things that can branch out to other resp.
 
@@ -491,6 +503,10 @@ func add_tower(tower_instance : AbstractTower):
 	
 	if !tower_instance.is_tower_hidden:
 		tower_instance.transfer_to_placable(tower_instance.hovering_over_placable, false, !can_place_tower_based_on_limit_and_curr_placement(tower_instance))
+	
+	if tower_instance.is_tower_bought:
+		#todo
+		pass
 	
 	emit_signal("tower_added", tower_instance)
 	
@@ -1615,5 +1631,60 @@ func _display_tier_aesthetic_with_tier_at_pos(arg_tier, arg_pos):
 
 
 
+################### EFFECTS RELATED
+
+func add_effect_to_apply_to_all_in_map_towers(arg_effect_func_source, arg_effect_func_name, arg_effect_func_params):
+	for tower in get_all_in_map_towers():
+		var effect = arg_effect_func_source.call(arg_effect_func_name, arg_effect_func_params)
+		if effect != null:
+			tower.add_tower_effect()
+
+
+func add_effect_to_apply_on_tower__regular(arg_effect):
+	_effects_to_apply_on_spawn__regular[arg_effect.effect_uuid] = arg_effect
+
+func add_effect_to_apply_on_tower__time_reduced_by_process(arg_effect):
+	_effects_to_apply_on_spawn__time_reduced_by_process[arg_effect.effect_uuid] = arg_effect
+
+
+func _on_enemy_spawned__for_effect_apply(arg_enemy):
+	for effect in _effects_to_apply_on_spawn__regular.values():
+		arg_enemy._add_effect(effect)
+	
+	for effect in _effects_to_apply_on_spawn__time_reduced_by_process.values():
+		arg_enemy._add_effect(effect)
+
+func _on_round_end__for_effect_apply():
+	_effects_to_apply_on_spawn__regular.clear()
+	_effects_to_apply_on_spawn__time_reduced_by_process.clear()
+	
+	emit_signal("enemy_effect_apply_on_spawn_cleared")
+
+func _process__for_effect_apply(delta):
+	var to_remove : Array = []
+	for effect in _effects_to_apply_on_spawn__time_reduced_by_process.values():
+		if effect.is_timebound:
+			effect.time_in_seconds -= delta
+			
+			if effect.time_in_seconds <= 0:
+				to_remove.append(effect.effect_uuid)
+	
+	for effect_uuid in to_remove:
+		_effects_to_apply_on_spawn__time_reduced_by_process.erase(effect_uuid)
+
+
+#########
+
+func _initialize_audio_relateds():
+	audio_player_adv_params = AudioManager.construct_play_adv_params()
+	audio_player_adv_params.node_source = self
+
+func _play_tower_purchase_sound_at_pos(arg_pos):
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.HOMEPAGE_LOBBY_THEME_01)
+	var player : AudioStreamPlayer2D = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.TWO_D)
+	player.autoplay = true
+	player.global_position = arg_pos
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
 
 

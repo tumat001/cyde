@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GameplayTheme.ogg-a95aa1066f3f85e3c284e82c77ba5660.oggstr"
+
+[deps]
+
+source_file="res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/GameplayTheme.ogg"
+dest_files=[ "res://.import/GameplayTheme.ogg-a95aa1066f3f85e3c284e82c77ba5660.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

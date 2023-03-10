@@ -190,7 +190,7 @@ func _construct_questions_and_choices_for__adware_Q02():
 	
 	var choice_01__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_01__ques_02.id = 1
-	choice_01__ques_02.display_text = ""
+	choice_01__ques_02.display_text = "Bombarded with Ads"
 	choice_01__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_01__ques_02.func_source_on_click = self
 	choice_01__ques_02.func_name_on_click = "_on_adware_Q02_choice_right_clicked"
@@ -198,7 +198,7 @@ func _construct_questions_and_choices_for__adware_Q02():
 	
 	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_02__ques_02.id = 2
-	choice_02__ques_02.display_text = ""
+	choice_02__ques_02.display_text = "Slow computer"
 	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_02__ques_02.func_source_on_click = self
 	choice_02__ques_02.func_name_on_click = "_on_adware_Q02_choice_wrong_clicked"
@@ -206,7 +206,7 @@ func _construct_questions_and_choices_for__adware_Q02():
 	
 	var choice_03_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_03_ques_02.id = 3
-	choice_03_ques_02.display_text = ""
+	choice_03_ques_02.display_text = "Constant crashing"
 	choice_03_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_03_ques_02.func_source_on_click = self
 	choice_03_ques_02.func_name_on_click = "_on_adware_Q02_choice_wrong_clicked"
@@ -214,7 +214,7 @@ func _construct_questions_and_choices_for__adware_Q02():
 	
 	var choice_04_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_04_ques_02.id = 3
-	choice_04_ques_02.display_text = ""
+	choice_04_ques_02.display_text = "Slow internet connection"
 	choice_04_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_04_ques_02.func_source_on_click = self
 	choice_04_ques_02.func_name_on_click = "_on_adware_Q02_choice_wrong_clicked"
@@ -229,7 +229,7 @@ func _construct_questions_and_choices_for__adware_Q02():
 	
 	
 	var question_02_desc = [
-		""
+		"Which of the following is an adware behavior when you are bombarded with pop-ups,\nget ads that seem difficult to close, or are redirected to full page ads?"
 	]
 	
 	var question_info__02 = QuestionInfoForChoicesPanel.new()
@@ -320,7 +320,7 @@ func _construct_questions_and_choices_for__adware_Q03():
 	#todo
 	var choice_01__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_01__ques_02.id = 1
-	choice_01__ques_02.display_text = "Avoid shady websites"
+	choice_01__ques_02.display_text = "Use a trusted ad blocker"
 	choice_01__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_01__ques_02.func_source_on_click = self
 	choice_01__ques_02.func_name_on_click = "_on_adware_Q03_choice_right_clicked"
@@ -328,7 +328,7 @@ func _construct_questions_and_choices_for__adware_Q03():
 	
 	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_02__ques_02.id = 2
-	choice_02__ques_02.display_text = "Use a trusted ad blocker"
+	choice_02__ques_02.display_text = "Avoid shady websites"
 	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_02__ques_02.func_source_on_click = self
 	choice_02__ques_02.func_name_on_click = "_on_adware_Q03_choice_wrong_clicked"
@@ -357,9 +357,9 @@ func _construct_questions_and_choices_for__adware_Q03():
 	choices_for_question_info__02.add_choice(choice_03_ques_02)
 	choices_for_question_info__02.add_choice(choice_04_ques_02)
 	
-	#todo
+	
 	var question_02_desc = [
-		""
+		"Which among the best practices advise you to use an ad blocker that will prevent ads as you surf the web,\nwhich can eliminate drive-by downloads from infected websites?"
 	]
 	
 	var question_info__02 = QuestionInfoForChoicesPanel.new()

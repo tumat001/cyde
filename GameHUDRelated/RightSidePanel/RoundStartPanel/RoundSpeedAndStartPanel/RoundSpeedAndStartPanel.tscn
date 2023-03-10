@@ -86,8 +86,7 @@ margin_bottom = 35.0
 rect_min_size = Vector2( 30, 30 )
 custom_font = SubResource( 1 )
 custom_color = Color( 0, 1, 0.321569, 1 )
-is_toggle_on_by_hover_instead_of_click = false
-can_be_untoggled_if_is_toggled = true
+use_texture_defaults = true
 
 [node name="SpeedButton02" parent="ContentPanel/Control" instance=ExtResource( 1 )]
 margin_left = 42.0
@@ -97,8 +96,7 @@ margin_bottom = 35.0
 rect_min_size = Vector2( 30, 30 )
 custom_font = SubResource( 1 )
 custom_color = Color( 0.992157, 1, 0, 1 )
-is_toggle_on_by_hover_instead_of_click = false
-can_be_untoggled_if_is_toggled = true
+use_texture_defaults = true
 
 [node name="SpeedButton03" parent="ContentPanel/Control" instance=ExtResource( 1 )]
 margin_left = 78.0
@@ -108,8 +106,7 @@ margin_bottom = 35.0001
 rect_min_size = Vector2( 30, 30 )
 custom_font = SubResource( 1 )
 custom_color = Color( 1, 0.494118, 0, 1 )
-is_toggle_on_by_hover_instead_of_click = false
-can_be_untoggled_if_is_toggled = true
+use_texture_defaults = true
 
 [node name="MarginContainer" type="MarginContainer" parent="ContentPanel/Control"]
 margin_left = 4.0

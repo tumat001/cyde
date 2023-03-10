@@ -11,6 +11,10 @@ var current_visible_control : Control
 onready var back_button = $BackButton
 onready var content_panel = $ContentPanel
 
+
+
+var audio_adv_param
+
 #
 
 func _ready():
@@ -19,6 +23,23 @@ func _ready():
 	
 	visible = true
 	starting_screen.pre_game_screen = self
+	
+	##
+	
+	CommsForBetweenScenes.connect("before_goto_scene", self , "_on_before_comms_goto_scene")
+	
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.HOMEPAGE_LOBBY_THEME_01)
+	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	player.autoplay = true
+	audio_adv_param = AudioManager.construct_play_adv_params()
+	audio_adv_param.node_source = self
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_adv_param)
+	
+
+func _on_before_comms_goto_scene(arg_scene_to_remove, arg_new_scene_path):
+	AudioManager.stop_stream_players_with_source_ids(audio_adv_param.id_source)
+	
+
 
 
 #

@@ -105,14 +105,26 @@ func set_game_mode_to_normal():
 func set_game_mode(mode : int):
 	game_mode = mode
 	
-	#if mode == StoreOfGameMode.Mode.STANDARD_NORMAL:
-	stagerounds = StoreOfGameMode.get_stage_rounds_of_mode_from_id(mode).new() #ModeNormal_StageRounds.new()
-	_replace_current_spawn_ins_to_second_half(stagerounds.get_first_half_faction())
-		#spawn_ins_of_faction_mode = StoreOfGameMode.get_spawn_ins_of_faction__based_on_mode(stagerounds.get_first_half_faction(), mode)
+	set_stage_rounds(StoreOfGameMode.get_stage_rounds_of_mode_from_id(mode).new(), false)
 	
-	stageround_total_count = stagerounds.stage_rounds.size()
-	
-	emit_signal("stage_rounds_set", stagerounds)
+#	#if mode == StoreOfGameMode.Mode.STANDARD_NORMAL:
+#	stagerounds = StoreOfGameMode.get_stage_rounds_of_mode_from_id(mode).new() #ModeNormal_StageRounds.new()
+#	_replace_current_spawn_ins_to_second_half(stagerounds.get_first_half_faction())
+#		#spawn_ins_of_faction_mode = StoreOfGameMode.get_spawn_ins_of_faction__based_on_mode(stagerounds.get_first_half_faction(), mode)
+#
+#	stageround_total_count = stagerounds.stage_rounds.size()
+#
+#	emit_signal("stage_rounds_set", stagerounds)
+
+func set_stage_rounds(arg_stagerounds, arg_replace):
+	if stagerounds == null or arg_replace:
+		stagerounds = arg_stagerounds
+		
+		_replace_current_spawn_ins_to_second_half(stagerounds.get_first_half_faction())
+		
+		stageround_total_count = stagerounds.stage_rounds.size()
+		
+		emit_signal("stage_rounds_set", stagerounds)
 
 #
 
@@ -274,13 +286,18 @@ func set_current_round_to_lost():
 # Enemy faction spawn ins related
 
 func _replace_current_spawn_ins_to_second_half(new_faction_id : int):
-	spawn_ins_of_faction_mode = StoreOfGameMode.get_spawn_ins_of_faction__based_on_mode(new_faction_id, game_mode)
+	set_spawn_ins(StoreOfGameMode.get_spawn_ins_of_faction__based_on_mode(new_faction_id, game_mode))
+	
+	#spawn_ins_of_faction_mode = StoreOfGameMode.get_spawn_ins_of_faction__based_on_mode(new_faction_id, game_mode)
 #	if new_faction_id == EnemyConstants.EnemyFactions.EXPERT:
 #		spawn_ins_of_faction_mode = load("res://GameplayRelated/EnemiesInRounds/ModesAndFactionsInses/FactionExpert_EnemySpawnIns.gd").new()
 #	elif new_faction_id == EnemyConstants.EnemyFactions.FAITHFUL:
 #		spawn_ins_of_faction_mode = load("res://GameplayRelated/EnemiesInRounds/ModesAndFactionsInses/FactionFaithful_EnemySpawnIns.gd").new()
 #	elif new_faction_id == EnemyConstants.EnemyFactions.SKIRMISHERS:
 #		spawn_ins_of_faction_mode = load("res://GameplayRelated/EnemiesInRounds/ModesAndFactionsInses/FactionSkirmisher_EnemySpawnIns.gd").new()
+
+func set_spawn_ins(arg_spawn_ins):
+	spawn_ins_of_faction_mode = arg_spawn_ins
 
 
 ## round query

@@ -168,8 +168,8 @@ func _ready():
 	
 	game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_Common_Modifiers)
 	
-	game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_ExampleStage)
-	#game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_World_01)
+	#game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_ExampleStage)
+	game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_World_01)
 	
 	####### MODIFIER LIST END
 	
@@ -434,8 +434,8 @@ func _ready():
 	
 	###
 	gold_manager.increase_gold_by(3, GoldManager.IncreaseGoldSource.START_OF_GAME)
-	health_manager.starting_health = 150
-	health_manager.set_health(150)
+	health_manager.starting_health = 50
+	health_manager.set_health(50)
 	
 	map_manager.make_base_map_apply_changes_to_game_elements(self)
 	synergy_manager.before_game_start__synergies_this_game_initialize()
@@ -451,9 +451,9 @@ func _ready():
 	# FOR TESTING ------------------------------------
 	
 	#todo
-	gold_manager.increase_gold_by(1000, GoldManager.IncreaseGoldSource.ENEMY_KILLED)
-	level_manager.current_level = LevelManager.LEVEL_2
-	relic_manager.increase_relic_count_by(3, RelicManager.IncreaseRelicSource.ROUND)
+#	gold_manager.increase_gold_by(1000, GoldManager.IncreaseGoldSource.ENEMY_KILLED)
+#	level_manager.current_level = LevelManager.LEVEL_2
+#	relic_manager.increase_relic_count_by(3, RelicManager.IncreaseRelicSource.ROUND)
 
 
 
@@ -465,22 +465,21 @@ func _on_BuySellLevelRollPanel_level_up():
 var even : bool = false
 func _on_BuySellLevelRollPanel_reroll():
 	
-	#shop_manager.roll_towers_in_shop_with_cost()
+	shop_manager.roll_towers_in_shop_with_cost()
 	
-	#todo
-	if !even:
-		panel_buy_sell_level_roll.update_new_rolled_towers([
-			Towers.MINI_TESLA,
-			Towers.STRIKER,
-			Towers.SPRINKLER,
-		])
-	else:
-		panel_buy_sell_level_roll.update_new_rolled_towers([
-			Towers.MINI_TESLA,
-			Towers.STRIKER,
-			Towers.SPRINKLER,
-		])
-	even = !even
+#	if !even:
+#		panel_buy_sell_level_roll.update_new_rolled_towers([
+#			Towers.MINI_TESLA,
+#			Towers.STRIKER,
+#			Towers.SPRINKLER,
+#		])
+#	else:
+#		panel_buy_sell_level_roll.update_new_rolled_towers([
+#			Towers.MINI_TESLA,
+#			Towers.STRIKER,
+#			Towers.SPRINKLER,
+#		])
+#	even = !even
 
 
 func _on_BuySellLevelRollPanel_tower_bought(tower_id):

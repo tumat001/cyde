@@ -7,6 +7,11 @@ const SynergyTooltip = preload("res://GameHUDRelated/Tooltips/SynergyTooltipRela
 
 #
 
+const SIZE_OF_PANEL__STANDARD = Vector2(300, 480)
+const SIZE_OF_PANEL__TIDBIT = Vector2(450, 480)
+
+#
+
 var _almanac_item_list_entry_data
 var _x_info_type
 
@@ -67,6 +72,9 @@ func set_properties(arg_item_list_entry : Almanac_ItemListEntry_Data,
 	
 	x_name.x_name = _x_info_type.get_name__for_almanac_use()
 	x_name.update_display()
+	
+	rect_min_size = SIZE_OF_PANEL__STANDARD
+	rect_size = SIZE_OF_PANEL__STANDARD
 	
 	update_descriptions_panel()
 	
@@ -148,4 +156,7 @@ func _configure_self_on_type_info__tidbit(arg_item_list_entry):
 	
 	tidbit_type__page_displayer_panel.tidbit_type_info = _x_info_type
 	tidbit_type__page_displayer_panel.visible = true
+	
+	rect_min_size = SIZE_OF_PANEL__TIDBIT
+	rect_size = SIZE_OF_PANEL__TIDBIT
 

@@ -9,6 +9,8 @@ const game_elements_path : String = "res://GameElementsRelated/GameElements.tscn
 
 signal game_elements_created(arg_game_elements)
 
+signal before_goto_scene(arg_scene_to_remove, arg_new_scene_path)
+
 #
 
 var map_id
@@ -122,11 +124,16 @@ func set_new_scene(scene_resource):
 #######
 
 func goto_game_elements(arg_scene_to_remove : Node):
+	emit_signal("before_goto_scene", arg_scene_to_remove, game_elements_path)
+	
 	goto_scene(game_elements_path, arg_scene_to_remove)
 
 func goto_starting_screen(arg_scene_to_remove : Node):
-	goto_scene("res://PreGameHUDRelated/PreGameScreen.tscn", arg_scene_to_remove)
-
+	var path = "res://PreGameHUDRelated/PreGameScreen.tscn"
+	
+	emit_signal("before_goto_scene", arg_scene_to_remove, path)
+	
+	goto_scene(path, arg_scene_to_remove)
 
 ## GAME ELEMENTS related
 

@@ -114,8 +114,16 @@ func _init():
 	val_transition_for_button_mod_a = ValTransition.new()
 	
 	player_gui__button_group = PlayerGUI_ButtonGroup.new()
+	player_gui__button_group.connect("toggled_on_button_changed", self, "_on_toggled_on_button_changed")
 	
 
+func _on_toggled_on_button_changed(arg_button):
+	if is_inside_tree():
+		if arg_button != null:
+			confirm_button.set_is_button_enabled(true)
+			
+		else:
+			confirm_button.set_is_button_enabled(false)
 
 
 func _ready():
@@ -129,6 +137,7 @@ func _construct_and_configure_buttons_based_on_properties__on_start():
 			_construct_and_add_button_choice_type_standard(button_info, 1, -1, false)
 			
 	
+	confirm_button.set_is_button_enabled(false)
 	_initialize_choices_modi_panel()
 
 func _construct_and_add_button_choice_type_standard(arg_choice_button_info : ChoiceButtonInfo, arg_modulate_a : float, arg_index : int, arg_should_always_be_disabled : bool):

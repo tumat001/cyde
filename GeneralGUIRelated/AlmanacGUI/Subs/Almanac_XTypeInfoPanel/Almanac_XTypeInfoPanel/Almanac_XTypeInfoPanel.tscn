@@ -12,12 +12,12 @@
 [ext_resource path="res://GeneralGUIRelated/AlmanacGUI/Subs/Almanac_XTypeInfoPanel/TidbitSpecific/Almanac_TidbitTypeInfo_PageDisplayer/Almanac_TidbitTypeInfo_PageDisplayerPanel.tscn" type="PackedScene" id=10]
 
 [node name="Almanac_XTypeInfoPanel" type="MarginContainer"]
-margin_right = 240.0
+margin_right = 300.0
 margin_bottom = 480.0
 script = ExtResource( 7 )
 
 [node name="Background" type="TextureRect" parent="."]
-margin_right = 240.0
+margin_right = 300.0
 margin_bottom = 480.0
 texture = ExtResource( 2 )
 stretch_mode = 2
@@ -31,8 +31,8 @@ texture = ExtResource( 1 )
 stretch_mode = 2
 
 [node name="RightBorder" type="TextureRect" parent="."]
-margin_left = 234.0
-margin_right = 240.0
+margin_left = 294.0
+margin_right = 300.0
 margin_bottom = 480.0
 mouse_filter = 2
 size_flags_horizontal = 10
@@ -40,7 +40,7 @@ texture = ExtResource( 1 )
 stretch_mode = 2
 
 [node name="TopBorder" type="TextureRect" parent="."]
-margin_right = 240.0
+margin_right = 300.0
 margin_bottom = 6.0
 mouse_filter = 2
 size_flags_vertical = 2
@@ -49,7 +49,7 @@ stretch_mode = 2
 
 [node name="BottomBorder" type="TextureRect" parent="."]
 margin_top = 474.0
-margin_right = 240.0
+margin_right = 300.0
 margin_bottom = 480.0
 mouse_filter = 2
 size_flags_vertical = 10
@@ -57,7 +57,7 @@ texture = ExtResource( 1 )
 stretch_mode = 2
 
 [node name="Content" type="MarginContainer" parent="."]
-margin_right = 240.0
+margin_right = 300.0
 margin_bottom = 480.0
 custom_constants/margin_right = 12
 custom_constants/margin_top = 15
@@ -67,12 +67,12 @@ custom_constants/margin_bottom = 15
 [node name="VBoxContainer" type="VBoxContainer" parent="Content"]
 margin_left = 12.0
 margin_top = 15.0
-margin_right = 228.0
+margin_right = 288.0
 margin_bottom = 465.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Content/VBoxContainer"]
-margin_left = 56.0
-margin_right = 160.0
+margin_left = 86.0
+margin_right = 190.0
 margin_bottom = 50.0
 size_flags_horizontal = 6
 
@@ -93,31 +93,31 @@ margin_bottom = 50.0
 
 [node name="Almanac_XTypeInfo_XName" parent="Content/VBoxContainer" instance=ExtResource( 4 )]
 margin_top = 54.0
-margin_right = 216.0
+margin_right = 276.0
 margin_bottom = 85.0
 
 [node name="Almanac_TidbitTypeInfo_PageDisplayerPanel" parent="Content/VBoxContainer" instance=ExtResource( 10 )]
-margin_left = 46.0
+margin_left = 76.0
 margin_top = 89.0
-margin_right = 169.0
+margin_right = 199.0
 margin_bottom = 118.0
 size_flags_horizontal = 6
 
 [node name="Almanac_XTypeInfo_MultiStatsPanel" parent="Content/VBoxContainer" instance=ExtResource( 5 )]
 margin_top = 122.0
-margin_right = 216.0
+margin_right = 276.0
 margin_bottom = 272.0
 rect_min_size = Vector2( 0, 150 )
 
 [node name="Almanac_XTypeInfo_Descriptions" parent="Content/VBoxContainer" instance=ExtResource( 6 )]
 margin_top = 276.0
-margin_right = 216.0
+margin_right = 276.0
 margin_bottom = 426.0
 rect_min_size = Vector2( 0, 150 )
 size_flags_vertical = 3
 
 [node name="Almanac_SynTypeInfo_TierDescriptions" parent="Content/VBoxContainer" instance=ExtResource( 6 )]
 margin_top = 430.0
-margin_right = 216.0
+margin_right = 276.0
 margin_bottom = 450.0
 size_flags_vertical = 3

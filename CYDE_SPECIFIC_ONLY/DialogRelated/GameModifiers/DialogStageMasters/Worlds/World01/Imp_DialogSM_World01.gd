@@ -2,9 +2,15 @@ extends "res://MiscRelated/DialogRelated/StageMaster/BaseDialogStageMaster.gd"
 
 ######### WORLD 01, WHERE IT ALL STARTS ############
 
+const CydeMode_StageRounds_World01 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomStageRounds/CydeMode_StageRounds_World01.gd")
+const CydeMode_EnemySpawnIns_World01 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomWaves/CydeMode_EnemySpawnIns_World01.gd")
 
 const tower_buff_desc_on_correct_ice_breaker = "If you got it correct, all towers become stronger for 1 minute."
 const enemy_buff_desc_on_incorrect_ice_breaker = "Otherwise, if you got it wrong, all enemies become stronger for 1 minute."
+
+#
+
+var stage_rounds_to_use
 
 #
 
@@ -33,18 +39,28 @@ var dia_seg__intro_02_sequence_005 : DialogSegment
 var dia_seg__intro_02_sequence_008 : DialogSegment 
 
 
-# Ice breaker quiz portion
+## FORMERLY Ice breaker quiz portion
+# Start round portion (USED TO BE Ice breaker quiz portion)
 var dia_seg__intro_03_sequence_001 : DialogSegment
 
 
-# Other mechanics (player health/shield) portion
+# Reinforce buying tower phase
 var dia_seg__intro_04_sequence_001 : DialogSegment
 var dia_seg__intro_04_sequence_002 : DialogSegment  # after buying tower
 var dia_seg__intro_04_sequence_004 : DialogSegment
 
-# Info then quiz
+# Other mechanics (player health/shield) portion
+
+# Level Up & reinforcement
 
 var dia_seg__intro_05_sequence_001 : DialogSegment
+var dia_seg__intro_05_sequence_006 : DialogSegment
+var dia_seg__intro_05_sequence_008 : DialogSegment
+var dia_seg__intro_05_sequence_009 : DialogSegment
+
+#
+
+var dia_seg__intro_06_sequence_001 : DialogSegment
 
 
 # questions
@@ -63,6 +79,10 @@ var tower_id_to_buy_at_intro_tutorial__002 = Towers.STRIKER
 var tower_name_to_buy_at_intro_tutorial__002 = "Striker"
 var tower_instance_bought_at_intro_tutorial__002
 
+var tower_id_to_buy_at_intro_tutorial__003 = Towers.MINI_TESLA
+var tower_name_to_buy_at_intro_tutorial__003 = "Mini Tesla"
+var tower_instance_bought_at_intro_tutorial__003
+
 #
 
 func _init().(StoreOfGameModifiers.GameModiIds__CYDE_World_01,
@@ -76,28 +96,47 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	
 	#
 	
-	towers_offered_on_shop_refresh.append([tower_id_to_buy_at_intro_tutorial])
-	towers_offered_on_shop_refresh.append([tower_id_to_buy_at_intro_tutorial__002])
+	#todo re-enable this when done
+	#towers_offered_on_shop_refresh.append([tower_id_to_buy_at_intro_tutorial])
+	#towers_offered_on_shop_refresh.append([tower_id_to_buy_at_intro_tutorial__002])
+	towers_offered_on_shop_refresh.append([tower_id_to_buy_at_intro_tutorial__003])
 	
 	#
 	
-	if !flag_is_enabled(world_completion_num_state, World01_States.SHOWN_COMIC_SEQUENCE):
-		# TODO - SHOW COMIC SEQUENCE STYLE SEQUENCE
-		
-		_construct_and_play__comic_sequence_dialogs()
-		
-		
-	elif !flag_is_enabled(world_completion_num_state, World01_States.ENTERED_PLAYER_NAME):
-		
-		_construct_and_play__enter_player_name_dialogs()
-		
-	elif !flag_is_enabled(world_completion_num_state, World01_States.INTRO_01_COMPLETED):
-		
-		_construct_and_play__intro_01_sequence_001()
-		
-	else:
-		
-		_construct_and_play__intro_02_sequence_001()
+	stage_rounds_to_use = CydeMode_StageRounds_World01.new()
+	game_elements.stage_round_manager.set_stage_rounds(stage_rounds_to_use, true)
+	game_elements.stage_round_manager.set_spawn_ins(CydeMode_EnemySpawnIns_World01.new())
+	
+	#
+	
+	#todo re-enable this when done
+	#_construct_and_play__comic_sequence_dialogs()
+	
+	_construct_dia_seg__intro_05_sequence_001()
+	_play_dia_seg__intro_05_sequence_001()
+	
+	#
+	
+	game_elements.synergy_manager.allow_synergies_clauses.attempt_insert_clause(game_elements.synergy_manager.AllowSynergiesClauseIds.CYDE__STAGE_01_CLAUSE)
+	
+	# OLD
+#	if !flag_is_enabled(world_completion_num_state, World01_States.SHOWN_COMIC_SEQUENCE):
+#		# TODO - SHOW COMIC SEQUENCE STYLE SEQUENCE
+#
+#		_construct_and_play__comic_sequence_dialogs()
+#
+#
+#	elif !flag_is_enabled(world_completion_num_state, World01_States.ENTERED_PLAYER_NAME):
+#
+#		_construct_and_play__enter_player_name_dialogs()
+#
+#	elif !flag_is_enabled(world_completion_num_state, World01_States.INTRO_01_COMPLETED):
+#
+#		_construct_and_play__intro_01_sequence_001()
+#
+#	else:
+#
+#		_construct_and_play__intro_02_sequence_001()
 
 func _on_game_elements_before_game_start__base_class():
 	._on_game_elements_before_game_start__base_class()
@@ -113,6 +152,7 @@ func _on_game_elements_before_game_start__base_class():
 	set_can_toggle_to_ingredient_mode(false)
 	set_can_towers_swap_positions_to_another_tower(false)
 	add_shop_per_refresh_modifier(-5)
+	add_gold_amount(20)
 	
 	#set_visiblity_of_all_placables(false)
 	
@@ -130,7 +170,12 @@ func _construct_and_play__comic_sequence_dialogs():
 	world_completion_num_state = set_flag(world_completion_num_state, World01_States.SHOWN_COMIC_SEQUENCE)
 	set_CYDE_Singleton_world_completion_state_num(world_completion_num_state)
 	
-	_construct_and_play__enter_player_name_dialogs()
+	if !flag_is_enabled(world_completion_num_state, World01_States.ENTERED_PLAYER_NAME):
+		_construct_and_play__enter_player_name_dialogs()
+		
+	else:
+		_construct_and_play__intro_01_sequence_001()
+		
 
 #
 
@@ -181,6 +226,7 @@ func _construct_and_play__intro_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_01_sequence_001, dia_seg__intro_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_001)
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_001, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	###
 	
@@ -192,6 +238,7 @@ func _construct_and_play__intro_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_01_sequence_002, dia_seg__intro_01_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_002)
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_002, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	###
 	
@@ -203,6 +250,7 @@ func _construct_and_play__intro_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_01_sequence_003, dia_seg__intro_01_sequence_003__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_003)
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_003, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	###
 	
@@ -214,6 +262,7 @@ func _construct_and_play__intro_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_01_sequence_004, dia_seg__intro_01_sequence_004__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_004)
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_004, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	###
 	
@@ -227,6 +276,8 @@ func _construct_and_play__intro_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_01_sequence_005, dia_seg__intro_01_sequence_005__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_005)
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_005, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	###
 	
@@ -238,6 +289,8 @@ func _construct_and_play__intro_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_01_sequence_006, dia_seg__intro_01_sequence_006__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_006)
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_006, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	###
 	
@@ -249,6 +302,7 @@ func _construct_and_play__intro_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_01_sequence_007, dia_seg__intro_01_sequence_007__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_007)
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_007, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	###
 	
@@ -260,6 +314,7 @@ func _construct_and_play__intro_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_01_sequence_008, dia_seg__intro_01_sequence_008__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_008)
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_008, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	###
 	
@@ -273,7 +328,7 @@ func _construct_and_play__intro_01_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_009)
 	
 	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__intro_01_sequence_009, self, "_on_end_of_dia_seg__intro_01_sequence_009", null)
-	
+	configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_009, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	##### very last for this func
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_01_sequence_001)
@@ -281,6 +336,9 @@ func _construct_and_play__intro_01_sequence_001():
 
 
 func _on_end_of_dia_seg__intro_01_sequence_009(arg_dia_seg, arg_params):
+	_set_up_actions__to_construct_and_play__intro_02_sequence_001()
+
+func _set_up_actions__to_construct_and_play__intro_02_sequence_001():
 	world_completion_num_state = set_flag(world_completion_num_state, World01_States.INTRO_01_COMPLETED)
 	set_CYDE_Singleton_world_completion_state_num(world_completion_num_state)
 	
@@ -434,83 +492,84 @@ func _on_tower_placed_in_map__on_dia_seg__intro_02_sequence_007(arg_towers : Arr
 
 
 func _construct_dia_seg__intro_03_sequence_001():
+#	dia_seg__intro_03_sequence_001 = DialogSegment.new()
+#
+#	var dia_seg__intro_03_sequence_001__descs = [
+#		"Alright, now let's talk about the Icebreaker Quiz. This is an important part of the game and will test your knowledge on the malware that you're fighting against."
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_001, dia_seg__intro_03_sequence_001__descs)
+#	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_001)
+#
+#	###
+#
+#	var dia_seg__intro_03_sequence_002 = DialogSegment.new()
+#	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_001, dia_seg__intro_03_sequence_002)
+#
+#	var dia_seg__intro_03_sequence_002__descs = [
+#		"When you're in the middle of a round, the game will pause and an Icebreaker question will appear for a few seconds.",
+#		"But don't worry. You have two single-use support features in your disposal.",
+#		"First, you can [i]Reduce[/i] the amount of incorrect choices. This will allow you to clear up uncertainties.",
+#		"Second, you can [i]Change[/i] the question. This is provided in case you really cannot answer the problem."
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_002, dia_seg__intro_03_sequence_002__descs)
+#	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_002)
+#
+#	###
+#
+#	var dia_seg__intro_03_sequence_003 = DialogSegment.new()
+#	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_002, dia_seg__intro_03_sequence_003)
+#
+#	var dia_seg__intro_03_sequence_003__descs = [
+#		"Effects occur whether you get the answer correct or not.",
+#		tower_buff_desc_on_correct_ice_breaker,
+#		enemy_buff_desc_on_incorrect_ice_breaker,
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_003, dia_seg__intro_03_sequence_003__descs)
+#	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_003)
+#
+#	###
+#
+#	var dia_seg__intro_03_sequence_004 = DialogSegment.new()
+#	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_003, dia_seg__intro_03_sequence_004)
+#
+#	var dia_seg__intro_03_sequence_004__descs = [
+#		"So make sure to pay attention to the information about the malware, and answer the questions carefully. Good luck!"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_004, dia_seg__intro_03_sequence_004__descs)
+#	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_004)
+#
+#	###
+#
+#	var dia_seg__intro_03_sequence_005 = DialogSegment.new()
+#	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_004, dia_seg__intro_03_sequence_005)
+#
+#	var dia_seg__intro_03_sequence_005__descs = [
+#		"....."
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_005, dia_seg__intro_03_sequence_005__descs)
+#	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_005)
+#
+#	###
+#
+	#var dia_seg__intro_03_sequence_006 = DialogSegment.new()
 	dia_seg__intro_03_sequence_001 = DialogSegment.new()
-	
-	var dia_seg__intro_03_sequence_001__descs = [
-		"Alright, now let's talk about the Icebreaker Quiz. This is an important part of the game and will test your knowledge on the malware that you're fighting against."
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_001, dia_seg__intro_03_sequence_001__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_001)
-	
-	###
-	
-	var dia_seg__intro_03_sequence_002 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_001, dia_seg__intro_03_sequence_002)
-	
-	var dia_seg__intro_03_sequence_002__descs = [
-		"When you're in the middle of a round, the game will pause and an Icebreaker question will appear for a few seconds.",
-		"But don't worry. You have two single-use support features in your disposal.",
-		"First, you can [i]Reduce[/i] the amount of incorrect choices. This will allow you to clear up uncertainties.",
-		"Second, you can [i]Change[/i] the question. This is provided in case you really cannot answer the problem."
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_002, dia_seg__intro_03_sequence_002__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_002)
-	
-	###
-	
-	var dia_seg__intro_03_sequence_003 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_002, dia_seg__intro_03_sequence_003)
-	
-	var dia_seg__intro_03_sequence_003__descs = [
-		"Effects occur whether you get the answer correct or not.",
-		tower_buff_desc_on_correct_ice_breaker,
-		enemy_buff_desc_on_incorrect_ice_breaker,
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_003, dia_seg__intro_03_sequence_003__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_003)
-	
-	###
-	
-	var dia_seg__intro_03_sequence_004 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_003, dia_seg__intro_03_sequence_004)
-	
-	var dia_seg__intro_03_sequence_004__descs = [
-		"So make sure to pay attention to the information about the malware, and answer the questions carefully. Good luck!"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_004, dia_seg__intro_03_sequence_004__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_004)
-	
-	###
-	
-	var dia_seg__intro_03_sequence_005 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_004, dia_seg__intro_03_sequence_005)
-	
-	var dia_seg__intro_03_sequence_005__descs = [
-		"....."
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_005, dia_seg__intro_03_sequence_005__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_005)
-	
-	###
-	
-	var dia_seg__intro_03_sequence_006 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_005, dia_seg__intro_03_sequence_006)
+	#configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_005, dia_seg__intro_03_sequence_006)
 	
 	var dia_seg__intro_03_sequence_006__descs = [
-		"Now that the basics are covered, let's start the round.",
-		"When starting the round, enemies and malwares will spawn in the entrance(s), indicated by the flags."
+		"When starting the round, enemies and malwares will spawn in the entrance(s), indicated by the flags.",
 	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_006, dia_seg__intro_03_sequence_006__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_006)
-	dia_seg__intro_03_sequence_006.connect("fully_displayed", self, "_on_dia_seg__intro_03_sequence_006__fully_displayed", [], CONNECT_ONESHOT)
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_001, dia_seg__intro_03_sequence_006__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_001)
+	dia_seg__intro_03_sequence_001.connect("fully_displayed", self, "_on_dia_seg__intro_03_sequence_006__fully_displayed", [], CONNECT_ONESHOT)
 	
 	###
 	
 	var dia_seg__intro_03_sequence_007 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_006, dia_seg__intro_03_sequence_007)
+	#configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_006, dia_seg__intro_03_sequence_007)
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_03_sequence_001, dia_seg__intro_03_sequence_007)
 	
 	var dia_seg__intro_03_sequence_007__descs = [
-		"Please click the Start button, or press %s, to start the round." % InputMap.get_action_list("game_round_toggle")[0].as_text()
+		"Please click the Ready button, or press %s, to start the round." % InputMap.get_action_list("game_round_toggle")[0].as_text()
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_03_sequence_007, dia_seg__intro_03_sequence_007__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_03_sequence_007)
@@ -533,30 +592,42 @@ func _on_dia_seg__intro_03_sequence_006__fully_displayed():
 func _on_dia_seg__intro_03_sequence_007__fully_displayed():
 	set_round_is_startable(true)
 	
+	var arrows = display_white_arrows_pointed_at_node(get_round_status_button(), 9)
+	arrows[1].y_offset = -20
+	
 	_construct_dia_seg__intro_04_sequence_001()
-	listen_for_round_end_into_stage_round_id_and_call_func("02", self, "_on_round_ended__into_stage_02")
+	#listen_for_round_end_into_stage_round_id_and_call_func("02", self, "_on_round_ended__into_stage_02")
+	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_stage_02", "_on_round_ended__into_stage_02")
 
+func _on_round_started__into_stage_02():
+	play_dialog_segment_or_advance_or_finish_elements(null)
 
-####
-
-func _on_round_ended__into_stage_02(arg_stageround_id):
+func _on_round_ended__into_stage_02():
 	set_round_is_startable(false)
 	
 	_play_dia_seg__intro_04_sequence_001()
-	
+
+####
+
+#func _on_round_ended__into_stage_02(arg_stageround_id):
+#	set_round_is_startable(false)
+#
+#	_play_dia_seg__intro_04_sequence_001()
+#
 
 func _construct_dia_seg__intro_04_sequence_001():
 	var plain_fragment__refresh_the_shop = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.SHOP, "refresh the shop")
 	var plain_fragment__shop = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.SHOP, "shop")
 	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
 	var plain_fragment__round_ends = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ON_ROUND_END, "round ends")
+	var plain_fragment__enemy = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemy")
 	
 	dia_seg__intro_04_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__intro_04_sequence_001__descs = [
-		"That was easy! Only one enemy showed up. But soon even more will show up.",
-		"Because of that, we need more towers.",
-		["Click this button or press %s to |0| for us to access more towers.", [plain_fragment__refresh_the_shop]]
+		["That was easy! Only one |0| showed up. But soon even more will.", [plain_fragment__enemy]],
+		["Because of that, we need more |0|.", [plain_fragment__towers]],
+		["Click this button or press %s to |0| for us to access more |1|." % [InputMap.get_action_list("game_shop_refresh")[0].as_text()], [plain_fragment__refresh_the_shop, plain_fragment__towers]]
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_04_sequence_001, dia_seg__intro_04_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_04_sequence_001)
@@ -576,6 +647,7 @@ func _construct_dia_seg__intro_04_sequence_001():
 	###
 	
 	var dia_seg__intro_04_sequence_003 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_04_sequence_002, dia_seg__intro_04_sequence_003)
 	
 	var dia_seg__intro_04_sequence_003__descs = [
 		"Now let's place that tower in the map, so that it can defend against the malware!"
@@ -592,7 +664,7 @@ func _construct_dia_seg__intro_04_sequence_001():
 		"Great! Let's begin the next round."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_04_sequence_004, dia_seg__intro_04_sequence_004__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_04_sequence_003)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_04_sequence_004)
 	dia_seg__intro_04_sequence_004.connect("fully_displayed", self, "_on_dia_seg__intro_04_sequence_004__fully_displayed", [], CONNECT_ONESHOT)
 	
 	###
@@ -602,9 +674,26 @@ func _play_dia_seg__intro_04_sequence_001():
 	
 
 func _on_dia_seg__intro_04_sequence_001__fully_displayed():
-	listen_for_tower_with_id__bought__then_call_func(tower_id_to_buy_at_intro_tutorial, "_on_tower_bought__on_dia_seg__intro_04_sequence_001", self)
+	listen_for_shop_refresh(self, "_on_shop_refreshed__intro_04__sequence_001")
+	
+	display_white_arrows_pointed_at_node(get_reroll_button_from_shop_panel())
+	set_player_level(2)
+	
+	set_can_refresh_shop__panel_based(true)
 
-func on_tower_bought__on_dia_seg__intro_04_sequence_001(arg_tower_instance):
+func _on_shop_refreshed__intro_04__sequence_001(arg_tower_ids):
+	listen_for_tower_with_id__bought__then_call_func(tower_id_to_buy_at_intro_tutorial__002, "_on_tower_bought__on_dia_seg__intro_04_sequence_001", self)
+	
+	set_next_shop_towers_and_increment_counter()
+	
+	set_can_refresh_shop__panel_based(false)
+	
+	var tower_buy_card = get_tower_buy_card_at_buy_slot_index(0)
+	if is_instance_valid(tower_buy_card):
+		display_white_arrows_pointed_at_node(tower_buy_card)
+	
+
+func _on_tower_bought__on_dia_seg__intro_04_sequence_001(arg_tower_instance):
 	tower_instance_bought_at_intro_tutorial__002 = arg_tower_instance
 	set_tower_is_draggable(arg_tower_instance, false)
 	set_tower_is_sellable(arg_tower_instance, false)
@@ -632,26 +721,267 @@ func _on_dia_seg__intro_04_sequence_004__fully_displayed():
 	set_round_is_startable(true)
 	_construct_dia_seg__intro_05_sequence_001()
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("03", self, "_on_round_ended__into_stage_03")
-
-func _on_round_ended__into_stage_03(arg_stageround_id):
-	_play_dia_seg__intro_05_sequence_001()
+	var arrows = display_white_arrows_pointed_at_node(get_round_status_button(), 9)
+	arrows[1].y_offset = -20
 	
+	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_stage_03", "_on_round_ended__into_stage_03")
+	#listen_for_round_end_into_stage_round_id_and_call_func("03", self, "_on_round_ended__into_stage_03")
+
+func _on_round_started__into_stage_03():
+	play_dialog_segment_or_advance_or_finish_elements(null)
+
+func _on_round_ended__into_stage_03():
+	set_round_is_startable(false)
+	
+	_play_dia_seg__intro_05_sequence_001()
+
 
 #####
+# After many enemies have shown and reduced the player's shields, introduce the concept of shield
 
 func _construct_dia_seg__intro_05_sequence_001():
-	pass
-	#todo
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	var plain_fragment__shield = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.SHIELD, "shield")
+	var plain_fragment__shields = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.SHIELD, "shields")
+	
+	
+	dia_seg__intro_05_sequence_001 = DialogSegment.new()
+	
+	var dia_seg__intro_05_sequence_001__descs = [
+		["That was a lot of |0|!", [plain_fragment__enemies]],
+		["Whenever |0| escape, they deal damage to your |1|. You lose the game when you run out of |2|!", [plain_fragment__enemies, plain_fragment__shield, plain_fragment__shields]],
+		["Your |0| is indicated here.", [plain_fragment__shield]]
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_001, dia_seg__intro_05_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_001)
+	dia_seg__intro_05_sequence_001.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_001__fully_displayed", [], CONNECT_ONESHOT)
+	
+	###
+	
+	var dia_seg__intro_05_sequence_002 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_05_sequence_001, dia_seg__intro_05_sequence_002)
+	
+	var dia_seg__intro_05_sequence_002__descs = [
+		"Indicated here is the upcoming rounds and the previous rounds, as icons."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_002, dia_seg__intro_05_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_002)
+	dia_seg__intro_05_sequence_002.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
+	
+	###
+	
+	var dia_seg__intro_05_sequence_003 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_05_sequence_002, dia_seg__intro_05_sequence_003)
+	
+	var dia_seg__intro_05_sequence_003__descs = [
+		"Indicated here is the number of rounds in this stage, which is %s." % stage_rounds_to_use.stage_rounds.size(),
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_003, dia_seg__intro_05_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_003)
+	dia_seg__intro_05_sequence_003.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_003__fully_displayed", [], CONNECT_ONESHOT)
+	
+	###
+	
+	var dia_seg__intro_05_sequence_004 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_05_sequence_003, dia_seg__intro_05_sequence_004)
+	
+	var dia_seg__intro_05_sequence_004__descs = [
+		"From what we saw, there are still a lot of rounds to come. We need to get stronger by placing even more towers!",
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_004, dia_seg__intro_05_sequence_004__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_004)
+	#dia_seg__intro_05_sequence_004.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_004__fully_displayed", [], CONNECT_ONESHOT)
+	
+	###
+	
+	var plain_fragment__refresh_the_shop = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.SHOP, "refresh the shop")
+	
+	var dia_seg__intro_05_sequence_005 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_05_sequence_004, dia_seg__intro_05_sequence_005)
+	
+	var dia_seg__intro_05_sequence_005__descs = [
+		["Please |0|, and buy the offered tower, to prepare against even more enemies.", [plain_fragment__refresh_the_shop]]
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_005, dia_seg__intro_05_sequence_005__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_005)
+	dia_seg__intro_05_sequence_005.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_005__fully_displayed", [], CONNECT_ONESHOT)
+	
+	###
+	
+	var plain_fragment__tower_inst_name_03 = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "%s" % tower_name_to_buy_at_intro_tutorial__003)
+	var plain_fragment__leveling_up = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.LEVEL_UP_ORANGE, "leveling up")
+	var plain_fragment__level = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.LEVEL_UP_ORANGE, "level")
+	var plain_fragment__level_up = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.LEVEL_UP_ORANGE, "level up")
+	
+	dia_seg__intro_05_sequence_006 = DialogSegment.new()
+	
+	var dia_seg__intro_05_sequence_006__descs = [
+		["You may notice that you cannot place |0| in the map. This is because you can only place a certain limit of towers.", [plain_fragment__tower_inst_name_03]],
+		["This limit is determined by your |0|, indicated here. This limit and can be increased by |1|.", [plain_fragment__level, plain_fragment__leveling_up]]
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_006, dia_seg__intro_05_sequence_006__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_006)
+	dia_seg__intro_05_sequence_006.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_006__fully_displayed", [], CONNECT_ONESHOT)
+	
+	##
+	
+	var dia_seg__intro_05_sequence_007 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_05_sequence_006, dia_seg__intro_05_sequence_007)
+	
+	var dia_seg__intro_05_sequence_007__descs = [
+		["Let's press this button to |0|!", [plain_fragment__level_up]]
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_007, dia_seg__intro_05_sequence_007__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_007)
+	dia_seg__intro_05_sequence_007.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_007__fully_displayed", [], CONNECT_ONESHOT)
+	
+	###
+	
+	var plain_fragment__level_3 = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.LEVEL_UP_ORANGE, "level 3")
+	var plain_fragment__3_towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "3 towers")
+	
+	dia_seg__intro_05_sequence_008 = DialogSegment.new()
+	
+	var dia_seg__intro_05_sequence_008__descs = [
+		["Now that we are |0|, we can now place |1|.", [plain_fragment__level_3, plain_fragment__3_towers]],
+		["Place |0| in the map.", [plain_fragment__tower_inst_name_03]]
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_008, dia_seg__intro_05_sequence_008__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_008)
+	dia_seg__intro_05_sequence_008.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_008__fully_displayed", [], CONNECT_ONESHOT)
+	
+	
+	###
+	
+	dia_seg__intro_05_sequence_009 = DialogSegment.new()
+	
+	var dia_seg__intro_05_sequence_009__descs = [
+		"Well done! Let's start the round."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_05_sequence_009, dia_seg__intro_05_sequence_009__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_05_sequence_009)
+	dia_seg__intro_05_sequence_009.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_009__fully_displayed", [], CONNECT_ONESHOT)
+	
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_05_sequence_009, null)
+	
 
 func _play_dia_seg__intro_05_sequence_001():
-	pass
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_05_sequence_001)
+	
+
+func _on_dia_seg__intro_05_sequence_001__fully_displayed():
+	var arrows = display_white_arrows_pointed_at_node(get_player_health_bar_panel(), true, true)
+	arrows[0].x_offset = 10
+	arrows[1].y_offset = 80
+	arrows[1].flip_h = true
+	
+
+func _on_dia_seg__intro_05_sequence_002__fully_displayed():
+	var arrows = display_white_arrows_pointed_at_node(get_round_indicator_panel())
+	arrows[0].x_offset = 10
+	arrows[0].y_offset = -10
+	arrows[1].y_offset = 100
+	arrows[1].flip_h = true
+	
+	
+
+func _on_dia_seg__intro_05_sequence_003__fully_displayed():
+	var arrows = display_white_arrows_pointed_at_node(get_rounds_count_panel())
+	arrows[0].x_offset = -20
+	arrows[1].y_offset = 80
+	arrows[1].flip_h = true
+
+func _on_dia_seg__intro_05_sequence_005__fully_displayed():
+	set_can_refresh_shop__panel_based(true)
+	set_player_level(2)
+	
+	display_white_arrows_pointed_at_node(get_reroll_button_from_shop_panel())
+	
+	listen_for_shop_refresh(self, "_on_shop_refreshed__intro_05__sequence_005")
+
+func _on_shop_refreshed__intro_05__sequence_005(arg_tower_ids):
+	set_next_shop_towers_and_increment_counter()
+	set_can_refresh_shop__panel_based(false)
+	
+	listen_for_tower_with_id__bought__then_call_func(tower_id_to_buy_at_intro_tutorial__003, "_on_tower_bought__on_dia_seg__intro_05_sequence_005", self)
+
+func _on_tower_bought__on_dia_seg__intro_05_sequence_005(arg_tower):
+	tower_instance_bought_at_intro_tutorial__003 = arg_tower
+	
+	#set_tower_is_draggable(tower_instance_bought_at_intro_tutorial__003, false)
+	set_tower_is_sellable(tower_instance_bought_at_intro_tutorial__003, false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_05_sequence_006)
+
+func _on_dia_seg__intro_05_sequence_006__fully_displayed():
+	var arrows = display_white_arrows_pointed_at_node(get_player_level_panel())
+	arrows[0].x_offset = -85
+	arrows[1].y_offset = -30
+	
+
+func _on_dia_seg__intro_05_sequence_007__fully_displayed():
+	display_white_arrows_pointed_at_node(get_level_up_button_from_shop_panel())
+	set_can_level_up(true)
+	
+	listen_for_player_level_up(3, self, "_on_dia_seg__intro_05_sequence_007__level_up")
+
+func _on_dia_seg__intro_05_sequence_007__level_up(arg_level):
+	set_can_level_up(false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_05_sequence_008)
+
+func _on_dia_seg__intro_05_sequence_008__fully_displayed():
+	set_tower_is_draggable(tower_instance_bought_at_intro_tutorial__003, true)
+	
+	listen_for_towers_with_ids__placed_in_map__then_call_func([tower_id_to_buy_at_intro_tutorial__003], "_on_tower_placed_in_map__on_dia_seg__intro_05_sequence_008", self)
+
+func _on_tower_placed_in_map__on_dia_seg__intro_05_sequence_008(arg_tower_ids):
+	set_tower_is_draggable(tower_instance_bought_at_intro_tutorial__003, false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_05_sequence_009)
 
 
+func _on_dia_seg__intro_05_sequence_009__fully_displayed():
+	set_round_is_startable(true)
+	
+	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_round_04", "_on_round_ended__into_round_04")
+
+func _on_round_started__into_round_04():
+	_construct_dia_seg__intro_06_sequence_001()
+	
+	play_dialog_segment_or_advance_or_finish_elements(null)
+
+func _on_round_ended__into_round_04():
+	set_round_is_startable(false)
+	
+	_play_dia_seg__intro_06_sequence_001()
 
 
+##########
 
-############### QUESTIONS ##############
+
+func _construct_dia_seg__intro_06_sequence_001():
+	
+	
+	dia_seg__intro_06_sequence_001 = DialogSegment.new()
+	
+	var dia_seg__intro_06_sequence_001__descs = [
+		""
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_001, dia_seg__intro_06_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_001)
+	#dia_seg__intro_06_sequence_001.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_006__fully_displayed", [], CONNECT_ONESHOT)
+	
+	
+
+func _play_dia_seg__intro_06_sequence_001():
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_06_sequence_001)
+	
+
+
+#########################################
+################ QUESTIONS ##############
 
 func _construct_questions_and_choices_for__virus_Q01():
 	var choice_01__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()

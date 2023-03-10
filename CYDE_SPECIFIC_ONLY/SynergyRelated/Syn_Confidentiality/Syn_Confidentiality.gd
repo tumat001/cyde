@@ -1,12 +1,19 @@
 extends "res://GameInfoRelated/ColorSynergyRelated/AbstractGameElementsModifyingSynergyEffect.gd"
 
 
-const TowerEffect_AnaSyn_OrangeYR = preload("res://GameInfoRelated/TowerEffectRelated/MiscEffects/TowerEffect_AnaSyn_OrangeYR.gd")
 
-const tier_1_atk_speed_percent : float = 140.0
-const tier_2_atk_speed_percent : float = 80.0
-const tier_3_atk_speed_percent : float = 40.0
-const tier_4_atk_speed_percent : float = 20.0
+######## REPURPOSED FOR CONFIDENTIALITY
+
+const TowerEffect_Syn_Confidentiality = preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/Syn_Confidentiality/Effects/TowerEffect_Syn_Confidentiality.gd")
+
+const tier_1_atk_speed_percent : float = 40.0
+const tier_2_atk_speed_percent : float = 20.0
+const tier_3_atk_speed_percent : float = 10.0
+
+const tier_1_base_dmg_percent : float = 40.0
+const tier_2_base_dmg_percent : float = 20.0
+const tier_3_base_dmg_percent : float = 10.0
+
 
 const base_unit_time_before_max : float = 15.0
 
@@ -55,17 +62,18 @@ func _tower_to_benefit_from_synergy(tower : AbstractTower):
 	_attempt_add_effect_to_tower(tower)
 
 func _attempt_add_effect_to_tower(tower : AbstractTower):
-	if !tower.has_tower_effect_uuid_in_buff_map(StoreOfTowerEffectsUUID.ORANGE_YR_GIVER_EFFECT):
-		var effect = TowerEffect_AnaSyn_OrangeYR.new(base_unit_time_before_max)
+	if !tower.has_tower_effect_uuid_in_buff_map(StoreOfTowerEffectsUUID.SYN_CONFIDENTIALITY__EFFECT_GIVER) and tower.tower.is_benefit_from_syn_having_or_as_if_having_color(TowerColors.CONFIDENTIALITY):
+		var effect = TowerEffect_Syn_Confidentiality.new(base_unit_time_before_max)
 		
 		if curr_tier == 1:
 			effect.max_attk_speed_percent_amount = tier_1_atk_speed_percent
+			effect.max_base_dmg_percent_amount = tier_1_base_dmg_percent
 		elif curr_tier == 2:
 			effect.max_attk_speed_percent_amount = tier_2_atk_speed_percent
+			effect.max_base_dmg_percent_amount = tier_2_base_dmg_percent
 		elif curr_tier == 3:
 			effect.max_attk_speed_percent_amount = tier_3_atk_speed_percent
-		elif curr_tier == 4:
-			effect.max_attk_speed_percent_amount = tier_4_atk_speed_percent
+			effect.max_base_dmg_percent_amount = tier_3_base_dmg_percent
 		
 		tower.add_tower_effect(effect)
 
@@ -75,7 +83,7 @@ func _tower_to_remove_from_synergy(tower : AbstractTower):
 	_remove_effect_from_tower(tower)
 
 func _remove_effect_from_tower(tower : AbstractTower):
-	var effect = tower.get_tower_effect(StoreOfTowerEffectsUUID.ORANGE_YR_GIVER_EFFECT)
+	var effect = tower.get_tower_effect(StoreOfTowerEffectsUUID.SYN_CONFIDENTIALITY__EFFECT_GIVER)
 	
 	if effect != null:
 		tower.remove_tower_effect(effect)

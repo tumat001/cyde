@@ -34,7 +34,7 @@ const DomSyn_Red = preload("res://GameInfoRelated/ColorSynergyRelated/DominantSy
 const DomSyn_Black = preload("res://GameInfoRelated/ColorSynergyRelated/DominantSynergies/DomSyn_Black_Related/DomSyn_Black.gd")
 const DomSyn_Green = preload("res://GameInfoRelated/ColorSynergyRelated/DominantSynergies/DomSyn_Green_Related/DomSyn_Green.gd")
 
-const CydeSyn_Condifentiality = preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/Syn_Confidentiality/AnaSyn_OrangeYR.gd")
+const CydeSyn_Condifentiality = preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/Syn_Confidentiality/Syn_Confidentiality.gd")
 const CydeSyn_Availability = preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/Syn_Availability/CydeSyn_Availability.gd")
 const CydeSyn_Integrity = preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/Syn_Integrity/CydeSyn_Integrity.gd")
 
@@ -177,7 +177,7 @@ func _on_singleton_initialize():
 		["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_4]],
 		["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_3]],
 		["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_2]],
-		["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_1]],
+		#["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_1]],
 	],
 	ColorSynergy.HighlightDeterminer.SINGLE,
 	{},
