@@ -39,7 +39,7 @@ const MapsId_World10 = "%s%s" % [Cyde_HeaderIDName, "World10"]
 
 const all_syn_td_map_ids : Array = [
 #	MapsId_Glade,
-	MapsId_Riverside,
+#	MapsId_Riverside,
 #	MapsId_Ridged,
 #	MapsId_Mesa,
 #	MapsId_Passage,
@@ -77,7 +77,7 @@ const all_syn_td_map_ids : Array = [
 # Maps appear at the order specified here. First in array is first in list.
 const MapIdsAvailableFromMenu : Array = [
 	#MapsIds.GLADE, # completely remove this soon
-	MapsId_Riverside,
+	#MapsId_Riverside,
 	
 	#MapsId_Ridged,
 	#MapsId_Mesa,  #todo enable again if FOV algo is improved/changed.
@@ -125,7 +125,7 @@ func get_default_map_id_for_empty():
 func _init():
 	var world_id__01 = MapsId_World01
 	add_map(world_id__01, "World 01",
-			"res://MapsRelated/MapList/Map_Riverside/Map_Riverside.tscn", #todo
+			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World01/Map_World01.tscn",
 			self,
 			"_construct_map_type_info__map_world_01",
 			MapIdsAvailableFromMenu.has(world_id__01))
@@ -204,12 +204,12 @@ func _init():
 #			MapIdsAvailableFromMenu.has(glade_id))
 #
 #	##
-	var riverside_id = MapsId_Riverside
-	add_map(riverside_id, "Riverside",
-			"res://MapsRelated/MapList/Map_Riverside/Map_Riverside.tscn",
-			self,
-			"_construct_map_type_info__map_riverside",
-			MapIdsAvailableFromMenu.has(riverside_id))
+#	var riverside_id = MapsId_Riverside
+#	add_map(riverside_id, "Riverside",
+#			"res://MapsRelated/MapList/Map_Riverside/Map_Riverside.tscn",
+#			self,
+#			"_construct_map_type_info__map_riverside",
+#			MapIdsAvailableFromMenu.has(riverside_id))
 #
 #	##
 #	var ridged_id = MapsId_Ridged
@@ -296,72 +296,72 @@ static func get_map_type_information_from_id(id):
 
 func _construct_map_type_info__map_world_01(info : MapTypeInformation):
 	info.map_name = "World 01"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage
+	info.map_display_texture = preload("res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World01/MapAssets/Map_World01_PreviewImage.png")
 	info.map_tier = 1
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_02(info : MapTypeInformation):
 	info.map_name = "World 02"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 1
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_03(info : MapTypeInformation):
 	info.map_name = "World 03"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 2
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_04(info : MapTypeInformation):
 	info.map_name = "World 04"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 2
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_05(info : MapTypeInformation):
 	info.map_name = "World 05"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 3
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_06(info : MapTypeInformation):
 	info.map_name = "World 06"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 3
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_07(info : MapTypeInformation):
 	info.map_name = "World 07"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 4
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_08(info : MapTypeInformation):
 	info.map_name = "World 08"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 4
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_09(info : MapTypeInformation):
 	info.map_name = "World 09"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 5
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_10(info : MapTypeInformation):
 	info.map_name = "World 10"  #name todo
 	info.map_display_texture = Map_Glade_PreviewImage
 	info.map_tier = 5
-	#info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
+	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 

@@ -82,6 +82,9 @@ enum BlockEndRoundClauseIds {
 var _block_end_round_conditional_clauses : ConditionalClauses
 var last_calculated_block_end_of_round : bool
 
+#
+
+var audio_adv_param
 
 #
 
@@ -96,6 +99,11 @@ func _init():
 	_block_end_round_conditional_clauses = ConditionalClauses.new()
 	
 	_update_last_calculated_block_end_round(false)
+	
+	#####
+	
+	audio_adv_param = AudioManager.construct_play_adv_params()
+	audio_adv_param.node_source = self
 
 #
 
@@ -338,3 +346,29 @@ func _update_last_calculated_block_end_round(attempt_end_round : bool):
 	
 	if !last_calculated_block_end_of_round and attempt_end_round:
 		end_round()
+
+###############
+
+
+#func _play_stage_win_sound():
+#	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.GAME_STAGE_WIN)
+#	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+#	player.autoplay = false
+#	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_adv_param)
+#
+#
+#
+#func _play_stage_lose_sound():
+#	pass
+#
+
+
+
+#func _play_stage_start_sound():
+#	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.GAME_STAGE_START)
+#	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+#	player.autoplay = false
+#	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_adv_param)
+#
+
+

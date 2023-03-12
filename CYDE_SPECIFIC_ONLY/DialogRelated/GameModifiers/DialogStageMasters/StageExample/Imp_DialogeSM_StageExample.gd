@@ -23,9 +23,12 @@ var current_possible_ques_and_ans
 
 var persistence_id_for_portrait_test : int = 1
 
+#
 
 var show_change_questions : bool = true
 var remove_question_count : int = 1
+
+#
 
 func _init().(StoreOfGameModifiers.GameModiIds__CYDE_ExampleStage,
 		BreakpointActivation.BEFORE_GAME_START, 
@@ -55,10 +58,13 @@ func _construct_dialog_segments():
 	#_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg_intro_01, dia_seg_intro_01_02_descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg_intro_01)
 	
+	
+	#
+	
 	dia_seg_intro_02__questions_pool = _construct_and_configure_choices_for_intro_02_questions()[0]
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg_intro_01, dia_seg_intro_02__questions_pool)
-	_set_dialog_segment_to_block_almanac_button(dia_seg_intro_02__questions_pool, AlmanacButtonPanel.IsDisabledClauseId.QUESTION_IN_PROGRESS)
 	
+	#
 	
 #	dia_seg_intro_02 = DialogSegment.new()
 #	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg_intro_01, dia_seg_intro_02)
@@ -369,11 +375,13 @@ func _construct_questions_and_choices_for__intro_02():
 func _construct_and_configure_choices_for_intro_02_questions():
 	current_possible_ques_and_ans = all_possible_ques_and_ans__for_intro_02
 	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__intro_02", all_possible_ques_and_ans__for_intro_02, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
-	
+
 
 func _construct_dia_seg_for_questions__intro_02(arg_rand_ques_for_choices_selected):
 	var dia_seg_question__for_intro_02 = DialogSegment.new()
 	#configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg_intro_01, dia_seg_intro_02)
+	
+	_set_dialog_segment_to_block_almanac_button(dia_seg_question__for_intro_02, AlmanacButtonPanel.IsDisabledClauseId.QUESTION_IN_PROGRESS)
 	
 	_configure_dia_set_to_plate_middle_pos_and_size(dia_seg_question__for_intro_02)
 	

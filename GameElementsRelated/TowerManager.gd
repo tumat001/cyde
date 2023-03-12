@@ -505,13 +505,14 @@ func add_tower(tower_instance : AbstractTower):
 		tower_instance.transfer_to_placable(tower_instance.hovering_over_placable, false, !can_place_tower_based_on_limit_and_curr_placement(tower_instance))
 	
 	if tower_instance.is_tower_bought:
-		#todo
-		pass
+		_play_tower_purchase_sound_at_pos(tower_instance.global_position)
 	
 	emit_signal("tower_added", tower_instance)
 	
 	if tower_instance.is_current_placable_in_map():
 		emit_signal("tower_added_in_map", tower_instance)
+	
+	_on_tower_added__for_apply_of_effects(tower_instance)
 	
 	call_deferred("_on_after_tower_added", tower_instance)
 
@@ -1633,11 +1634,11 @@ func _display_tier_aesthetic_with_tier_at_pos(arg_tier, arg_pos):
 
 ################### EFFECTS RELATED
 
-func add_effect_to_apply_to_all_in_map_towers(arg_effect_func_source, arg_effect_func_name, arg_effect_func_params):
-	for tower in get_all_in_map_towers():
-		var effect = arg_effect_func_source.call(arg_effect_func_name, arg_effect_func_params)
-		if effect != null:
-			tower.add_tower_effect()
+#func add_effect_to_apply_to_all_in_map_towers(arg_effect_func_source, arg_effect_func_name, arg_effect_func_params):
+#	for tower in get_all_in_map_towers():
+#		var effect = arg_effect_func_source.call(arg_effect_func_name, arg_effect_func_params)
+#		if effect != null:
+#			tower.add_tower_effect()
 
 
 func add_effect_to_apply_on_tower__regular(arg_effect):
@@ -1647,18 +1648,18 @@ func add_effect_to_apply_on_tower__time_reduced_by_process(arg_effect):
 	_effects_to_apply_on_spawn__time_reduced_by_process[arg_effect.effect_uuid] = arg_effect
 
 
-func _on_enemy_spawned__for_effect_apply(arg_enemy):
+func _on_tower_added__for_apply_of_effects(arg_tower):
 	for effect in _effects_to_apply_on_spawn__regular.values():
-		arg_enemy._add_effect(effect)
+		arg_tower.add_tower_effect(effect._get_copy_scaled_by(1))
 	
 	for effect in _effects_to_apply_on_spawn__time_reduced_by_process.values():
-		arg_enemy._add_effect(effect)
+		arg_tower.add_tower_effect(effect._get_copy_scaled_by(1))
 
 func _on_round_end__for_effect_apply():
 	_effects_to_apply_on_spawn__regular.clear()
 	_effects_to_apply_on_spawn__time_reduced_by_process.clear()
 	
-	emit_signal("enemy_effect_apply_on_spawn_cleared")
+	#emit_signal("enemy_effect_apply_on_spawn_cleared")
 
 func _process__for_effect_apply(delta):
 	var to_remove : Array = []

@@ -80,6 +80,8 @@ var _all_tower_item_entry_data_options : Array
 var _all_synergy_item_entry_data_options : Array
 var _all_tidbit_item_entry_data_options : Array
 
+var tidbit_id_to_tidbit_item_entry_data_option_map : Dictionary = {}
+
 #
 
 enum PageIds {
@@ -1093,11 +1095,20 @@ func _construct_tidbit_page():
 
 
 func _construct_option_for_tidbit(arg_tidbit, arg_category_to_use, arg_page_to_add_to):
+	var tidbit_option = construct_almanac_item_list_entry_data_of_tidbit(arg_tidbit)
+	
+	_all_tidbit_item_entry_data_options.append(tidbit_option)
+	tidbit_id_to_tidbit_item_entry_data_option_map[arg_tidbit.get_id__for_almanac_use()] = tidbit_option
+	
+	arg_page_to_add_to.add_almanac_item_list_entry_data_to_category(tidbit_option, arg_category_to_use)
+
+func construct_almanac_item_list_entry_data_of_tidbit(arg_tidbit):
 	var tidbit_option = Almanac_ItemListEntry_Data.new()
 	tidbit_option.border_texture__normal = tidbit_tier_to_border_texture_map__normal[arg_tidbit.tidbit_tier] #preload("res://GeneralGUIRelated/AlmanacGUI/Assets/SynergyPage_RightSide/Line_SynergyOptionBorder_6x6_Normal.png")
 	tidbit_option.border_texture__highlighted = tidbit_tier_to_border_texture_map__highlight[arg_tidbit.tidbit_tier]
 	tidbit_option.set_x_type_info(arg_tidbit, Almanac_ItemListEntry_Data.TypeInfoClassification.TEXT_TIDBIT)
 	tidbit_option.connect("button_associated_pressed", self, "_on_option_pressed__display_tidbit_info", [tidbit_option], CONNECT_PERSIST)
+	
 	
 	if StatsManager.is_stats_loaded:
 		_update_tidbit_option_status(tidbit_option, arg_tidbit)
@@ -1105,9 +1116,8 @@ func _construct_option_for_tidbit(arg_tidbit, arg_category_to_use, arg_page_to_a
 		if !StatsManager.is_connected("stats_loaded", self, "_on_stats_manager_stats_loaded"):
 			StatsManager.connect("stats_loaded", self, "_on_stats_manager_stats_loaded", [], CONNECT_ONESHOT)
 	
-	_all_tidbit_item_entry_data_options.append(tidbit_option)
-	
-	arg_page_to_add_to.add_almanac_item_list_entry_data_to_category(tidbit_option, arg_category_to_use)
+	return tidbit_option
+
 
 func _update_tidbit_option_status(tidbit_option, arg_tidbit):
 	tidbit_option.is_obscured = !StatsManager.if_tidbit_id_has_at_least_x_val(arg_tidbit.get_id__for_almanac_use(), tidbit_val_min_for_unobscure)

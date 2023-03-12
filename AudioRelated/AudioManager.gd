@@ -3,7 +3,10 @@ extends Node
 
 const AudioStreamPlayerComponentPool = preload("res://MiscRelated/PoolRelated/Implementations/AudioStreamPlayerComponentPool.gd")
 
-const DECIBEL_LEVEL__STANDARD : float = -30.0   #todo tentative
+const ValTransition = preload("res://MiscRelated/ValTransitionRelated/ValTransition.gd")
+
+
+#const DECIBEL_LEVEL__STANDARD : float = -30.0   #todo tentative
 
 enum MaskLevel {
 	
@@ -20,6 +23,8 @@ var mask_level_to_active_count_map : Dictionary
 var source_id_to_stream_players_arr_map : Dictionary
 #var _current_total_active_stream_player_count : int
 
+var stream_player_to_linear_audio_set_param_map : Dictionary
+
 #var audio_stream_player_component_pool : AudioStreamPlayerComponentPool
 
 var _center_of_screen : Vector2
@@ -35,6 +40,11 @@ enum PlayerConstructionType {
 
 var _next_available_id : int = 0
 
+#
+
+var _last_calc_has_linear_set_params : bool
+
+#
 
 # DONT Instantiate. Use methods
 class PlayAdvParams:
@@ -75,6 +85,7 @@ func _ready():
 	
 	_center_of_screen = get_viewport().size / 2
 	
+	_update_can_do_process()
 
 ####
 
@@ -239,14 +250,43 @@ func remove_stream_player(arg_stream_player):
 	
 	stream_player_node_to_mask_level_map.erase(arg_stream_player)
 	
+	if stream_player_to_linear_audio_set_param_map.has(arg_stream_player):
+		stream_player_to_linear_audio_set_param_map.erase(arg_stream_player)
+	
 	if is_active:
 		mask_level_to_active_count_map[mask_level] -= 1
 
 
+#######
 
-###########
-########### HELPER / CONVENIENCE METHODS ###########
+class LinearSetAudioParams:
+	var pause_at_target_volume : bool
+	var stop_at_target_volume : bool
+	
+	var target_volume : float
+	
+	# set by AudioManager
+	var _val_transition
+
+func linear_set_audio_player_volume_to(arg_player, arg_linear_set_params : LinearSetAudioParams):
+	stream_player_to_linear_audio_set_param_map[arg_player] = arg_linear_set_params
+	arg_linear_set_params._val_transition = ValTransition.new()
+	arg_linear_set_params._val_transition.connect("target_val_reached", self, "_on_target_val_reached", [arg_player, arg_linear_set_params])
+	
+	_last_calc_has_linear_set_params = true
+	_update_can_do_process()
 
 
+func _update_can_do_process():
+	var can_do_process = _last_calc_has_linear_set_params
+	
+	set_process(can_do_process)
 
+
+func _process(delta):
+	for player in stream_player_to_linear_audio_set_param_map:
+		var param : LinearSetAudioParams = stream_player_to_linear_audio_set_param_map[player]
+		
+		
+	
 

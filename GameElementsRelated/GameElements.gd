@@ -127,6 +127,11 @@ var pos_to_angle_range_for_facing_towards_inside_map : Dictionary   # vector to 
 
 #
 
+var audio_adv_param
+var game_play_theme_player : AudioStreamPlayer
+
+#
+
 var non_essential_rng : RandomNumberGenerator
 
 # Vars to be set by outside of game elements
@@ -135,6 +140,13 @@ var game_mode_id : int
 var game_mode_type_info
 var map_id
 var game_modi_ids : Array = []
+
+#
+
+func _init():
+	audio_adv_param = AudioManager.construct_play_adv_params()
+	audio_adv_param.node_source = self
+	
 
 #
 
@@ -166,10 +178,10 @@ func _ready():
 	# TEMPORARY HERE. MAKE IT BE EDITABLE IN MAP SELECTION
 	#game_modi_ids.append(StoreOfGameModifiers.GameModiIds__RedTowerRandomizer)
 	
-	game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_Common_Modifiers)
+	#game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_Common_Modifiers)
 	
 	#game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_ExampleStage)
-	game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_World_01)
+	#game_modi_ids.append(StoreOfGameModifiers.GameModiIds__CYDE_World_01)
 	
 	####### MODIFIER LIST END
 	
@@ -447,6 +459,9 @@ func _ready():
 	
 	stage_round_manager.set_game_mode(game_mode_id)
 	stage_round_manager.end_round(true)
+	
+	_play_stage_start_sound()
+	_play_game_play_theme()
 	
 	# FOR TESTING ------------------------------------
 	
@@ -996,5 +1011,24 @@ func _exit_tree():
 func add_child_to_below_below_screen_effects_manager(arg_node):
 	add_child(arg_node)
 	move_child(arg_node, screen_effect_manager.get_position_in_parent() - 1)
+
+
+##########
+
+func _play_stage_start_sound():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.GAME_STAGE_START)
+	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	player.autoplay = false
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_adv_param)
+	
+
+func _play_game_play_theme():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.GAMEPLAY_THEME_01)
+	game_play_theme_player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	game_play_theme_player.autoplay = false
+	AudioManager.play_sound__with_provided_stream_player(path_name, game_play_theme_player, AudioManager.MaskLevel.MASK_02, audio_adv_param)
+	
+
+
 
 

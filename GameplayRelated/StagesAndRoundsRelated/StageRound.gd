@@ -2,6 +2,9 @@
 const RoundIcon_NormalRound = preload("res://GameHUDRelated/RightSidePanel/RoundStartPanel/RoundInfoPanel_V2/RoundIndicatorPanel/Assets/RoundIndicator_RoundIcon_NormalRound.png")
 const RoundIcon_RelicRound = preload("res://GameHUDRelated/RightSidePanel/RoundStartPanel/RoundInfoPanel_V2/RoundIndicatorPanel/Assets/RoundIndicator_RoundIcon_Relic.png")
 const RoundIcon_LastRound = preload("res://GameHUDRelated/RightSidePanel/RoundStartPanel/RoundInfoPanel_V2/RoundIndicatorPanel/Assets/RoundIndicator_RoundIcon_LastRound.png")
+const RoundIcon_InfoRound = preload("res://GameHUDRelated/RightSidePanel/RoundStartPanel/RoundInfoPanel_V2/RoundIndicatorPanel/Assets/RoundIndicator_RoundIcon_InfoRound.png")
+const RoundIcon_QuestionRound = preload("res://GameHUDRelated/RightSidePanel/RoundStartPanel/RoundInfoPanel_V2/RoundIndicatorPanel/Assets/RoundIndicator_RoundIcon_QuestionRound.png")
+
 
 
 var stage_num : int
@@ -20,6 +23,9 @@ var round_icon = RoundIcon_NormalRound
 
 var induce_enemy_strength_value_change : bool = true
 
+var is_info_round : bool = false setget set_is_info_round
+var is_question_round : bool = false setget set_is_question_round
+
 
 func _init(arg_stage_num : int, arg_round_num : int):
 	stage_num = arg_stage_num
@@ -34,6 +40,19 @@ func set_give_relic_count_in_round(arg_val):
 		round_icon = RoundIcon_RelicRound
 	else:
 		round_icon = RoundIcon_NormalRound
+
+
+func set_is_info_round(arg_val):
+	is_info_round = arg_val
+	
+	if is_info_round:
+		round_icon = RoundIcon_InfoRound
+
+func set_is_question_round(arg_val):
+	is_question_round = arg_val
+	
+	if is_question_round:
+		round_icon = RoundIcon_QuestionRound
 
 
 ######

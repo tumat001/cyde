@@ -28,7 +28,7 @@ var synergy_compo_id_tier_to_play_per_round_count : Dictionary
 var text_tidbit_id_to_int_val_map : Dictionary
 
 var map_id_to_unlocked_val_map : Dictionary
-var map_id_to_always_remain_unlocked = StoreOfMaps.MapsId_Riverside  # for first map
+var map_id_to_always_remain_unlocked = StoreOfMaps.MapIdsAvailableFromMenu[0]  # for first map
 
 #
 

@@ -15,6 +15,8 @@ const DialogImagePanel_Scene = preload("res://MiscRelated/DialogRelated/Controls
 const Dialog_AlmanacXTypeInfoPanel = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/Dialog_AlamancXTypeInfoPanel/Dialog_AlmanacXTypeInfoPanel.gd")
 const Dialog_AlmanacXTypeInfoPanel_Scene = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/Dialog_AlamancXTypeInfoPanel/Dialog_AlmanacXTypeInfoPanel.tscn")
 
+
+const Almanac_XTypeInfoPanel = preload("res://GeneralGUIRelated/AlmanacGUI/Subs/Almanac_XTypeInfoPanel/Almanac_XTypeInfoPanel/Almanac_XTypeInfoPanel.gd")
 const AlmanacButtonPanel = preload("res://GameHUDRelated/AlmanacButtonPanel/AlmanacButtonPanel.gd")
 
 const BackDialogImagePanel = preload("res://MiscRelated/DialogRelated/Controls/DialogBackgroundElementsControls/BackDialogImagePanel/BackDialogImagePanel.gd")
@@ -39,7 +41,9 @@ const Tutorial_WhiteCircle_Particle_Scene = preload("res://GameplayRelated/GameM
 
 const TowerAttributesEffect = preload("res://GameInfoRelated/TowerEffectRelated/TowerAttributesEffect.gd")
 const EnemyAttributesEffect = preload("res://GameInfoRelated/EnemyEffectRelated/EnemyAttributesEffect.gd")
-
+const FlatModifier = preload("res://GameInfoRelated/FlatModifier.gd")
+const PercentModifier = preload("res://GameInfoRelated/PercentModifier.gd")
+const PercentType = preload("res://GameInfoRelated/PercentType.gd")
 
 ######
 
@@ -48,11 +52,15 @@ signal current_dialog_segment_changed(arg_seg)
 
 #
 
-const dia_main_panel__pos__standard := Vector2(200, 280)
+const dia_main_panel__pos__standard := Vector2(0, 100)
 const dia_main_panel__size__standard := Vector2(500, 100)
 
-const dia_main_panel__pos__plate_middle := Vector2(350, 150)
+const dia_main_panel__pos__plate_middle := Vector2(0, 100)
 const dia_main_panel__size__plate_middle := Vector2(250, 200)
+
+const dia_main_panel__pos__x_type_info_panel := Vector2(0, 25)
+const dia_main_panel__size__x_type_info_panel__tidbit := Almanac_XTypeInfoPanel.SIZE_OF_PANEL__TIDBIT
+
 
 
 
@@ -95,10 +103,19 @@ var _nodes_to_queue_free_on_dia_seg_advance : Array = []
 
 var rng_to_use_for_randomized_questions_and_ans : RandomNumberGenerator
 
+#
+
+var audio_player_adv_params
 
 ######
 
 var almanac_button_bot_right
+
+##
+
+const POWER_UP__DEFAULT_DURATION : float = 90.0
+
+#
 
 #
 
@@ -156,6 +173,13 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 		_on_game_elements_before_game_start__base_class()
 	
 	create_dialog_whole_screen_panel_and_add_to_GE()
+	
+	_initialize_audio_relateds()
+
+
+func _initialize_audio_relateds():
+	audio_player_adv_params = AudioManager.construct_play_adv_params()
+	audio_player_adv_params.node_source = game_elements
 
 func _unapply_game_modifier_from_elements(arg_elements : GameElements):
 	._unapply_game_modifier_from_elements(arg_elements)
@@ -325,6 +349,7 @@ func _construct_default_templated_text_input_for_dia_seg(arg_params : Array):
 ## CHOICES PANEL
 func _configure_dia_seg_to_default_templated_dialog_choices_panel(arg_seg : DialogSegment, arg_button_choices_info : Array, 
 		func_source_for_properties, func_name_for_is_show_dia_modi_panel, func_name_for_dia_choices_modi):#, arg_pos : Vector2, arg_size : Vector2):
+	
 	var diag_construction_ins := DialogSegment.DialogElementsConstructionIns.new()
 	diag_construction_ins.func_source = self
 	diag_construction_ins.func_name_for_construction = "_construct_default_templated_choices_panel_for_dia_seg"
@@ -585,22 +610,22 @@ func _construct_default_templated_image_panel_for_dia_seg(arg_params):
 
 
 ## Alamanc XTypeInfoPanel
-# input entered method should expect 2 args (x_type_info, x_type (type classification : int. Ex = TEXT_TIDBIT, ENEMY, TOWER))
-func _configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(arg_seg : DialogSegment, arg_x_type_info, arg_x_type_classification):#, arg_pos : Vector2, arg_size : Vector2):
+# input entered method should expect 2 args (x_type_item_entry_data, x_type (type classification : int. Ex = TEXT_TIDBIT, ENEMY, TOWER))
+func _configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(arg_seg : DialogSegment, arg_x_type_item_entry_data, arg_x_type_classification):#, arg_pos : Vector2, arg_size : Vector2):
 	var diag_construction_ins := DialogSegment.DialogElementsConstructionIns.new()
 	diag_construction_ins.func_source = self
 	diag_construction_ins.func_name_for_construction = "_construct_default_templated_almanac_x_type_info_panel_for_dia_seg"
-	diag_construction_ins.func_params = [arg_seg, arg_x_type_info, arg_x_type_classification] #arg_pos, arg_size]
+	diag_construction_ins.func_params = [arg_seg, arg_x_type_item_entry_data, arg_x_type_classification] #arg_pos, arg_size]
 	
 	arg_seg.add_dialog_element_construction_ins(diag_construction_ins)
 
 func _construct_default_templated_almanac_x_type_info_panel_for_dia_seg(arg_params : Array):
 	var dia_seg : DialogSegment = arg_params[0]
-	var x_type_info = arg_params[1]
+	var x_type_item_entry_data = arg_params[1]
 	var x_type_classification = arg_params[2]
 	
 	var panel = Dialog_AlmanacXTypeInfoPanel_Scene.instance()
-	panel.x_type_info = x_type_info
+	panel.x_type_item_entry_data = x_type_item_entry_data
 	panel.x_type = x_type_classification
 	
 	dia_seg.show_dialog_main_panel_background = false
@@ -620,6 +645,9 @@ func _configure_dia_set_to_plate_middle_pos_and_size(arg_seg : DialogSegment):
 	arg_seg.final_dialog_top_left_pos = dia_main_panel__pos__plate_middle
 	arg_seg.final_dialog_custom_size = dia_main_panel__size__plate_middle
 
+func _configure_dia_set_to_x_type_info_tidbit_pos_and_size(arg_seg : DialogSegment):
+	arg_seg.final_dialog_top_left_pos = dia_main_panel__pos__x_type_info_panel
+	arg_seg.final_dialog_custom_size = dia_main_panel__size__x_type_info_panel__tidbit
 
 
 ## BACKGROUND ELEMENT -- TEXTURE IMAGE
@@ -1060,24 +1088,108 @@ func set_CYDE_Singleton_world_completion_state_num(arg_num):
 ##################################### Powerup Related
 
 func apply_tower_power_up_effects():
-	pass
+	for tower in game_elements.tower_manager.get_all_in_map_towers():
+		#_apply_tower_power_up_effects__bonus_dmg__to_tower(tower)
+		_apply_tower_power_up_effects__attk_speed__to_tower(tower)
+		_apply_tower_power_up_effects__ap_effect__to_tower(tower)
 	
-	
+	#var base_dmg_effect = _construct_tower_bonus_dmg()
+	#game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(base_dmg_effect)
+	var attk_speed_effect = _construct_tower_attk_speed()
+	game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(attk_speed_effect)
+	var ap_effect = _construct_ability_potency()
+	game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(ap_effect)
 
 #
 
-func _apply_tower_power_up_effects__bonus_dmg__to_tower(arg_tower):
-	pass
+#func _apply_tower_power_up_effects__bonus_dmg__to_tower(arg_tower):
+#	var base_dmg_effect = _construct_tower_bonus_dmg()
+#	arg_tower.add_tower_effect(base_dmg_effect)
+
+func _apply_tower_power_up_effects__attk_speed__to_tower(arg_tower):
+	var attk_speed_effect = _construct_tower_attk_speed()
+	arg_tower.add_tower_effect(attk_speed_effect)
+
+func _apply_tower_power_up_effects__ap_effect__to_tower(arg_tower):
+	var ap_effect = _construct_ability_potency()
+	arg_tower.add_tower_effect(ap_effect)
+
+
+
+#func _construct_tower_bonus_dmg():
+#	var total_base_damage_modi : PercentModifier = PercentModifier.new(StoreOfTowerEffectsUUID.BLOSSOM_TOTAL_BASE_DMG_BUFF)
+#	total_base_damage_modi.percent_amount = 20
+#	total_base_damage_modi.ignore_flat_limits = true
+#
+#	var total_base_damage_effect = TowerAttributesEffect.new(TowerAttributesEffect.PERCENT_BASE_DAMAGE_BONUS, total_base_damage_modi, StoreOfTowerEffectsUUID.BLOSSOM_TOTAL_BASE_DMG_BUFF)
+#	total_base_damage_effect.is_timebound = true
+#	total_base_damage_effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
+#
+#	return total_base_damage_effect
+
+func _construct_tower_attk_speed():
+	var total_attk_speed_modi : PercentModifier = PercentModifier.new(StoreOfTowerEffectsUUID.TOWER_POWER_UP__ATTK_SPEED)
+	total_attk_speed_modi.percent_amount = 20
+	total_attk_speed_modi.ignore_flat_limits = true
 	
+	var total_attk_speed_effect = TowerAttributesEffect.new(TowerAttributesEffect.PERCENT_BASE_ATTACK_SPEED, total_attk_speed_modi, StoreOfTowerEffectsUUID.TOWER_POWER_UP__ATTK_SPEED)
+	total_attk_speed_effect.is_timebound = true
+	total_attk_speed_effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
+	
+	return total_attk_speed_effect
 
 
+func _construct_ability_potency():
+	var ap_modi = FlatModifier.new(StoreOfTowerEffectsUUID.TOWER_POWER_UP__ABILITY_POTENCY)
+	ap_modi.flat_modifier = 0.5
+	
+	var ability_potency_effect = TowerAttributesEffect.new(TowerAttributesEffect.FLAT_ABILITY_POTENCY, ap_modi, StoreOfTowerEffectsUUID.TOWER_POWER_UP__ABILITY_POTENCY)
+	ability_potency_effect.is_timebound = true
+	ability_potency_effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
+	
+	
+	return ability_potency_effect
+
+
+
+######
 
 func apply_enemy_power_up_effects():
-	pass
+	#for enemy in game_elements.enemy_manager.get_all_enemies():
+	#	enemy._add_effect(_construct_enemy_speed_up_effect())
 	
+	var speed_effect = _construct_enemy_speed_up_effect()
+	game_elements.enemy_manager.add_effect_to_apply_to_all_enemies(speed_effect)
+	game_elements.enemy_manager.add_effect_to_apply_on_enemy_spawn__time_reduced_by_process(speed_effect)
 	
 
 
+func _construct_enemy_speed_up_effect():
+	var speed_bonus_modi = FlatModifier.new(StoreOfEnemyEffectsUUID.ENEMY_POWER_UP__SPEED_EFFECT)
+	speed_bonus_modi.flat_modifier = 10
+	
+	var speed_bonus_effect = EnemyAttributesEffect.new(EnemyAttributesEffect.FLAT_MOV_SPEED, speed_bonus_modi, StoreOfEnemyEffectsUUID.ENEMY_POWER_UP__SPEED_EFFECT)
+	speed_bonus_effect.is_timebound = true
+	speed_bonus_effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
+	speed_bonus_effect.is_from_enemy = true
+	
+	return speed_bonus_effect
 
 
+#####
+
+func _play_correct_choice_sound():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.CORRECT_ANSWER)
+	var player : AudioStreamPlayer = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	player.autoplay = false
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
+
+
+func _play_wrong_choice_sound():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.MALFUNCTION)
+	var player : AudioStreamPlayer = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	player.autoplay = false
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
 

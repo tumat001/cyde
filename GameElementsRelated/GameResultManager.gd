@@ -21,6 +21,9 @@ var game_result_panel : GameResultPanel
 var whole_screen_gui
 var game_elements
 
+##
+
+var audio_player_adv_params
 
 # queue related
 
@@ -30,6 +33,8 @@ var reservation_for_whole_screen_gui
 
 func _ready():
 	game_result = GameResult.ONGOING
+	
+	_initialize_audio_relateds()
 	
 	_initialize_queue_reservation()
 
@@ -82,8 +87,11 @@ func _initialize_game_result_panel():
 		
 		if game_result == GameResult.VICTORY:
 			game_result_panel.display_as_victory()
+			_play_game_win_music()
+			
 		elif game_result == GameResult.DEFEAT:
 			game_result_panel.display_as_defeat()
+			_play_game_over_lose_music()
 		
 		game_result_panel.connect("option_view_battlefield_selected", self, "_game_result_panel__view_battlefield_selected")
 		game_result_panel.connect("option_main_menu_selected", self, "_game_result_panel__main_menu_selected")
@@ -129,4 +137,25 @@ func _game_result_panel__main_menu_selected():
 	CommsForBetweenScenes.goto_starting_screen(game_elements)
 
 
+##########
+
+func _initialize_audio_relateds():
+	audio_player_adv_params = AudioManager.construct_play_adv_params()
+	audio_player_adv_params.node_source = self
+	
+
+func _play_game_over_lose_music():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.GAME_OVER_LOSE)
+	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	player.autoplay = false
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
+	
+
+func _play_game_win_music():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.GAME_STAGE_WIN)
+	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	player.autoplay = false
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
+	
+	
 

@@ -28,11 +28,13 @@ func _ready():
 	
 	CommsForBetweenScenes.connect("before_goto_scene", self , "_on_before_comms_goto_scene")
 	
+	audio_adv_param = AudioManager.construct_play_adv_params()
+	audio_adv_param.node_source = self
+	
+	
 	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.HOMEPAGE_LOBBY_THEME_01)
 	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
 	player.autoplay = true
-	audio_adv_param = AudioManager.construct_play_adv_params()
-	audio_adv_param.node_source = self
 	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_adv_param)
 	
 

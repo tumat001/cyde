@@ -3,6 +3,9 @@ extends Control
 const DialogSegment = preload("res://MiscRelated/DialogRelated/DataClasses/DialogSegment.gd")
 const BaseDialogElementControl = preload("res://MiscRelated/DialogRelated/Controls/DialogElementControls/BaseDialogElementControl.gd")
 const BaseDialogBackgroundElementControl = preload("res://MiscRelated/DialogRelated/Controls/DialogBackgroundElementsControls/BaseDialogBackgroundElement.gd")
+const ValTransition = preload("res://MiscRelated/ValTransitionRelated/ValTransition.gd")
+const ConditionalClauses = preload("res://MiscRelated/ClauseRelated/ConditionalClauses.gd")
+
 
 signal resolve_block_advanced_requested_status(arg_status)
 signal dialog_element_control_constructed(arg_element, arg_ins, arg_id)
@@ -24,6 +27,25 @@ var _is_absolute_block_active : bool
 
 var game_elements
 
+
+#
+
+enum TransitioningClauseIds {
+	POS_X = 0,
+	POS_Y = 1,
+}
+
+var val_transition__center_container__top_left_pos__x : ValTransition
+var val_transition__center_container__top_left_pos__y : ValTransition
+
+var is_transitioning_clauses : ConditionalClauses
+var last_calculated_is_transitioning : bool
+
+var transitioning_id_to_val_trans_map : Dictionary
+var transitioning_id_to_is_active_map : Dictionary
+
+const time_taken_for_pos_change_transition : float = 0.5
+
 #
 
 #var last_calculated_dialog_main_panel__block_advance
@@ -33,6 +55,40 @@ var game_elements
 onready var dialog_main_panel = $CenterContainer/DialogMainPanel
 onready var dialog_background_ele_container = $DialogBackgrounElementsContainer
 onready var center_container = $CenterContainer
+
+#
+
+func _init():
+	val_transition__center_container__top_left_pos__x = ValTransition.new()
+	val_transition__center_container__top_left_pos__x.connect("target_val_reached", self, "_on_target_val_reached", [val_transition__center_container__top_left_pos__x, TransitioningClauseIds.POS_X], CONNECT_PERSIST)
+	val_transition__center_container__top_left_pos__y = ValTransition.new()
+	val_transition__center_container__top_left_pos__y.connect("target_val_reached", self, "_on_target_val_reached", [val_transition__center_container__top_left_pos__y, TransitioningClauseIds.POS_Y], CONNECT_PERSIST)
+	
+	is_transitioning_clauses = ConditionalClauses.new()
+	is_transitioning_clauses.connect("clause_inserted", self, "_on_is_transitioning_clauses_inserted", [], CONNECT_PERSIST)
+	is_transitioning_clauses.connect("clause_removed", self, "_on_is_transitioning_clauses_removed", [], CONNECT_PERSIST)
+	_update_last_calculated_is_transitioning()
+	
+	transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_X] = val_transition__center_container__top_left_pos__x
+	transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_Y] = val_transition__center_container__top_left_pos__y
+	
+
+func _on_is_transitioning_clauses_inserted(arg_clause_id):
+	transitioning_id_to_is_active_map[arg_clause_id] = true
+	_update_last_calculated_is_transitioning()
+
+func _on_is_transitioning_clauses_removed(arg_clause_id):
+	transitioning_id_to_is_active_map[arg_clause_id] = false
+	_update_last_calculated_is_transitioning()
+
+func _update_last_calculated_is_transitioning():
+	last_calculated_is_transitioning = !is_transitioning_clauses.is_passed
+	
+
+
+func _on_target_val_reached(arg_val_transition, arg_transition_id):
+	is_transitioning_clauses.remove_clause(arg_transition_id)
+
 
 #
 
@@ -54,7 +110,33 @@ func set_dialog_segment(arg_segment : DialogSegment):
 	
 	dialog_main_panel.dia_seg_of_whole_screen_panel_changed()
 	
+	##
+	##
+	
 	if arg_segment != null:
+		
+		#
+		
+		var final_time_taken_for_pos_change_transition = time_taken_for_pos_change_transition
+		
+		if !visible or modulate.a == 0:
+			final_time_taken_for_pos_change_transition = 0
+			
+		if final_time_taken_for_pos_change_transition != 0:
+			var reached_x = val_transition__center_container__top_left_pos__x.configure_self(center_container.rect_position.x, center_container.rect_position.x, arg_segment.final_dialog_top_left_pos.x, final_time_taken_for_pos_change_transition, ValTransition.VALUE_UNSET, arg_segment.final_dialog_top_left_pos_val_trans_mode)
+			var reached_y = val_transition__center_container__top_left_pos__y.configure_self(center_container.rect_position.y, center_container.rect_position.y, arg_segment.final_dialog_top_left_pos.y, final_time_taken_for_pos_change_transition, ValTransition.VALUE_UNSET, arg_segment.final_dialog_top_left_pos_val_trans_mode)
+			
+			if !reached_x:
+				is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.POS_X)
+			if !reached_y:
+				is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.POS_Y)
+			
+		else:
+			center_container.rect_position = arg_segment.final_dialog_top_left_pos
+		
+		
+		#
+		
 		visible = true
 		
 		dialog_main_panel.dialog_segment = arg_segment
@@ -80,7 +162,8 @@ func set_dialog_segment(arg_segment : DialogSegment):
 		dialog_main_panel.visible = false
 		visible = false
 		game_elements.almanac_button.is_disabled_conditional_clauses.remove_all_clauses()
-
+	
+	
 
 func _start_show_dia_main_panel_element_using_construction_ins__and_increment_index(cons_ins : DialogSegment.DialogElementsConstructionIns):
 	_latest_base_dialog_ele_control = cons_ins.build_element()
@@ -136,7 +219,7 @@ func _on_latest_diag_ele_is_fully_finished():
 #
 
 func is_block_advance():
-	return _is_absolute_block_active or dialog_main_panel.is_block_advance() or last_calculated_not_all_BDEs_are_shown or current_dialog_segment.is_block_advance() or dialog_background_ele_container.is_block_advance()
+	return _is_absolute_block_active or dialog_main_panel.is_block_advance() or last_calculated_not_all_BDEs_are_shown or current_dialog_segment.is_block_advance() or dialog_background_ele_container.is_block_advance() or last_calculated_is_transitioning
 
 func resolve_block_advance():
 	if !_is_absolute_block_active:
@@ -151,7 +234,9 @@ func resolve_block_advance():
 		
 		if dialog_background_ele_container.is_block_advance():
 			dialog_background_ele_container.resolve_block_advance()
-		
+	
+	resolve_block_advance__val_transitions()
+	
 	call_deferred("_emit_resolve_block_advanced_requested_status")
 
 
@@ -202,6 +287,37 @@ func _get_existing_background_elements_persistence_id_to_ele_map():
 		bucket[child.persistence_id] = child
 	
 	return bucket
+
+
+##########
+
+func _process(delta):
+	if last_calculated_is_transitioning:
+		if transitioning_id_to_is_active_map[TransitioningClauseIds.POS_X]:
+			var val_transition = transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_X]
+			val_transition.delta_pass(delta)
+			
+			center_container.rect_position.x = val_transition.get_current_val()
+		
+		if transitioning_id_to_is_active_map[TransitioningClauseIds.POS_Y]:
+			var val_transition = transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_Y]
+			val_transition.delta_pass(delta)
+			
+			center_container.rect_position.y = val_transition.get_current_val()
+		
+
+
+func resolve_block_advance__val_transitions():
+	if last_calculated_is_transitioning:
+		for val_transition in transitioning_id_to_val_trans_map.values():
+			val_transition.instantly_finish_transition()
+			
+			if val_transition == transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_X]:
+				center_container.rect_position.x = val_transition.get_current_val()
+				
+			elif val_transition == transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_Y]:
+				center_container.rect_position.y = val_transition.get_current_val()
+				
 
 
 

@@ -61,13 +61,12 @@ var dia_seg__intro_05_sequence_009 : DialogSegment
 #
 
 var dia_seg__intro_06_sequence_001 : DialogSegment
+var dia_seg__intro_06_sequence_006 : DialogSegment
 
+#
 
-# questions
+var dia_seg__intro_07_sequence_001 : DialogSegment
 
-var all_possible_ques_and_ans__for_virus_01
-var all_possible_ques_and_ans__for_virus_02
-var all_possible_ques_and_ans__for_virus_03
 
 #
 
@@ -83,13 +82,27 @@ var tower_id_to_buy_at_intro_tutorial__003 = Towers.MINI_TESLA
 var tower_name_to_buy_at_intro_tutorial__003 = "Mini Tesla"
 var tower_instance_bought_at_intro_tutorial__003
 
+
+# QUESTIONS RELATED -- SPECIFIC FOR THIS
+
+var all_possible_ques_and_ans__for_virus_01
+var all_possible_ques_and_ans__for_virus_02
+var all_possible_ques_and_ans__for_virus_03
+
+# QUESTIONS RELATED -- CAN BE COPY PASTED TO OTHERS
+
+var current_possible_ques_and_ans
+
+var show_change_questions : bool = true
+var remove_choice_count : int = 1
+
 #
 
 func _init().(StoreOfGameModifiers.GameModiIds__CYDE_World_01,
 		BreakpointActivation.BEFORE_GAME_START, 
 		"Cyde_World01_Modi"):
 	
-	pass
+	_construct_questions_and_choices_for__virus_Q01()
 
 func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	._apply_game_modifier_to_elements(arg_elements)
@@ -109,15 +122,12 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	
 	#
 	
-	#todo re-enable this when done
-	#_construct_and_play__comic_sequence_dialogs()
-	
-	_construct_dia_seg__intro_05_sequence_001()
-	_play_dia_seg__intro_05_sequence_001()
+	game_elements.synergy_manager.allow_synergies_clauses.attempt_insert_clause(game_elements.synergy_manager.AllowSynergiesClauseIds.CYDE__STAGE_01_CLAUSE)
 	
 	#
 	
-	game_elements.synergy_manager.allow_synergies_clauses.attempt_insert_clause(game_elements.synergy_manager.AllowSynergiesClauseIds.CYDE__STAGE_01_CLAUSE)
+	call_deferred("_deferred_applied")
+	
 	
 	# OLD
 #	if !flag_is_enabled(world_completion_num_state, World01_States.SHOWN_COMIC_SEQUENCE):
@@ -137,6 +147,14 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 #	else:
 #
 #		_construct_and_play__intro_02_sequence_001()
+
+func _deferred_applied():
+	#todo re-enable this when done
+	#_construct_and_play__comic_sequence_dialogs()
+	
+	_construct_dia_seg__intro_06_sequence_001()
+	_play_dia_seg__intro_06_sequence_001()
+
 
 func _on_game_elements_before_game_start__base_class():
 	._on_game_elements_before_game_start__base_class()
@@ -958,26 +976,200 @@ func _on_round_ended__into_round_04():
 	_play_dia_seg__intro_06_sequence_001()
 
 
+
 ##########
 
 
 func _construct_dia_seg__intro_06_sequence_001():
 	
-	
 	dia_seg__intro_06_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__intro_06_sequence_001__descs = [
-		""
+		"In this world, knowledge is power. Having and knowing information about these malwares will greatly help us in our path to victory."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_001, dia_seg__intro_06_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_001)
 	#dia_seg__intro_06_sequence_001.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_006__fully_displayed", [], CONNECT_ONESHOT)
 	
 	
+	######
+	
+	var dia_seg__intro_06_sequence_002 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_06_sequence_001, dia_seg__intro_06_sequence_002)
+	
+	var dia_seg__intro_06_sequence_002__descs = [
+		"Every stage, I will give you information about the current malware we are dealing with. Make sure to remember this, as your knowledge will be tested.",
+		"Speaking of information, I will provide you with one."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_002, dia_seg__intro_06_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_002)
+	
+	
+	#####
+	
+	var dia_seg__intro_06_sequence_003 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_06_sequence_002, dia_seg__intro_06_sequence_003)
+	
+	var x_type_item_entry_data__virus_background_01 = AlmanacManager.tidbit_id_to_tidbit_item_entry_data_option_map[StoreOfTextTidbit.TidbitId.CYDE__VIRUS_BACKGROUND_01]
+	_configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(dia_seg__intro_06_sequence_003, x_type_item_entry_data__virus_background_01, AlmanacManager.Almanac_ItemListEntry_Data.TypeInfoClassification.TEXT_TIDBIT)
+	_configure_dia_set_to_x_type_info_tidbit_pos_and_size(dia_seg__intro_06_sequence_003)
+	
+	#####
+	
+	
+	var dia_seg__intro_06_sequence_004 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_06_sequence_003, dia_seg__intro_06_sequence_004)
+	
+	var dia_seg__intro_06_sequence_004__descs = [
+		"You can view the informations about the malware by clicking here.",
+		"You can also view informations about the towers and enemies here."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_004, dia_seg__intro_06_sequence_004__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_004)
+	dia_seg__intro_06_sequence_004.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_004__fully_displayed", [], CONNECT_ONESHOT)
+	
+	#####
+	
+	
+	var dia_seg__intro_06_sequence_004_a = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_06_sequence_004, dia_seg__intro_06_sequence_004_a)
+	
+	var dia_seg__intro_06_sequence_004_a__descs = [
+		"Rounds where I give you information are indicated by the \"info\" symbol.",
+		"Rounds where your knowledge is tested are indicated by the \"question mark\" symbol."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_004_a, dia_seg__intro_06_sequence_004_a__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_004_a)
+	dia_seg__intro_06_sequence_004_a.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_004_a__fully_displayed", [], CONNECT_ONESHOT)
+	
+	
+	####
+	
+	var dia_seg__intro_06_sequence_005 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_06_sequence_004_a, dia_seg__intro_06_sequence_005)
+	
+	var dia_seg__intro_06_sequence_005__descs = [
+		"Let's start the round."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_005, dia_seg__intro_06_sequence_005__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_005)
+	dia_seg__intro_06_sequence_005.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_005__fully_displayed", [], CONNECT_ONESHOT)
+	
+	
+	#####
+	
+	dia_seg__intro_06_sequence_006 = DialogSegment.new()
+	
+	var dia_seg__intro_06_sequence_006__descs = [
+		"You can adjust the game's speed by pressing the speed buttons here."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_005, dia_seg__intro_06_sequence_005__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_005)
+	#dia_seg__intro_06_sequence_006.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_006__fully_displayed", [], CONNECT_ONESHOT)
+	
+	
+	
+	
 
 func _play_dia_seg__intro_06_sequence_001():
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_06_sequence_001)
 	
+
+
+func _on_dia_seg__intro_06_sequence_004__fully_displayed():
+	var arrows = display_white_arrows_pointed_at_node(get_almanac_button_bot_right())
+	
+	arrows[1].x_offset = -40
+	arrows[1].y_offset = 40
+
+func _on_dia_seg__intro_06_sequence_004_a__fully_displayed():
+	var arrows = display_white_arrows_pointed_at_node(get_round_indicator_panel())
+	arrows[0].x_offset = 10
+	arrows[0].y_offset = -10
+	arrows[1].y_offset = 100
+	arrows[1].flip_h = true
+	
+
+
+
+func _on_dia_seg__intro_06_sequence_005__fully_displayed():
+	set_round_is_startable(true)
+	
+	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_round_05", "_on_round_ended__into_round_05")
+
+
+func _on_round_started__into_round_05():
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_06_sequence_006)
+	
+	
+
+func _on_round_ended__into_round_05():
+	set_round_is_startable(false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_07_sequence_001)
+
+########
+
+
+func _construct_dia_seg__intro_07_sequence_001():
+	
+	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	dia_seg__intro_07_sequence_001 = DialogSegment.new()
+	
+	var dia_seg__intro_07_sequence_001__descs = [
+		"Alright. The Icebreaker quiz is about to start after proceeding from this point. You will be asked a question, and you are given multiple choices.",
+		["Selecting the right choice gives your |0| a power up for %s seconds. However, choosing wrong will give |1| a power up for %s seconds." % [POWER_UP__DEFAULT_DURATION, POWER_UP__DEFAULT_DURATION], [plain_fragment__towers, plain_fragment__enemies]],
+		"You can do a last minute review if you wish by accessing the almanac here."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_001, dia_seg__intro_07_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_001)
+	dia_seg__intro_07_sequence_001.connect("fully_displayed", self, "_on_dia_seg__intro_07_sequence_001__fully_displayed", [], CONNECT_ONESHOT)
+	
+	
+	#######
+	
+	var dia_seg__intro_07_sequence_002 = _construct_and_configure_choices_for_intro_07_questions()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_07_sequence_001, dia_seg__intro_07_sequence_002)
+	
+	#######
+	
+	
+	
+	
+
+func _on_dia_seg__intro_07_sequence_001__fully_displayed():
+	var arrows = display_white_arrows_pointed_at_node(get_almanac_button_bot_right())
+	
+	arrows[1].x_offset = -40
+	arrows[1].y_offset = 40
+
+
+func _on_virus_Q01_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
+	
+	
+	var dia_seg__intro_07_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__intro_07_sequence_002__descs = [
+		"Nice job! You got it right!",
+		["With the proper knowledge used at the right time, your |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__towers]],
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_002, dia_seg__intro_07_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_002)
+	
+	
+
+func _on_virus_Q01_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	pass
+	
+
+func _on_virus_Q01_timeout(arg_params):
+	pass
+	
+
 
 
 #########################################
@@ -1088,25 +1280,12 @@ func _construct_questions_and_choices_for__virus_Q01():
 	question_info__02.timeout_func_source = self
 	question_info__02.timeout_func_name = "_on_virus_Q01_timeout"
 	
-	
 	#######
 	#######
 	
 	all_possible_ques_and_ans__for_virus_01 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
 	all_possible_ques_and_ans__for_virus_01.add_question_info_for_choices_panel(question_info__01)
 	all_possible_ques_and_ans__for_virus_01.add_question_info_for_choices_panel(question_info__02)
-
-func _on_virus_Q01_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
-	pass
-	
-
-func _on_virus_Q01_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
-	pass
-	
-
-func _on_virus_Q01_timeout(arg_params):
-	pass
-	
 
 
 
@@ -1366,4 +1545,52 @@ func _on_virus_Q03_timeout(arg_params):
 	
 
 
+############ QUESTIONS STATE ############
+
+
+func _show_dialog_choices_modi_panel():
+	return show_change_questions
+
+func _build_dialog_choices_modi_panel_config():
+	var config = DialogChoicesModiPanel.ModiPanelConfig.new()
+	
+	config.remove_false_answer_count = remove_choice_count
+	config.show_change_question = show_change_questions
+	
+	config.func_source_for_actions = self
+	config.func_name_for__change_question = "_on_dialog_choices_modi_panel__change_question"
+	config.func_name_for__remove_false_answer = "_on_dialog_choices_modi_panel__removed_choices"
+	
+	return config
+
+
+func _on_dialog_choices_modi_panel__removed_choices(arg_param):
+	remove_choice_count -= 1
+
+func _on_dialog_choices_modi_panel__change_question(arg_param):
+	show_change_questions = false
+	
+	if current_possible_ques_and_ans == all_possible_ques_and_ans__for_virus_01:
+		var dia_seg = _construct_and_configure_choices_for_intro_07_questions()[0]
+		
+		play_dialog_segment_or_advance_or_finish_elements(dia_seg)
+
+
+
+#
+
+func _construct_and_configure_choices_for_intro_07_questions():
+	current_possible_ques_and_ans = all_possible_ques_and_ans__for_virus_01
+	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__intro_07", all_possible_ques_and_ans__for_virus_01, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
+
+
+func _construct_dia_seg_for_questions__intro_07(arg_rand_ques_for_choices_selected):
+	var dia_seg_question__for_intro_07 = DialogSegment.new()
+	#configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg_intro_01, dia_seg_intro_02)
+	
+	_set_dialog_segment_to_block_almanac_button(dia_seg_question__for_intro_07, AlmanacButtonPanel.IsDisabledClauseId.QUESTION_IN_PROGRESS)
+	
+	_configure_dia_set_to_plate_middle_pos_and_size(dia_seg_question__for_intro_07)
+	
+	return dia_seg_question__for_intro_07
 
