@@ -10,6 +10,14 @@ func get_instructions_for_stageround(uuid : String):
 		return _get_instructions_for_0_3()
 	elif uuid == "14":
 		return _get_instructions_for_0_4()
+	elif uuid == "15":
+		return _get_instructions_for_0_5()
+	elif uuid == "16":
+		return _get_instructions_for_0_6()
+	elif uuid == "17":
+		return _get_instructions_for_0_7()
+	elif uuid == "18":
+		return _get_instructions_for_0_8()
 	
 	
 	return null
@@ -56,7 +64,35 @@ func _get_instructions_for_0_3():
 func _get_instructions_for_0_4():
 	return [
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
 	]
 
+func _get_instructions_for_0_5():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+	]
 
+func _get_instructions_for_0_6():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+	]
+
+func _get_instructions_for_0_7():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+	]
+
+func _get_instructions_for_0_8():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+	]
 

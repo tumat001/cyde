@@ -1031,4 +1031,28 @@ func _play_game_play_theme():
 
 
 
+func linearly_set_game_play_theme_db_to_inaudiable():
+	var params = AudioManager.LinearSetAudioParams.new()
+	params.pause_at_target_db = true
+	params.stop_at_target_db = false
+	params.target_db = AudioManager.DECIBEL_VAL__INAUDIABLE
+	
+	params.time_to_reach_target_db = 1
+	
+	AudioManager.linear_set_audio_player_volume_using_params(game_play_theme_player, params)
+
+
+func linearly_set_game_play_theme_db_to_normal_db():
+	var params = AudioManager.LinearSetAudioParams.new()
+	params.pause_at_target_db = false
+	params.stop_at_target_db = false
+	params.target_db = AudioManager.DECIBEL_VAL__STANDARD
+	
+	params.time_to_reach_target_db = 1
+	
+	AudioManager.linear_set_audio_player_volume_using_params(game_play_theme_player, params)
+	game_play_theme_player.stream_paused = false
+	
+
+
 

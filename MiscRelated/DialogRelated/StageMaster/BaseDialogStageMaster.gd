@@ -107,6 +107,8 @@ var rng_to_use_for_randomized_questions_and_ans : RandomNumberGenerator
 
 var audio_player_adv_params
 
+var quiz_audio_stream_player : AudioStreamPlayer
+
 ######
 
 var almanac_button_bot_right
@@ -907,6 +909,23 @@ func _if_tower_arr_matches_tower_id_arr(arg_tower_arr : Array, arg_tower_id_arr 
 	
 	return false
 
+# expects a method that accepts sellback gold (int) and tower id
+func listen_for_tower_sold(arg_expected_id, arg_func_source, arg_func_name):
+	game_elements.tower_manager.connect("tower_being_sold", self, "_on_tower_being_sold", [arg_expected_id, arg_func_source, arg_func_name])
+
+func _on_tower_being_sold(arg_sellback_gold, arg_tower_sold, arg_expected_id, arg_func_source, arg_func_name):
+	if arg_expected_id == -1 or arg_tower_sold.tower_id == arg_expected_id:
+		game_elements.tower_manager.disconnect("tower_being_sold", self, "_on_tower_being_sold")
+		arg_func_source.call(arg_func_name, arg_sellback_gold, arg_expected_id)
+
+
+# expects a method that accepts sellback gold (int) and tower id
+func listen_for_any_tower_sold(arg_func_source, arg_func_name):
+	game_elements.tower_manager.connect("tower_being_sold", self, "_on_any_tower_being_sold", [arg_func_source, arg_func_name])
+
+func _on_any_tower_being_sold(arg_sellback_gold, arg_tower_sold, arg_func_source, arg_func_name):
+	game_elements.tower_manager.disconnect("tower_being_sold", self, "_on_any_tower_being_sold")
+	arg_func_source.call(arg_func_name, arg_sellback_gold)
 
 
 # expects method that accepts no args
@@ -955,7 +974,8 @@ func _on_player_curr_level_changed(arg_level, arg_expected_lvl, arg_func_source,
 		arg_func_source.call(arg_func_name, arg_level)
 
 
-# Get nodes related
+
+# Get nodes related     (misread this at least once......)
 
 func get_tower_buy_card_at_buy_slot_index(arg_index):
 	var buy_slot = game_elements.panel_buy_sell_level_roll.all_buy_slots[arg_index]
@@ -1084,6 +1104,8 @@ static func unset_flag(b, flag):
 func set_CYDE_Singleton_world_completion_state_num(arg_num):
 	CydeSingleton.set_world_completion_state_num_to_world_id(arg_num, modifier_id)
 
+func set_stats_tidbit_val_of_id_to_enabled(arg_tidbit_id):
+	StatsManager.set_val_of_tidbit_val_map(arg_tidbit_id, 1)
 
 ##################################### Powerup Related
 
@@ -1178,18 +1200,62 @@ func _construct_enemy_speed_up_effect():
 
 #####
 
-func _play_correct_choice_sound():
+func play_correct_choice_sound():
 	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.CORRECT_ANSWER)
 	var player : AudioStreamPlayer = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
 	player.autoplay = false
 	
-	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
 
 
-func _play_wrong_choice_sound():
+func play_wrong_choice_sound():
 	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.MALFUNCTION)
 	var player : AudioStreamPlayer = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
 	player.autoplay = false
 	
-	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
+
+
+func play_quiz_time_music():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.QUESTION_INFO_THEME_01)
+	
+	if quiz_audio_stream_player == null:
+		quiz_audio_stream_player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	
+	quiz_audio_stream_player.volume_db = AudioManager.DECIBEL_VAL__STANDARD
+	quiz_audio_stream_player.autoplay = true
+	AudioManager.play_sound__with_provided_stream_player(path_name, quiz_audio_stream_player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
+
+
+func linearly_stop_quiz_time_music():
+	var params = AudioManager.LinearSetAudioParams.new()
+	#params.pause_at_target_db = false
+	params.stop_at_target_db = true
+	params.target_db = AudioManager.DECIBEL_VAL__INAUDIABLE
+	
+	params.time_to_reach_target_db = 1
+	
+	AudioManager.linear_set_audio_player_volume_using_params(quiz_audio_stream_player, params)
+	
+
+
+func do_all_related_audios__for_correct_choice():
+	play_correct_choice_sound()
+	game_elements.linearly_set_game_play_theme_db_to_normal_db()
+	linearly_stop_quiz_time_music()
+	
+
+func do_all_related_audios__for_wrong_choice():
+	play_wrong_choice_sound()
+	game_elements.linearly_set_game_play_theme_db_to_normal_db()
+	linearly_stop_quiz_time_music()
+	
+
+func do_all_related_audios__for_quiz_timer_timeout():
+	play_wrong_choice_sound()
+	game_elements.linearly_set_game_play_theme_db_to_normal_db()
+	linearly_stop_quiz_time_music()
+	
+
+
 

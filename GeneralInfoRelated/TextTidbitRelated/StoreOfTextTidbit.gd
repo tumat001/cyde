@@ -147,7 +147,7 @@ func _construct_tidbit__virus_background_01():
 func _construct_tidbit__virus_behavior_01():
 	var tidbit = TextTidbitTypeInfo.new()
 	
-	
+	# FOR SOME REASON [b] does not make the text bold but instead italics???? HELLOOOOOOO
 	tidbit.add_description([
 		PlainTextFragment.get_text__with_center_BBCode("Behavior of the Malware: How Malware Virus Works?"),
 		"",

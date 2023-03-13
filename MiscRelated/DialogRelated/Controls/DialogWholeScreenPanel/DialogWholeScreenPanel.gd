@@ -114,6 +114,7 @@ func set_dialog_segment(arg_segment : DialogSegment):
 	##
 	
 	if arg_segment != null:
+		arg_segment.emit_setted_into_whole_screen_panel()
 		
 		#
 		

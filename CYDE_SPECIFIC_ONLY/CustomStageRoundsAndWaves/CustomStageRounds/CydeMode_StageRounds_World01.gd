@@ -12,6 +12,10 @@ func _init():
 		_get_stageround_1_5(), #question
 		
 		_get_stageround_1_6(),
+		
+		_get_stageround_1_7(), #info
+		_get_stageround_1_8(), #question
+		
 	]
 	
 
@@ -84,6 +88,25 @@ func _get_stageround_1_6():
 	stageround.enemy_first_damage = 0
 	stageround.can_gain_streak = false
 	return stageround
+
+func _get_stageround_1_7():
+	var stageround = StageRound.new(1, 7)
+	stageround.end_of_round_gold = 2
+	stageround.enemy_damage_multiplier = 1
+	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_first_damage = 0
+	stageround.can_gain_streak = false
+	return stageround
+
+func _get_stageround_1_8():
+	var stageround = StageRound.new(1, 8)
+	stageround.end_of_round_gold = 2
+	stageround.enemy_damage_multiplier = 1
+	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_first_damage = 0
+	stageround.can_gain_streak = false
+	return stageround
+
 
 
 #

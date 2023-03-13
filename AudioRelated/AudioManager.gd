@@ -6,7 +6,12 @@ const AudioStreamPlayerComponentPool = preload("res://MiscRelated/PoolRelated/Im
 const ValTransition = preload("res://MiscRelated/ValTransitionRelated/ValTransition.gd")
 
 
-#const DECIBEL_LEVEL__STANDARD : float = -30.0   #todo tentative
+#
+
+const DECIBEL_VAL__INAUDIABLE : float = -30.0   # true zero/silence cannot be met, but this should be good enough
+const DECIBEL_VAL__STANDARD : float = 0.0  
+
+#
 
 enum MaskLevel {
 	
@@ -260,22 +265,45 @@ func remove_stream_player(arg_stream_player):
 #######
 
 class LinearSetAudioParams:
-	var pause_at_target_volume : bool
-	var stop_at_target_volume : bool
+	const ValTransition = preload("res://MiscRelated/ValTransitionRelated/ValTransition.gd")
 	
-	var target_volume : float
+	
+	var pause_at_target_db : bool
+	var stop_at_target_db : bool
+	
+	var target_db : float
+	
+	var time_to_reach_target_db : float = ValTransition.VALUE_UNSET
+	var db_mag_inc_or_dec_per_sec : float = ValTransition.VALUE_UNSET
 	
 	# set by AudioManager
-	var _val_transition
+	var _db_val_transition : ValTransition
 
-func linear_set_audio_player_volume_to(arg_player, arg_linear_set_params : LinearSetAudioParams):
-	stream_player_to_linear_audio_set_param_map[arg_player] = arg_linear_set_params
-	arg_linear_set_params._val_transition = ValTransition.new()
-	arg_linear_set_params._val_transition.connect("target_val_reached", self, "_on_target_val_reached", [arg_player, arg_linear_set_params])
+
+
+func linear_set_audio_player_volume_using_params(arg_player, arg_linear_set_params : LinearSetAudioParams):
+	arg_linear_set_params._db_val_transition = ValTransition.new()
+	arg_linear_set_params._db_val_transition.connect("target_val_reached", self, "_on_audio_volume_target_val_reached", [arg_player, arg_linear_set_params])
 	
-	_last_calc_has_linear_set_params = true
-	_update_can_do_process()
-
+	var final_val_inc_to_use = arg_linear_set_params.db_mag_inc_or_dec_per_sec
+	if arg_player.volume_db > arg_linear_set_params.target_db:
+		final_val_inc_to_use *= -1
+	
+	var reached_target_db = arg_linear_set_params._db_val_transition.configure_self(arg_player.volume_db, arg_player.volume_db, arg_linear_set_params.target_db, arg_linear_set_params.time_to_reach_target_db, final_val_inc_to_use, ValTransition.ValueIncrementMode.LINEAR)
+	
+	
+	if !reached_target_db:
+		stream_player_to_linear_audio_set_param_map[arg_player] = arg_linear_set_params
+		
+		_last_calc_has_linear_set_params = true
+		_update_can_do_process()
+	else:
+		_on_audio_volume_target_val_reached(arg_player, arg_linear_set_params)
+		if stream_player_to_linear_audio_set_param_map.has(arg_player):
+			stream_player_to_linear_audio_set_param_map.erase(arg_player)
+		
+		_last_calc_has_linear_set_params = stream_player_to_linear_audio_set_param_map.size() != 0
+		_update_can_do_process()
 
 func _update_can_do_process():
 	var can_do_process = _last_calc_has_linear_set_params
@@ -284,9 +312,39 @@ func _update_can_do_process():
 
 
 func _process(delta):
+	var audio_players_to_remove : Array
+	
 	for player in stream_player_to_linear_audio_set_param_map:
 		var param : LinearSetAudioParams = stream_player_to_linear_audio_set_param_map[player]
 		
-		
+		var reached_target = param._db_val_transition.delta_pass(delta)
+		if !reached_target:
+			player.volume_db = param._db_val_transition.get_current_val()
+			
+		else:
+			# NOTE: no need to do anything on the player as this is handled via signals
+			audio_players_to_remove.append(player)
 	
+	for player in audio_players_to_remove:
+		if stream_player_to_linear_audio_set_param_map.has(player):
+			stream_player_to_linear_audio_set_param_map.erase(player)
+	
+	if audio_players_to_remove.size() != 0:
+		_last_calc_has_linear_set_params = stream_player_to_linear_audio_set_param_map.size() != 0
+		_update_can_do_process()
+	
+
+
+func _on_audio_volume_target_val_reached(arg_player, arg_linear_set_params : LinearSetAudioParams):
+	arg_player.volume_db = arg_linear_set_params.target_db
+	
+	if arg_linear_set_params.pause_at_target_db:
+		arg_player.stream_paused = true
+	
+	if arg_linear_set_params.stop_at_target_db:
+		stop_stream_player_and_mark_as_inactive(arg_player)
+	
+	
+	#_last_calc_has_linear_set_params = stream_player_to_linear_audio_set_param_map.size() != 0
+	#_update_can_do_process()
 

@@ -20,6 +20,7 @@ signal background_elements_changed(arg_all_background_elements)
 #
 
 signal fully_displayed()
+signal setted_into_whole_screen_panel()
 
 #signal mouse_filter_changed(arg_filter)
 
@@ -260,4 +261,7 @@ func evaluate_is_skip_exec__from_func_source():
 
 func emit_fully_displayed_signal():
 	emit_signal("fully_displayed")
+
+func emit_setted_into_whole_screen_panel():
+	emit_signal("setted_into_whole_screen_panel")
 
