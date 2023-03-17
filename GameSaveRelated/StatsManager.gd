@@ -391,9 +391,13 @@ func if_synergy_id_has_at_least_x_play_count(arg_syn_id, arg_count):
 #	return false
 
 func if_tidbit_id_has_at_least_x_val(arg_tidbit_id, arg_min_val):
+	return true #todo
+	
 	return text_tidbit_id_to_int_val_map[arg_tidbit_id] >= arg_min_val
 
 func if_tidbit_map_has_at_least_one_tidbit_with_non_zero_val():
+	return true #todo
+	
 	for id in text_tidbit_id_to_int_val_map:
 		if text_tidbit_id_to_int_val_map[id] != 0:
 			return true

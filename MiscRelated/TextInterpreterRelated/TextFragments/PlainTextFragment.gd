@@ -35,6 +35,19 @@ var _is_percent : bool
 
 var _stat_type : int
 
+
+enum BulletPicType {
+	NONE = 0,
+	
+	CIRCLE_5X5 = 10,
+}
+
+const bullet_type_to_img_map : Dictionary = {
+	BulletPicType.CIRCLE_5X5 : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_BulletPoint_5x5.png"
+}
+
+#
+
 func _init(
 		arg_stat_type : int,
 		arg_text_desc : String = "",
@@ -93,7 +106,7 @@ func get_deep_copy():
 static func get_text__with_center_BBCode(arg_text):
 	return "[center]%s[/center]" % arg_text
 
-static func get_text__as_unordered_list(arg_texts : Array, arg_double_new_line : bool = false):
+static func get_text__as_unordered_list(arg_texts : Array, arg_double_new_line : bool = false, arg_bullet_pic_to_use : int = BulletPicType.NONE):
 	var new_line = "\n"
 	if arg_double_new_line:
 		new_line += "\n"
@@ -101,12 +114,15 @@ static func get_text__as_unordered_list(arg_texts : Array, arg_double_new_line :
 	
 	var final_text = ""
 	for i in arg_texts.size():
+		if arg_bullet_pic_to_use != BulletPicType.NONE:
+			final_text += "[img=<%s>]%s[/img] " % [9, bullet_type_to_img_map[arg_bullet_pic_to_use]]
+		
 		final_text += "%s"
+		
 		if i != arg_texts.size():
 			final_text += new_line
 	
 	return "[ul]%s[/ul]" % (final_text % arg_texts)
-	
 
 static func get_text__indented(arg_text):
 	return "[indent]%s[/indent]" % arg_text

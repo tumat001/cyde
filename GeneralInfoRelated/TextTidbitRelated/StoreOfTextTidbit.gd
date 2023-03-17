@@ -20,6 +20,15 @@ enum TidbitId {
 	CYDE__VIRUS_BEHAVIOR_01 = 101
 	CYDE__VIRUS_PRACTICES_01 = 102
 	
+	CYDE__TROJAN_BACKGROUND_01 = 200
+	CYDE__TROJAN_BEHAVIOR_01 = 201
+	CYDE__TROJAN_PRACTICES_01 = 202
+	
+	CYDE__WORM_BACKGROUND_01 = 300
+	CYDE__WORM_BEHAVIOR_01 = 301
+	CYDE__WORM_PRACTICES_01 = 302
+	
+	
 }
 
 # IF ADDING TIDBIT CATEGORY, ADD CATEGORY IN ALAMANC_MANAGER's CategoryIds AS WELL
@@ -98,6 +107,12 @@ func _initialize_tidbit_map():
 	_construct_tidbit__virus_behavior_01()
 	_construct_tidbit__virus_practices_01()
 	
+	# TROJAN
+	
+	_construct_tidbit__trojan_background_01()
+	_construct_tidbit__trojan_behavior_01()
+	_construct_tidbit__trojan_practices_01()
+	
 #
 #func _construct_tidbit__orange_12():
 #	var tidbit = TextTidbitTypeInfo.new()
@@ -157,7 +172,7 @@ func _construct_tidbit__virus_behavior_01():
 			"[b]Propagation phase:[/b] This is when the virus begins to self-replicate, stashing copies of itself in files, programs, or other parts of your disk.",
 			"[b]Triggering phase:[/b] A specific action is generally required to trigger or activate the virus. This could be a user action, like clicking an icon or opening an app.",
 			"[b]Execution phase:[/b] Now the virus’s program is executed and releases its payload, the malicious code that harms your device.",
-		], true)),
+		], false, PlainTextFragment.BulletPicType.CIRCLE_5X5)),
 		
 	])
 	
@@ -173,10 +188,39 @@ func _construct_tidbit__virus_behavior_01():
 func _construct_tidbit__virus_practices_01():
 	var tidbit = TextTidbitTypeInfo.new()
 	
-	#todo
 	tidbit.add_description([
-		PlainTextFragment.get_text__with_center_BBCode("Behavior of the Malware: How Malware Virus Works?"),
-		""
+		PlainTextFragment.get_text__with_center_BBCode("Best Practices to Prevent Virus Attacks:"),
+		PlainTextFragment.get_text__indented(
+			PlainTextFragment.get_text__as_unordered_list([
+				###
+				"[b]1) Follow Basic Rules[/b]",
+				PlainTextFragment.get_text__indented(
+				PlainTextFragment.get_text__as_unordered_list([
+					"Don’t open email attachments or click on hyperlinks from unknown senders.",
+					"Use passwords that are hard to guess and change them regularly. Do not store user names and passwords on websites.",
+					"Exercise caution when downloading files from the Internet. Only download from trusted sources."
+				], false, PlainTextFragment.BulletPicType.CIRCLE_5X5)
+				),
+				"",
+				###
+				"[b]2) Protect Your Computer[/b]",
+				PlainTextFragment.get_text__indented(
+				PlainTextFragment.get_text__as_unordered_list([
+					"Backup files on your personal computers regularly using an external hard drive.",
+					"Don’t keep sensitive or private information stored on your computer. If you get hacked, information can be found."
+				], false, PlainTextFragment.BulletPicType.CIRCLE_5X5)
+				),
+				"",
+				###
+				"[b]3) Antivirus Software[/b]",
+				PlainTextFragment.get_text__indented(
+				PlainTextFragment.get_text__as_unordered_list([
+					"New viruses are always being created so it is best to have an antivirus program that automatically downloads updates",
+					"Run a full virus scan every week to detect any threats. Do note that some antiviruses scan automatically from time to time."
+				], false, PlainTextFragment.BulletPicType.CIRCLE_5X5)
+				),
+			])
+		)
 	])
 	
 	tidbit.id = TidbitId.CYDE__VIRUS_PRACTICES_01
@@ -185,4 +229,121 @@ func _construct_tidbit__virus_practices_01():
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
+
+########
+
+
+func _construct_tidbit__trojan_background_01():
+	var tidbit = TextTidbitTypeInfo.new()
+	
+	
+	tidbit.add_description([
+		PlainTextFragment.get_text__with_center_BBCode("Background of the Malware: What is Trojan Horse?"),
+		"",
+		"A Trojan Horse (Trojan) is a type of malware that disguises itself as legitimate code or software. Once inside the network, attackers can carry out any action that a legitimate user could perform, such as exporting files, modifying data, deleting files or otherwise altering the contents of the device. Trojans may be packaged in downloads for games, tools, apps or even software patches. Many Trojan attacks also leverage social engineering tactics, as well as spoofing and phishing, to prompt the desired action in the user.",
+		"",
+		"[b]Common Types of Trojan Horse Malware[/b]",
+		PlainTextFragment.get_text__indented(PlainTextFragment.get_text__as_unordered_list([
+			"[b]Exploit Trojan[/b] - As the name implies, these Trojans identify and exploit vulnerabilities within software applications in order to gain access to the system.",
+			"[b]Downloader Trojan[/b] - This type of malware typically targets infected devices and installs a new version of a malicious program onto the device.",
+			"[b]Backdoor Trojan[/b] - The attacker uses the malware to set up access points to the network.",
+		], false)),
+		
+	])
+	
+	tidbit.id = TidbitId.CYDE__TROJAN_BACKGROUND_01
+	tidbit.name = "Trojan -- Background"
+	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.tidbit_tier = 1
+	
+	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
+
+
+
+func _construct_tidbit__trojan_behavior_01():
+	var tidbit = TextTidbitTypeInfo.new()
+	
+	
+	tidbit.add_description([
+		PlainTextFragment.get_text__with_center_BBCode("Behavior of the Malware: How does the Trojan Horse infect devices?"),
+		"",
+		"Some of the most common ways for devices to become infected with Trojans can be linked to user behavior, such as:",
+		PlainTextFragment.get_text__indented(
+			PlainTextFragment.get_text__as_unordered_list([
+				"1) Downloading pirated media, including music, video games, movies, books, software or paid content.",
+				"2) Downloading any unsolicited material, such as attachments, photos or documents, even from familiar sources.",
+				"3) Accepting or allowing a pop-up notification without reading the message or understanding the content.",
+				"4) Failing to read the user agreement when downloading legitimate applications or software.",
+				"5) Failing to stay current with updates and patches for browsers, the OS, applications and software.",
+			])
+		)
+	])
+	
+	tidbit.id = TidbitId.CYDE__TROJAN_BEHAVIOR_01
+	tidbit.name = "Trojan -- Behavior"
+	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.tidbit_tier = 1
+	
+	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
+
+
+
+func _construct_tidbit__trojan_practices_01():
+	var tidbit = TextTidbitTypeInfo.new()
+	
+	tidbit.add_description([
+		PlainTextFragment.get_text__with_center_BBCode("Best Practices to Prevent Trojan Horse Attacks?"),
+		"",
+		"Some of the most common ways for devices to become infected with Trojans can be linked to user behavior, such as:",
+		PlainTextFragment.get_text__indented(
+			PlainTextFragment.get_text__as_unordered_list([
+				"1) Never click unsolicited links or download unexpected attachments.",
+				"2) Use strong, unique passwords for all online accounts, as well as devices.",
+				"3) Only access URLs that begin with HTTPS.",
+				"4) Log into your account through a new browser tab or official app — not a link from an email or text.",
+				"5) Use a password manager, which will automatically enter a saved password into a recognized site (but not a spoofed site).",
+				"6) Use a spam filter to prevent a majority of spoofed emails from reaching your inbox.",
+				"7) Enable two-way authentication whenever possible, which makes it far more difficult for attackers to exploit.",
+				"8) Ensure updates for software programs and the OS are completed immediately.",
+				"9) Backup files regularly to help restore the computer in the event of an attack."
+			])
+		)
+	])
+	
+	tidbit.id = TidbitId.CYDE__TROJAN_PRACTICES_01
+	tidbit.name = "Trojan -- Practices"
+	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.tidbit_tier = 1
+	
+	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
+
+
+###############
+
+
+func _construct_tidbit__worm_background_01():
+	var tidbit = TextTidbitTypeInfo.new()
+	
+	
+	tidbit.add_description([
+		PlainTextFragment.get_text__with_center_BBCode("Background of the Malware: What is Trojan Horse?"),
+		"",
+		"A Trojan Horse (Trojan) is a type of malware that disguises itself as legitimate code or software. Once inside the network, attackers can carry out any action that a legitimate user could perform, such as exporting files, modifying data, deleting files or otherwise altering the contents of the device. Trojans may be packaged in downloads for games, tools, apps or even software patches. Many Trojan attacks also leverage social engineering tactics, as well as spoofing and phishing, to prompt the desired action in the user.",
+		"",
+		"[b]Common Types of Trojan Horse Malware[/b]",
+		PlainTextFragment.get_text__indented(PlainTextFragment.get_text__as_unordered_list([
+			"[b]Exploit Trojan[/b] - As the name implies, these Trojans identify and exploit vulnerabilities within software applications in order to gain access to the system.",
+			"[b]Downloader Trojan[/b] - This type of malware typically targets infected devices and installs a new version of a malicious program onto the device.",
+			"[b]Backdoor Trojan[/b] - The attacker uses the malware to set up access points to the network.",
+		], false)),
+		
+	])
+	
+	tidbit.id = TidbitId.CYDE__TROJAN_BACKGROUND_01
+	tidbit.name = "Trojan -- Background"
+	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.tidbit_tier = 1
+	
+	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
+
 

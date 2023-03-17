@@ -83,6 +83,10 @@ var dia_seg__intro_09_sequence_001 : DialogSegment
 var dia_seg__intro_10_sequence_001 : DialogSegment
 var dia_seg__intro_10_sequence_003 : DialogSegment
 
+
+# 3rd info
+var dia_seg__intro_11_sequence_001 : DialogSegment
+
 #
 
 var tower_id_to_buy_at_intro_tutorial = Towers.SPRINKLER
@@ -1476,7 +1480,7 @@ func _construct_dia_seg__intro_09_sequence_001():
 	dia_seg__intro_09_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__intro_09_sequence_001__descs = [
-		"New information regarding our enemies, the Viruses, has been researched",
+		"New information regarding our enemies, the Viruses, has been researched. This time, it is about their behavior on devices.",
 		"I'll put it on display for you to review."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_09_sequence_001, dia_seg__intro_09_sequence_001__descs)
@@ -1582,7 +1586,7 @@ func _construct_dia_seg__intro_10_sequence_001():
 	dia_seg__intro_10_sequence_003 = DialogSegment.new()
 	
 	var dia_seg__intro_10_sequence_003__descs = [
-		"But that is not all. There is one last question in this stage."
+		"But that is not all. There is one last question in this stage. Maintain your readiness."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_10_sequence_003, dia_seg__intro_10_sequence_003__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_10_sequence_003)
@@ -1594,11 +1598,11 @@ func _construct_dia_seg__intro_10_sequence_001():
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_10_sequence_003, dia_seg__intro_10_sequence_004)
 	
 	var dia_seg__intro_10_sequence_004__descs = [
-		""
+		"Start the round whenever you're ready."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_10_sequence_004, dia_seg__intro_10_sequence_004__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_10_sequence_004)
-	
+	dia_seg__intro_10_sequence_004.connect("fully_displayed", self, "_on_dia_seg__intro_10_sequence_004__fully_displayed", [], CONNECT_ONESHOT)
 	
 
 func _play_dia_seg__intro_10_sequence_001():
@@ -1684,7 +1688,39 @@ func _on_virus_Q02_timeout(arg_params):
 
 
 
+func _on_dia_seg__intro_10_sequence_004__fully_displayed():
+	set_round_is_startable(true)
+	
+	#todo marker
+	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_round_09", "_on_round_ended__into_round_09")
 
+func _on_round_started__into_round_09():
+	play_dialog_segment_or_advance_or_finish_elements(null)
+
+func _on_round_ended__into_round_09():
+	set_round_is_startable(false)
+	
+	#todo marker
+
+
+
+
+func _construct_dia_seg__intro_11_sequence_001():
+	
+	dia_seg__intro_11_sequence_001 = DialogSegment.new()
+	
+	var dia_seg__intro_11_sequence_001__descs = [
+		"One last information regarding our enemies, the Viruses, has been researched. This time, it is about how to avoid them, in general.",
+		"I'll put it on display for you to review."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_11_sequence_001, dia_seg__intro_11_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_11_sequence_001)
+	
+	#
+	
+	
+	
+	
 
 #########################################
 ################ QUESTIONS ##############
