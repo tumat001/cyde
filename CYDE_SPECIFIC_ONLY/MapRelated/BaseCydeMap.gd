@@ -25,17 +25,17 @@ const PlainTextFragment = preload("res://MiscRelated/TextInterpreterRelated/Text
 
 
 
-const NO_MAP_ID_TO_UNLOCK : int = -9769
-
-var _map_ids_to_make_available_when_completed : Array
-
-func _init():
-	#_map_id_to_make_available_when_completed = arg_map_id_to_make_available_when_completed
-	pass
-
-func _record_next_map_id_to_be_available_in_map_selection_panel():
-	for id in _map_ids_to_make_available_when_completed:
-		StatsManager.unlock_map_id(id)
-	
+#const NO_MAP_ID_TO_UNLOCK : int = -9769
+#
+#var _map_ids_to_make_available_when_completed : Array
+#
+#func _init():
+#	#_map_id_to_make_available_when_completed = arg_map_id_to_make_available_when_completed
+#	pass
+#
+#func _record_next_map_id_to_be_available_in_map_selection_panel():
+#	for id in _map_ids_to_make_available_when_completed:
+#		StatsManager.unlock_map_id(id)
+#
 
 

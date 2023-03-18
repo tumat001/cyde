@@ -113,6 +113,10 @@ var quiz_audio_stream_player : AudioStreamPlayer
 
 var almanac_button_bot_right
 
+#
+
+var _map_ids_to_make_available_when_completed : Array
+
 ##
 
 const POWER_UP__DEFAULT_DURATION : float = 90.0
@@ -825,6 +829,11 @@ func set_visiblity_of_placable(arg_placable, arg_val):
 	arg_placable.visible = arg_val
 
 
+func get_map_area_placable_with_name(arg_name):
+	return game_elements.map_manager.base_map.get_placable_with_node_name(arg_name)
+
+
+
 #
 
 func create_tower_at_placable(arg_tower_id, arg_placable):
@@ -843,7 +852,7 @@ func _on_tower_added(arg_tower_instance, arg_expected_tower_id, arg_func_name, a
 
 
 
-# expects a method that accepts an array (of tower instances)
+# expects a method that accepts an array (of tower instances)  <1 param>
 func listen_for_towers_with_ids__bought__then_call_func(arg_tower_ids : Array, arg_func_name : String, arg_func_source):
 	_towers_bought_for_multiple_listen.clear()
 	game_elements.tower_manager.connect("tower_added", self, "_on_tower_added__multiple_needed", [arg_tower_ids, arg_func_name, arg_func_source])
@@ -1258,4 +1267,40 @@ func do_all_related_audios__for_quiz_timer_timeout():
 	
 
 
+#####################################
+
+
+# EXPECTS a method that recieves 1 param (enemy)
+func listen_for_enemy_tree_exiting(arg_enemy, arg_func_source, arg_func_name):
+	arg_enemy.connect("tree_exiting", self, "_on_enemy_listen_for_tree_exiting", [arg_enemy, arg_func_source, arg_func_name])
+	
+
+func _on_enemy_listen_for_tree_exiting(arg_enemy, arg_func_source, arg_func_name):
+	arg_enemy.disconnect("tree_exiting", self, "_on_enemy_listen_for_tree_exiting")
+	
+	arg_func_source.call(arg_func_name, arg_enemy)
+	
+
+
+# EXPECTS a method that receives 0 param ()
+# Called after game result window is closed, and not when game result is decided.
+func listen_for_game_result_window_close(arg_func_source, arg_func_name_on_win, arg_func_name_on_lose):
+	game_elements.game_result_manager.connect("game_result_panel_closed", self, "_on_game_result_panel_closed", [arg_func_source, arg_func_name_on_win, arg_func_name_on_lose])
+	
+
+func _on_game_result_panel_closed(arg_func_source, arg_func_name_on_win, arg_func_name_on_lose):
+	game_elements.game_result_manager.disconnect("game_result_panel_closed", self, "_on_game_result_panel_closed")
+	
+	if game_elements.game_result_manager.game_result == game_elements.game_result_manager.GameResult.VICTORY:
+		arg_func_source.call(arg_func_name_on_win)
+	elif game_elements.game_result_manager.game_result == game_elements.game_result_manager.GameResult.DEFEAT:
+		arg_func_source.call(arg_func_name_on_lose)
+	
+
+
+###
+
+func _record_map_ids_to_be_available_in_map_selection_panel():
+	for id in _map_ids_to_make_available_when_completed:
+		StatsManager.unlock_map_id(id)
 

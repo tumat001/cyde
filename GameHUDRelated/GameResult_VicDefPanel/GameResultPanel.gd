@@ -5,6 +5,8 @@ signal option_main_menu_selected()
 
 
 
+var show_main_menu_button : bool = true setget set_show_main_menu_button
+
 onready var vic_left_border_panel = $HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder
 onready var vic_right_border_panel = $HBoxContainer/MarginContainer2/RightBorder/VicRightBorder
 onready var def_left_border_panel = $HBoxContainer/MarginContainer/LeftBorder/DefLeftBorder
@@ -34,6 +36,8 @@ func display_as_defeat():
 func _ready():
 	view_battlefield_button.connect("on_button_released_with_button_left", self, "_on_view_battlefield_selected")
 	main_menu_button.connect("on_button_released_with_button_left", self, "_on_main_menu_selected")
+	
+	set_show_main_menu_button(show_main_menu_button)
 
 func _on_view_battlefield_selected():
 	emit_signal("option_view_battlefield_selected")
@@ -41,4 +45,10 @@ func _on_view_battlefield_selected():
 func _on_main_menu_selected():
 	emit_signal("option_main_menu_selected")
 
+####
 
+func set_show_main_menu_button(arg_val):
+	show_main_menu_button = arg_val
+	
+	if is_inside_tree():
+		main_menu_button.visible = arg_val

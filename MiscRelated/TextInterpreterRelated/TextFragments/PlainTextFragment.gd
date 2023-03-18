@@ -127,6 +127,8 @@ static func get_text__as_unordered_list(arg_texts : Array, arg_double_new_line :
 static func get_text__indented(arg_text):
 	return "[indent]%s[/indent]" % arg_text
 
+
+
 #static func get_text__as_ordered_list(arg_texts : Array, arg_order_type : int = OrderedListType.NUMBERED):
 #	var string_identifier = ordered_list_type_to_string_identifier_map[arg_order_type]
 #
@@ -136,7 +138,7 @@ static func get_text__indented(arg_text):
 #		if i != arg_texts.size():
 #			final_text += "\n"
 #
-#	return "[ol type=%s]%s[/ol]" % [string_identifier, final_text % arg_texts]
-#
+#	return "[ol type=<%s>]%s[/ol]" % [string_identifier, final_text % arg_texts]
+
 
 

@@ -7,19 +7,23 @@ const AdvancedQueue = preload("res://MiscRelated/QueueRelated/AdvancedQueue.gd")
 
 
 signal game_result_decided()
+signal game_result_panel_closed()
 
 
 enum GameResult {
 	ONGOING = 0, # not decided yet
 	VICTORY = 1,
 	DEFEAT = 2,
-	DRAW = 3, # never happens, yet. ~ooooooooooo
+	DRAW = 3, # never happens, yet. ~ooooooooooowowowowowowowowooww
 }
 var game_result : int
 var game_result_panel : GameResultPanel
 
 var whole_screen_gui
 var game_elements
+
+
+var show_main_menu_button : bool = true
 
 ##
 
@@ -69,6 +73,7 @@ func set_game_result__accessed_from_outside(arg_result : int):
 #
 
 func _set_game_result(arg_result : int):
+	# IF game result is not decided yet, and attempted set is decided
 	if game_result == GameResult.ONGOING and arg_result != GameResult.ONGOING:
 		game_result = arg_result
 		
@@ -83,19 +88,24 @@ func _initialize_game_result_panel():
 	if game_result_panel == null:
 		game_result_panel = GameResultPanel_Scene.instance()
 		#whole_screen_gui.show_control(game_result_panel)
+		game_result_panel.show_main_menu_button = show_main_menu_button
 		whole_screen_gui.queue_control(game_result_panel, reservation_for_whole_screen_gui)
 		
 		if game_result == GameResult.VICTORY:
 			game_result_panel.display_as_victory()
 			_play_game_win_music()
+			game_elements.linearly_set_game_play_theme_db_to_inaudiable()
 			
 		elif game_result == GameResult.DEFEAT:
 			game_result_panel.display_as_defeat()
 			_play_game_over_lose_music()
+			game_elements.linearly_set_game_play_theme_db_to_inaudiable()
 		
 		game_result_panel.connect("option_view_battlefield_selected", self, "_game_result_panel__view_battlefield_selected")
 		game_result_panel.connect("option_main_menu_selected", self, "_game_result_panel__main_menu_selected")
-
+		
+		
+		game_result_panel.connect("visibility_changed", self, "_on_visibility_of_game_result_panel_changed", [], CONNECT_ONESHOT)
 
 
 func _set_properties_of_game_elements_to_post_battle():
@@ -135,6 +145,13 @@ func _game_result_panel__view_battlefield_selected():
 
 func _game_result_panel__main_menu_selected():
 	CommsForBetweenScenes.goto_starting_screen(game_elements)
+
+##
+
+# Happens when panel is hid by whole screen gui (or by any means really)..........
+func _on_visibility_of_game_result_panel_changed():
+	if !game_result_panel.visible:
+		emit_signal("game_result_panel_closed")
 
 
 ##########

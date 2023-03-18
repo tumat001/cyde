@@ -18,6 +18,8 @@ var _x_info_type
 var _all_borders : Array = []
 var _all_components : Array = []
 
+var _is_dark_mode : bool = true setget set_is_dark_mode
+
 #
 
 onready var x_image = $Content/VBoxContainer/HBoxContainer/Almanac_XTypeInfo_XImage
@@ -59,11 +61,15 @@ func _ready():
 	_all_components.append(tidbit_type__page_displayer_panel)
 	
 	tidbit_type__page_displayer_panel.set_descs_panel(x_descriptions)
+	
+	set_is_dark_mode(_is_dark_mode)
 
 #
 
 func set_properties(arg_item_list_entry : Almanac_ItemListEntry_Data,
 		arg_x_type_info_multi_stats_data : Almanac_XTypeInfo_MultiStatsData):
+	
+	set_is_dark_mode(true)
 	
 	_x_info_type = arg_item_list_entry.get_x_type_info()
 	
@@ -150,6 +156,8 @@ func _configure_self_on_type_info__synergy(arg_item_list_entry):
 	syn_type__tier_descriptions.update_display()
 
 func _configure_self_on_type_info__tidbit(arg_item_list_entry):
+	set_is_dark_mode(false)
+	
 	x_image.visible = true
 	x_name.visible = true
 	x_descriptions.visible = true
@@ -159,4 +167,13 @@ func _configure_self_on_type_info__tidbit(arg_item_list_entry):
 	
 	rect_min_size = SIZE_OF_PANEL__TIDBIT
 	rect_size = SIZE_OF_PANEL__TIDBIT
+
+
+######
+
+func set_is_dark_mode(arg_val):
+	_is_dark_mode = arg_val
+	
+	x_descriptions.is_dark_mode = _is_dark_mode
+	
 

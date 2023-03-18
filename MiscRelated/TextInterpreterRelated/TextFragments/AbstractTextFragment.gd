@@ -78,8 +78,13 @@ enum STAT_TYPE {
 	COMBINATION = 1200
 	ABSORB = 1201
 	
+	#
+	ONE_STAR__UPGRADE = 1300,
+	TWO_STAR__UPGRADE = 1301,
+	THREE_STAR__UPGRADE = 1302,
 	
-	####
+	
+	#### NOTE: THESE VALS REPEAT WITH EXITING ONES..
 	
 	ENEMY_STAT__HEALTH = 1029
 	ENEMY_STAT__MOV_SPEED = 1033
@@ -163,6 +168,10 @@ const type_to_for_light_color_map : Dictionary = {
 	STAT_TYPE.COMBINATION : "#005151",
 	STAT_TYPE.ABSORB : "#38016F",
 	
+	STAT_TYPE.ONE_STAR__UPGRADE : "#510001",
+	STAT_TYPE.TWO_STAR__UPGRADE : "#404040",
+	STAT_TYPE.THREE_STAR__UPGRADE : "#3C4601",
+	
 }
 
 const type_to_for_dark_color_map : Dictionary = {
@@ -236,6 +245,11 @@ const type_to_for_dark_color_map : Dictionary = {
 	STAT_TYPE.COMBINATION : "#C3FEFE",
 	STAT_TYPE.ABSORB : "#D1A4FE",
 	
+	STAT_TYPE.ONE_STAR__UPGRADE : "#FD9558",
+	STAT_TYPE.TWO_STAR__UPGRADE : "#BDBDBD",
+	STAT_TYPE.THREE_STAR__UPGRADE : "#EEFE7C",
+	
+	
 }
 
 
@@ -307,6 +321,11 @@ const type_to_name_map : Dictionary = {
 	STAT_TYPE.COMBINATION : "combination",
 	STAT_TYPE.ABSORB : "absorb",
 	
+	STAT_TYPE.ONE_STAR__UPGRADE : "one star upgrade",
+	STAT_TYPE.TWO_STAR__UPGRADE : "two star upgrade",
+	STAT_TYPE.THREE_STAR__UPGRADE : "three star upgrade",
+	
+	
 }
 
 const type_to_img_map : Dictionary = {
@@ -377,6 +396,11 @@ const type_to_img_map : Dictionary = {
 	
 	STAT_TYPE.COMBINATION : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_Combination.png",
 	STAT_TYPE.ABSORB : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_Absorb.png",
+	
+	#TODO make icon for this
+	STAT_TYPE.ONE_STAR__UPGRADE : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_1StarTower.png",
+	STAT_TYPE.TWO_STAR__UPGRADE : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_2StarTower.png",
+	STAT_TYPE.THREE_STAR__UPGRADE : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_3StarTower.png",
 	
 	
 }

@@ -75,21 +75,21 @@ stretch_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
-custom_constants/margin_right = 6
-custom_constants/margin_top = 6
-custom_constants/margin_left = 6
-custom_constants/margin_bottom = 6
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
-margin_left = 6.0
-margin_top = 6.0
-margin_right = 34.0
-margin_bottom = 34.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 32.0
+margin_bottom = 32.0
 theme = SubResource( 6 )
 
 [node name="Descs" parent="MarginContainer/ScrollContainer" instance=ExtResource( 3 )]
-margin_right = 28.0
-margin_bottom = 28.0
+margin_right = 24.0
+margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 default_font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
