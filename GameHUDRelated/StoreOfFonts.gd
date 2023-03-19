@@ -82,7 +82,7 @@ func _add_consola_italics_font_with_size_to_map(font_size : int) -> DynamicFont:
 	consola_font.font_data = font_data
 	consola_font.size = font_size
 	
-	_consola_bold_font_size_to_font_map[font_size] = consola_font
+	_consola_italics_font_size_to_font_map[font_size] = consola_font
 	return consola_font
 
 #

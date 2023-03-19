@@ -80,4 +80,7 @@ margin_bottom = 242.0
 size_flags_horizontal = 6
 text_for_label = "Skip"
 
+[connection signal="mouse_entered" from="." to="." method="_on_DialogMainPanel_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_DialogMainPanel_mouse_exited"]
+[connection signal="visibility_changed" from="." to="." method="_on_DialogMainPanel_visibility_changed"]
 [connection signal="on_button_released_with_button_left" from="Marginer/VBoxContainer/SkipButton" to="." method="_on_SkipButton_on_button_released_with_button_left"]

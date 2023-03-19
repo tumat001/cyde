@@ -88,6 +88,7 @@ func _construct_dialog_segments():
 		["Attached flavor here: |0|", [plain_fragment__ingredient_effets]]
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg_intro_03, dia_seg_intro_03__descs) #, dia_main_panel__pos__standard, dia_main_panel__size__standard)
+	# custom pos -- for showing portrait sliding in from left to right.
 	var custom_pos = dia_portrait__pos__standard_left
 	custom_pos.x = 0
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg_intro_03, TestPortrait_Pic, dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait_test)

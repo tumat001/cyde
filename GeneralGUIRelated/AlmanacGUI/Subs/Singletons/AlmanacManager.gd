@@ -124,14 +124,18 @@ enum CategoryIds {
 	
 	#
 	
-	TOWER_COLOR__RED = 110
-	TOWER_COLOR__ORANGE = 111
-	TOWER_COLOR__YELLOW = 112
-	TOWER_COLOR__GREEN = 113
-	TOWER_COLOR__BLUE = 114
-	TOWER_COLOR__VIOLET = 115
-	TOWER_COLOR__GRAY = 116
-	TOWER_COLOR__BLACK = 117
+#	TOWER_COLOR__RED = 110
+#	TOWER_COLOR__ORANGE = 111
+#	TOWER_COLOR__YELLOW = 112
+#	TOWER_COLOR__GREEN = 113
+#	TOWER_COLOR__BLUE = 114
+#	TOWER_COLOR__VIOLET = 115
+#	TOWER_COLOR__GRAY = 116
+#	TOWER_COLOR__BLACK = 117
+	
+	TOWER_COLOR__CONFIDENTIALITY = 110,
+	TOWER_COLOR__INTEGRITY = 111,
+	TOWER_COLOR__AVAILABILITY = 112,
 	TOWER_COLOR__OTHERS = 118
 	
 	#
@@ -364,62 +368,85 @@ func _construct_shared_categories():
 	any_page_category_empty.cat_type_id = CategoryIds.EMPTY
 	
 	#
+#
+#	var red_page_category = Almanac_Category_Data.new()
+#	red_page_category.border_texture = CategoryBorder_Default
+#	red_page_category.cat_type_id = CategoryIds.TOWER_COLOR__RED
+#	red_page_category.border_modulate = Color(218/255.0, 2/255.0, 5/255.0)
+#	red_page_category.cat_text = "Red Towers"
+#	_color_id_to_tower_page_category_map[TowerColors.RED] = red_page_category
+#
+#	var orange_page_category = Almanac_Category_Data.new()
+#	orange_page_category.border_texture = CategoryBorder_Default
+#	orange_page_category.cat_type_id = CategoryIds.TOWER_COLOR__ORANGE
+#	orange_page_category.border_modulate = Color(255/255.0, 128/255.0, 0/255.0)
+#	orange_page_category.cat_text = "Orange Towers"
+#	_color_id_to_tower_page_category_map[TowerColors.ORANGE] = orange_page_category
+#
+#	var yellow_page_category = Almanac_Category_Data.new()
+#	yellow_page_category.border_texture = CategoryBorder_Default
+#	yellow_page_category.cat_type_id = CategoryIds.TOWER_COLOR__YELLOW
+#	yellow_page_category.border_modulate = Color(232/255.0, 253/255.0, 0/255.0)
+#	yellow_page_category.cat_text = "Yellow Towers"
+#	_color_id_to_tower_page_category_map[TowerColors.YELLOW] = yellow_page_category
+#
+#	var green_page_category = Almanac_Category_Data.new()
+#	green_page_category.border_texture = CategoryBorder_Default
+#	green_page_category.cat_type_id = CategoryIds.TOWER_COLOR__GREEN
+#	green_page_category.border_modulate = Color(30/255.0, 218/255.0, 2/255.0)
+#	green_page_category.cat_text = "Green Towers"
+#	_color_id_to_tower_page_category_map[TowerColors.GREEN] = green_page_category
+#
+#	var blue_page_category = Almanac_Category_Data.new()
+#	blue_page_category.border_texture = CategoryBorder_Default
+#	blue_page_category.cat_type_id = CategoryIds.TOWER_COLOR__BLUE
+#	blue_page_category.border_modulate = Color(2/255.0, 58/255.0, 218/255.0)
+#	blue_page_category.cat_text = "Blue Towers"
+#	_color_id_to_tower_page_category_map[TowerColors.BLUE] = blue_page_category
+#
+#	var violet_page_category = Almanac_Category_Data.new()
+#	violet_page_category.border_texture = CategoryBorder_Default
+#	violet_page_category.cat_type_id = CategoryIds.TOWER_COLOR__VIOLET
+#	violet_page_category.border_modulate = Color(163/255.0, 77/255.0, 253/255.0)
+#	violet_page_category.cat_text = "Violet Towers"
+#	_color_id_to_tower_page_category_map[TowerColors.VIOLET] = violet_page_category
+#
+#	var gray_page_category = Almanac_Category_Data.new()
+#	gray_page_category.border_texture = CategoryBorder_Default
+#	gray_page_category.cat_type_id = CategoryIds.TOWER_COLOR__GRAY
+#	gray_page_category.border_modulate = Color(133/255.0, 133/255.0, 133/255.0)
+#	gray_page_category.cat_text = "Gray Towers"
+#	_color_id_to_tower_page_category_map[TowerColors.GRAY] = gray_page_category
+#
+#	var black_page_category = Almanac_Category_Data.new()
+#	black_page_category.border_texture = CategoryBorder_Default
+#	black_page_category.cat_type_id = CategoryIds.TOWER_COLOR__BLACK
+#	black_page_category.border_modulate = Color(20/255.0, 20/255.0, 20/255.0)
+#	black_page_category.cat_text = "Black Towers"
+#	_color_id_to_tower_page_category_map[TowerColors.BLACK] = black_page_category
 	
-	var red_page_category = Almanac_Category_Data.new()
-	red_page_category.border_texture = CategoryBorder_Default
-	red_page_category.cat_type_id = CategoryIds.TOWER_COLOR__RED
-	red_page_category.border_modulate = Color(218/255.0, 2/255.0, 5/255.0)
-	red_page_category.cat_text = "Red Towers"
-	_color_id_to_tower_page_category_map[TowerColors.RED] = red_page_category
 	
-	var orange_page_category = Almanac_Category_Data.new()
-	orange_page_category.border_texture = CategoryBorder_Default
-	orange_page_category.cat_type_id = CategoryIds.TOWER_COLOR__ORANGE
-	orange_page_category.border_modulate = Color(255/255.0, 128/255.0, 0/255.0)
-	orange_page_category.cat_text = "Orange Towers"
-	_color_id_to_tower_page_category_map[TowerColors.ORANGE] = orange_page_category
+	var confi_page_category = Almanac_Category_Data.new()
+	confi_page_category.border_texture = CategoryBorder_Default
+	confi_page_category.cat_type_id = CategoryIds.TOWER_COLOR__CONFIDENTIALITY
+	confi_page_category.border_modulate = Color(218/255.0, 2/255.0, 5/255.0)
+	confi_page_category.cat_text = "Confidentiality Towers"
+	_color_id_to_tower_page_category_map[TowerColors.CONFIDENTIALITY] = confi_page_category
 	
-	var yellow_page_category = Almanac_Category_Data.new()
-	yellow_page_category.border_texture = CategoryBorder_Default
-	yellow_page_category.cat_type_id = CategoryIds.TOWER_COLOR__YELLOW
-	yellow_page_category.border_modulate = Color(232/255.0, 253/255.0, 0/255.0)
-	yellow_page_category.cat_text = "Yellow Towers"
-	_color_id_to_tower_page_category_map[TowerColors.YELLOW] = yellow_page_category
+	var integrity_page_category = Almanac_Category_Data.new()
+	integrity_page_category.border_texture = CategoryBorder_Default
+	integrity_page_category.cat_type_id = CategoryIds.TOWER_COLOR__INTEGRITY
+	integrity_page_category.border_modulate = Color(2/255.0, 58/255.0, 218/255.0)
+	integrity_page_category.cat_text = "Integrity Towers"
+	_color_id_to_tower_page_category_map[TowerColors.INTEGRITY] = integrity_page_category
 	
-	var green_page_category = Almanac_Category_Data.new()
-	green_page_category.border_texture = CategoryBorder_Default
-	green_page_category.cat_type_id = CategoryIds.TOWER_COLOR__GREEN
-	green_page_category.border_modulate = Color(30/255.0, 218/255.0, 2/255.0)
-	green_page_category.cat_text = "Green Towers"
-	_color_id_to_tower_page_category_map[TowerColors.GREEN] = green_page_category
+	var availability_page_category = Almanac_Category_Data.new()
+	availability_page_category.border_texture = CategoryBorder_Default
+	availability_page_category.cat_type_id = CategoryIds.TOWER_COLOR__AVAILABILITY
+	availability_page_category.border_modulate = Color(232/255.0, 253/255.0, 0/255.0)
+	availability_page_category.cat_text = "Availability Towers"
+	_color_id_to_tower_page_category_map[TowerColors.AVAILABILITY] = availability_page_category
 	
-	var blue_page_category = Almanac_Category_Data.new()
-	blue_page_category.border_texture = CategoryBorder_Default
-	blue_page_category.cat_type_id = CategoryIds.TOWER_COLOR__BLUE
-	blue_page_category.border_modulate = Color(2/255.0, 58/255.0, 218/255.0)
-	blue_page_category.cat_text = "Blue Towers"
-	_color_id_to_tower_page_category_map[TowerColors.BLUE] = blue_page_category
-	
-	var violet_page_category = Almanac_Category_Data.new()
-	violet_page_category.border_texture = CategoryBorder_Default
-	violet_page_category.cat_type_id = CategoryIds.TOWER_COLOR__VIOLET
-	violet_page_category.border_modulate = Color(163/255.0, 77/255.0, 253/255.0)
-	violet_page_category.cat_text = "Violet Towers"
-	_color_id_to_tower_page_category_map[TowerColors.VIOLET] = violet_page_category
-	
-	var gray_page_category = Almanac_Category_Data.new()
-	gray_page_category.border_texture = CategoryBorder_Default
-	gray_page_category.cat_type_id = CategoryIds.TOWER_COLOR__GRAY
-	gray_page_category.border_modulate = Color(133/255.0, 133/255.0, 133/255.0)
-	gray_page_category.cat_text = "Gray Towers"
-	_color_id_to_tower_page_category_map[TowerColors.GRAY] = gray_page_category
-	
-	var black_page_category = Almanac_Category_Data.new()
-	black_page_category.border_texture = CategoryBorder_Default
-	black_page_category.cat_type_id = CategoryIds.TOWER_COLOR__BLACK
-	black_page_category.border_modulate = Color(20/255.0, 20/255.0, 20/255.0)
-	black_page_category.cat_text = "Black Towers"
-	_color_id_to_tower_page_category_map[TowerColors.BLACK] = black_page_category
 	
 	
 	others_color_page_category = Almanac_Category_Data.new()

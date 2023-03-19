@@ -24,6 +24,7 @@ const GameModiIds__CYDE_Common_Modifiers = "%s%s" % [CYDE_HeaderIdName, "CommonM
 const GameModiIds__CYDE_ExampleStage = "%s%s" % [CYDE_HeaderIdName, "ExampleStage"]
 
 const GameModiIds__CYDE_World_01 = "%s%s" % [CYDEWorldModis__HeaderIdName, "World01"]
+const GameModiIds__CYDE_World_02 = "%s%s" % [CYDEWorldModis__HeaderIdName, "World02"]
 
 
 #enum GameModiIds {
@@ -72,6 +73,7 @@ const game_modifier_id_to_script_name_map : Dictionary = {
 	#GameModiIds.CYDE__EXAMPLE_STAGE : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/StageExample/Imp_DialogeSM_StageExample.gd"
 	
 	GameModiIds__CYDE_World_01 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World01/Imp_DialogSM_World01.gd",
+	GameModiIds__CYDE_World_02 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World02/Imp_DialogSM_World02.gd",
 	
 	
 }

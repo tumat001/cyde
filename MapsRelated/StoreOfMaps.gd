@@ -90,14 +90,14 @@ const MapIdsAvailableFromMenu : Array = [
 	
 	MapsId_World01,
 	MapsId_World02,
-	MapsId_World03,
-	MapsId_World04,
-	MapsId_World05,
-	MapsId_World06,
-	MapsId_World07,
-	MapsId_World08,
-	MapsId_World09,
-	MapsId_World10,
+#	MapsId_World03,
+#	MapsId_World04,
+#	MapsId_World05,
+#	MapsId_World06,
+#	MapsId_World07,
+#	MapsId_World08,
+#	MapsId_World09,
+#	MapsId_World10,
 	
 ]
 
@@ -132,7 +132,7 @@ func _init():
 	
 	var world_id__02 = MapsId_World02
 	add_map(world_id__02, "World 02",
-			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World02/WorldMap_02.tscn",
+			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World02/Map_World02.tscn",
 			self,
 			"_construct_map_type_info__map_world_02",
 			MapIdsAvailableFromMenu.has(world_id__02))

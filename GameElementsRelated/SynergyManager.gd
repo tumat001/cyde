@@ -137,6 +137,7 @@ var _attempted_start_color_aesthetic_display : bool
 
 enum AllowSynergiesClauseIds {
 	CYDE__STAGE_01_CLAUSE = 0
+	CYDE__ANY_STAGE_CLAUS = 1
 }
 var allow_synergies_clauses : ConditonalClause
 var last_calculated_allow_synergies : bool
@@ -236,44 +237,45 @@ func _set_tower_manager(arg_tower_manager):
 #
 
 func update_synergies(towers : Array):
-	var distinct_towers : Array = _get_list_of_distinct_towers(towers)
-	var active_colors : Array = _convert_towers_to_colors(distinct_towers)
-	
-	var results_of_dom : Array = ColorSynergyChecker.get_all_results(
-	_dominant_synergy_id_to_syn_available_this_game_map.values(), active_colors)
-	
-	var results_of_compo : Array = ColorSynergyChecker.get_all_results(
-	_composite_synergy_id_to_syn_available_this_game.values(), active_colors)
-	
-	#Remove doms with raw_total of 0
-	var to_remove : Array = []
-	for res in results_of_dom:
-		if res.raw_total == 0:
-			to_remove.append(res)
-	for to_rem in to_remove:
-		results_of_dom.erase(to_rem)
-	#Remove compos with raw_total of 0, or if only meets x - 1 of its colors
-	to_remove.clear()
-	for res in results_of_compo:
-		if res.raw_total == 0 or (res.color_types_amount_met < res.color_types_amount_from_baseline - 1):
-			to_remove.append(res)
-	for to_rem in to_remove:
-		results_of_compo.erase(to_rem)
-	
-	
-	results_of_dom = ColorSynergyChecker.sort_by_descending_total_towers(results_of_dom)
-	results_of_compo = ColorSynergyChecker.sort_by_descending_total_towers(results_of_compo)
-	
-	
-	var syn_res_to_activate : Array = []
-	var dom_to_activate : Array = ColorSynergyChecker.get_synergies_with_results_to_activate(results_of_dom, last_calculated_dominant_synergy_limit, dont_allow_same_total_conditonal_clause.is_passed, _modi_id_to_dominant_synergy_ids_to_always_activate_map.values())
-	var compo_to_activate : Array = ColorSynergyChecker.get_synergies_with_results_to_activate(results_of_compo, last_calculated_composite_synergy_limit, dont_allow_same_total_conditonal_clause.is_passed, _modi_id_to_composite_synergy_ids_to_always_activate_map.values())
-	
-	active_dom_color_synergies_res = []
-	active_compo_color_synergies_res = []
-	
-	
 	if last_calculated_allow_synergies:
+		var distinct_towers : Array = _get_list_of_distinct_towers(towers)
+		var active_colors : Array = _convert_towers_to_colors(distinct_towers)
+		
+		var results_of_dom : Array = ColorSynergyChecker.get_all_results(
+		_dominant_synergy_id_to_syn_available_this_game_map.values(), active_colors)
+		
+		var results_of_compo : Array = ColorSynergyChecker.get_all_results(
+		_composite_synergy_id_to_syn_available_this_game.values(), active_colors)
+		
+		#Remove doms with raw_total of 0
+		var to_remove : Array = []
+		for res in results_of_dom:
+			if res.raw_total == 0:
+				to_remove.append(res)
+		for to_rem in to_remove:
+			results_of_dom.erase(to_rem)
+		#Remove compos with raw_total of 0, or if only meets x - 1 of its colors
+		to_remove.clear()
+		for res in results_of_compo:
+			if res.raw_total == 0 or (res.color_types_amount_met < res.color_types_amount_from_baseline - 1):
+				to_remove.append(res)
+		for to_rem in to_remove:
+			results_of_compo.erase(to_rem)
+		
+		
+		results_of_dom = ColorSynergyChecker.sort_by_descending_total_towers(results_of_dom)
+		results_of_compo = ColorSynergyChecker.sort_by_descending_total_towers(results_of_compo)
+		
+		
+		var syn_res_to_activate : Array = []
+		var dom_to_activate : Array = ColorSynergyChecker.get_synergies_with_results_to_activate(results_of_dom, last_calculated_dominant_synergy_limit, dont_allow_same_total_conditonal_clause.is_passed, _modi_id_to_dominant_synergy_ids_to_always_activate_map.values())
+		var compo_to_activate : Array = ColorSynergyChecker.get_synergies_with_results_to_activate(results_of_compo, last_calculated_composite_synergy_limit, dont_allow_same_total_conditonal_clause.is_passed, _modi_id_to_composite_synergy_ids_to_always_activate_map.values())
+		
+		active_dom_color_synergies_res = []
+		active_compo_color_synergies_res = []
+		
+		
+		
 		for res in dom_to_activate:
 			syn_res_to_activate.append(res)
 			results_of_dom.erase(res)
@@ -282,14 +284,21 @@ func update_synergies(towers : Array):
 			syn_res_to_activate.append(res)
 			results_of_compo.erase(res)
 			active_compo_color_synergies_res.append(res)
-	
-	# Assign-ments
-	
-	previous_active_synergies_res = active_synergies_res
-	
-	active_synergies_res = syn_res_to_activate
-	non_active_dominant_synergies_res = results_of_dom
-	non_active_group_synergies_res = results_of_compo
+		
+		# Assign-ments
+		
+		previous_active_synergies_res = active_synergies_res
+		
+		active_synergies_res = syn_res_to_activate
+		non_active_dominant_synergies_res = results_of_dom
+		non_active_group_synergies_res = results_of_compo
+		
+	else:
+		
+		active_synergies_res = []
+		non_active_dominant_synergies_res = []
+		non_active_group_synergies_res = []
+		
 	
 	_update_synergy_displayer()
 	

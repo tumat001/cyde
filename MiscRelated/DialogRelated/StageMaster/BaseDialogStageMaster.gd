@@ -55,7 +55,7 @@ signal current_dialog_segment_changed(arg_seg)
 const dia_main_panel__pos__standard := Vector2(0, 100)
 const dia_main_panel__size__standard := Vector2(500, 100)
 
-const dia_main_panel__pos__plate_middle := Vector2(0, 100)
+const dia_main_panel__pos__plate_middle := Vector2(0, 0)
 const dia_main_panel__size__plate_middle := Vector2(250, 200)
 
 const dia_main_panel__pos__x_type_info_panel := Vector2(0, 25)
@@ -75,6 +75,11 @@ const dia_time_duration__long : float = 60.0
 
 const SKIP_BUTTON__DEFAULT_TEXT = "Skip"
 const SKIP_BUTTON__SKIP_DIALOG_TEXT = "Skip Dialog"
+
+
+const COLOR_OF__NAME_CYDE := "#029FA1"
+const COLOR_OF__NAME_PLAYER := "#FEC9AA"
+
 
 ######
 
@@ -934,7 +939,7 @@ func listen_for_any_tower_sold(arg_func_source, arg_func_name):
 
 func _on_any_tower_being_sold(arg_sellback_gold, arg_tower_sold, arg_func_source, arg_func_name):
 	game_elements.tower_manager.disconnect("tower_being_sold", self, "_on_any_tower_being_sold")
-	arg_func_source.call(arg_func_name, arg_sellback_gold)
+	arg_func_source.call(arg_func_name, arg_sellback_gold, arg_tower_sold)
 
 
 # expects method that accepts no args
@@ -982,6 +987,11 @@ func _on_player_curr_level_changed(arg_level, arg_expected_lvl, arg_func_source,
 		game_elements.level_manager.disconnect("on_current_level_changed", self, "_on_player_curr_level_changed")
 		arg_func_source.call(arg_func_name, arg_level)
 
+
+# get values related
+
+func get_tower_tier_odds_at_player_level(arg_tower_tier, arg_player):
+	return game_elements.shop_manager.get_tower_tier_odds_at_player_level(arg_tower_tier, arg_player)
 
 
 # Get nodes related     (misread this at least once......)
@@ -1055,6 +1065,14 @@ func get_almanac_button_bot_right():
 	return almanac_button_bot_right
 
 
+
+func get_towers_with_id(arg_id):
+	var bucket = []
+	for tower in game_elements.tower_manager.get_all_towers_except_in_queue_free():
+		if tower.tower_id == arg_id:
+			bucket.append(tower)
+	
+	return bucket
 
 # INDICATORS
 
@@ -1303,4 +1321,23 @@ func _on_game_result_panel_closed(arg_func_source, arg_func_name_on_win, arg_fun
 func _record_map_ids_to_be_available_in_map_selection_panel():
 	for id in _map_ids_to_make_available_when_completed:
 		StatsManager.unlock_map_id(id)
+
+
+###
+
+func generate_colored_text__cyde_name():
+	return "[b][color=%s]%s[/color][/b]" % [COLOR_OF__NAME_CYDE, CydeSingleton.cyde_robot__name]
+	
+
+func generate_colored_text__player_name():
+	return "[b][color=%s]%s[/color][/b]" % [COLOR_OF__NAME_PLAYER, CydeSingleton.player_name]
+	
+
+
+func generate_colored_text__cyde_name__as_line():
+	return "%s:" % generate_colored_text__cyde_name()
+
+func generate_colored_text__player_name__as_line():
+	return "%s:" % generate_colored_text__player_name()
+
 

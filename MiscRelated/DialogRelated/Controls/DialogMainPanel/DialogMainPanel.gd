@@ -60,6 +60,15 @@ var _latest_base_dialog_ele_control : BaseDialogElementControl
 
 #
 
+var _make_main_panel_unintrusive_on_mouse_enter : bool
+
+var _is_mouse_inside_during_unintrusive_mode : bool
+var _top_left_pos_during_unintrusive_mode : Vector2
+var _bot_right_pos_during_unintrusive_mode : Vector2
+
+
+#
+
 var _all_borders : Array
 
 onready var background = $Background
@@ -214,6 +223,8 @@ func set_dialog_segment(arg_segment, arg_set_to_visible : bool = true):
 	if arg_set_to_visible:
 		visible = true
 	
+	set_make_main_panel_unintrusive_on_mouse_enter__from_dia_seg(dialog_segment.make_main_panel_unintrusive_on_mouse_enter)
+	
 	#########
 	
 	if is_instance_valid(dialog_segment):
@@ -289,6 +300,19 @@ func _process(delta):
 #
 #			var val_prop_name = transitioning_id_to_val_trans_map[id]
 #			set()
+	
+	
+	if _is_mouse_inside_during_unintrusive_mode:
+		if !if_mouse_pos_is_inside_main_panel_bounds():
+			end_unintrusive_mode()
+		
+	
+
+func if_mouse_pos_is_inside_main_panel_bounds():
+	var mouse_pos = get_viewport().get_mouse_position()
+	
+	return (mouse_pos.x >= _top_left_pos_during_unintrusive_mode.x and mouse_pos.x <= _bot_right_pos_during_unintrusive_mode) and (mouse_pos.y >= _top_left_pos_during_unintrusive_mode.y and mouse_pos.y <= _bot_right_pos_during_unintrusive_mode)
+
 
 #
 
@@ -358,3 +382,46 @@ func _emit_resolve_block_advanced_requested_status():
 func _on_SkipButton_on_button_released_with_button_left():
 	dialog_segment.skip()
 	
+
+
+#
+
+func set_make_main_panel_unintrusive_on_mouse_enter__from_dia_seg(arg_val):
+	_make_main_panel_unintrusive_on_mouse_enter = arg_val
+	
+	if _make_main_panel_unintrusive_on_mouse_enter:
+		pass
+	else:
+		end_unintrusive_mode()
+
+
+func _on_DialogMainPanel_visibility_changed():
+	end_unintrusive_mode()
+	
+
+func _on_DialogMainPanel_mouse_entered():
+	attempt_begin_unintrusive_mode()
+
+func _on_DialogMainPanel_mouse_exited():
+	pass # Replace with function body.
+	# NEVER CALLED anyways............
+
+
+
+func attempt_begin_unintrusive_mode():
+	if _make_main_panel_unintrusive_on_mouse_enter:
+		modulate = Color(1, 1, 1, 0.1)
+		mouse_filter = MOUSE_FILTER_IGNORE
+		
+		_top_left_pos_during_unintrusive_mode = rect_position
+		_bot_right_pos_during_unintrusive_mode = rect_position + rect_size
+		
+		_is_mouse_inside_during_unintrusive_mode = true
+
+func end_unintrusive_mode():
+	_is_mouse_inside_during_unintrusive_mode = false
+	modulate = Color(1, 1, 1, 1)
+	
+	mouse_filter = MOUSE_FILTER_STOP
+
+

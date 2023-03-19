@@ -35,7 +35,7 @@ const _audio_id_to_sound_file_path = {
 	AudioIds.MALFUNCTION : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/Malfunction.wav",
 	AudioIds.QUESTION_INFO_THEME_01 : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/Question_InfoTheme.ogg",
 	AudioIds.TIMER_SOUND : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TimerSound.ogg",
-	AudioIds.TOWER_PURCHASE_01 : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TowerPurchase(1).ogg",
+	AudioIds.TOWER_PURCHASE_01 : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TowerPurchase(1).wav",
 }
 
 ##

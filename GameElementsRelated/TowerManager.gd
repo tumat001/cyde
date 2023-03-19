@@ -1681,8 +1681,8 @@ func _initialize_audio_relateds():
 	audio_player_adv_params.node_source = self
 
 func _play_tower_purchase_sound_at_pos(arg_pos):
-	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.HOMEPAGE_LOBBY_THEME_01)
-	var player : AudioStreamPlayer2D = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.TWO_D)
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.TOWER_PURCHASE_01)
+	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.TWO_D)
 	player.autoplay = true
 	player.global_position = arg_pos
 	

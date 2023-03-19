@@ -1,5 +1,10 @@
 extends Node
 
+
+###########################
+# RESOURCES
+##########################
+
 # CONSTANTS
 
 const cyde_robot__name := "Cyde"
@@ -10,6 +15,59 @@ const dr_asi_mitnick__last_name = "Dr. Mitnik"
 
 const cyberland__name := "Cyberland"
 
+
+# IMAGES RELATED
+
+enum CYDE_STATE {
+	
+	STANDARD_001 = 0
+	STANDARD_002 = 1,
+	STANDARD_003 = 2,
+	
+	SAD_001 = 10,
+	SAD_002 = 11,
+	
+	ANGRY_001 = 20,
+	ANGRY_002 = 21,
+	
+	HAPPY_001 = 30,
+	
+	WOW_001 = 40,
+	
+	LAUGH_001 = 50,
+	
+	DRAINED_001 = 60,
+	DRAINED_002 = 61,
+	
+	
+}
+const cyde_state_to_image_map : Dictionary = {
+	CYDE_STATE.STANDARD_001 : null,   #todo
+	CYDE_STATE.STANDARD_002 : null,   #todo
+	CYDE_STATE.STANDARD_003 : null,   #todo
+	
+	CYDE_STATE.SAD_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/sad.png"),
+	CYDE_STATE.SAD_002 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/222.png"),
+	
+	CYDE_STATE.ANGRY_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/angry.png"),
+	CYDE_STATE.ANGRY_002 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/333.png"),
+	
+	CYDE_STATE.HAPPY_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/happy.png"),
+	
+	CYDE_STATE.WOW_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/wow.png"),
+	
+	CYDE_STATE.LAUGH_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/laugh.png"),
+	
+	CYDE_STATE.DRAINED_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/drain.png"),
+	CYDE_STATE.DRAINED_002 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/111.png"),
+}
+
+
+
+
+###########################
+# SAVES AND STATES
+##########################
 
 # SAVE RELATED
 
@@ -113,6 +171,9 @@ func set_world_completion_state_num_to_world_id(arg_state, arg_id):
 
 func get_world_completion_state_num_to_world_id(arg_id):
 	return world_id_to_world_completion_num_state_dict[arg_id]
+
+
+#############################
 
 
 

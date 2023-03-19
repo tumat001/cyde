@@ -281,9 +281,21 @@ enum {
 # Can be used as official list of all towers
 const TowerTiersMap : Dictionary = {
 	
-	STRIKER : 1,
+	STRIKER : 1, #todo remove this soon!
+	
 	MINI_TESLA : 1,
 	SPRINKLER : 1,
+	COAL_LAUNCHER : 1,
+	EMBER : 1,
+	ENTROPY : 1,
+	
+	VACUUM : 2,
+	COIN : 2,
+	
+	MAGNETIZER : 4,
+	TESLA : 4,
+	ROYAL_FLAME : 4,
+	VOLCANO : 4,
 	
 #	HEALING_SYMBOL : 1,
 #	NIGHTWATCHER : 6,
@@ -762,8 +774,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Tesla", TESLA)
 		info.tower_tier = TowerTiersMap[TESLA]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.VIOLET)
-		info.colors.append(TowerColors.YELLOW)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = telsa_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1028,7 +1039,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Coin", COIN)
 		info.tower_tier = TowerTiersMap[COIN]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.YELLOW)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = coin_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1315,7 +1326,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Magnetizer", MAGNETIZER)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.YELLOW)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = magnetizer_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1418,7 +1429,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Ember", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.ORANGE)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = ember_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1617,7 +1628,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Volcano", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.ORANGE)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = volcano_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1815,7 +1826,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Coal Launcher", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.ORANGE)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = coal_launcher_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1908,7 +1919,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Entropy", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.ORANGE)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = entropy_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1971,8 +1982,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Royal Flame", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.ORANGE)
-		info.colors.append(TowerColors.BLUE)
+		info.colors.append(TowerColors.INTEGRITY)
 		info.base_tower_image = royal_flame_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -5494,7 +5504,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Vacuum", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.BLUE)
+		info.colors.append(TowerColors.INTEGRITY)
 		info.base_tower_image = vacuum_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		

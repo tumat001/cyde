@@ -12,21 +12,32 @@ signal on_cost_per_roll_changed(new_cost)
 signal can_roll_changed(can_roll)
 signal shop_rolled_with_towers(arg_tower_ids)
 
+
+#TODO Put appropriate probabilities soon
 const base_level_tier_roll_probabilities : Dictionary = {
 	LevelManager.LEVEL_1 : [100, 0, 0, 0, 0, 0],
-	LevelManager.LEVEL_2 : [90, 10, 0, 0, 0, 0],
-	LevelManager.LEVEL_3 : [75, 25, 0, 0, 0, 0],
-	LevelManager.LEVEL_4 : [55, 43, 2, 0, 0, 0],
-	LevelManager.LEVEL_5 : [45, 35, 20, 0, 0, 0],
-	LevelManager.LEVEL_6 : [23, 40, 35, 2, 0, 0],
-	LevelManager.LEVEL_7 : [20, 29, 40, 10, 1, 0],
-	LevelManager.LEVEL_8 : [15, 20, 33, 30, 2, 0],
-	LevelManager.LEVEL_9 : [10, 15, 20, 35, 20, 0],
-	LevelManager.LEVEL_10 : [5, 10, 10, 25, 25, 25],
+	LevelManager.LEVEL_2 : [100, 0, 0, 0, 0, 0],
+	LevelManager.LEVEL_3 : [90, 10, 0, 0, 0, 0],
+	LevelManager.LEVEL_4 : [65, 25, 10, 0, 0, 0],
+	LevelManager.LEVEL_5 : [50, 25, 25, 0, 0, 0],
+	LevelManager.LEVEL_6 : [20, 40, 40, 0, 0, 0],
+	LevelManager.LEVEL_7 : [15, 30, 45, 10, 0, 0],
+	LevelManager.LEVEL_8 : [10, 20, 50, 20, 0, 0],
 	
-	# Reachable by red syn -- prestige
-	LevelManager.LEVEL_11 : [3, 5, 5, 15, 40, 32], 
-	LevelManager.LEVEL_12 : [0, 0, 2, 13, 50, 35],
+#	LevelManager.LEVEL_1 : [100, 0, 0, 0, 0, 0],
+#	LevelManager.LEVEL_2 : [90, 10, 0, 0, 0, 0],
+#	LevelManager.LEVEL_3 : [75, 25, 0, 0, 0, 0],
+#	LevelManager.LEVEL_4 : [55, 43, 2, 0, 0, 0],
+#	LevelManager.LEVEL_5 : [45, 35, 20, 0, 0, 0],
+#	LevelManager.LEVEL_6 : [23, 40, 35, 2, 0, 0],
+#	LevelManager.LEVEL_7 : [20, 29, 40, 10, 1, 0],
+#	LevelManager.LEVEL_8 : [15, 20, 33, 30, 2, 0],
+#	LevelManager.LEVEL_9 : [10, 15, 20, 35, 20, 0],
+#	LevelManager.LEVEL_10 : [5, 10, 10, 25, 25, 25],
+#
+#	# Reachable by red syn -- prestige
+#	LevelManager.LEVEL_11 : [3, 5, 5, 15, 40, 32], 
+#	LevelManager.LEVEL_12 : [0, 0, 2, 13, 50, 35],
 }
 
 #

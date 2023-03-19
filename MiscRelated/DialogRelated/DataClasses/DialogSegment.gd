@@ -137,6 +137,10 @@ var disable_almanac_button_clause_id : int
 var show_dialog_main_panel_borders : bool = true
 var show_dialog_main_panel_background : bool = true
 
+
+var make_main_panel_unintrusive_on_mouse_enter : bool = false
+
+
 #
 
 ##!! NOTE FOR ALL temp_x__y. "__" should only be used once, since it is the separator between metadata and the actual var name

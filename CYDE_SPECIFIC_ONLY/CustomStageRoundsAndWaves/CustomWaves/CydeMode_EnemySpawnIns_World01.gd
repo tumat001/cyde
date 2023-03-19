@@ -120,5 +120,6 @@ func _get_instructions_for_0_10():
 # BOSS
 func _get_instructions_for_0_11():
 	return [
-		
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS_BOSS),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
 	]

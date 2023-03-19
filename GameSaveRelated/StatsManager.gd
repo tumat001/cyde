@@ -404,6 +404,5 @@ func if_tidbit_map_has_at_least_one_tidbit_with_non_zero_val():
 	return false
 
 func if_map_id_has_at_least_x_val(arg_map_id, arg_min_val):
-	#return true
 	return map_id_to_unlocked_val_map[arg_map_id] >= arg_min_val or arg_map_id == map_id_to_always_remain_unlocked
 

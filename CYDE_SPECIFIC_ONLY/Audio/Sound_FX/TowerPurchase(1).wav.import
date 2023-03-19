@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/TowerPurchase (1).wav-1d405c6e7b420a1cab37ff856a0e7808.sample"
+path="res://.import/TowerPurchase(1).wav-5ff6e115215106d3761059a45760c8fa.sample"
 
 [deps]
 
-source_file="res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TowerPurchase (1).wav"
-dest_files=[ "res://.import/TowerPurchase (1).wav-1d405c6e7b420a1cab37ff856a0e7808.sample" ]
+source_file="res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TowerPurchase(1).wav"
+dest_files=[ "res://.import/TowerPurchase(1).wav-5ff6e115215106d3761059a45760c8fa.sample" ]
 
 [params]
 
