@@ -179,6 +179,9 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	game_elements.connect("unhandled_input", self, "_game_elements_unhandled_input")
 	game_elements.connect("unhandled_key_input", self, "_game_elements_unhandled_key_input")
 	
+	game_elements.tower_manager.connect("tower_being_dragged", self, "_on_tower_being_dragged")
+	game_elements.tower_manager.connect("tower_dropped_from_dragged", self, "_on_tower_dropped_from_dragged")
+	
 	if breakpoint_activation != BreakpointActivation.BEFORE_GAME_START:
 		game_elements.connect("before_game_start", self, "_on_game_elements_before_game_start__base_class", [], CONNECT_ONESHOT)
 	else:
@@ -864,7 +867,7 @@ func _on_tower_added(arg_tower_instance, arg_expected_tower_id, arg_func_name, a
 # expects a method that accepts an array (of tower instances)  <1 param>
 func listen_for_towers_with_ids__bought__then_call_func(arg_tower_ids : Array, arg_func_name : String, arg_func_source):
 	_towers_bought_for_multiple_listen.clear()
-	game_elements.tower_manager.connect("tower_added", self, "_on_tower_added__multiple_needed", [arg_tower_ids, arg_func_name, arg_func_source])
+	game_elements.tower_manager.connect("tower_added", self, "_on_tower_added__multiple_needed", [arg_tower_ids.duplicate(), arg_func_name, arg_func_source])
 
 func _on_tower_added__multiple_needed(arg_tower_instance, arg_expected_tower_ids, arg_func_name, arg_func_source):
 	var tower_id = arg_tower_instance.tower_id
@@ -885,7 +888,7 @@ func _on_tower_added__multiple_needed(arg_tower_instance, arg_expected_tower_ids
 # expects a method that accepts array (of tower ids)
 func listen_for_towers_with_ids__sold__then_call_func(arg_tower_ids : Array, arg_func_name : String, arg_func_source):
 	_tower_ids_sold_for_multiple_listen.clear()
-	game_elements.tower_manager.connect("tower_being_sold", self, "_on_tower_sold__multiple_needed", [arg_tower_ids, arg_func_name, arg_func_source])
+	game_elements.tower_manager.connect("tower_being_sold", self, "_on_tower_sold__multiple_needed", [arg_tower_ids.duplicate(), arg_func_name, arg_func_source])
 
 func _on_tower_sold__multiple_needed(arg_sellback_gold, arg_tower, arg_expected_tower_ids, arg_func_name, arg_func_source):
 	var tower_id = arg_tower.tower_id
@@ -1338,6 +1341,26 @@ func _on_game_result_panel_closed(arg_func_source, arg_func_name_on_win, arg_fun
 		arg_func_source.call(arg_func_name_on_lose)
 	
 
+# EXPECTS a method that recieves 0 param ()
+func listen_for_synergies_updated(arg_func_source, arg_func_name):
+	game_elements.synergy_manager.connect("synergies_updated", self, "_on_listen_synergies_updated", [arg_func_source, arg_func_name], CONNECT_DEFERRED)
+
+func _on_listen_synergies_updated(arg_func_source, arg_func_name):
+	game_elements.synergy_manager.disconnect("synergies_updated", self, "_on_listen_synergies_updated")
+	
+	arg_func_source.call(arg_func_name)
+	
+
+
+# EXPECTS a method that recieves 0 param ()
+func listen_for_left_side_panel_synergies_updated(arg_func_source, arg_func_name):
+	game_elements.left_panel.connect("display_updated", self, "_on_listen_left_side_panel_synergy_display_updated", [arg_func_source, arg_func_name], CONNECT_DEFERRED)
+
+func _on_listen_left_side_panel_synergy_display_updated(arg_func_source, arg_func_name):
+	game_elements.left_panel.disconnect("display_updated", self, "_on_listen_left_side_panel_synergy_display_updated")
+	
+	arg_func_source.call(arg_func_name)
+	
 
 ###
 
@@ -1363,4 +1386,16 @@ func generate_colored_text__cyde_name__as_line():
 func generate_colored_text__player_name__as_line():
 	return "%s:" % generate_colored_text__player_name()
 
+
+############
+
+func _on_tower_being_dragged(arg_tower):
+	if is_instance_valid(dialog_whole_screen_panel):
+		dialog_whole_screen_panel.start_mod_a_change__to_near_invis()
+	
+
+func _on_tower_dropped_from_dragged(arg_tower):
+	if is_instance_valid(dialog_whole_screen_panel):
+		dialog_whole_screen_panel.start_mod_a_change__to_visible()
+	
 

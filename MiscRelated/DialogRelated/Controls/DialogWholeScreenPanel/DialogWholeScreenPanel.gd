@@ -33,18 +33,26 @@ var game_elements
 enum TransitioningClauseIds {
 	POS_X = 0,
 	POS_Y = 1,
+	
+	MOD_A = 10,
 }
 
 var val_transition__center_container__top_left_pos__x : ValTransition
 var val_transition__center_container__top_left_pos__y : ValTransition
+var val_transition__all__mod_a : ValTransition
+
 
 var is_transitioning_clauses : ConditionalClauses
 var last_calculated_is_transitioning : bool
+var _is_mod_a_transitioning : bool
 
 var transitioning_id_to_val_trans_map : Dictionary
 var transitioning_id_to_is_active_map : Dictionary
 
 const time_taken_for_pos_change_transition : float = 0.3
+const time_taken_for_mod_a_change_transition : float = 0.2
+
+const mod_a_for_near_invis : float = 0.1
 
 #
 
@@ -64,6 +72,11 @@ func _init():
 	val_transition__center_container__top_left_pos__y = ValTransition.new()
 	val_transition__center_container__top_left_pos__y.connect("target_val_reached", self, "_on_target_val_reached", [val_transition__center_container__top_left_pos__y, TransitioningClauseIds.POS_Y], CONNECT_PERSIST)
 	
+	# NOTE: Val trans mod a is different from the others : only used if invoked, not when new dia seg is setted
+	val_transition__all__mod_a = ValTransition.new()
+	val_transition__all__mod_a.connect("target_val_reached", self, "_on_mod_a_target_val_reached", [], CONNECT_PERSIST)
+	
+	
 	is_transitioning_clauses = ConditionalClauses.new()
 	is_transitioning_clauses.connect("clause_inserted", self, "_on_is_transitioning_clauses_inserted", [], CONNECT_PERSIST)
 	is_transitioning_clauses.connect("clause_removed", self, "_on_is_transitioning_clauses_removed", [], CONNECT_PERSIST)
@@ -71,6 +84,9 @@ func _init():
 	
 	transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_X] = val_transition__center_container__top_left_pos__x
 	transitioning_id_to_val_trans_map[TransitioningClauseIds.POS_Y] = val_transition__center_container__top_left_pos__y
+	
+	#####
+	
 	
 
 func _on_is_transitioning_clauses_inserted(arg_clause_id):
@@ -110,7 +126,6 @@ func set_dialog_segment(arg_segment : DialogSegment):
 	
 	dialog_main_panel.dia_seg_of_whole_screen_panel_changed()
 	
-	##
 	##
 	
 	if arg_segment != null:
@@ -305,6 +320,11 @@ func _process(delta):
 			val_transition.delta_pass(delta)
 			
 			center_container.rect_position.y = val_transition.get_current_val()
+	
+	if _is_mod_a_transitioning:
+		val_transition__all__mod_a.delta_pass(delta)
+		
+		modulate.a = val_transition__all__mod_a.get_current_val()
 		
 
 
@@ -321,4 +341,21 @@ func resolve_block_advance__val_transitions():
 				
 
 
+##########
 
+func start_mod_a_change__to_near_invis():
+	var reached = val_transition__all__mod_a.configure_self(modulate.a, modulate.a, mod_a_for_near_invis, time_taken_for_mod_a_change_transition, ValTransition.VALUE_UNSET, ValTransition.ValueIncrementMode.LINEAR)
+	
+	if !reached:
+		_is_mod_a_transitioning = true
+
+func start_mod_a_change__to_visible():
+	var reached = val_transition__all__mod_a.configure_self(modulate.a, modulate.a, 1, time_taken_for_mod_a_change_transition, ValTransition.VALUE_UNSET, ValTransition.ValueIncrementMode.LINEAR)
+	
+	if !reached:
+		_is_mod_a_transitioning = true
+
+
+func _on_mod_a_target_val_reached():
+	modulate.a = val_transition__all__mod_a.get_current_val()
+	_is_mod_a_transitioning = false

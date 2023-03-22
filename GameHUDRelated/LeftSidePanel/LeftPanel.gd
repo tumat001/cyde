@@ -16,6 +16,9 @@ const AdvancedQueue = preload("res://MiscRelated/QueueRelated/AdvancedQueue.gd")
 signal on_single_syn_tooltip_shown(synergy)
 signal on_single_syn_tooltip_hidden(synergy)
 
+signal display_updated()
+
+
 var active_synergies_res : Array = []
 var non_active_dominant_synergies_res : Array = []
 var non_active_composite_synergies_res : Array = []
@@ -79,7 +82,8 @@ func update_synergy_displayers():
 	
 	yield(get_tree(), "idle_frame")
 	scroll_container.scroll_vertical = scroll_container.get_v_scrollbar().max_value
-
+	
+	emit_signal("display_updated")
 
 #
 

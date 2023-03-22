@@ -200,7 +200,7 @@ func _on_game_elements_before_game_start__base_class():
 	set_can_refresh_shop_at_round_end_clauses(false)
 	set_enabled_buy_slots([])
 	
-	set_can_sell_towers(false)
+	set_can_sell_towers(true)
 	set_can_toggle_to_ingredient_mode(false)
 	#set_can_towers_swap_positions_to_another_tower(false)
 	#add_shop_per_refresh_modifier(-5)
@@ -1016,7 +1016,7 @@ func _construct_dia_seg__intro_06_sequence_001():
 	
 	var dia_seg__intro_06_sequence_004__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Let's start the round in preparation for the Icebreaker quiz next round."
+		"Let's start the round."
 		
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_004, dia_seg__intro_06_sequence_004__descs)
@@ -1033,13 +1033,12 @@ func _play_dia_seg__intro_06_sequence_001():
 
 
 func _on_dia_seg__intro_06_sequence_002__fully_displayed():
-	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
-	
-
-func _on_dia_seg__intro_06_sequence_02__setted_into_whole_screen_panel():
 	play_quiz_time_music()
 	
 
+func _on_dia_seg__intro_06_sequence_02__setted_into_whole_screen_panel():
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
+	
 
 
 func _on_dia_seg__intro_06_sequence_004__fully_displayed():
@@ -1252,7 +1251,7 @@ func _construct_dia_seg__intro_09_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_09_sequence_001, dia_seg__intro_09_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_09_sequence_001)
-	#dia_seg__intro_09_sequence_001.connect("setted_into_whole_screen_panel", self, "")
+	
 	
 	###
 	
@@ -1282,12 +1281,10 @@ func _play_dia_seg__intro_09_sequence_001():
 	
 
 func _on_dia_seg__intro_09_sequence_002__fully_displayed():
-	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
-	
+	play_quiz_time_music()
 
 func _on_dia_seg__intro_09_sequence_02__setted_into_whole_screen_panel():
-	play_quiz_time_music()
-	
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
 
 
 func _on_trojan_Q03_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
@@ -1300,6 +1297,7 @@ func _on_trojan_Q03_choice_right_clicked(arg_id, arg_button_info : DialogChoices
 		generate_colored_text__cyde_name__as_line(),
 		"Nice job! You got it right!",
 		["With the proper knowledge used at the right time, your |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__towers]],
+		
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_09_sequence_002, dia_seg__intro_09_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_09_sequence_002)
@@ -1471,11 +1469,10 @@ func _play_dia_seg__intro_11_sequence_001():
 	
 
 func _on_dia_seg__intro_11_sequence_002__fully_displayed():
-	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
-	
+	play_quiz_time_music()
 
 func _on_dia_seg__intro_11_sequence_02__setted_into_whole_screen_panel():
-	play_quiz_time_music()
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
 	
 
 
@@ -1916,7 +1913,6 @@ func _construct_questions_and_choices_for__trojan_Q04():
 
 
 ############ QUESTIONS STATE ############
-
 
 func _show_dialog_choices_modi_panel():
 	return true

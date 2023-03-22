@@ -382,7 +382,22 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 				"A worm that spreads via the network, usually when sharing files with other nearby computers."
 			]
 		
-	
+		
+	elif enemy_id == Enemies.WORM_BOSS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 160
+		info.base_movement_speed = 25
+		info.enemy_type == info.EnemyType.ELITE
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Worm Boss"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/WormBoss/WormBoss_E.png"))
+			info.descriptions = [
+				"The boss of the worms." #todo make more inspiring desc LOL
+			]
+		
+		
+		
 	
 #	elif enemy_id == Enemies.BRUTE:
 #		info = EnemyTypeInformation.new(Enemies.BRUTE, EnemyFactions.BASIC)

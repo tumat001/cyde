@@ -5,6 +5,9 @@ signal on_single_syn_tooltip_hidden(synergy)
 
 signal on_single_syn_displayer_pressed(input_mouse_event, syn_check_result)
 
+signal display_updated()
+
+
 var active_synergies_res : Array = []
 var non_active_dominant_synergies_res : Array = []
 var non_active_composite_synergies_res : Array = []
@@ -79,7 +82,9 @@ func update_display():
 		non_active_compo_separator.visible = false
 	else:
 		non_active_compo_separator.visible = true
-
+	
+	
+	emit_signal("display_updated")
 
 # 
 

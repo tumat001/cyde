@@ -20,6 +20,7 @@ script = ExtResource( 7 )
 [node name="TextureRect" type="TextureRect" parent="Environment" index="0"]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 texture = ExtResource( 8 )
 __meta__ = {
 "_edit_lock_": true

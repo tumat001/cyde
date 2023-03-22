@@ -2534,7 +2534,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Douser", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.BLUE)
+		info.colors.append(TowerColors.INTEGRITY)
 		info.base_tower_image = douser_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -2747,7 +2747,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Bleach", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.BLUE)
+		info.colors.append(TowerColors.INTEGRITY)
 		info.base_tower_image = bleach_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		

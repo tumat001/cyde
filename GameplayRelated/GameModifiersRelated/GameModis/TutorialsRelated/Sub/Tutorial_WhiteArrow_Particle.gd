@@ -77,6 +77,7 @@ func _process(delta):
 			new_position.y += y_offset
 			new_position.x += x_offset
 			
+			
 		elif node_to_point_at.get("rect_global_position"):
 			new_position = node_to_point_at.rect_global_position
 			new_position -= _get_adapting_to_anim_size() / 2
@@ -125,6 +126,8 @@ func _process(delta):
 		
 		
 		global_position = new_position
+		
+		
 	
 	_process_modulate(delta)
 

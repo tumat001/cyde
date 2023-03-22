@@ -26,6 +26,8 @@ func get_instructions_for_stageround(uuid : String):
 		return _get_instructions_for_0_11()
 	elif uuid == "312":
 		return _get_instructions_for_0_12()
+	elif uuid == "313":
+		return _get_instructions_for_0_13()
 	
 	
 	return null
@@ -180,9 +182,15 @@ func _get_instructions_for_0_11():
 		
 	]
 
+func _get_instructions_for_0_12():
+	return [
+		
+		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.TROJAN_BOSS),
+		
+	]
 
 # BOSS
-func _get_instructions_for_0_12():
+func _get_instructions_for_0_13():
 	return [
 		MultipleEnemySpawnInstruction.new(0, 10, 0.15, EnemyConstants.Enemies.TROJAN__DDOS),
 		

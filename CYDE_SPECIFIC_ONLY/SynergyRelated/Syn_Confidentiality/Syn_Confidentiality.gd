@@ -62,7 +62,7 @@ func _tower_to_benefit_from_synergy(tower : AbstractTower):
 	_attempt_add_effect_to_tower(tower)
 
 func _attempt_add_effect_to_tower(tower : AbstractTower):
-	if !tower.has_tower_effect_uuid_in_buff_map(StoreOfTowerEffectsUUID.SYN_CONFIDENTIALITY__EFFECT_GIVER) and tower.tower.is_benefit_from_syn_having_or_as_if_having_color(TowerColors.CONFIDENTIALITY):
+	if !tower.has_tower_effect_uuid_in_buff_map(StoreOfTowerEffectsUUID.SYN_CONFIDENTIALITY__EFFECT_GIVER) and tower.is_benefit_from_syn_having_or_as_if_having_color(TowerColors.CONFIDENTIALITY):
 		var effect = TowerEffect_Syn_Confidentiality.new(base_unit_time_before_max)
 		
 		if curr_tier == 1:

@@ -116,7 +116,7 @@ const MapIdsAvailableFromMenu : Array = [
 	
 	MapsId_World01,
 	MapsId_World02,
-#	MapsId_World03,
+	MapsId_World03,
 #	MapsId_World04,
 #	MapsId_World05,
 #	MapsId_World06,
@@ -355,7 +355,7 @@ func _construct_map_type_info__map_world_02(info : MapTypeInformation):
 
 func _construct_map_type_info__map_world_03(info : MapTypeInformation):
 	info.map_name = "World 03"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage #todo
+	info.map_display_texture = preload("res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World03/Map_World03_PreviewImage.png")
 	info.map_tier = 2
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
