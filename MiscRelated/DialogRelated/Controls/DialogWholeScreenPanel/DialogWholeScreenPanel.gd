@@ -44,7 +44,7 @@ var last_calculated_is_transitioning : bool
 var transitioning_id_to_val_trans_map : Dictionary
 var transitioning_id_to_is_active_map : Dictionary
 
-const time_taken_for_pos_change_transition : float = 0.5
+const time_taken_for_pos_change_transition : float = 0.3
 
 #
 

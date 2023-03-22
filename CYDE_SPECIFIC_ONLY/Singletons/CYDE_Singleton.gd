@@ -42,24 +42,25 @@ enum CYDE_STATE {
 	
 }
 const cyde_state_to_image_map : Dictionary = {
-	CYDE_STATE.STANDARD_001 : null,   #todo
-	CYDE_STATE.STANDARD_002 : null,   #todo
-	CYDE_STATE.STANDARD_003 : null,   #todo
+	CYDE_STATE.STANDARD_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/NormalCyde.png"),
+	CYDE_STATE.STANDARD_002 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/NormalCyde.png"),   #todo
+	CYDE_STATE.STANDARD_003 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/NormalCyde.png"),   #todo
 	
-	CYDE_STATE.SAD_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/sad.png"),
-	CYDE_STATE.SAD_002 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/222.png"),
+	CYDE_STATE.SAD_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/sad.png"),
+	CYDE_STATE.SAD_002 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/sad.png"), #todo
 	
-	CYDE_STATE.ANGRY_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/angry.png"),
-	CYDE_STATE.ANGRY_002 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/333.png"),
+	CYDE_STATE.ANGRY_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/angry.png"),
+	CYDE_STATE.ANGRY_002 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/angry.png"), #todo
 	
-	CYDE_STATE.HAPPY_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/happy.png"),
+	CYDE_STATE.HAPPY_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/happy.png"),
 	
 	CYDE_STATE.WOW_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/wow.png"),
 	
-	CYDE_STATE.LAUGH_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/laugh.png"),
+	CYDE_STATE.LAUGH_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/laugh.png"),
 	
-	CYDE_STATE.DRAINED_001 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/drain.png"),
-	CYDE_STATE.DRAINED_002 : null, #preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/111.png"),
+	CYDE_STATE.DRAINED_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/drain.png"),
+	CYDE_STATE.DRAINED_002 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/drain.png"), #todo
+	
 }
 
 
@@ -158,7 +159,7 @@ func _initialize_world_id_to_world_completion_num_state_dict(arg_save_dict : Dic
 	else:
 		world_id_to_world_completion_num_state_dict = {}
 	
-	_fill_in_missing_world_id_to_world_completion_num_state(arg_save_dict[data_name__world_id_to_world_completion_num_state_map], 0)
+	_fill_in_missing_world_id_to_world_completion_num_state(world_id_to_world_completion_num_state_dict, 0)
 
 func _fill_in_missing_world_id_to_world_completion_num_state(arg_specific_save_dict : Dictionary, arg_default_val):
 	for modi_name in StoreOfGameModifiers.all_cyde_world_modi_names:

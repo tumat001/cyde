@@ -111,15 +111,47 @@ enum Enemies {
 	VIRUS_BOSS = 1003
 	
 	
-	# TROJAN
+	# TROJAN (1100)
+	TROJAN__DDOS = 1100
+	TROJAN__SMS = 1101
+	TROJAN__BANKING = 1102
 	TROJAN_BOSS = 1103
+	
+	# WORM (1200)
+	WORM__EMAIL = 1200
+	WORM__I_LOVE_U = 1201
+	WORM__NETWORK = 1202
+	WORM_BOSS = 1203
 	
 }
 
 var all_cyde_specific_enemy_ids : Array = [
 	#Enemies.BASIC,
 	
+	Enemies.VIRUS__DIRECT_ACTION,
+	Enemies.VIRUS__BOOT_SECTOR,
+	Enemies.VIRUS__MACRO,
+	
 	Enemies.VIRUS_BOSS,
+	
+	#####
+	
+	Enemies.TROJAN__SMS,
+	Enemies.TROJAN__DDOS,
+	Enemies.TROJAN__BANKING,
+	
+	Enemies.TROJAN_BOSS,
+	
+	#####
+	
+	Enemies.WORM__EMAIL,
+	Enemies.WORM__I_LOVE_U,
+	Enemies.WORM__NETWORK,
+	
+	Enemies.WORM_BOSS,
+	
+	#####
+	
 	
 	
 ]
@@ -212,8 +244,9 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	######## VIRUS
 	if enemy_id == Enemies.VIRUS_BOSS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 90
+		info.base_health = 110
 		info.base_movement_speed = 35
+		info.enemy_type == info.EnemyType.ELITE
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Virus Boss"
@@ -258,6 +291,98 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 				"A virus that is made using another software, such as Microsoft Word or Excel."
 			]
 		
+	########### TROJAN ############
+	elif enemy_id == Enemies.TROJAN__DDOS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 12
+		info.base_movement_speed = 65
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "DDoS Trojan"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/Trojan01/Trojan_Trojan01_Omni.png"))
+			info.descriptions = [
+				"A trojan that makes your computer a member of a group of computers. That group can then spam requests to a server, overworking them."
+			]
+		
+		
+	elif enemy_id == Enemies.TROJAN__SMS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 16
+		info.base_movement_speed = 60
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "SMS Trojan"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/Trojan02/Trojan_Trojan02_Omni.png"))
+			info.descriptions = [
+				"A trojan that infects smartphones. It is disguised as a free application with a useful function."
+			]
+		
+		
+	elif enemy_id == Enemies.TROJAN__BANKING:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 40
+		info.base_movement_speed = 45
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Banking Trojan"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/BankingTrojan/Trojan_BankingTrojan_Omni.png"))
+			info.descriptions = [
+				"A trojan that steals people's information used for banks. These ask people for their card numbers, PINS and one time passwords."
+			]
+		
+		
+	elif enemy_id == Enemies.TROJAN_BOSS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 130
+		info.base_movement_speed = 35
+		info.enemy_type == info.EnemyType.ELITE
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Trojan Boss"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/TrojanBoss/TrojanBoss_R.png"))
+			info.descriptions = [
+				"The boss of the trojans." #todo make more inspiring desc LOL
+			]
+		
+	######## WORM
+	elif enemy_id == Enemies.WORM__EMAIL:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 22
+		info.base_movement_speed = 45
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Email Worm"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/EmailWorm/Worm_EmailWorm_E.png"))
+			info.descriptions = [
+				"A type of worm that attaches itself to emails, typically with a fake message."
+			]
+		
+		
+	elif enemy_id == Enemies.WORM__I_LOVE_U:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 70
+		info.base_movement_speed = 30
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "I Love You Worm"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/ILoveYouWorm/Worm_ILoveYouWorm_E.png"))
+			info.descriptions = [
+				"A worm that advertised an email with the general message of \"I love you\". This is based on real life."
+			]
+		
+	elif enemy_id == Enemies.WORM__NETWORK:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 11
+		info.base_movement_speed = 75
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Network Worm"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/NetworkWorm/Worm_NetworkWorm_E.png"))
+			info.descriptions = [
+				"A worm that spreads via the network, usually when sharing files with other nearby computers."
+			]
+		
+	
 	
 #	elif enemy_id == Enemies.BRUTE:
 #		info = EnemyTypeInformation.new(Enemies.BRUTE, EnemyFactions.BASIC)
@@ -1234,4 +1359,23 @@ static func get_enemy_scene(enemy_id : int):
 		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Virus/DirectAction/Virus_DirectAction.tscn")
 	elif enemy_id == Enemies.VIRUS__MACRO:
 		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Virus/Macro/Virus_Macro.tscn")
+		
+	# TROJAN
+	elif enemy_id == Enemies.TROJAN_BOSS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/TrojanBoss/TrojanBoss.tscn")
+	elif enemy_id == Enemies.TROJAN__SMS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/Trojan02/Trojan_SMSTrojan.tscn")
+	elif enemy_id == Enemies.TROJAN__DDOS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/Trojan01/Trojan_DDOSTrojan.tscn")
+	elif enemy_id == Enemies.TROJAN__BANKING:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/BankingTrojan/Trojan_BankingTrojan.tscn")
+		
+	# WORM
+	elif enemy_id == Enemies.WORM__EMAIL:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/EmailWorm/Worm_EmailWorm.tscn")
+	elif enemy_id == Enemies.WORM__I_LOVE_U:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/ILoveYouWorm/Worm_ILoveYouWorm.tscn")
+	elif enemy_id == Enemies.WORM__NETWORK:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/NetworkWorm/Worm_NetworkWorm.tscn")
+	
 	

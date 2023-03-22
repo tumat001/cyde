@@ -121,6 +121,7 @@ mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="CombineAndPowerInfoPanel" type="MarginContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider"]
+visible = false
 margin_right = 138.0
 margin_bottom = 69.0
 mouse_filter = 2
@@ -154,7 +155,6 @@ custom_constants/margin_bottom = 5
 default_font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
 
 [node name="TowerStatsPanel" type="MarginContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider"]
-margin_left = 138.0
 margin_right = 210.0
 margin_bottom = 69.0
 mouse_filter = 2
@@ -168,25 +168,25 @@ custom_constants/margin_bottom = 3
 [node name="StatsRow" type="VBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel"]
 margin_left = 3.0
 margin_top = 5.0
-margin_right = 67.0
+margin_right = 205.0
 margin_bottom = 66.0
 mouse_filter = 2
 
 [node name="BaseDamagePanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
-margin_right = 64.0
+margin_right = 202.0
 margin_bottom = 9.0
 mouse_filter = 2
 
 [node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/BaseDamagePanel"]
-margin_right = 60.0
+margin_right = 198.0
 margin_bottom = 9.0
 mouse_filter = 2
 size_flags_horizontal = 3
 texture = ExtResource( 12 )
 
 [node name="BaseDamageLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/BaseDamagePanel"]
-margin_left = 64.0
-margin_right = 64.0
+margin_left = 202.0
+margin_right = 202.0
 margin_bottom = 9.0
 size_flags_horizontal = 9
 custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
@@ -195,20 +195,20 @@ valign = 1
 
 [node name="DamageTypePanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
 margin_top = 13.0
-margin_right = 64.0
+margin_right = 202.0
 margin_bottom = 22.0
 mouse_filter = 2
 
 [node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/DamageTypePanel"]
-margin_right = 60.0
+margin_right = 198.0
 margin_bottom = 9.0
 mouse_filter = 2
 size_flags_horizontal = 3
 texture = ExtResource( 11 )
 
 [node name="DamageTypeLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/DamageTypePanel"]
-margin_left = 64.0
-margin_right = 64.0
+margin_left = 202.0
+margin_right = 202.0
 margin_bottom = 9.0
 size_flags_horizontal = 9
 custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
@@ -217,20 +217,20 @@ valign = 1
 
 [node name="AttkSpeedPanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
 margin_top = 26.0
-margin_right = 64.0
+margin_right = 202.0
 margin_bottom = 35.0
 mouse_filter = 2
 
 [node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/AttkSpeedPanel"]
-margin_right = 60.0
+margin_right = 198.0
 margin_bottom = 9.0
 mouse_filter = 2
 size_flags_horizontal = 3
 texture = ExtResource( 9 )
 
 [node name="AttkSpeedLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/AttkSpeedPanel"]
-margin_left = 64.0
-margin_right = 64.0
+margin_left = 202.0
+margin_right = 202.0
 margin_bottom = 9.0
 size_flags_horizontal = 9
 custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
@@ -239,20 +239,20 @@ valign = 1
 
 [node name="RangePanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
 margin_top = 39.0
-margin_right = 64.0
+margin_right = 202.0
 margin_bottom = 48.0
 mouse_filter = 2
 
 [node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/RangePanel"]
-margin_right = 60.0
+margin_right = 198.0
 margin_bottom = 9.0
 mouse_filter = 2
 size_flags_horizontal = 3
 texture = ExtResource( 10 )
 
 [node name="RangeLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/RangePanel"]
-margin_left = 64.0
-margin_right = 64.0
+margin_left = 202.0
+margin_right = 202.0
 margin_bottom = 9.0
 size_flags_horizontal = 9
 custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )
@@ -261,20 +261,20 @@ valign = 1
 
 [node name="OnHitMultiplierPanel" type="HBoxContainer" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow"]
 margin_top = 52.0
-margin_right = 64.0
+margin_right = 202.0
 margin_bottom = 61.0
 mouse_filter = 2
 
 [node name="LabelInfo" type="TextureRect" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/OnHitMultiplierPanel"]
-margin_right = 60.0
+margin_right = 198.0
 margin_bottom = 9.0
 mouse_filter = 2
 size_flags_horizontal = 3
 texture = ExtResource( 13 )
 
 [node name="OnHitMultiplierLabel" type="Label" parent="RowsMainContainer/StatsContainer/StatsAndInfoDivider/TowerStatsPanel/StatsRow/OnHitMultiplierPanel"]
-margin_left = 64.0
-margin_right = 64.0
+margin_left = 202.0
+margin_right = 202.0
 margin_bottom = 9.0
 size_flags_horizontal = 9
 custom_colors/font_color = Color( 0.866667, 0.866667, 0.866667, 1 )

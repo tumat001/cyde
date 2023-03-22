@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/333.png-a0bfc1851fcd45f63d9e3097a45b32cf.stex"
+path="res://.import/Trojan_Trojan01_Omni.png-76caabb951cf56e63791b7fbe0e6da38.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/333.png"
-dest_files=[ "res://.import/333.png-a0bfc1851fcd45f63d9e3097a45b32cf.stex" ]
+source_file="res://CYDE_SPECIFIC_ONLY/EnemyRelated/Trojan/Trojan01/Trojan_Trojan01_Omni.png"
+dest_files=[ "res://.import/Trojan_Trojan01_Omni.png-76caabb951cf56e63791b7fbe0e6da38.stex" ]
 
 [params]
 

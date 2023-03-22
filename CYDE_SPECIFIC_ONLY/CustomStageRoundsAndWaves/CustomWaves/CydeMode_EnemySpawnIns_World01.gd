@@ -38,82 +38,114 @@ func is_transition_time_in_stageround(uuid : String) -> bool:
 
 func _get_instructions_for_0_1():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
 	]
 
 func _get_instructions_for_0_2():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(3.5, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(5.5, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(10.5, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(18, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(3.5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(5.5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(10.5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(18, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
 	]
 
 func _get_instructions_for_0_3():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(3.5, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(5.5, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(10.5, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(18, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(3.5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(5.5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(10.5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(18, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
 	]
 
 func _get_instructions_for_0_4():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(4, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
 	]
 
 func _get_instructions_for_0_5():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(0.2, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(0.4, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(4, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		
+		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(9, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
 	]
 
 func _get_instructions_for_0_6():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		
+		
 	]
 
 func _get_instructions_for_0_7():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		
+		
+		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(5.2, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(5.4, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(5.6, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		
 	]
 
 func _get_instructions_for_0_8():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		
+		SingleEnemySpawnInstruction.new(4, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(11, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(13, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		
 	]
 
 func _get_instructions_for_0_9():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__MACRO),
+		SingleEnemySpawnInstruction.new(4, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		
+		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.VIRUS__MACRO),
 	]
 
 func _get_instructions_for_0_10():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.BASIC),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS__MACRO),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.VIRUS__MACRO),
+		
+		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(6.5, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(6.75, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		SingleEnemySpawnInstruction.new(6.825, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		
 	]
 
 
@@ -121,5 +153,9 @@ func _get_instructions_for_0_10():
 func _get_instructions_for_0_11():
 	return [
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.VIRUS_BOSS),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.BASIC),
+		
+		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.VIRUS__DIRECT_ACTION),
+		
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.VIRUS__BOOT_SECTOR),
+		
 	]

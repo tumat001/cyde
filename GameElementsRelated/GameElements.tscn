@@ -135,6 +135,7 @@ margin_right = 960.0
 margin_bottom = 100.0
 
 [node name="ColorWheelPanel" type="MarginContainer" parent="BottomPanel/HBoxContainer"]
+visible = false
 margin_top = 50.0
 margin_right = 10.0
 margin_bottom = 50.0

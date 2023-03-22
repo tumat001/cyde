@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/Map_03_WithBorders.png-a71ddef629e63875a2b9b3cc7cd23848.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World03/Map_03_WithBorders.png"
+dest_files=[ "res://.import/Map_03_WithBorders.png-a71ddef629e63875a2b9b3cc7cd23848.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

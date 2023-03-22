@@ -59,6 +59,11 @@ const AttackSpritePoolComponent = preload("res://MiscRelated/AttackSpriteRelated
 const Stunned_StatusBarIcon_Pic = preload("res://MiscRelated/CommonTextures/CommonStatusBarIcons_ForTowers/StatusBarIcon_StunIcon.png")
 
 
+const TowerStarLevelPic_01 = preload("res://TowerRelated/CommonTowerParticles/Stars/TowerStarLevelPics_01.png")
+const TowerStarLevelPic_02 = preload("res://TowerRelated/CommonTowerParticles/Stars/TowerStarLevelPics_02.png")
+const TowerStarLevelPic_03 = preload("res://TowerRelated/CommonTowerParticles/Stars/TowerStarLevelPics_03.png")
+
+
 
 signal tower_being_dragged(tower_self)
 signal tower_dropped_from_dragged(tower_self) # use when listening for player input. Note: does not take into account the swapping of towers
@@ -585,6 +590,11 @@ onready var knock_up_layer = $TowerBase/KnockUpLayer
 onready var info_bar_vbox_container = $InfoBarLayer/InfoBar/VBoxContainer
 
 onready var cannot_apply_pic = $DoesNotApplyPic
+
+
+onready var star_01_texture_rect = $InfoBarLayer/InfoBar/VBoxContainer/StarsIconContainer/Star01
+onready var star_02_texture_rect = $InfoBarLayer/InfoBar/VBoxContainer/StarsIconContainer/Star02
+onready var star_03_texture_rect = $InfoBarLayer/InfoBar/VBoxContainer/StarsIconContainer/Star03
 
 
 # Initialization -------------------------- #
@@ -3829,9 +3839,14 @@ func _update_effects_based_on_cyde_current_star_level():
 		
 	elif star_level == 2:
 		_construct_and_add_cyde_2_star_effects()
+		star_01_texture_rect.texture = TowerStarLevelPic_02
+		star_02_texture_rect.texture = TowerStarLevelPic_02
 		
 	elif star_level == 3:
 		_construct_and_add_cyde_3_star_effects()
+		star_01_texture_rect.texture = TowerStarLevelPic_03
+		star_02_texture_rect.texture = TowerStarLevelPic_03
+		star_03_texture_rect.texture = TowerStarLevelPic_03
 		
 
 

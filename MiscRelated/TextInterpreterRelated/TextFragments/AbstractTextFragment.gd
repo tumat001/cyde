@@ -83,6 +83,9 @@ enum STAT_TYPE {
 	TWO_STAR__UPGRADE = 1301,
 	THREE_STAR__UPGRADE = 1302,
 	
+	CYDE_SYN__AVAILABILITY = 1310,
+	CYDE_SYN__CONFIDENTIALITY = 1311,
+	CYDE_SYN__INTEGRITY = 1312,
 	
 	#### NOTE: THESE VALS REPEAT WITH EXITING ONES..
 	
@@ -172,6 +175,10 @@ const type_to_for_light_color_map : Dictionary = {
 	STAT_TYPE.TWO_STAR__UPGRADE : "#404040",
 	STAT_TYPE.THREE_STAR__UPGRADE : "#3C4601",
 	
+	STAT_TYPE.CYDE_SYN__AVAILABILITY : "#383D00",
+	STAT_TYPE.CYDE_SYN__CONFIDENTIALITY : "#510102",
+	STAT_TYPE.CYDE_SYN__INTEGRITY : "#0A014E",
+	
 }
 
 const type_to_for_dark_color_map : Dictionary = {
@@ -249,6 +256,9 @@ const type_to_for_dark_color_map : Dictionary = {
 	STAT_TYPE.TWO_STAR__UPGRADE : "#BDBDBD",
 	STAT_TYPE.THREE_STAR__UPGRADE : "#EEFE7C",
 	
+	STAT_TYPE.CYDE_SYN__AVAILABILITY : "#F7FFA3",
+	STAT_TYPE.CYDE_SYN__CONFIDENTIALITY : "#FEA4A6",
+	STAT_TYPE.CYDE_SYN__INTEGRITY : "#BCB3FE",
 	
 }
 
@@ -325,6 +335,9 @@ const type_to_name_map : Dictionary = {
 	STAT_TYPE.TWO_STAR__UPGRADE : "two star upgrade",
 	STAT_TYPE.THREE_STAR__UPGRADE : "three star upgrade",
 	
+	STAT_TYPE.CYDE_SYN__AVAILABILITY : "availability",
+	STAT_TYPE.CYDE_SYN__CONFIDENTIALITY : "confidentiality",
+	STAT_TYPE.CYDE_SYN__INTEGRITY : "integrity",
 	
 }
 
@@ -397,11 +410,13 @@ const type_to_img_map : Dictionary = {
 	STAT_TYPE.COMBINATION : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_Combination.png",
 	STAT_TYPE.ABSORB : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_Absorb.png",
 	
-	#TODO make icon for this
 	STAT_TYPE.ONE_STAR__UPGRADE : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_1StarTower.png",
 	STAT_TYPE.TWO_STAR__UPGRADE : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_2StarTower.png",
 	STAT_TYPE.THREE_STAR__UPGRADE : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_3StarTower.png",
 	
+	STAT_TYPE.CYDE_SYN__AVAILABILITY : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_CydeSynIcons_Availability.png",
+	STAT_TYPE.CYDE_SYN__CONFIDENTIALITY : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_CydeSynIcons_Confidentiality.png",
+	STAT_TYPE.CYDE_SYN__INTEGRITY : "res://MiscRelated/TextInterpreterRelated/OtherFragmentIcons/FragmentIcon_CydeSynIcons_Integrity.png",
 	
 }
 

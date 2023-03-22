@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/222.png-1da8cd38c2f268bff000645cf623596d.stex"
+path="res://.import/SynIcon_Availability.png-c866c325f3305f784278ecc8d58d4fd2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/CYDE_Portraits/222.png"
-dest_files=[ "res://.import/222.png-1da8cd38c2f268bff000645cf623596d.stex" ]
+source_file="res://CYDE_SPECIFIC_ONLY/SynergyRelated/Syn_Availability/Assets/SynIcon_Availability.png"
+dest_files=[ "res://.import/SynIcon_Availability.png-c866c325f3305f784278ecc8d58d4fd2.stex" ]
 
 [params]
 

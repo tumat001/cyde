@@ -332,7 +332,6 @@ func _construct_and_play__intro_01_sequence_001():
 	var custom_pos = dia_portrait__pos__standard_left
 	custom_pos.x = 0
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_001)
 	
 	
 	###
@@ -350,7 +349,7 @@ func _construct_and_play__intro_01_sequence_001():
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_002, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_002)
+	
 	
 	###
 	
@@ -367,7 +366,6 @@ func _construct_and_play__intro_01_sequence_001():
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_003, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_003)
 	
 	
 	###
@@ -385,7 +383,6 @@ func _construct_and_play__intro_01_sequence_001():
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_004, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_004)
 	
 	###
 	
@@ -404,7 +401,6 @@ func _construct_and_play__intro_01_sequence_001():
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_005, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_002], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_005)
 	
 	###
 	
@@ -421,7 +417,6 @@ func _construct_and_play__intro_01_sequence_001():
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_006, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_006, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_006)
 	
 	###
 	
@@ -438,7 +433,6 @@ func _construct_and_play__intro_01_sequence_001():
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_007, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_007, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_007)
 	
 	###
 	
@@ -455,7 +449,6 @@ func _construct_and_play__intro_01_sequence_001():
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_008, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_008, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_008)
 	
 	###
 	
@@ -473,8 +466,8 @@ func _construct_and_play__intro_01_sequence_001():
 	if show_skip:
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_009, self, "_set_up_actions__to_construct_and_play__intro_02_sequence_001", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
-	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_009, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.WOW_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_009)
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_009, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	##### very last for this func
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_01_sequence_001)
@@ -1178,6 +1171,8 @@ func _construct_dia_seg__intro_06_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_001)
 	#dia_seg__intro_06_sequence_001.connect("fully_displayed", self, "_on_dia_seg__intro_05_sequence_006__fully_displayed", [], CONNECT_ONESHOT)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_06_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	######
 	
@@ -1191,6 +1186,8 @@ func _construct_dia_seg__intro_06_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_002, dia_seg__intro_06_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_06_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	
 	#####
@@ -1213,11 +1210,14 @@ func _construct_dia_seg__intro_06_sequence_001():
 	var dia_seg__intro_06_sequence_004__descs = [
 		generate_colored_text__cyde_name__as_line(),
 		"You can view the informations about the malware by clicking here.",
-		"You can also view informations about the towers and enemies here."
+		"You can also view informations about the towers and enemies here.",
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_004, dia_seg__intro_06_sequence_004__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_004)
 	dia_seg__intro_06_sequence_004.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_004__fully_displayed", [], CONNECT_ONESHOT)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_06_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	#####
 	
@@ -1228,11 +1228,13 @@ func _construct_dia_seg__intro_06_sequence_001():
 	var dia_seg__intro_06_sequence_004_a__descs = [
 		generate_colored_text__cyde_name__as_line(),
 		"Rounds where I give you information are indicated by the \"info\" symbol.",
-		"Rounds where your knowledge is tested are indicated by the \"question mark\" symbol."
+		"Rounds where your knowledge is tested are indicated by the \"question mark\" symbol.",
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_004_a, dia_seg__intro_06_sequence_004_a__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_004_a)
 	dia_seg__intro_06_sequence_004_a.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_004_a__fully_displayed", [], CONNECT_ONESHOT)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_06_sequence_004_a, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	
 	####
@@ -1247,6 +1249,8 @@ func _construct_dia_seg__intro_06_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_005, dia_seg__intro_06_sequence_005__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_005)
 	dia_seg__intro_06_sequence_005.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_005__fully_displayed", [], CONNECT_ONESHOT)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_06_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	
 	#####
@@ -1349,6 +1353,8 @@ func _construct_dia_seg__intro_07_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_001)
 	dia_seg__intro_07_sequence_001.connect("fully_displayed", self, "_on_dia_seg__intro_07_sequence_001__fully_displayed", [], CONNECT_ONESHOT)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	#######
 	
@@ -1369,6 +1375,9 @@ func _construct_dia_seg__intro_07_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_003, dia_seg__intro_07_sequence_003__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_003)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	#######
 	
 	
@@ -1385,6 +1394,9 @@ func _construct_dia_seg__intro_07_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_004)
 	dia_seg__intro_07_sequence_004.connect("fully_displayed", self, "_on_dia_seg__intro_07_sequence_004__fully_displayed", [], CONNECT_ONESHOT)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	
 	###
 	
@@ -1400,6 +1412,9 @@ func _construct_dia_seg__intro_07_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_005, dia_seg__intro_07_sequence_005__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_005)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	####
 	
 	var dia_seg__intro_07_sequence_006 = DialogSegment.new()
@@ -1414,6 +1429,8 @@ func _construct_dia_seg__intro_07_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_006)
 	dia_seg__intro_07_sequence_006.connect("fully_displayed", self, "_on_dia_seg__intro_07_sequence_006__fully_displayed", [], CONNECT_ONESHOT)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_006, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	###
 	
@@ -1426,6 +1443,9 @@ func _construct_dia_seg__intro_07_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_007, dia_seg__intro_07_sequence_007__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_007)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_007, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	###
 	
@@ -1440,6 +1460,9 @@ func _construct_dia_seg__intro_07_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_008, dia_seg__intro_07_sequence_008__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_008)
 	dia_seg__intro_07_sequence_008.connect("fully_displayed", self, "_on_dia_seg__intro_07_sequence_008__fully_displayed", [], CONNECT_ONESHOT)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_008, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 
 func _play_dia_seg__intro_07_sequence_001():
@@ -1516,6 +1539,8 @@ func _on_virus_Q01_choice_right_clicked(arg_id, arg_button_info : DialogChoicesP
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_002, dia_seg__intro_07_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_002)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_07_sequence_002, dia_seg__intro_07_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_07_sequence_002)
 	#
@@ -1539,6 +1564,9 @@ func _on_virus_Q01_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesP
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_002, dia_seg__intro_07_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_002)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_07_sequence_002, dia_seg__intro_07_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_07_sequence_002)
 	#
@@ -1560,6 +1588,9 @@ func _on_virus_Q01_timeout(arg_params):
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_07_sequence_002, dia_seg__intro_07_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_07_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_07_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_07_sequence_002, dia_seg__intro_07_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_07_sequence_002)
@@ -1846,6 +1877,9 @@ func _on_virus_Q02_choice_right_clicked(arg_id, arg_button_info : DialogChoicesP
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_10_sequence_002, dia_seg__intro_10_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_10_sequence_002)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_10_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_10_sequence_002, dia_seg__intro_10_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_10_sequence_002)
 	#
@@ -1868,6 +1902,8 @@ func _on_virus_Q02_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesP
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_10_sequence_002, dia_seg__intro_10_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_10_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_10_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_10_sequence_002, dia_seg__intro_10_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_10_sequence_002)
@@ -1892,6 +1928,8 @@ func _on_virus_Q02_timeout(arg_params):
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_10_sequence_002, dia_seg__intro_10_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_10_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_10_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_10_sequence_002, dia_seg__intro_10_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_10_sequence_002)
@@ -2066,6 +2104,8 @@ func _on_virus_Q03_choice_right_clicked(arg_id, arg_button_info : DialogChoicesP
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_12_sequence_002, dia_seg__intro_12_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_12_sequence_002)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_12_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_12_sequence_002, dia_seg__intro_12_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_12_sequence_002)
 	#
@@ -2090,6 +2130,8 @@ func _on_virus_Q03_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesP
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_12_sequence_002, dia_seg__intro_12_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_12_sequence_002)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_12_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_12_sequence_002, dia_seg__intro_12_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_12_sequence_002)
 	#
@@ -2112,6 +2154,8 @@ func _on_virus_Q03_timeout(arg_params):
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_12_sequence_002, dia_seg__intro_12_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_12_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_12_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_12_sequence_002, dia_seg__intro_12_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_12_sequence_002)
@@ -2166,13 +2210,14 @@ func _play_dia_seg__intro_13_sequence_001():
 func _on_dia_seg__intro_13_sequence_002__fully_displayed():
 	set_round_is_startable(true)
 	
-#	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_round_12", "_on_round_ended__into_round_12")
-#
-#func _on_round_started__into_round_12():
-#	play_dialog_segment_or_advance_or_finish_elements(null)
-#
-#func _on_round_ended__into_round_12():
-#
+	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_round_12", "_on_round_ended__into_round_12")
+
+
+func _on_round_started__into_round_12():
+	play_dialog_segment_or_advance_or_finish_elements(null)
+
+func _on_round_ended__into_round_12():
+	pass
 
 ##########
 
@@ -2187,6 +2232,11 @@ func _construct_dia_seg__intro_14_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_14_sequence_001, dia_seg__intro_14_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_14_sequence_001)
 	
+	var custom_pos = dia_portrait__pos__standard_left
+	custom_pos.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_14_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__intro_14_sequence_002 = DialogSegment.new()
@@ -2200,6 +2250,9 @@ func _construct_dia_seg__intro_14_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_14_sequence_002, dia_seg__intro_14_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_14_sequence_002)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_14_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__intro_14_sequence_003 = DialogSegment.new()
@@ -2211,6 +2264,9 @@ func _construct_dia_seg__intro_14_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_14_sequence_003, dia_seg__intro_14_sequence_003__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_14_sequence_003)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_14_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	###
 	
@@ -2236,6 +2292,9 @@ func _construct_dia_seg__intro_14_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_14_sequence_005, dia_seg__intro_14_sequence_005__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_14_sequence_005)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_14_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__intro_14_sequence_006 = DialogSegment.new()
@@ -2249,6 +2308,9 @@ func _construct_dia_seg__intro_14_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_14_sequence_006, dia_seg__intro_14_sequence_006__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_14_sequence_006)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_14_sequence_006, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__intro_14_sequence_007 = DialogSegment.new()
@@ -2260,6 +2322,9 @@ func _construct_dia_seg__intro_14_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_14_sequence_007, dia_seg__intro_14_sequence_007__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_14_sequence_007)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_14_sequence_007, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	###
 	
@@ -2273,6 +2338,9 @@ func _construct_dia_seg__intro_14_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_14_sequence_008, dia_seg__intro_14_sequence_008__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_14_sequence_008)
 	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__intro_14_sequence_008, self, "_on_end_of_dia_seg__intro_14_sequence_008", null)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_14_sequence_008, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	###
 	
@@ -2302,6 +2370,9 @@ func _construct_dia_seg__on_lose_01_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_lose_01_sequence_001, dia_seg__on_lose_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_lose_01_sequence_001)
 	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__on_lose_01_sequence_001, self, "_on_end_of_dia_seg__on_lose_x_segment__end", null)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	#########
 	

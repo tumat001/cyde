@@ -101,6 +101,7 @@ var _current_index_of_towers_offered_on_shop_refresh : int = 0
 
 var _towers_placed_in_map_for_multiple_listen : Array
 var _towers_bought_for_multiple_listen : Array = []
+var _tower_ids_sold_for_multiple_listen : Array = []
 
 var _nodes_to_queue_free_on_dia_seg_advance : Array = []
 
@@ -817,6 +818,9 @@ func set_bonus_ingredient_limit_amount(arg_amount : int):
 func add_shop_per_refresh_modifier(arg_modi : int):
 	game_elements.shop_manager.add_towers_per_refresh_amount_modifier(game_elements.ShopManager.TowersPerShopModifiers.TUTORIAL, arg_modi)
 
+func remove_shop_per_refresh_modifier():
+	game_elements.shop_manager.remove_towers_per_refresh_amount_modifier(game_elements.ShopManager.TowersPerShopModifiers.TUTORIAL)
+
 
 #
 
@@ -877,6 +881,23 @@ func _on_tower_added__multiple_needed(arg_tower_instance, arg_expected_tower_ids
 		arg_func_source.call(arg_func_name, _towers_bought_for_multiple_listen.duplicate())
 		_towers_bought_for_multiple_listen.clear()
 
+
+# expects a method that accepts array (of tower ids)
+func listen_for_towers_with_ids__sold__then_call_func(arg_tower_ids : Array, arg_func_name : String, arg_func_source):
+	_tower_ids_sold_for_multiple_listen.clear()
+	game_elements.tower_manager.connect("tower_being_sold", self, "_on_tower_sold__multiple_needed", [arg_tower_ids, arg_func_name, arg_func_source])
+
+func _on_tower_sold__multiple_needed(arg_sellback_gold, arg_tower, arg_expected_tower_ids, arg_func_name, arg_func_source):
+	var tower_id = arg_tower.tower_id
+	
+	if arg_expected_tower_ids.has(tower_id):
+		arg_expected_tower_ids.erase(tower_id)
+		_tower_ids_sold_for_multiple_listen.append(tower_id)
+	
+	if arg_expected_tower_ids.size() == 0:
+		game_elements.tower_manager.disconnect("tower_being_sold", self, "_on_tower_sold__multiple_needed")
+		arg_func_source.call(arg_func_name, _tower_ids_sold_for_multiple_listen.duplicate())
+		_tower_ids_sold_for_multiple_listen.clear()
 
 
 # expects a method that accepts an array (of tower instances)
@@ -1065,7 +1086,6 @@ func get_almanac_button_bot_right():
 	return almanac_button_bot_right
 
 
-
 func get_towers_with_id(arg_id):
 	var bucket = []
 	for tower in game_elements.tower_manager.get_all_towers_except_in_queue_free():
@@ -1148,6 +1168,8 @@ func apply_tower_power_up_effects():
 	game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(attk_speed_effect)
 	var ap_effect = _construct_ability_potency()
 	game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(ap_effect)
+	
+	
 
 #
 
@@ -1184,6 +1206,7 @@ func _construct_tower_attk_speed():
 	var total_attk_speed_effect = TowerAttributesEffect.new(TowerAttributesEffect.PERCENT_BASE_ATTACK_SPEED, total_attk_speed_modi, StoreOfTowerEffectsUUID.TOWER_POWER_UP__ATTK_SPEED)
 	total_attk_speed_effect.is_timebound = true
 	total_attk_speed_effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
+	#todo add is round bound assignment to false
 	
 	return total_attk_speed_effect
 

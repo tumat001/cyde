@@ -16,14 +16,19 @@ const tier_gold_pic = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPan
 const tier_dia_pic = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Tier_Diamond.png")
 const tier_prestigeW_pic = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Tier_Prestige_White.png")
 
-const syn_dom_red_image = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Red.png")
+#const syn_dom_red_image = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Red.png")
 #const syn_dom_orange = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Orange.png")
-const syn_dom_yellow_image = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Yellow.png")
+#const syn_dom_yellow_image = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Yellow.png")
 #const syn_dom_green = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Green.png")
-const syn_dom_blue_image = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Blue.png")
+#const syn_dom_blue_image = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Blue.png")
 #const syn_dom_violet = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Violet.png")
 #const syn_dom_white = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_White.png")
 #const syn_dom_black = preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/Pics/Syn_Dom_Black.png")
+
+const cyde_synicon_availability_14x14 = preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/SynIcons/Cyde_SynIcon_Availability_14x14.png")
+const cyde_synicon_confidentiality_14x14 = preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/SynIcons/Cyde_SynIcon_Confidentiality_14x14.png")
+const cyde_synicon_integrity_14x14 = preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/SynIcons/Cyde_SynIcon_Integrity_14x14.png")
+
 
 const DomSyn_Violet = preload("res://GameInfoRelated/ColorSynergyRelated/DominantSynergies/DomSyn_Violet_Related/DomSyn_Violet.gd")
 const DomSyn_Yellow_GoldIncome = preload("res://GameInfoRelated/ColorSynergyRelated/DominantSynergies/DomSyn_Yellow_Related/DomSyn_Yellow_GoldIncome.gd")
@@ -109,9 +114,9 @@ var synergy_id_to_pic_map__big : Dictionary = {
 #	SynergyID__White : preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/SynergyIcons_Big/SynIcon_Dom_White_30x30.png"),
 #	SynergyID__Black : preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/SynergyIcons_Big/SynIcon_Dom_Black_30x30.png"),
 	
-	CYDE_SynergyID__Confidentiality : preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/SynergyIcons_Big/SynIcon_Dom_Red_30x30.png"),
-	CYDE_SynergyID__Integrity : preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/SynergyIcons_Big/SynIcon_Dom_Blue_30x30.png"),
-	CYDE_SynergyID__Availability : preload("res://GameHUDRelated/LeftSidePanel/SynergyInfoPanel/SynergyIcons_Big/SynIcon_Dom_Yellow_30x30.png"),
+	CYDE_SynergyID__Confidentiality : preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/SynIcons/Cyde_SynIcon_Confidentiality_30x30.png"),
+	CYDE_SynergyID__Integrity : preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/SynIcons/Cyde_SynIcon_Integrity_30x30.png"),
+	CYDE_SynergyID__Availability : preload("res://CYDE_SPECIFIC_ONLY/SynergyRelated/SynIcons/Cyde_SynIcon_Availability_30x30.png"),
 }
 
 ##
@@ -166,7 +171,7 @@ func _on_singleton_initialize():
 	
 	var confidentiality_syn = ColorSynergy.new(CYDE_SynergyID__Confidentiality, synergy_id_to_syn_name_dictionary[CYDE_SynergyID__Confidentiality], [TowerColors.CONFIDENTIALITY], [8, 5, 3],
 	[tier_gold_pic, tier_silver_pic, tier_bronze_pic],
-	syn_dom_red_image, synergy_id_to_pic_map__big[CYDE_SynergyID__Confidentiality],
+	cyde_synicon_confidentiality_14x14, synergy_id_to_pic_map__big[CYDE_SynergyID__Confidentiality],
 	[
 		"Attacks cause towers to gain attack speed, up to a limit.",
 		"15 seconds worth of attacks are required to reach the limit.",
@@ -191,9 +196,9 @@ func _on_singleton_initialize():
 	var plain_fragment__end_of_round = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ON_ROUND_END, "end of round")
 	var plain_fragment__knocked_back = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.KNOCK_BACK, "knocked back")
 	
-	var integrity_syn = ColorSynergy.new(CYDE_SynergyID__Integrity, synergy_id_to_syn_name_dictionary[CYDE_SynergyID__Integrity], [TowerColors.INTEGRITY], [8, 5, 3],
+	var integrity_syn = ColorSynergy.new(CYDE_SynergyID__Integrity, synergy_id_to_syn_name_dictionary[CYDE_SynergyID__Integrity], [TowerColors.INTEGRITY], [8, 5, 3], # note: if changing numbers, change the tutorial as well.
 	[tier_gold_pic, tier_silver_pic, tier_bronze_pic],
-	syn_dom_blue_image, synergy_id_to_pic_map__big[CYDE_SynergyID__Integrity],
+	cyde_synicon_integrity_14x14, synergy_id_to_pic_map__big[CYDE_SynergyID__Integrity],
 	[
 		"Gain data and shield protecting features."
 	],
@@ -216,7 +221,7 @@ func _on_singleton_initialize():
 	
 	var availability_syn = ColorSynergy.new(CYDE_SynergyID__Availability, synergy_id_to_syn_name_dictionary[CYDE_SynergyID__Availability], [TowerColors.AVAILABILITY], [7, 4],
 	[tier_gold_pic, tier_silver_pic],
-	syn_dom_yellow_image, synergy_id_to_pic_map__big[CYDE_SynergyID__Availability],
+	cyde_synicon_availability_14x14, synergy_id_to_pic_map__big[CYDE_SynergyID__Availability],
 	[
 		"Gain gold generating capabilities."
 	],

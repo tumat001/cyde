@@ -250,7 +250,7 @@ func _on_current_transcript_index_changed(arg_index, arg_msg):
 		listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_start__12", "_on_round_end__12")
 		
 	elif arg_index == 15:
-		var arrows = display_white_arrows_pointed_at_node(get_single_syn_displayer_with_synergy_name__from_left_panel(TowerDominantColors.synergy_id_to_syn_name_dictionary[TowerDominantColors.SynergyId.ORANGE]), 17, true, true)
+		var arrows = display_white_arrows_pointed_at_node(get_single_syn_displayer_with_synergy_name__from_left_panel(TowerDominantColors.synergy_id_to_syn_name_dictionary[TowerDominantColors.SynergyID__Orange]), 17, true, true)
 		arrows[0].x_offset = 180
 		arrows[0].flip_h = true
 		arrows[1].y_offset = -30

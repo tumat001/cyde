@@ -1024,9 +1024,10 @@ func _play_stage_start_sound():
 func _play_game_play_theme():
 	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.GAMEPLAY_THEME_01)
 	game_play_theme_player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
-	game_play_theme_player.autoplay = false
+	#game_play_theme_player.autoplay = false
 	AudioManager.play_sound__with_provided_stream_player(path_name, game_play_theme_player, AudioManager.MaskLevel.MASK_02, audio_adv_param)
 	
+	linearly_set_game_play_theme_db_to_normal_db()
 
 
 

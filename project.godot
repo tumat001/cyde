@@ -37,11 +37,11 @@ config/description="CYDE"
 run/main_scene="res://PreGameHUDRelated/PreGameScreen.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="cyde"
-boot_splash/image="res://game_icon.png"
+boot_splash/image="res://GameLogo_CydeAsPNG.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
-config/icon="res://game_icon.png"
-config/windows_native_icon="res://game_icon.ico"
+config/icon="res://GameLogo_CydeAsPNG.png"
+config/windows_native_icon="res://GameLogo_Cyde.ico"
 
 [autoload]
 

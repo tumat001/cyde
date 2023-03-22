@@ -8,7 +8,12 @@
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "Omni",
+"name": "E",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "W",
 "speed": 5.0
 } ]
 
@@ -20,7 +25,7 @@ script = ExtResource( 3 )
 
 [node name="AnimatedSprite" parent="SpriteLayer/KnockUpLayer" index="0"]
 frames = SubResource( 1 )
-animation = "Omni"
+animation = "W"
 
 [node name="CollisionShape2D" parent="CollisionArea" index="0"]
 position = Vector2( 0.5, -1.5 )

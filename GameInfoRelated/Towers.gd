@@ -291,10 +291,14 @@ const TowerTiersMap : Dictionary = {
 	
 	VACUUM : 2,
 	COIN : 2,
+	BLEACH : 2,
+	DOUSER : 2,
 	
-	MAGNETIZER : 4,
+	MAGNETIZER : 3,
+	ROYAL_FLAME : 3,
+	BEACON_DISH : 3,
+	
 	TESLA : 4,
-	ROYAL_FLAME : 4,
 	VOLCANO : 4,
 	
 #	HEALING_SYMBOL : 1,
@@ -1102,8 +1106,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Beacon-Dish", BEACON_DISH)
 		info.tower_tier = TowerTiersMap[BEACON_DISH]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.GRAY)
-		info.colors.append(TowerColors.YELLOW)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = beacon_dish_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
