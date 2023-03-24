@@ -8,7 +8,7 @@ const ConditionalClauses = preload("res://MiscRelated/ClauseRelated/ConditionalC
 
 
 signal resolve_block_advanced_requested_status(arg_status)
-signal dialog_element_control_constructed(arg_element, arg_ins, arg_id)
+signal dialog_element_control_constructed(arg_control)#arg_element, arg_ins, arg_id)
 
 signal shown_all_DBE_and_finished_display(arg_dia_seg)
 
@@ -17,6 +17,7 @@ signal shown_all_DBE_and_finished_display(arg_dia_seg)
 var current_dialog_segment : DialogSegment setget set_dialog_segment
 var _latest_base_dialog_ele_control : BaseDialogElementControl 
 var _latest_BDE_dialog_ele_cons_inses : Array
+var _latest_BDE_dialog_eles : Array
 var _latest_BDE_index : int = 0
 var last_calculated_not_all_BDEs_are_shown : bool
 
@@ -142,6 +143,7 @@ func set_dialog_segment(arg_segment : DialogSegment):
 			var reached_x = val_transition__center_container__top_left_pos__x.configure_self(center_container.rect_position.x, center_container.rect_position.x, arg_segment.final_dialog_top_left_pos.x, final_time_taken_for_pos_change_transition, ValTransition.VALUE_UNSET, arg_segment.final_dialog_top_left_pos_val_trans_mode)
 			var reached_y = val_transition__center_container__top_left_pos__y.configure_self(center_container.rect_position.y, center_container.rect_position.y, arg_segment.final_dialog_top_left_pos.y, final_time_taken_for_pos_change_transition, ValTransition.VALUE_UNSET, arg_segment.final_dialog_top_left_pos_val_trans_mode)
 			
+			
 			if !reached_x:
 				is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.POS_X)
 			if !reached_y:
@@ -160,7 +162,16 @@ func set_dialog_segment(arg_segment : DialogSegment):
 		_latest_BDE_index = 0
 		_latest_BDE_dialog_ele_cons_inses = current_dialog_segment.get_all_dialog_element_construction_inses()
 		dialog_main_panel.flush_dialog_elements_in_content_panel()
-		_start_show_dia_main_panel_element_using_construction_ins__and_increment_index(_latest_BDE_dialog_ele_cons_inses[_latest_BDE_index])
+		# add childs via cons ins to determine size immediately
+		_latest_BDE_dialog_eles.clear()
+		for cons_ins in _latest_BDE_dialog_ele_cons_inses:
+			var ele_control = cons_ins.build_element()
+			dialog_main_panel.add_dialog_element_to_content_panel(ele_control)
+			
+			ele_control.set_mod_a_to_zero()
+			_latest_BDE_dialog_eles.append(ele_control)
+		#
+		_start_show_dia_main_panel_element_using_construction_ins__and_increment_index(_latest_BDE_dialog_eles[_latest_BDE_index])#_latest_BDE_dialog_ele_cons_inses[_latest_BDE_index])
 		
 		_is_absolute_block_active = true
 		absolute_block_timer.start(absolute_block_duration)
@@ -181,12 +192,13 @@ func set_dialog_segment(arg_segment : DialogSegment):
 	
 	
 
-func _start_show_dia_main_panel_element_using_construction_ins__and_increment_index(cons_ins : DialogSegment.DialogElementsConstructionIns):
-	_latest_base_dialog_ele_control = cons_ins.build_element()
-	dialog_main_panel.add_dialog_element_to_content_panel(_latest_base_dialog_ele_control)
+func _start_show_dia_main_panel_element_using_construction_ins__and_increment_index(arg_control): #cons_ins : DialogSegment.DialogElementsConstructionIns):
+	#_latest_base_dialog_ele_control = cons_ins.build_element()
+	#dialog_main_panel.add_dialog_element_to_content_panel(_latest_base_dialog_ele_control)
+	_latest_base_dialog_ele_control = arg_control
 	dialog_main_panel._latest_base_dialog_ele_control = _latest_base_dialog_ele_control
 	
-	emit_signal("dialog_element_control_constructed", _latest_base_dialog_ele_control, cons_ins, cons_ins.element_id)
+	emit_signal("dialog_element_control_constructed", _latest_base_dialog_ele_control)#, cons_ins, cons_ins.element_id)
 	
 	
 	_latest_base_dialog_ele_control.set_mod_a_to_zero()
@@ -226,7 +238,7 @@ func _start_show_dia_main_panel_element_using_construction_ins__and_increment_in
 func _on_latest_diag_ele_is_fully_finished():
 	if !_latest_base_dialog_ele_control._block_next_element_show():
 		if last_calculated_not_all_BDEs_are_shown:
-			_start_show_dia_main_panel_element_using_construction_ins__and_increment_index(_latest_BDE_dialog_ele_cons_inses[_latest_BDE_index])
+			_start_show_dia_main_panel_element_using_construction_ins__and_increment_index(_latest_BDE_dialog_eles[_latest_BDE_index])#_latest_BDE_dialog_ele_cons_inses[_latest_BDE_index])
 			
 		else:
 			last_calculated_not_all_BDEs_are_shown = false

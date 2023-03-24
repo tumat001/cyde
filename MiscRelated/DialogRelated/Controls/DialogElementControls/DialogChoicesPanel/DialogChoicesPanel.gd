@@ -35,6 +35,7 @@ class ChoiceButtonChanges:
 	
 
 var _queue_of_choice_button_info_changes : Array = []  # is in this format: [[arg_info, ]]
+var _queue_of_buttons : Array = []
 var _current_choice_button_info_changes : ChoiceButtonChanges
 
 #
@@ -130,6 +131,10 @@ func _ready():
 	grid_container.columns = grid_columns_count
 	
 	dialog_choice_modi_panel.connect("remove_false_answer_requested", self, "_on_dialog_choice_modi_panel_remove_false_answer_requested")
+	
+	#
+	
+	_construct_and_configure_buttons_based_on_properties__on_start()
 
 func _construct_and_configure_buttons_based_on_properties__on_start():
 	for button_info in _all_choice_button_info:
@@ -150,6 +155,8 @@ func _construct_and_add_button_choice_type_standard(arg_choice_button_info : Cho
 		button = PlayerGUI_ButtonToggleStandard_Scene.instance()
 		button.configure_self_with_button_group(player_gui__button_group)
 		_set_confirm_button_as_visible()
+	
+	button.set_modulate_a_for_body_background(0.3)
 	
 	#button.use_texture_defaults = false
 	
@@ -267,6 +274,10 @@ func _update_confirm_button_vis_based_on_choices_button():
 func _add_to_queue_of_choice_button_changes(arg_changes : ChoiceButtonChanges):
 	_queue_of_choice_button_info_changes.append(arg_changes)
 	
+	var latest : ChoiceButtonChanges = _queue_of_choice_button_info_changes.front()
+	var button = _construct_and_add_button_choice_type_standard(latest.choice_button_info, 0, latest.index, true)
+	_queue_of_buttons.append(button)
+	
 	if _current_choice_button_info_changes == null:
 		_process_next_choice_button_changes_in_queue(false)
 		
@@ -278,7 +289,8 @@ func _process_next_choice_button_changes_in_queue(arg_instant_show : bool):
 		var latest : ChoiceButtonChanges = _queue_of_choice_button_info_changes.pop_front()
 		
 		if latest.change_type == latest.QUEUE_STAT__ADD:
-			var button = _construct_and_add_button_choice_type_standard(latest.choice_button_info, 0, latest.index, true)
+			#var button = _construct_and_add_button_choice_type_standard(latest.choice_button_info, 0, latest.index, true)
+			var button = _queue_of_buttons.pop_front()
 			_start_fade_in_of_button__make_initial_mod_a_zero(button, arg_instant_show, latest.choice_button_info)
 		elif latest.change_type == latest.QUEUE_STAT__REMOVE:
 			_start_fade_out_of_button(latest.choice_button_info.associated_button, arg_instant_show, latest.choice_button_info)
@@ -362,8 +374,8 @@ func _on_button_standard_released_with_button_left(arg_choice_button_info : Choi
 func _start_display():
 	._start_display()
 	
-	_construct_and_configure_buttons_based_on_properties__on_start()
-	
+	#_construct_and_configure_buttons_based_on_properties__on_start()
+	pass
 
 func _force_finish_display():
 	._force_finish_display()

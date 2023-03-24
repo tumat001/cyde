@@ -12,6 +12,7 @@ signal on_button_released_with_button_left()
 const enabled_modulate : Color = Color(1, 1, 1, 1)
 const disabled_modulate : Color = Color(0.3, 0.3, 0.3, 1)
 
+
 export(String, MULTILINE) var text_for_label : String setget set_text_for_text_label
 export(Texture) var border_texture : Texture = SideBorder_Normal_Texture setget set_border_texture
 
@@ -26,6 +27,9 @@ export(Color) var custom_color : Color = Color(1, 1, 1, 1) setget set_custom_col
 export(Color) var custom_color_highlighted := Color(1, 1, 1, 1) setget set_custom_color_highlighted
 
 export(Texture) var custom_button_icon : Texture = null setget set_custom_button_icon
+
+var modulate_a_for_body_background : float = 1.0 setget set_modulate_a_for_body_background
+
 
 onready var advanced_button_with_tooltip = $AdvancedButtonWithTooltip
 onready var text_label = $ContentPanel/HBoxContainer/MarginContainer/TextLabel
@@ -60,6 +64,8 @@ func _ready():
 	set_custom_color(custom_color)
 	
 	set_custom_button_icon(custom_button_icon)
+	
+	set_modulate_a_for_body_background(modulate_a_for_body_background)
 
 func _on_advanced_button_released_mouse_event(arg_event : InputEventMouseButton):
 	if arg_event.button_index == BUTTON_LEFT and is_button_enabled:
@@ -91,6 +97,12 @@ func _set_normal_disp_properties():
 	text_label.set("custom_colors/font_color", custom_color)
 	_is_highlighted = false
 
+
+func set_modulate_a_for_body_background(arg_val):
+	modulate_a_for_body_background = arg_val
+	
+	if is_inside_tree():
+		body_background_texture_rect.modulate.a = modulate_a_for_body_background
 
 #
 

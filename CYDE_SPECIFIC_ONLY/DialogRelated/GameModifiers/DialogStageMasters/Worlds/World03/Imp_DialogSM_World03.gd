@@ -148,7 +148,6 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 
 
 func _on_game_result_window_closed__on_win():
-	
 	_construct_dia_seg__on_win_01_sequence_001()
 	_play_dia_seg__on_win_01_sequence_001()
 	
@@ -169,6 +168,9 @@ func _on_game_result_decided():
 func _deferred_applied():
 	_construct_dia_seg__intro_01_sequence_001()
 	_play_dia_seg__intro_01_sequence_001()
+	
+	#_construct_dia_seg__intro_06_sequence_001()
+	#_play_dia_seg__intro_06_sequence_001()
 
 
 
@@ -1128,6 +1130,8 @@ func _construct_dia_seg__intro_06_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(dia_seg__intro_06_sequence_002, x_type_item_entry_data, AlmanacManager.Almanac_ItemListEntry_Data.TypeInfoClassification.TEXT_TIDBIT)
 	_configure_dia_set_to_x_type_info_tidbit_pos_and_size(dia_seg__intro_06_sequence_002)
 	dia_seg__intro_06_sequence_002.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_002__fully_displayed", [tidbit_to_view_and_enable], CONNECT_ONESHOT)
+	#dia_seg__intro_06_sequence_002.final_dialog_custom_size_val_trans_mode = DialogSegment.ValTransition.ValueIncrementMode.INSTANT
+	#dia_seg__intro_06_sequence_002.final_dialog_top_left_pos_val_trans_mode = DialogSegment.ValTransition.ValueIncrementMode.INSTANT
 	
 	
 	####
@@ -1326,6 +1330,11 @@ func _construct_dia_seg__intro_08_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_08_sequence_001, dia_seg__intro_08_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_08_sequence_001)
 	
+	var custom_pos = dia_portrait__pos__standard_left
+	custom_pos.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_08_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__intro_08_sequence_002 = DialogSegment.new()
@@ -1337,6 +1346,9 @@ func _construct_dia_seg__intro_08_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_08_sequence_002, dia_seg__intro_08_sequence_002__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_08_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_08_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	###
 	
@@ -1352,6 +1364,9 @@ func _construct_dia_seg__intro_08_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_08_sequence_003, dia_seg__intro_08_sequence_003__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_08_sequence_003)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_08_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__intro_08_sequence_004 = DialogSegment.new()
@@ -1363,6 +1378,8 @@ func _construct_dia_seg__intro_08_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_08_sequence_004, dia_seg__intro_08_sequence_004__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_08_sequence_004)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_08_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	
 	###
@@ -1378,6 +1395,9 @@ func _construct_dia_seg__intro_08_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_08_sequence_005, dia_seg__intro_08_sequence_005__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_08_sequence_005)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_08_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__intro_08_sequence_006 = DialogSegment.new()
@@ -1391,6 +1411,9 @@ func _construct_dia_seg__intro_08_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_08_sequence_006, dia_seg__intro_08_sequence_006__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_08_sequence_006)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_08_sequence_006, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	#####
 	
 	var dia_seg__intro_08_sequence_007 = DialogSegment.new()
@@ -1402,6 +1425,9 @@ func _construct_dia_seg__intro_08_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_08_sequence_007, dia_seg__intro_08_sequence_007__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_08_sequence_007)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_08_sequence_007, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	#######
 	
@@ -1416,6 +1442,8 @@ func _construct_dia_seg__intro_08_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_08_sequence_008, dia_seg__intro_08_sequence_008__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_08_sequence_008)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_08_sequence_008, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__intro_08_sequence_008, self, "_on_dia_seg__intro_08_sequence_008__ended", null)
 
@@ -1618,7 +1646,7 @@ func _on_dia_seg__intro_10_sequence_003__ended(arg_seg, arg_param):
 	listen_for_round_end_into_stage_round_id_and_call_func("311", self, "_on_round_started__into_round_11")
 	
 
-func _on_round_started__into_round_11():
+func _on_round_started__into_round_11(arg_stageround_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -1667,7 +1695,7 @@ func _on_dia_seg__intro_11_sequence_002__ended(arg_seg, arg_params):
 	set_round_is_startable(true)
 	listen_for_round_end_into_stage_round_id_and_call_func("312", self, "_on_round_started__into_round_12")
 
-func _on_round_started__into_round_12():
+func _on_round_started__into_round_12(arg_stageround_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -2006,7 +2034,7 @@ func _construct_questions_and_choices_for__worm_Q02():
 	
 	var choice_03_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_03_ques_02.id = 3
-	choice_03_ques_02.display_text = "An animal that eats dirt."
+	choice_03_ques_02.display_text = "All that is necessary is for the computer worm to become active on an infected system."
 	choice_03_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_03_ques_02.func_source_on_click = self
 	choice_03_ques_02.func_name_on_click = "_on_worm_Q02_choice_wrong_clicked"
@@ -2014,7 +2042,7 @@ func _construct_questions_and_choices_for__worm_Q02():
 	
 	var choice_04_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_04_ques_02.id = 3
-	choice_04_ques_02.display_text = "A software that protect your computers"
+	choice_04_ques_02.display_text = "USB drives."
 	choice_04_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_04_ques_02.func_source_on_click = self
 	choice_04_ques_02.func_name_on_click = "_on_worm_Q02_choice_wrong_clicked"

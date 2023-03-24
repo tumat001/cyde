@@ -106,7 +106,7 @@ margin_right = 450.0
 margin_bottom = 277.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
-text = "Cyde Thread Defenders (V 0.1.0.0)"
+text = "Cyde Thread Defenders (V 0.1.1.1)"
 align = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/ContentContainer/VBoxContainer"]

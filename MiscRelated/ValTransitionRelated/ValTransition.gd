@@ -6,7 +6,9 @@ const VALUE_UNSET : float = -99504.55
 
 enum ValueIncrementMode {
 	LINEAR = 0,
-	QUADRATIC = 1,
+	QUADRATIC = 1, 
+	
+	INSTANT = 2
 }
 
 enum QuadraticValueIncMode {
@@ -55,6 +57,10 @@ func configure_self(arg_initial_val : float, arg_curr_val : float,
 	_current_val = arg_curr_val
 	_target_val = arg_target_val
 	
+	if arg_val_inc_mode == ValueIncrementMode.QUADRATIC:
+		arg_val_inc_mode = ValueIncrementMode.LINEAR    #NOTE: A lazy way to prevent bugs with quad...
+	_val_inc_mode = arg_val_inc_mode  
+	
 	_time_to_reach_target_val = arg_time_to_reach_target_val
 	_val_inc_per_sec = arg_val_inc_per_sec
 	
@@ -71,13 +77,15 @@ func configure_self(arg_initial_val : float, arg_curr_val : float,
 		
 		_final_time_before_finish = _time_to_reach_target_val
 		
+		#print("instant val trans -- ValTransition: %s. mode: %s" % [_instant_val_transition, arg_val_inc_mode])
+		
 	elif _val_inc_per_sec != VALUE_UNSET:
 		_final_val_inc_per_sec = _val_inc_per_sec
 		_current_val_accel = 0
 		
 		_final_time_before_finish = abs((_target_val - _initial_val) / _val_inc_per_sec)
 		
-		_instant_val_transition = _final_time_before_finish <= 0
+		_instant_val_transition = (_final_time_before_finish <= 0 or arg_val_inc_mode == ValueIncrementMode.INSTANT)
 	
 	_current_time = 0
 	
@@ -86,6 +94,10 @@ func configure_self(arg_initial_val : float, arg_curr_val : float,
 	return _instant_val_transition
 
 func _get_calculated_final_val_inc_per_sec_based_on_properties():
+	if _val_inc_mode == ValueIncrementMode.INSTANT:
+		_instant_val_transition = true
+		return (_target_val - _initial_val)
+	
 	if _time_to_reach_target_val <= 0:
 		return (_target_val - _initial_val)  # just to prevent crash. but this means nothing since we're using _instant_val_transition bool check
 	

@@ -89,7 +89,7 @@ var bottom_border_texture : Texture = Border_Pic_Default
 #}
 
 var final_dialog_top_left_pos : Vector2 = VECTOR_UNDEFINED  # must be defined
-var final_dialog_top_left_pos_val_trans_mode : int = ValTransition.ValueIncrementMode.QUADRATIC #ValTransitionMode.QUAD
+var final_dialog_top_left_pos_val_trans_mode : int = ValTransition.ValueIncrementMode.LINEAR #ValTransitionMode.QUAD
 
 var final_dialog_custom_size : Vector2 = VECTOR_UNDEFINED  # must be defined
 var final_dialog_custom_size_val_trans_mode : int = ValTransition.ValueIncrementMode.LINEAR #ValTransitionMode.LINEAR

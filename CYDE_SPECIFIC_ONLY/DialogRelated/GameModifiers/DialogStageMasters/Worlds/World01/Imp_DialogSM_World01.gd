@@ -1493,7 +1493,7 @@ func _on_shop_refreshed__intro_07__sequence_004(arg_tower_ids):
 	set_enabled_buy_slots([1, 2, 3, 4, 5])
 	set_next_shop_towers_and_increment_counter()
 	
-	add_shop_per_refresh_modifier(5)
+	add_shop_per_refresh_modifier(0)
 	
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_07_sequence_005)
 

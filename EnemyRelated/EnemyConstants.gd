@@ -385,7 +385,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.WORM_BOSS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 160
+		info.base_health = 210
 		info.base_movement_speed = 25
 		info.enemy_type == info.EnemyType.ELITE
 		
@@ -1392,5 +1392,6 @@ static func get_enemy_scene(enemy_id : int):
 		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/ILoveYouWorm/Worm_ILoveYouWorm.tscn")
 	elif enemy_id == Enemies.WORM__NETWORK:
 		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/NetworkWorm/Worm_NetworkWorm.tscn")
-	
+	elif enemy_id == Enemies.WORM_BOSS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/WormBoss/WormBoss.tscn")
 	
