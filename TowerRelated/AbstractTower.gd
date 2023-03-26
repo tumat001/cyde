@@ -2045,14 +2045,15 @@ func get_tower_effect(effect_uuid : int) -> TowerBaseEffect:
 # Decreasing timebounds related
 
 func _decrease_time_of_timebounded(delta):
-	for effect_uuid in _all_uuid_tower_buffs_map.keys():
-		var effect : TowerBaseEffect = _all_uuid_tower_buffs_map[effect_uuid]
-		
-		if effect.is_timebound:
-			effect.time_in_seconds -= delta
+	if is_round_started:
+		for effect_uuid in _all_uuid_tower_buffs_map.keys():
+			var effect : TowerBaseEffect = _all_uuid_tower_buffs_map[effect_uuid]
 			
-			if effect.time_in_seconds <= 0:
-				remove_tower_effect(effect)
+			if effect.is_timebound:
+				effect.time_in_seconds -= delta
+				
+				if effect.time_in_seconds <= 0:
+					remove_tower_effect(effect)
 
 
 func _remove_all_timebound_effects():
@@ -2093,12 +2094,13 @@ func _remove_all_timebound_and_countbound_and_roundbound_effects():
 	for effect_uuid in _all_uuid_tower_buffs_map.keys():
 		var effect : TowerBaseEffect = _all_uuid_tower_buffs_map[effect_uuid]
 		
-		if effect.is_countbound or effect.is_timebound:
-			effects_to_remove.append(effect)
-		elif effect.is_roundbound:
+		if effect.is_roundbound:
 			effect.round_count -= 1
 			if effect.round_count <= 0:
 				effects_to_remove.append(effect)
+		elif effect.is_countbound or effect.is_timebound:
+			effects_to_remove.append(effect)
+		
 	
 	for effect in effects_to_remove:
 		remove_tower_effect(effect)

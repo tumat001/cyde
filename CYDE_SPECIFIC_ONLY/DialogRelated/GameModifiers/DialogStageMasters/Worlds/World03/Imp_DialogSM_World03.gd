@@ -136,7 +136,6 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	
 	call_deferred("_deferred_applied")
 	
-	
 	_map_ids_to_make_available_when_completed.append(StoreOfMaps.MapsId_World04)
 	game_elements.game_result_manager.show_main_menu_button = false
 	
@@ -192,7 +191,6 @@ func _on_game_elements_before_game_start__base_class():
 	
 	set_player_level(starting_player_level_at_this_modi)
 	
-	_map_ids_to_make_available_when_completed.append(StoreOfMaps.MapsId_World03)
 	game_elements.game_result_manager.show_main_menu_button = false
 	
 	
@@ -1111,14 +1109,11 @@ func _construct_dia_seg__intro_06_sequence_001():
 	
 	var dia_seg__intro_06_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		["Now that we've covered about the |0|, we can now focus on the malwares of this round: the [b]Computer Worms[/b]", [plain_fragment__synergies]],
+		["Now that we've covered about the |0|, we can now focus on the malwares of this stage: the [b]Computer Worms[/b]", [plain_fragment__synergies]],
 		"I'll be providing their background. Take note of the information that I'll give you."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_06_sequence_001, dia_seg__intro_06_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_06_sequence_001)
-	
-	#dia_seg__intro_06_sequence_001.connect("fully_displayed", self, "_on_dia_seg__intro_06_sequence_001__fully_displayed", [], CONNECT_ONESHOT)
-	
 	
 	#######
 	
@@ -2258,7 +2253,7 @@ func _on_end_of_dia_seg__on_win_x_segment__end(arg_seg, arg_params):
 ############ QUESTIONS STATE ############
 
 func _show_dialog_choices_modi_panel():
-	return true
+	return false #true
 
 func _build_dialog_choices_modi_panel_config():
 	var config = DialogChoicesModiPanel.ModiPanelConfig.new()

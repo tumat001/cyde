@@ -123,6 +123,12 @@ enum Enemies {
 	WORM__NETWORK = 1202
 	WORM_BOSS = 1203
 	
+	# ADWARE (1300)
+	ADWARE_BOSS = 1300,
+	ADWARE__APPEARCH = 1301,
+	ADWARE__DESK_AD = 1302,
+	ADWARE__DOLLAR_REVENUE = 1303,
+	
 }
 
 var all_cyde_specific_enemy_ids : Array = [
@@ -361,7 +367,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	elif enemy_id == Enemies.WORM__I_LOVE_U:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
 		info.base_health = 70
-		info.base_movement_speed = 30
+		info.base_movement_speed = 37
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "I Love You Worm"
@@ -397,6 +403,56 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 			]
 		
 		
+	##### ADWARE
+	elif enemy_id == Enemies.ADWARE_BOSS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 250
+		info.base_movement_speed = 28
+		info.enemy_type == info.EnemyType.ELITE
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Adware Boss"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/AdwareBoss/Adware_Boss_Omni.png"))
+			info.descriptions = [
+				"The boss of the adwares." #todo make more inspiring desc LOL
+			]
+		
+		
+	elif enemy_id == Enemies.ADWARE__APPEARCH:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 38
+		info.base_movement_speed = 50
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Appearch"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/Appearch/Adware_Appearch_E.png"))
+			info.descriptions = [
+				"A adware that attaches itself to software, and makes your internet browser slow by adding tons of ads."
+			]
+		
+	elif enemy_id == Enemies.ADWARE__DESK_AD:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 30
+		info.base_movement_speed = 55
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "DeskAd"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/DeskAd/Adware_DeskAd_E.png"))
+			info.descriptions = [
+				"A real life adware that slowly increases its ads on your browser over time. It also redirects you to different links."
+			]
+		
+	elif enemy_id == Enemies.ADWARE__DOLLAR_REVENUE:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 120
+		info.base_movement_speed = 38
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Dollar Revenue"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/DollarRevenue/Adware_DollarRevenue_Omni.png"))
+			info.descriptions = [
+				"An adware that displays advertisements and tracks your internet searches."
+			]
 		
 	
 #	elif enemy_id == Enemies.BRUTE:
@@ -1394,4 +1450,15 @@ static func get_enemy_scene(enemy_id : int):
 		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/NetworkWorm/Worm_NetworkWorm.tscn")
 	elif enemy_id == Enemies.WORM_BOSS:
 		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Worm/WormBoss/WormBoss.tscn")
+		
+	# ADWARE
+	elif enemy_id == Enemies.ADWARE_BOSS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/AdwareBoss/Adware_Boss.tscn")
+	elif enemy_id == Enemies.ADWARE__APPEARCH:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/Appearch/Adware_Appearch.tscn")
+	elif enemy_id == Enemies.ADWARE__DESK_AD:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/DeskAd/Adware_DeskAd.tscn")
+	elif enemy_id == Enemies.ADWARE__DOLLAR_REVENUE:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/DollarRevenue/Adware_DollarRevenue.tscn")
+		
 	

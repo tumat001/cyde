@@ -208,7 +208,6 @@ func _on_game_elements_before_game_start__base_class():
 	
 	set_player_level(starting_player_level_at_this_modi - 1)
 	
-	_map_ids_to_make_available_when_completed.append(StoreOfMaps.MapsId_World03)
 	game_elements.game_result_manager.show_main_menu_button = false
 	
 	
@@ -1915,7 +1914,7 @@ func _construct_questions_and_choices_for__trojan_Q04():
 ############ QUESTIONS STATE ############
 
 func _show_dialog_choices_modi_panel():
-	return true
+	return false #true
 
 func _build_dialog_choices_modi_panel_config():
 	var config = DialogChoicesModiPanel.ModiPanelConfig.new()

@@ -160,28 +160,50 @@ func _on_singleton_initialize():
 	#
 	
 	var interpreter_for_orangeYR_attk_speed_tier_2 : TextFragmentInterpreter = interpreter_for_orangeYR_attk_speed_tier_1.get_deep_copy()
-	interpreter_for_orangeYR_attk_speed_tier_2.array_of_instructions[0].num_val = 80
+	interpreter_for_orangeYR_attk_speed_tier_2.array_of_instructions[0].num_val = 40
 	
 	var interpreter_for_orangeYR_attk_speed_tier_3 : TextFragmentInterpreter = interpreter_for_orangeYR_attk_speed_tier_1.get_deep_copy()
-	interpreter_for_orangeYR_attk_speed_tier_3.array_of_instructions[0].num_val = 40
+	interpreter_for_orangeYR_attk_speed_tier_3.array_of_instructions[0].num_val = 20
 	
 	var interpreter_for_orangeYR_attk_speed_tier_4 : TextFragmentInterpreter = interpreter_for_orangeYR_attk_speed_tier_1.get_deep_copy()
-	interpreter_for_orangeYR_attk_speed_tier_4.array_of_instructions[0].num_val = 20
+	interpreter_for_orangeYR_attk_speed_tier_4.array_of_instructions[0].num_val = 10
+	
+	#####
+	
+	var interpreter_for_orangeYR_base_dmg_tier_1 = TextFragmentInterpreter.new()
+	interpreter_for_orangeYR_base_dmg_tier_1.display_body = false
+	
+	var ins_for_orangeYR_base_dmg_tier_1 = []
+	ins_for_orangeYR_base_dmg_tier_1.append(OutcomeTextFragment.new(TowerStatTextFragment.STAT_TYPE.BASE_DAMAGE, -1, "base damage", 140, true))
+	
+	interpreter_for_orangeYR_base_dmg_tier_1.array_of_instructions = ins_for_orangeYR_base_dmg_tier_1
+	
+	#
+	
+	var interpreter_for_orangeYR_base_dmg_tier_2 : TextFragmentInterpreter = interpreter_for_orangeYR_base_dmg_tier_1.get_deep_copy()
+	interpreter_for_orangeYR_base_dmg_tier_2.array_of_instructions[0].num_val = 40
+	
+	var interpreter_for_orangeYR_base_dmg_tier_3 : TextFragmentInterpreter = interpreter_for_orangeYR_base_dmg_tier_1.get_deep_copy()
+	interpreter_for_orangeYR_base_dmg_tier_3.array_of_instructions[0].num_val = 20
+	
+	var interpreter_for_orangeYR_base_dmg_tier_4 : TextFragmentInterpreter = interpreter_for_orangeYR_base_dmg_tier_1.get_deep_copy()
+	interpreter_for_orangeYR_base_dmg_tier_4.array_of_instructions[0].num_val = 10
+	
 	
 	
 	var confidentiality_syn = ColorSynergy.new(CYDE_SynergyID__Confidentiality, synergy_id_to_syn_name_dictionary[CYDE_SynergyID__Confidentiality], [TowerColors.CONFIDENTIALITY], [8, 5, 3],
 	[tier_gold_pic, tier_silver_pic, tier_bronze_pic],
 	cyde_synicon_confidentiality_14x14, synergy_id_to_pic_map__big[CYDE_SynergyID__Confidentiality],
 	[
-		"Attacks cause towers to gain attack speed, up to a limit.",
+		"Attacks cause towers to gain attack speed and base damage, up to a limit.",
 		"15 seconds worth of attacks are required to reach the limit.",
 		""
 	],
 	[CydeSyn_Condifentiality],
 	[
-		["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_4]],
-		["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_3]],
-		["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_2]],
+		["Up to |0| and |1|.", [interpreter_for_orangeYR_attk_speed_tier_4, interpreter_for_orangeYR_base_dmg_tier_4]],
+		["Up to |0| and |1|.", [interpreter_for_orangeYR_attk_speed_tier_3, interpreter_for_orangeYR_base_dmg_tier_3]],
+		["Up to |0| and |1|.", [interpreter_for_orangeYR_attk_speed_tier_2, interpreter_for_orangeYR_base_dmg_tier_2]],
 		#["Up to |0|.", [interpreter_for_orangeYR_attk_speed_tier_1]],
 	],
 	ColorSynergy.HighlightDeterminer.SINGLE,

@@ -300,7 +300,7 @@ var audio_player_adv_params
 
 # effects
 
-var _effects_to_apply_on_spawn__regular : Dictionary   # clears itself on round end
+var _effects_to_apply_on_spawn__regular : Dictionary   # makes use of round count
 var _effects_to_apply_on_spawn__time_reduced_by_process : Dictionary
 
 
@@ -1656,10 +1656,44 @@ func _on_tower_added__for_apply_of_effects(arg_tower):
 		arg_tower.add_tower_effect(effect._get_copy_scaled_by(1))
 
 func _on_round_end__for_effect_apply():
-	_effects_to_apply_on_spawn__regular.clear()
-	_effects_to_apply_on_spawn__time_reduced_by_process.clear()
+	#_effects_to_apply_on_spawn__regular.clear()
+	#_effects_to_apply_on_spawn__time_reduced_by_process.clear()
 	
 	#emit_signal("enemy_effect_apply_on_spawn_cleared")
+	
+	var effects_to_remove : Array = []
+	
+	for effect_uuid in _effects_to_apply_on_spawn__regular.keys():
+		var effect = _effects_to_apply_on_spawn__regular[effect_uuid]
+		
+		if effect.is_roundbound:
+			effect.round_count -= 1
+			if effect.round_count <= 0:
+				effects_to_remove.append(effect)
+		#elif effect.is_countbound or effect.is_timebound:
+		#	effects_to_remove.append(effect)
+	
+	for effect in effects_to_remove:
+		_effects_to_apply_on_spawn__regular.erase(effect)
+	effects_to_remove.clear()
+	
+	#######
+	
+	for effect_uuid in _effects_to_apply_on_spawn__regular.keys():
+		var effect = _effects_to_apply_on_spawn__regular[effect_uuid]
+		
+		if effect.is_roundbound:
+			effect.round_count -= 1
+			if effect.round_count <= 0:
+				effects_to_remove.append(effect)
+		#elif effect.is_countbound or effect.is_timebound:
+		#	effects_to_remove.append(effect)
+		
+	
+	for effect in effects_to_remove:
+		_effects_to_apply_on_spawn__regular.erase(effect)
+	effects_to_remove.clear()
+	
 
 func _process__for_effect_apply(delta):
 	var to_remove : Array = []

@@ -155,6 +155,7 @@ func _construct_and_add_button_choice_type_standard(arg_choice_button_info : Cho
 		button = PlayerGUI_ButtonToggleStandard_Scene.instance()
 		button.configure_self_with_button_group(player_gui__button_group)
 		_set_confirm_button_as_visible()
+		button.can_be_untoggled_if_is_toggled = false
 	
 	button.set_modulate_a_for_body_background(0.3)
 	
@@ -308,6 +309,8 @@ func _initialize_choices_modi_panel():
 			
 			dialog_choice_modi_panel._initialize()
 			dialog_choice_modi_panel.visible = true
+		else:
+			dialog_choice_modi_panel.visible = false
 
 #
 

@@ -36,6 +36,11 @@ const Tutorial_WhiteArrow_Particle_Scene = preload("res://GameplayRelated/GameMo
 const Tutorial_WhiteCircle_Particle = preload("res://GameplayRelated/GameModifiersRelated/GameModis/TutorialsRelated/Sub/Tutorial_WhiteCircle_Particle.gd")
 const Tutorial_WhiteCircle_Particle_Scene = preload("res://GameplayRelated/GameModifiersRelated/GameModis/TutorialsRelated/Sub/Tutorial_WhiteCircle_Particle.tscn")
 
+const AttackSpritePoolComponent = preload("res://MiscRelated/AttackSpriteRelated/GenerateRelated/AttackSpritePoolComponent.gd")
+const AttackSprite_Scene = preload("res://MiscRelated/AttackSpriteRelated/AttackSprite.tscn")
+
+const TowerParticlePlayerEffect = preload("res://CYDE_SPECIFIC_ONLY/PowerupEffectsRelated/TowerRelated/TowerParticlePlayerEffect.gd")
+
 ###
 
 
@@ -68,8 +73,8 @@ const dia_portrait__pos__standard_left := Vector2(150, 150)
 const dia_portrait__pos__standard_right := Vector2(600, 150)
 
 
-const dia_time_duration__very_short : float = 10.0
-const dia_time_duration__short : float = 15.0
+const dia_time_duration__very_short : float = 20.0
+const dia_time_duration__short : float = 25.0
 const dia_time_duration__long : float = 60.0
 
 
@@ -125,9 +130,15 @@ var _map_ids_to_make_available_when_completed : Array
 
 ##
 
-const POWER_UP__DEFAULT_DURATION : float = 90.0
+const POWER_UP__DEFAULT_DURATION : float = 40.0
 
-#
+
+var tower_power_up_particle_pool_component : AttackSpritePoolComponent
+const tower_power_up_particle_color__a_range := Color(2/255.0, 217/255.0, 215/255.0, 0.8)
+const tower_power_up_particle_color__b_range := Color(2/255.0, 139/255.0, 218/255.0, 1)
+
+
+var non_essential_rng : RandomNumberGenerator
 
 #
 
@@ -168,6 +179,7 @@ func play_dialog_segment_or_advance_or_finish_elements(arg_segment : DialogSegme
 func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	._apply_game_modifier_to_elements(arg_elements)
 	
+	non_essential_rng = StoreOfRNG.get_rng(StoreOfRNG.RNGSource.NON_ESSENTIAL)
 	
 	almanac_button_bot_right = arg_elements.almanac_button
 	
@@ -190,11 +202,48 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	create_dialog_whole_screen_panel_and_add_to_GE()
 	
 	_initialize_audio_relateds()
-
+	
+	
+	if tower_power_up_particle_pool_component == null:
+		_initialize_particle_pool_components()
 
 func _initialize_audio_relateds():
 	audio_player_adv_params = AudioManager.construct_play_adv_params()
 	audio_player_adv_params.node_source = game_elements
+
+func _initialize_particle_pool_components():
+	tower_power_up_particle_pool_component = AttackSpritePoolComponent.new()
+	tower_power_up_particle_pool_component.node_to_parent_attack_sprites = CommsForBetweenScenes.current_game_elements__other_node_hoster
+	tower_power_up_particle_pool_component.node_to_listen_for_queue_free = CommsForBetweenScenes.current_game_elements__other_node_hoster
+	tower_power_up_particle_pool_component.source_for_funcs_for_attk_sprite = self
+	tower_power_up_particle_pool_component.func_name_for_creating_attack_sprite = "_create_tower_power_up_particle"
+	#tower_power_up_particle_pool_component.func_name_for_setting_attks_sprite_properties_when_get_from_pool_after_add_child = "_configure_tower_power_up_particle_on_show"
+
+
+
+
+func _create_tower_power_up_particle():
+	var particle = AttackSprite_Scene.instance()
+	
+	particle.texture_to_use = preload("res://CYDE_SPECIFIC_ONLY/PowerupEffectsRelated/Assets/PowerUpParticle_Square_3x3.png")
+	
+	particle.lifetime = 0.5
+	particle.queue_free_at_end_of_lifetime = false
+	particle.frames_based_on_lifetime = false
+	
+	return particle
+
+
+func _get_random_color_between(arg_color_01, arg_color_02):
+	var rand_r = non_essential_rng.randf_range(arg_color_01.r, arg_color_02.r)
+	var rand_g = non_essential_rng.randf_range(arg_color_01.g, arg_color_02.g)
+	var rand_b = non_essential_rng.randf_range(arg_color_01.b, arg_color_02.b)
+	var rand_a = non_essential_rng.randf_range(arg_color_01.a, arg_color_02.a)
+	
+	return Color(rand_r, rand_g, rand_b, rand_a)
+
+
+#
 
 func _unapply_game_modifier_from_elements(arg_elements : GameElements):
 	._unapply_game_modifier_from_elements(arg_elements)
@@ -1164,6 +1213,7 @@ func apply_tower_power_up_effects():
 		#_apply_tower_power_up_effects__bonus_dmg__to_tower(tower)
 		_apply_tower_power_up_effects__attk_speed__to_tower(tower)
 		_apply_tower_power_up_effects__ap_effect__to_tower(tower)
+		_apply_tower_power_up_effects__particle_effect__to_tower(tower)
 	
 	#var base_dmg_effect = _construct_tower_bonus_dmg()
 	#game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(base_dmg_effect)
@@ -1171,8 +1221,8 @@ func apply_tower_power_up_effects():
 	game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(attk_speed_effect)
 	var ap_effect = _construct_ability_potency()
 	game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(ap_effect)
-	
-	
+	var particle_effect = _construct_particle_effect_effect_for_tower()
+	game_elements.tower_manager.add_effect_to_apply_on_tower__time_reduced_by_process(particle_effect)
 
 #
 
@@ -1188,6 +1238,9 @@ func _apply_tower_power_up_effects__ap_effect__to_tower(arg_tower):
 	var ap_effect = _construct_ability_potency()
 	arg_tower.add_tower_effect(ap_effect)
 
+func _apply_tower_power_up_effects__particle_effect__to_tower(arg_tower):
+	var effect = _construct_particle_effect_effect_for_tower()
+	arg_tower.add_tower_effect(effect)
 
 
 #func _construct_tower_bonus_dmg():
@@ -1209,7 +1262,9 @@ func _construct_tower_attk_speed():
 	var total_attk_speed_effect = TowerAttributesEffect.new(TowerAttributesEffect.PERCENT_BASE_ATTACK_SPEED, total_attk_speed_modi, StoreOfTowerEffectsUUID.TOWER_POWER_UP__ATTK_SPEED)
 	total_attk_speed_effect.is_timebound = true
 	total_attk_speed_effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
-	#todo add is round bound assignment to false
+	
+	total_attk_speed_effect.is_roundbound = true
+	total_attk_speed_effect.round_count = 99
 	
 	return total_attk_speed_effect
 
@@ -1222,10 +1277,37 @@ func _construct_ability_potency():
 	ability_potency_effect.is_timebound = true
 	ability_potency_effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
 	
+	ability_potency_effect.is_roundbound = true
+	ability_potency_effect.round_count = 99
 	
 	return ability_potency_effect
 
+func _construct_particle_effect_effect_for_tower():
+	var effect = TowerParticlePlayerEffect.new(StoreOfTowerEffectsUUID.TOWER_POWER_UP__PARTICLE_EFFECT_MARKER)
+	effect.particle_pool_component = tower_power_up_particle_pool_component
+	effect.particle_show_delta = 0.3
+	effect.non_essential_rng = non_essential_rng
+	effect.apply_common_attack_sprite_template_float_slow = true
+	
+	effect.is_timebound = true
+	effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
+	
+	effect.is_roundbound = true
+	effect.round_count = 99
+	
+	effect.connect("before_particle_is_shown", self, "_configure_tower_power_up_particle_on_show")
+	effect.connect("copy_is_created", self, "tower_particle_effect_effect__copy_is_created")
+	
+	return effect
 
+func _configure_tower_power_up_particle_on_show(arg_particle):
+	arg_particle.modulate = _get_random_color_between(tower_power_up_particle_color__a_range, tower_power_up_particle_color__b_range)
+	
+
+
+func tower_particle_effect_effect__copy_is_created(arg_copy):
+	arg_copy.connect("before_particle_is_shown", self, "_configure_tower_power_up_particle_on_show")
+	
 
 ######
 

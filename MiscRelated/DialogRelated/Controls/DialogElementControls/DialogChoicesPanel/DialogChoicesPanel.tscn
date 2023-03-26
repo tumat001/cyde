@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogChoicesPanel/DialogChoicesPanel.gd" type="Script" id=1]
 [ext_resource path="res://MiscRelated/DialogRelated/Controls/DialogElementControls/DialogChoicesModiPanel/DialogChoicesModiPanel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://MiscRelated/PlayerGUI_Category_Related/ButtonStandard/PlayerGUI_ButtonStandard.tscn" type="PackedScene" id=3]
+[ext_resource path="res://MiscRelated/PlayerGUI_Category_Related/ButtonStandard/Assets/PlayerGUI_ButtonStandard_FillBackground_Highlighted__Green.png" type="Texture" id=4]
+[ext_resource path="res://MiscRelated/PlayerGUI_Category_Related/ButtonStandard/Assets/PlayerGUI_ButtonStandard_FillBackground_Normal__Green.png" type="Texture" id=5]
 
 [node name="DialogChoicesPanel" type="MarginContainer"]
 margin_right = 40.0
@@ -26,6 +28,8 @@ margin_right = 104.0
 margin_bottom = 55.0
 custom_constants/margin_top = 20
 text_for_label = "Confirm"
+background_texture_normal = ExtResource( 5 )
+background_texture_highlighted = ExtResource( 4 )
 
 [node name="DialogChoicesModiPanel" parent="VBoxContainer" instance=ExtResource( 2 )]
 margin_top = 59.0
