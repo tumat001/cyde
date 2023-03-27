@@ -57,11 +57,13 @@ func _on_visibility_changed():
 	
 	if is_instance_valid(pre_game_screen):
 		pre_game_screen.set_should_show_back_button(!visible)
+		#pre_game_screen.set_should_show_top_right_panel(!visible)
 
 func set_pre_game_screen(arg_screen):
 	pre_game_screen = arg_screen
 	
 	pre_game_screen.set_should_show_back_button(!visible)
+	#pre_game_screen.set_should_show_top_right_panel(!visible)
 
 
 #
@@ -101,11 +103,11 @@ func _on_AlmanacButton_on_button_released_with_button_left():
 	pre_game_screen.show_control(almanac_page)
 	AlmanacManager.set_almanac_page_gui(almanac_page)
 	
-	pre_game_screen.set_should_show_back_button(false)
+	pre_game_screen.set_should_show_top_right_panel(false)
 
 func _on_requested_exit_almanac():
 	pre_game_screen.hide_control(almanac_page)
-	pre_game_screen.set_should_show_back_button(false)
+	pre_game_screen.set_should_show_top_right_panel(true)#false)
 
 
 #
@@ -139,6 +141,10 @@ func _on_AboutButton_on_button_released_with_button_left():
 func _unhandled_key_input(event : InputEventKey):
 	if !event.echo and event.pressed:
 		if event.is_action_pressed("ui_cancel"):
+			if pre_game_screen.if_audio_panel_exists_and_is_visible():
+				pre_game_screen.set_audio_panel_to_invis()
+				return
+			
 			_on_QuitButton_on_button_released_with_button_left()
 	
 	accept_event()

@@ -2,18 +2,29 @@ extends Control
 
 const StartingScreen = preload("res://PreGameHUDRelated/StartingScreen/StartingScreen.gd")
 const StartingScreen_Scene = preload("res://PreGameHUDRelated/StartingScreen/StartingScreen.tscn")
+const AudioSettingsPanel_Scene = preload("res://AudioRelated/GUIRelated/AudioSettingsPanel/AudioSettingsPanel.tscn")
+const AudioSettingsPanel = preload("res://AudioRelated/GUIRelated/AudioSettingsPanel/AudioSettingsPanel.gd")
 
+#
 
 var node_tree_of_screen : Array = []
 var starting_screen : StartingScreen
 var current_visible_control : Control
 
-onready var back_button = $BackButton
-onready var content_panel = $ContentPanel
-
-
+#
 
 var audio_adv_param
+
+#
+
+var audio_settings_panel : AudioSettingsPanel
+
+#
+
+onready var back_button = $TopRightPanel/HBoxContainer/BackButton
+onready var content_panel = $ContentPanel
+
+onready var top_right_panel = $TopRightPanel
 
 #
 
@@ -30,7 +41,7 @@ func _ready():
 	
 	audio_adv_param = AudioManager.construct_play_adv_params()
 	audio_adv_param.node_source = self
-	
+	audio_adv_param.play_sound_type = AudioManager.PlayerSoundType.BACKGROUND_MUSIC
 	
 	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.HOMEPAGE_LOBBY_THEME_01)
 	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
@@ -113,6 +124,10 @@ func remove_control(arg_control : Control):
 #
 
 func hide_or_remove_latest_from_node_tree__except_for_starting_screen():
+	if is_instance_valid(audio_settings_panel) and audio_settings_panel.visible:
+		audio_settings_panel.visible = false
+		return
+	
 	if node_tree_of_screen.size() > 0:
 		var node = node_tree_of_screen[node_tree_of_screen.size() - 1]
 		
@@ -135,10 +150,20 @@ func _unhandled_key_input(event : InputEventKey):
 
 #
 
+func set_should_show_top_right_panel(arg_val): #set_should_show_back_button(arg_val):
+	#back_button.visible = arg_val
+	
+	top_right_panel.visible = arg_val
+
 func set_should_show_back_button(arg_val):
 	back_button.visible = arg_val
+	
 
 func _on_BackButton_on_button_released_with_button_left():
+	if is_instance_valid(audio_settings_panel) and audio_settings_panel.visible:
+		audio_settings_panel.visible = false
+		return
+	
 	if is_instance_valid(current_visible_control):
 		if current_visible_control.has_method("_exit_to_previous"):
 			current_visible_control._exit_to_previous()
@@ -148,3 +173,26 @@ func _on_BackButton_on_button_released_with_button_left():
 func get_control_child_adding_node():
 	return content_panel
 
+
+####
+
+func _on_ToAudioSettingsButton_pressed():
+	if !if_audio_panel_exists_and_is_visible():
+		_show_audio_panel__and_create_if_not_yet()
+	elif audio_settings_panel.visible:
+		audio_settings_panel.visible = false
+
+func _show_audio_panel__and_create_if_not_yet():
+	if !is_instance_valid(audio_settings_panel):
+		audio_settings_panel = AudioSettingsPanel_Scene.instance()
+		content_panel.add_child(audio_settings_panel)
+	
+	content_panel.move_child(audio_settings_panel, content_panel.get_child_count() - 1)
+	audio_settings_panel.visible = true
+
+
+func if_audio_panel_exists_and_is_visible():
+	return is_instance_valid(audio_settings_panel) and audio_settings_panel.visible
+
+func set_audio_panel_to_invis():
+	audio_settings_panel.visible = false

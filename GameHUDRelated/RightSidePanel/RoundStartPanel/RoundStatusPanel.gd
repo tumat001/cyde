@@ -1,6 +1,12 @@
 extends MarginContainer
 
 const AbilityPanel = preload("res://GameHUDRelated/AbilityPanel/AbilityPanel.gd")
+const AdvancedQueue = preload("res://MiscRelated/QueueRelated/AdvancedQueue.gd")
+
+const AudioSettingsPanel_Scene = preload("res://AudioRelated/GUIRelated/AudioSettingsPanel/AudioSettingsPanel.tscn")
+const AudioSettingsPanel = preload("res://AudioRelated/GUIRelated/AudioSettingsPanel/AudioSettingsPanel.gd")
+
+
 
 signal round_start_pressed()
 #signal round_fast_forward_pressed
@@ -28,7 +34,19 @@ var can_start_round : bool = true setget set_can_start_round
 
 #
 
+var reservation_for_whole_screen_gui
+
+#
+
+var _added_audio_panel_to_whole_screen : bool
+var audio_settings_panel
+
+#
+
 func _ready():
+	reservation_for_whole_screen_gui = AdvancedQueue.Reservation.new(self)
+	reservation_for_whole_screen_gui.on_entertained_method = "_on_queue_reservation_entertained"
+	
 	set_can_start_round(can_start_round)
 
 
@@ -49,6 +67,8 @@ func set_game_elements(arg_elements):
 	round_speed_and_start_panel.stage_round_manager = game_elements.stage_round_manager
 	round_speed_and_start_panel.connect("round_start_pressed", self, "_on_button_for_round_ready_start", [], CONNECT_PERSIST)
 	round_speed_and_start_panel.set_game_stats_manager(game_elements.game_stats_manager)
+	
+	_initialize_audio_panel()
 
 func set_game_result_manager(arg_manager):
 	round_speed_and_start_panel.set_game_result_manager(arg_manager)
@@ -121,3 +141,24 @@ func _on_MainMenuButton_released_mouse_event(event : InputEventMouseButton):
 
 func get_heart_icon_global_pos():
 	return round_info_panel_v2.get_heart_icon_global_pos()
+
+
+
+#
+
+func _on_queue_reservation_entertained():
+	pass
+#	if !_added_audio_panel_to_whole_screen:
+#		_added_audio_panel_to_whole_screen = true
+#		_initialize_audio_panel()
+#
+
+func _initialize_audio_panel():
+	audio_settings_panel = AudioSettingsPanel_Scene.instance()
+	audio_settings_panel.set_shade_background_visible(false)
+	game_elements.whole_screen_gui.add_control_but_dont_show(audio_settings_panel)
+
+func _on_AudioSettingsButton_pressed():
+	game_elements.whole_screen_gui.queue_control(audio_settings_panel, reservation_for_whole_screen_gui)
+	
+

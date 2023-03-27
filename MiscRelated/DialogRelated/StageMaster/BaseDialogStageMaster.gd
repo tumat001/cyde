@@ -117,6 +117,7 @@ var rng_to_use_for_randomized_questions_and_ans : RandomNumberGenerator
 #
 
 var audio_player_adv_params
+var audio_player_adv_params__for_bg_music
 
 var quiz_audio_stream_player : AudioStreamPlayer
 
@@ -210,6 +211,10 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 func _initialize_audio_relateds():
 	audio_player_adv_params = AudioManager.construct_play_adv_params()
 	audio_player_adv_params.node_source = game_elements
+	
+	audio_player_adv_params__for_bg_music = AudioManager.construct_play_adv_params()
+	audio_player_adv_params__for_bg_music.node_source = game_elements
+	audio_player_adv_params__for_bg_music.play_sound_type = AudioManager.PlayerSoundType.BACKGROUND_MUSIC
 
 func _initialize_particle_pool_components():
 	tower_power_up_particle_pool_component = AttackSpritePoolComponent.new()
@@ -1209,7 +1214,7 @@ func set_stats_tidbit_val_of_id_to_enabled(arg_tidbit_id):
 ##################################### Powerup Related
 
 func apply_tower_power_up_effects():
-	for tower in game_elements.tower_manager.get_all_in_map_towers():
+	for tower in game_elements.tower_manager.get_all_towers_except_in_queue_free():
 		#_apply_tower_power_up_effects__bonus_dmg__to_tower(tower)
 		_apply_tower_power_up_effects__attk_speed__to_tower(tower)
 		_apply_tower_power_up_effects__ap_effect__to_tower(tower)
@@ -1359,7 +1364,7 @@ func play_quiz_time_music():
 	
 	quiz_audio_stream_player.volume_db = AudioManager.DECIBEL_VAL__STANDARD
 	quiz_audio_stream_player.autoplay = true
-	AudioManager.play_sound__with_provided_stream_player(path_name, quiz_audio_stream_player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
+	AudioManager.play_sound__with_provided_stream_player(path_name, quiz_audio_stream_player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params__for_bg_music)
 
 
 func linearly_stop_quiz_time_music():

@@ -1695,6 +1695,10 @@ func _on_round_end__for_effect_apply():
 	effects_to_remove.clear()
 	
 
+
+func _process(delta):
+	_process__for_effect_apply(delta)
+
 func _process__for_effect_apply(delta):
 	var to_remove : Array = []
 	for effect in _effects_to_apply_on_spawn__time_reduced_by_process.values():

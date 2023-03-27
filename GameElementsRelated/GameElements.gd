@@ -146,6 +146,7 @@ var game_modi_ids : Array = []
 func _init():
 	audio_adv_param = AudioManager.construct_play_adv_params()
 	audio_adv_param.node_source = self
+	audio_adv_param.play_sound_type = AudioManager.PlayerSoundType.BACKGROUND_MUSIC
 	
 
 #

@@ -2744,8 +2744,7 @@ func _construct_questions_and_choices_for__virus_Q03():
 
 
 func _show_dialog_choices_modi_panel():
-	#todo for demo only
-	return true
+	return false
 
 func _build_dialog_choices_modi_panel_config():
 	var config = DialogChoicesModiPanel.ModiPanelConfig.new()

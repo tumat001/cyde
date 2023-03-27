@@ -1151,7 +1151,6 @@ func _play_dia_seg__on_lose_01_sequence_001():
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__on_lose_01_sequence_001)
 	
 
-
 func _on_end_of_dia_seg__on_lose_x_segment__end(arg_seg, arg_params):
 	CommsForBetweenScenes.goto_starting_screen(game_elements)
 

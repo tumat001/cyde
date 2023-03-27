@@ -2,7 +2,6 @@ extends Node
 
 
 const AudioStreamPlayerComponentPool = preload("res://MiscRelated/PoolRelated/Implementations/AudioStreamPlayerComponentPool.gd")
-
 const ValTransition = preload("res://MiscRelated/ValTransitionRelated/ValTransition.gd")
 
 
@@ -29,6 +28,8 @@ var source_id_to_stream_players_arr_map : Dictionary
 #var _current_total_active_stream_player_count : int
 
 var stream_player_to_linear_audio_set_param_map : Dictionary
+var player_sound_type_to_stream_players_map : Dictionary
+var stream_player_to_adv_params_map : Dictionary
 
 #var audio_stream_player_component_pool : AudioStreamPlayerComponentPool
 
@@ -38,9 +39,23 @@ var _center_of_screen : Vector2
 enum PlayerConstructionType {
 	PLAIN = 0
 	TWO_D = 1
-	
 }
 
+enum PlayerSoundType {
+	SOUND_FX = 0,
+	BACKGROUND_MUSIC = 1,
+	
+	
+	DEFAULT = 0,
+}
+
+const bus__sound_fx_name : String = "SoundFX"
+const bus__background_name : String = "Background"
+
+const player_sound_type_to_bus_name_map : Dictionary = {
+	PlayerSoundType.SOUND_FX : bus__sound_fx_name,
+	PlayerSoundType.BACKGROUND_MUSIC : bus__background_name,
+}
 
 
 var _next_available_id : int = 0
@@ -50,6 +65,19 @@ var _next_available_id : int = 0
 var _last_calc_has_linear_set_params : bool
 
 #
+
+var bus__sound_fx_volume : float setget set_bus__sound_fx_volume
+signal bus__sound_fx_volume_changed(arg_val)
+var bus__sound_fx_bus_mute : bool setget set_bus__sound_fx_bus_mute
+signal bus__sound_fx_mute_changed(arg_val)
+
+var bus__background_music_volume : float setget set_bus__background_music_volume
+signal bus__background_music_volume_changed(arg_val)
+var bus__background_music_bus_mute : bool setget set_bus__background_music_bus_mute
+signal bus__background_music_mute_changed(arg_val)
+
+#####
+
 
 # DONT Instantiate. Use methods
 class PlayAdvParams:
@@ -61,6 +89,8 @@ class PlayAdvParams:
 	
 	var node_source setget set_node_source
 	var id_source
+	
+	var play_sound_type : int
 	
 	#
 	
@@ -91,6 +121,9 @@ func _ready():
 	_center_of_screen = get_viewport().size / 2
 	
 	_update_can_do_process()
+	
+	#######
+	
 
 ####
 
@@ -133,7 +166,25 @@ func play_sound__with_provided_stream_player(arg_audio_path_name : String, arg_s
 			if !play_adv_params.is_connected("node_source_tree_exiting", self, "_on_play_adv_param_node_source_tree_exiting"):
 				play_adv_params.connect("node_source_tree_exiting", self, "_on_play_adv_param_node_source_tree_exiting")
 		
+		if play_adv_params != null:
+			arg_stream_player.bus = player_sound_type_to_bus_name_map[play_adv_params.play_sound_type]
+		else:
+			arg_stream_player.bus = player_sound_type_to_bus_name_map[PlayerSoundType.DEFAULT]
 		arg_stream_player.play()
+		
+		#
+		
+		var sound_type = PlayerSoundType.DEFAULT
+		if play_adv_params != null:
+			sound_type = play_adv_params.play_sound_type
+		
+		if !player_sound_type_to_stream_players_map.has(sound_type):
+			player_sound_type_to_stream_players_map[sound_type] = []
+		if !player_sound_type_to_stream_players_map[sound_type].has(arg_stream_player):
+			player_sound_type_to_stream_players_map[sound_type].append(arg_stream_player)
+		
+		stream_player_to_adv_params_map[arg_stream_player] = play_adv_params
+		
 		
 		return true
 	else:
@@ -260,6 +311,15 @@ func remove_stream_player(arg_stream_player):
 	
 	if is_active:
 		mask_level_to_active_count_map[mask_level] -= 1
+	
+	
+	var adv_param : PlayAdvParams = stream_player_to_adv_params_map[arg_stream_player]
+	if adv_param != null:
+		var sound_type = adv_param.play_sound_type
+		if player_sound_type_to_stream_players_map[sound_type].has(arg_stream_player):
+			player_sound_type_to_stream_players_map[sound_type].erase(arg_stream_player)
+	
+	stream_player_to_adv_params_map.erase(arg_stream_player)
 
 
 #######
@@ -347,4 +407,40 @@ func _on_audio_volume_target_val_reached(arg_player, arg_linear_set_params : Lin
 	
 	#_last_calc_has_linear_set_params = stream_player_to_linear_audio_set_param_map.size() != 0
 	#_update_can_do_process()
+
+
+#############################
+
+func set_bus__sound_fx_volume(arg_val):
+	bus__sound_fx_volume = arg_val
+	
+	var idx = AudioServer.get_bus_index(bus__sound_fx_name)
+	AudioServer.set_bus_volume_db(idx, arg_val)
+	
+	emit_signal("bus__sound_fx_volume_changed", arg_val)
+
+func set_bus__background_music_volume(arg_val):
+	bus__background_music_volume = arg_val
+	
+	var idx = AudioServer.get_bus_index(bus__background_name)
+	AudioServer.set_bus_volume_db(idx, arg_val)
+	
+	emit_signal("bus__background_music_volume_changed", arg_val)
+
+
+func set_bus__sound_fx_bus_mute(arg_val):
+	bus__sound_fx_bus_mute = arg_val
+	
+	var idx = AudioServer.get_bus_index(bus__sound_fx_name)
+	AudioServer.set_bus_mute(idx, bus__sound_fx_bus_mute)
+	
+	emit_signal("bus__sound_fx_mute_changed", arg_val)
+
+func set_bus__background_music_bus_mute(arg_val):
+	bus__background_music_bus_mute = arg_val
+	
+	var idx = AudioServer.get_bus_index(bus__background_name)
+	AudioServer.set_bus_mute(idx, bus__background_music_bus_mute)
+	
+	emit_signal("bus__background_music_mute_changed", arg_val)
 
