@@ -41,6 +41,9 @@ const AttackSprite_Scene = preload("res://MiscRelated/AttackSpriteRelated/Attack
 
 const TowerParticlePlayerEffect = preload("res://CYDE_SPECIFIC_ONLY/PowerupEffectsRelated/TowerRelated/TowerParticlePlayerEffect.gd")
 
+const BaseAbility = preload("res://GameInfoRelated/AbilityRelated/BaseAbility.gd")
+
+
 ###
 
 
@@ -140,6 +143,12 @@ const tower_power_up_particle_color__b_range := Color(2/255.0, 139/255.0, 218/25
 
 
 var non_essential_rng : RandomNumberGenerator
+
+#
+
+var blocker_ability : BaseAbility
+const blocker_ability_round_cooldown : int = 4
+const blocker_duration : float = 10.0
 
 #
 
@@ -1143,6 +1152,10 @@ func get_almanac_button_bot_right():
 	return almanac_button_bot_right
 
 
+func get_ability_button_with_ability(arg_ability):
+	return game_elements.right_side_panel.round_status_panel.ability_panel.get_ability_button_with_ability(arg_ability)
+
+
 func get_towers_with_id(arg_id):
 	var bucket = []
 	for tower in game_elements.tower_manager.get_all_towers_except_in_queue_free():
@@ -1150,6 +1163,7 @@ func get_towers_with_id(arg_id):
 			bucket.append(tower)
 	
 	return bucket
+
 
 # INDICATORS
 
@@ -1398,7 +1412,35 @@ func do_all_related_audios__for_quiz_timer_timeout():
 	
 
 
-#####################################
+########### ABILITY RELATED
+
+func _construct_blocker_ability():
+	blocker_ability = BaseAbility.new()
+	
+	blocker_ability.is_timebound = true
+	blocker_ability.connect("ability_activated", self, "_blocker_ability_activated", [], CONNECT_PERSIST)
+	blocker_ability.icon = null  #todo
+	
+	blocker_ability.descriptions = [
+		"Summon a Blocker that stops enemies from moving past it for %s seconds." % [blocker_duration]
+	]
+	blocker_ability.display_name = "Blocker"
+	
+	
+	register_ability_to_manager(blocker_ability)
+
+func register_ability_to_manager(ability : BaseAbility, add_to_panel : bool = true):
+	game_elements.ability_manager.add_ability(ability, add_to_panel)
+
+
+func _blocker_ability_activated():
+	blocker_ability.start_round_cooldown(blocker_ability_round_cooldown)
+	
+	#todo
+
+
+
+####################
 
 
 # EXPECTS a method that recieves 1 param (enemy)

@@ -5,6 +5,15 @@ const AudioStreamPlayerComponentPool = preload("res://MiscRelated/PoolRelated/Im
 const ValTransition = preload("res://MiscRelated/ValTransitionRelated/ValTransition.gd")
 
 
+# save related
+
+var data_name__background_music_volume_name : String = "backgroundmusic_volume"
+var data_name__background_music_is_mute_name : String = "backgroundmusic_ismute"
+
+var data_name__sound_fx_volume_name : String = "soundfx_volume"
+var data_name__sound_fx_is_mute_name : String = "soundfx_ismute"
+
+
 #
 
 const DECIBEL_VAL__INAUDIABLE : float = -30.0   # true zero/silence cannot be met, but this should be good enough
@@ -75,6 +84,11 @@ var bus__background_music_volume : float setget set_bus__background_music_volume
 signal bus__background_music_volume_changed(arg_val)
 var bus__background_music_bus_mute : bool setget set_bus__background_music_bus_mute
 signal bus__background_music_mute_changed(arg_val)
+
+
+#
+
+var game_elements
 
 #####
 
@@ -443,4 +457,101 @@ func set_bus__background_music_bus_mute(arg_val):
 	AudioServer.set_bus_mute(idx, bus__background_music_bus_mute)
 	
 	emit_signal("bus__background_music_mute_changed", arg_val)
+
+
+####################
+
+func _get_save_dict_for_data():
+	var save_dict = {
+		data_name__background_music_volume_name : bus__background_music_volume,
+		data_name__background_music_is_mute_name : bus__background_music_bus_mute,
+		
+		data_name__sound_fx_volume_name : bus__sound_fx_volume,
+		data_name__sound_fx_is_mute_name : bus__sound_fx_bus_mute,
+		
+	}
+	
+	return save_dict
+
+
+
+func _load_save_data(arg_file : File):
+	var save_dict = parse_json(arg_file.get_line())
+	
+	if !save_dict is Dictionary:
+		save_dict = {}
+	
+	_initialize_stats_with_save_dict(save_dict)
+
+func _initialize_save_data_from_scratch():
+	_initialize_stats_with_save_dict({})
+
+
+func _initialize_stats_with_save_dict(arg_save_dict : Dictionary):
+	_initialize_background_music_relateds(arg_save_dict)
+	_initialize_sound_fx_relateds(arg_save_dict)
+	
+
+
+func _initialize_background_music_relateds(arg_save_dict : Dictionary):
+	if arg_save_dict.has(data_name__background_music_volume_name):
+		set_bus__background_music_volume(int(arg_save_dict[data_name__background_music_volume_name]))
+		
+	else:
+		#player_name = ""
+		pass
+	
+	if arg_save_dict.has(data_name__background_music_is_mute_name):
+		set_bus__background_music_bus_mute(arg_save_dict[data_name__background_music_is_mute_name])
+		
+	else:
+		#player_name = ""
+		pass
+
+
+func _initialize_sound_fx_relateds(arg_save_dict : Dictionary):
+	if arg_save_dict.has(data_name__sound_fx_volume_name):
+		set_bus__sound_fx_volume(int(arg_save_dict[data_name__sound_fx_volume_name]))
+		
+	else:
+		#player_name = ""
+		pass
+	
+	if arg_save_dict.has(data_name__sound_fx_is_mute_name):
+		set_bus__sound_fx_bus_mute(arg_save_dict[data_name__sound_fx_is_mute_name])
+		
+	else:
+		#player_name = ""
+		pass
+
+
+func _on_singleton_initialize():
+	GameSaveManager.load_stats__of_audio_manager()
+
+
+#func _init():
+#	CommsForBetweenScenes.connect("game_elements_created", self, "connect_signals_with_game_elements")
+#
+#
+#func connect_signals_with_game_elements(arg_game_elements):
+#	game_elements = arg_game_elements
+#
+#	game_elements.connect("before_game_quit", self, "_on_before_game_quit", [], CONNECT_PERSIST)
+#
+#func disconnect_signals_with_game_elements():
+#	game_elements.disconnect("before_game_quit", self, "_on_before_game_quit")
+#
+#	game_elements = null
+#
+#func _on_before_game_quit():
+#	disconnect_signals_with_game_elements()
+#
+#	GameSaveManager.save_settings__of_audio_manager()
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		GameSaveManager.save_settings__of_audio_manager()
+		
+		#get_tree().quit() # default behavior
+
 

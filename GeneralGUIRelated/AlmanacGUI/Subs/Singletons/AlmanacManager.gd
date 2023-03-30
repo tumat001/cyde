@@ -298,11 +298,19 @@ func _on_page__requested_return_to_assigned_page_id(arg_page, arg_page_id_to_go_
 func _transfer_to_page(arg_page):
 	almanac_page_gui.set_almanac_item_list_page_data(arg_page)
 	
-	#if arg_page.has_at_least_one_non_page_entry_data:
-	var first_unobscured_option = arg_page.get_first_unobscured_almanac_item_list_entry_data()
-	if first_unobscured_option != null:
+	select_and_display_first_unobscured_option(arg_page)
+
+func select_and_display_first_unobscured_option(arg_page):
+	#var first_option = almanac_page_gui.get_first_unobscured_option()
+	
+	#if first_option != null:
+		#var arg_page = page_id_to_page_data[first_option._x_type_info.get_id__for_almanac_use()]
 		
-		call_deferred("_deferred_right_side_init_of_transfer_page", first_unobscured_option)
+		#if arg_page.has_at_least_one_non_page_entry_data:
+		var first_unobscured_option = arg_page.get_first_unobscured_almanac_item_list_entry_data()
+		if first_unobscured_option != null:
+			call_deferred("_deferred_right_side_init_of_transfer_page", first_unobscured_option)
+
 
 func _deferred_right_side_init_of_transfer_page(first_unobscured_option):
 	if first_unobscured_option != null:

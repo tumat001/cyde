@@ -153,7 +153,8 @@ func _construct_and_configure_and_show_almanac_gui_for_game_elements():
 	#
 	AlmanacManager.set_almanac_page_gui(almanac_page)
 	almanac_page.set_almanac_item_list_page_data(AlmanacManager.tidbit_page)
-
+	
+	#AlmanacManager.select_and_display_first_unobscured_option()
 
 func _on_requested_exit_almanac():
 	game_elements.whole_screen_gui.hide_control(almanac_page)

@@ -198,3 +198,7 @@ func _on_Almanac_XTypeInfoPanel_resized():
 		scrl_container_for_metadata.rect_size.x = x_type_info_panel.rect_size.x
 		
 
+
+func get_first_unobscured_option():
+	almanac_item_list_page_data.get_first_unobscured_almanac_item_list_entry_data()
+

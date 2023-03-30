@@ -1348,7 +1348,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		
 		var outer_ins = []
 		var ins = []
-		ins.append(NumericalTextFragment.new(5, false, DamageType.ELEMENTAL))
+		ins.append(NumericalTextFragment.new(2.5, false, DamageType.ELEMENTAL))
 		ins.append(TextFragmentInterpreter.STAT_OPERATION.ADDITION)
 		ins.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.BASE_DAMAGE, TowerStatTextFragment.STAT_BASIS.BONUS, 1, DamageType.ELEMENTAL))
 		ins.append(TextFragmentInterpreter.STAT_OPERATION.ADDITION)

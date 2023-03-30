@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/HomepageLobbyTheme_02.ogg-f92a7fb07f7854ebd2ff2a35230a2ee1.oggstr"
+
+[deps]
+
+source_file="res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/HomepageLobbyTheme_02.ogg"
+dest_files=[ "res://.import/HomepageLobbyTheme_02.ogg-f92a7fb07f7854ebd2ff2a35230a2ee1.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

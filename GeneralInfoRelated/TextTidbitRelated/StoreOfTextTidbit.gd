@@ -274,7 +274,7 @@ func _construct_tidbit__virus_background_01():
 	
 	tidbit.id = TidbitId.CYDE__VIRUS_BACKGROUND_01
 	tidbit.name = "Virus -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -299,7 +299,7 @@ func _construct_tidbit__virus_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__VIRUS_BEHAVIOR_01
 	tidbit.name = "Virus -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -346,7 +346,7 @@ func _construct_tidbit__virus_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__VIRUS_PRACTICES_01
 	tidbit.name = "Virus -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -374,7 +374,7 @@ func _construct_tidbit__trojan_background_01():
 	
 	tidbit.id = TidbitId.CYDE__TROJAN_BACKGROUND_01
 	tidbit.name = "Trojan -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -402,7 +402,7 @@ func _construct_tidbit__trojan_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__TROJAN_BEHAVIOR_01
 	tidbit.name = "Trojan -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -433,7 +433,7 @@ func _construct_tidbit__trojan_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__TROJAN_PRACTICES_01
 	tidbit.name = "Trojan -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -457,7 +457,7 @@ func _construct_tidbit__worm_background_01():
 	
 	tidbit.id = TidbitId.CYDE__WORM_BACKGROUND_01
 	tidbit.name = "Worm -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -477,7 +477,7 @@ func _construct_tidbit__worm_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__WORM_BEHAVIOR_01
 	tidbit.name = "Worm -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -507,7 +507,7 @@ func _construct_tidbit__worm_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__WORM_PRACTICES_01
 	tidbit.name = "Worm -- Practice"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit

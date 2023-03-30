@@ -161,7 +161,7 @@ func _construct_dia_seg__intro_01_sequence_001():
 	
 	var custom_pos = dia_portrait__pos__standard_left
 	custom_pos.x = 0
-	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
 	
 	
 	#####
@@ -238,6 +238,190 @@ func _on_dia_seg__intro_01_sequence_005__ended(arg_seg, arg_params):
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
 	set_round_is_startable(true)
+	
+	_construct_dia_seg__intro_02_sequence_001()
+	listen_for_round_end_into_stage_round_id_and_call_func("42", self, "_on_round_started__into_round_02")
+
+
+
+func _on_round_started__into_round_02(arg_stageround_id):
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		set_round_is_startable(false)
+		
+		_play_dia_seg__intro_02_sequence_001()
+
+
+########## BLOCKER
+
+func _construct_dia_seg__intro_02_sequence_001():
+	var plain_fragment__ability = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ABILITY, "ability")
+	var plain_fragment__Blocker = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ABILITY, "Blocker")
+	var plain_fragment__The_Blocker = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ABILITY, "The Blocker")
+	
+	
+	dia_seg__intro_02_sequence_001 = DialogSegment.new()
+	
+	var dia_seg__intro_02_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		["By reaching this far, you now also unlocked an |0| called [i]Blocker[/i].", [plain_fragment__ability]]
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_001, dia_seg__intro_02_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_001)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
+	####
+	
+	var dia_seg__intro_02_sequence_002 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_02_sequence_001, dia_seg__intro_02_sequence_002)
+	
+	var dia_seg__intro_02_sequence_002__descs = [
+		generate_colored_text__player_name__as_line(),
+		"What does it do?"
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_002, dia_seg__intro_02_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	####
+	
+	var dia_seg__intro_02_sequence_003 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_02_sequence_002, dia_seg__intro_02_sequence_003)
+	
+	var dia_seg__intro_02_sequence_003__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		["Once you trigger the |0|, it will block the enemy's path for %s seconds." % [blocker_duration], [plain_fragment__ability]],
+		["|0| is summoned on top of the very first enemy near escaping.", [plain_fragment__The_Blocker]]
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_003, dia_seg__intro_02_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_003)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	####
+	
+	var dia_seg__intro_02_sequence_004 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_02_sequence_003, dia_seg__intro_02_sequence_004)
+	
+	var dia_seg__intro_02_sequence_004__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		["You can activate |0| by pressing this button.", [plain_fragment__The_Blocker]]
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_004, dia_seg__intro_02_sequence_004__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_004)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	dia_seg__intro_02_sequence_004.connect("fully_displayed", self, "_on_dia_seg__intro_02_sequence_004__fully_displayed", [], CONNECT_ONESHOT)
+	
+	#####
+	
+	
+	var dia_seg__intro_02_sequence_005 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_02_sequence_004, dia_seg__intro_02_sequence_005)
+	
+	var dia_seg__intro_02_sequence_005__descs = [
+		generate_colored_text__player_name__as_line(),
+		"That is amazing! I can't wait to use it!"
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_005, dia_seg__intro_02_sequence_005__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_005)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	#######
+	
+	var dia_seg__intro_02_sequence_006 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_02_sequence_005, dia_seg__intro_02_sequence_006)
+	
+	var dia_seg__intro_02_sequence_006__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Be careful, it has a really long cooldown as you can only activate it once every %s rounds, so use it only if you really need to." % blocker_ability_round_cooldown
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_006, dia_seg__intro_02_sequence_006__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_006)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_006, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	#######
+	
+	var dia_seg__intro_02_sequence_007 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_02_sequence_006, dia_seg__intro_02_sequence_007)
+	
+	var dia_seg__intro_02_sequence_007__descs = [
+		generate_colored_text__player_name__as_line(),
+		"I will take note of that, thanks!"
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_007, dia_seg__intro_02_sequence_007__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_007)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_007, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	######
+	
+	
+	var dia_seg__intro_02_sequence_008 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_02_sequence_007, dia_seg__intro_02_sequence_008)
+	
+	var dia_seg__intro_02_sequence_008__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"And that's all I will tell you for now, I'll be seeing you."
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_008, dia_seg__intro_02_sequence_008__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_008)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_008, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	#####
+	
+	var dia_seg__intro_02_sequence_009 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_02_sequence_008, dia_seg__intro_02_sequence_009)
+	
+	var dia_seg__intro_02_sequence_009__descs = [
+		generate_colored_text__player_name__as_line(),
+		"Thank you for all of this, %s." % [CydeSingleton.cyde_robot__name]
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__intro_02_sequence_009, dia_seg__intro_02_sequence_009__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_009)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_009, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__intro_02_sequence_009, self, "_on_dia_seg__intro_02_sequence_009__ended", null)
+	
+
+
+func _play_dia_seg__intro_02_sequence_001():
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_02_sequence_001)
+	
+
+func _on_dia_seg__intro_02_sequence_004__fully_displayed():
+	var arrows = display_white_arrows_pointed_at_node(get_ability_button_with_ability(blocker_ability))
+	
+
+
+func _on_dia_seg__intro_02_sequence_009__ended(arg_seg, arg_params):
+	listen_for_round_end_into_stage_round_id_and_call_func("45", self, "_on_round_started__into_round_05")
+	
+	set_round_is_startable(true)
+	
+	play_dialog_segment_or_advance_or_finish_elements(null)
+
+func _on_round_started__into_round_05(arg_stageround_id):
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__info_01_sequence_001()
+		_play_dia_seg__intro_01_sequence_001()
+		
 
 
 ########### INFO 01
@@ -311,6 +495,7 @@ func _on_round_ended__into_round_06():
 	if !prevent_other_dia_segs_from_playing__from_loss:
 		_play_dia_seg__question_01_sequence_001()
 
+
 ########## QUESTION 01
 
 
@@ -322,15 +507,117 @@ func _construct_dia_seg__question_01_sequence_001():
 	
 	var dia_seg__question_01_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? Proceed to test your knowledge."
+		"Before we proceed to the Icebreaker quiz, I have to tell you that you have unlocked a new feature: [b]Alter and Reduction[/b].",
+		#"Ready for the Icebreaker quiz? Proceed to test your knowledge."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_sequence_001, dia_seg__question_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_sequence_001)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	####
+	
+	var dia_seg__question_01_ab_sequence_001 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001, dia_seg__question_01_ab_sequence_001)
+	
+	var dia_seg__question_01_ab_sequence_001__descs = [
+		generate_colored_text__player_name__as_line(),
+		"What are these features going to help me with?"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_ab_sequence_001, dia_seg__question_01_ab_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_ab_sequence_001)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_ab_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
+	####
+	
+	var dia_seg__question_01_ac_sequence_001 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_ab_sequence_001, dia_seg__question_01_ac_sequence_001)
+	
+	var dia_seg__question_01_ac_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"The [i]Alter and Reduction[/i]” is a support feature on icebreaker quiz. It is like a lifeline that you can use whenever you're unsure on your answer."
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_ac_sequence_001, dia_seg__question_01_ac_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_ac_sequence_001)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_ac_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
+	####
+	
+	var dia_seg__question_01_ad_sequence_001 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_ac_sequence_001, dia_seg__question_01_ad_sequence_001)
+	
+	var dia_seg__question_01_ad_sequence_001__descs = [
+		generate_colored_text__player_name__as_line(),
+		"How can I use it?"
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_ad_sequence_001, dia_seg__question_01_ad_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_ad_sequence_001)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_ad_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
+	####
+	
+	var dia_seg__question_01_ae_sequence_001 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_ad_sequence_001, dia_seg__question_01_ae_sequence_001)
+	
+	var dia_seg__question_01_ae_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"These options will appear and be available for use when you take the quiz.",
+		"[i]Alter[/i] will change the question given to you.",
+		"[i]Reduction[/i] will remove one (1) false answer.",
+		"However, they can only be used once per stage. Therefore, you should use them wisely!"
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_ae_sequence_001, dia_seg__question_01_ae_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_ae_sequence_001)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_ae_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
+	var dia_seg__question_01_af_sequence_001 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_ae_sequence_001, dia_seg__question_01_af_sequence_001)
+	
+	var dia_seg__question_01_af_sequence_001__descs = [
+		generate_colored_text__player_name__as_line(),
+		"I will take note of that, thanks!"
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_af_sequence_001, dia_seg__question_01_af_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_af_sequence_001)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_af_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
+	###
+	
+	var dia_seg__question_01_ag_sequence_001 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_af_sequence_001, dia_seg__question_01_ag_sequence_001)
+	
+	var dia_seg__question_01_ag_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"You're welcome!",
+		"Ready for the Icebreaker quiz? Proceed to test your knowledge."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_ag_sequence_001, dia_seg__question_01_ag_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_ag_sequence_001)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_ag_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
+	
+	########## QUESTION (AND STANDARD PROC AFTER that) ########
+	
 	var dia_seg__question_01_sequence_002 = _construct_and_configure_choices_for_question_01_questions()[0]
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001, dia_seg__question_01_sequence_002)
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_ag_sequence_001, dia_seg__question_01_sequence_002)
 	dia_seg__question_01_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_01_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
 	dia_seg__question_01_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_01_sequence_02__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
 	
@@ -443,10 +730,15 @@ func _on_dia_seg__question_01_sequence_003__ended(arg_seg, arg_param):
 	set_round_is_startable(true)
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
-	#_construct_dia_seg__intro_11_sequence_001()
+	_construct_dia_seg__info_02_sequence_001()
+	listen_for_round_end_into_stage_round_id_and_call_func("48", self, "_on_round_started__into_round_08")
 	
-	#listen_for_round_end_into_stage_round_id_and_call_func("311", self, "_on_round_started__into_round_11")
-	
+
+
+
+func _on_round_started__into_round_08(arg_stageround_id):
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_play_dia_seg__info_02_sequence_001()
 
 
 ########## INFO 02
@@ -651,10 +943,13 @@ func _on_dia_seg__question_02_sequence_003__ended(arg_seg, arg_param):
 	set_round_is_startable(true)
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
-	#_construct_dia_seg__intro_11_sequence_001()
-	
-	#listen_for_round_end_into_stage_round_id_and_call_func("311", self, "_on_round_started__into_round_11")
-	
+	_construct_dia_seg__info_03_sequence_001()
+	listen_for_round_end_into_stage_round_id_and_call_func("411", self, "_on_round_started__into_round_11")
+
+
+func _on_round_started__into_round_11(arg_stageround_id):
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_play_dia_seg__info_03_sequence_001()
 
 ########## INFO 03
 

@@ -1374,8 +1374,9 @@ func _on_round_started__into_round_10(arg_stageround_id):
 	_construct_dia_seg__intro_10_sequence_001()
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
+		set_round_is_startable(false)
+		
 		_play_dia_seg__intro_10_sequence_001()
-	
 
 
 

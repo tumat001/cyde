@@ -10,8 +10,8 @@ extends Node
 const cyde_robot__name := "Cyde"
 const dr_kevin_murphy__full_name = "Dr. Kevin Murphy"
 const dr_kevin_murphy__last_name = "Dr. Murphy"
-const dr_asi_mitnick__full_name = "Dr. Asi Mitnik"
-const dr_asi_mitnick__last_name = "Dr. Mitnik"
+const dr_asi_mitnick__full_name = "Dr. Asi Mitnick"
+const dr_asi_mitnick__last_name = "Dr. Mitnick"
 
 const cyberland__name := "Cyberland"
 

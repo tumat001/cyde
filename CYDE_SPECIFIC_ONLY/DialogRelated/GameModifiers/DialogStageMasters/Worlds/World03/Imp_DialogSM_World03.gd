@@ -185,7 +185,7 @@ func _on_game_elements_before_game_start__base_class():
 	
 	set_can_sell_towers(true)
 	set_can_toggle_to_ingredient_mode(false)
-	#set_can_towers_swap_positions_to_another_tower(false)
+	set_can_towers_swap_positions_to_another_tower(false)
 	#add_shop_per_refresh_modifier(-5)
 	add_gold_amount(20)
 	
@@ -1085,6 +1085,8 @@ func _on_dia_seg__intro_05_sequence_006__fully_displayed():
 	set_can_refresh_shop_at_round_end_clauses(true)
 	set_enabled_buy_slots([1, 2, 3, 4, 5])
 	
+	set_can_towers_swap_positions_to_another_tower(true)
+	
 	set_round_is_startable(true)
 	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_round_05", "_on_round_ended__into_round_05")
 
@@ -1456,8 +1458,10 @@ func _on_dia_seg__intro_08_sequence_008__ended(arg_seg, arg_params):
 
 
 func _on_round_started__into_round_08(arg_stageround_id):
-	
+	set_round_is_startable(false)
+		
 	if !prevent_other_dia_segs_from_playing__from_loss:
+		
 		_play_dia_seg__intro_09_sequence_001()
 
 
@@ -1504,6 +1508,8 @@ func _on_dia_seg__intro_09_sequence_002__ended(arg_seg, arg_params):
 
 
 func _on_round_started__into_round_09(arg_stageorund):
+	set_round_is_startable(false)
+	
 	if !prevent_other_dia_segs_from_playing__from_loss:
 		_play_dia_seg__intro_10_sequence_001()
 
@@ -1887,7 +1893,7 @@ func _construct_questions_and_choices_for__worm_Q01():
 	var question_info__01 = QuestionInfoForChoicesPanel.new()
 	question_info__01.choices_for_questions = choices_for_question_info__01
 	question_info__01.question_as_desc = question_01_desc
-	question_info__01.time_for_question = dia_time_duration__long
+	question_info__01.time_for_question = dia_time_duration__short
 	question_info__01.timeout_func_source = self
 	question_info__01.timeout_func_name = "_on_worm_Q01_timeout"
 	

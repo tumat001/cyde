@@ -31,7 +31,7 @@ const _audio_id_to_sound_file_path = {
 	AudioIds.GAMEPLAY_THEME_01 : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/GameplayTheme.ogg",
 	AudioIds.GAME_STAGE_START : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/GameStageStart.wav",
 	AudioIds.GAME_STAGE_WIN : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/GameStageWin.wav",
-	AudioIds.HOMEPAGE_LOBBY_THEME_01 : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/HomepageLobbyTheme.ogg",
+	AudioIds.HOMEPAGE_LOBBY_THEME_01 : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/HomepageLobbyTheme_02.ogg",
 	AudioIds.MALFUNCTION : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/Malfunction.wav",
 	AudioIds.QUESTION_INFO_THEME_01 : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/Question_InfoTheme.ogg",
 	AudioIds.TIMER_SOUND : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TimerSound.ogg",

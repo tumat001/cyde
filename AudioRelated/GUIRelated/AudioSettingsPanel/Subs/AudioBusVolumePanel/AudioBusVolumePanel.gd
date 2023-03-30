@@ -69,6 +69,8 @@ func _convert_volume_db_into_100_to_0_range(arg_db):
 
 func _on_slider_value_changed(arg_val):
 	var db = linear2db(arg_val / 100)
+	if arg_val == 0:
+		db = -80
 	
 	AudioManager.set(_audio_properties.bus_player_type_volume__variable_name, db)
 	
