@@ -287,8 +287,8 @@ const TowerTiersMap : Dictionary = {
 	SPRINKLER : 1,
 	COAL_LAUNCHER : 1,
 	EMBER : 1,
-	ENTROPY : 1,
 	
+	ENTROPY : 2,
 	VACUUM : 2,
 	COIN : 2,
 	BLEACH : 2,
@@ -1986,11 +1986,12 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
 		info.colors.append(TowerColors.INTEGRITY)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = royal_flame_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
-		info.base_damage = 3.5
-		info.base_attk_speed = 0.98
+		info.base_damage = 2.0
+		info.base_attk_speed = 0.88
 		info.base_pierce = 1
 		info.base_range = 140
 		info.base_damage_type = DamageType.ELEMENTAL

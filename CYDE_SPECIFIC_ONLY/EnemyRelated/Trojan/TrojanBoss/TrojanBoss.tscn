@@ -19,7 +19,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 17, 13.5 )
+extents = Vector2( 21, 17.5 )
 
 [node name="TrojanBoss" instance=ExtResource( 1 )]
 script = ExtResource( 4 )

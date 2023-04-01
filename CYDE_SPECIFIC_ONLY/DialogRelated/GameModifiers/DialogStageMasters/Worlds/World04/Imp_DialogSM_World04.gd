@@ -3,6 +3,20 @@ extends "res://MiscRelated/DialogRelated/StageMaster/BaseDialogStageMaster.gd"
 const CydeMode_StageRounds_World04 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomStageRounds/CydeMode_StageRounds_World04.gd")
 const CydeMode_EnemySpawnIns_World04 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomWaves/CydeMode_EnemySpawnIns_World04.gd")
 
+#
+
+enum World04_States {
+	
+	NONE = 1 << 0
+	
+	SHOWN_CYDE_CONVO = 1 << 1,
+	SHOWN_BLOCKER_ABILITY_USE = 1 << 2,
+	SHOWN_ALTER_AND_REDUC = 1 << 3,
+	
+}
+
+#
+
 var stage_rounds_to_use
 
 #
@@ -36,6 +50,7 @@ var dia_seg__question_02_sequence_003 : DialogSegment
 var dia_seg__info_03_sequence_001 : DialogSegment
 
 # Question 03
+var dia_seg__question_01_ag_sequence_001 : DialogSegment
 var dia_seg__question_03_sequence_001 : DialogSegment
 var dia_seg__question_03_sequence_003 : DialogSegment
 
@@ -150,6 +165,9 @@ func _on_game_elements_before_game_start__base_class():
 #####
 
 func _construct_dia_seg__intro_01_sequence_001():
+	var show_skip = flag_is_enabled(CydeSingleton.get_world_completion_state_num_to_world_id(StoreOfGameModifiers.GameModiIds__CYDE_World_04), World04_States.SHOWN_CYDE_CONVO)
+	
+	
 	dia_seg__intro_01_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__intro_01_sequence_001__descs = [
@@ -162,6 +180,9 @@ func _construct_dia_seg__intro_01_sequence_001():
 	var custom_pos = dia_portrait__pos__standard_left
 	custom_pos.x = 0
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_001, self, "_on_intro_01_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
 	
 	
 	#####
@@ -179,6 +200,9 @@ func _construct_dia_seg__intro_01_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_002, self, "_on_intro_01_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	####
 	
@@ -195,6 +219,9 @@ func _construct_dia_seg__intro_01_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_003, self, "_on_intro_01_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	####
 	
@@ -209,6 +236,10 @@ func _construct_dia_seg__intro_01_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_01_sequence_004)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_01_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_01_sequence_004, self, "_on_intro_01_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	#####
 	
@@ -235,12 +266,19 @@ func _play_dia_seg__intro_01_sequence_001():
 
 
 func _on_dia_seg__intro_01_sequence_005__ended(arg_seg, arg_params):
+	_on_intro_01_completed()
+
+func _on_intro_01_completed():
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
 	set_round_is_startable(true)
 	
 	_construct_dia_seg__intro_02_sequence_001()
 	listen_for_round_end_into_stage_round_id_and_call_func("42", self, "_on_round_started__into_round_02")
+	
+	# flag setting
+	world_completion_num_state = set_flag(world_completion_num_state, World04_States.SHOWN_CYDE_CONVO)
+	set_CYDE_Singleton_world_completion_state_num(world_completion_num_state)
 
 
 
@@ -248,12 +286,18 @@ func _on_round_started__into_round_02(arg_stageround_id):
 	if !prevent_other_dia_segs_from_playing__from_loss:
 		set_round_is_startable(false)
 		
+		
+		_initialize_blocker_ability()
+		
 		_play_dia_seg__intro_02_sequence_001()
 
 
 ########## BLOCKER
 
 func _construct_dia_seg__intro_02_sequence_001():
+	var show_skip = flag_is_enabled(CydeSingleton.get_world_completion_state_num_to_world_id(StoreOfGameModifiers.GameModiIds__CYDE_World_04), World04_States.SHOWN_BLOCKER_ABILITY_USE)
+	
+	
 	var plain_fragment__ability = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ABILITY, "ability")
 	var plain_fragment__Blocker = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ABILITY, "Blocker")
 	var plain_fragment__The_Blocker = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ABILITY, "The Blocker")
@@ -271,6 +315,9 @@ func _construct_dia_seg__intro_02_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_02_sequence_001, self, "_on_intro_02_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	####
 	
@@ -286,6 +333,10 @@ func _construct_dia_seg__intro_02_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_002)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_02_sequence_002, self, "_on_intro_02_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	####
 	
@@ -303,6 +354,10 @@ func _construct_dia_seg__intro_02_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_02_sequence_003, self, "_on_intro_02_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
+	
 	####
 	
 	var dia_seg__intro_02_sequence_004 = DialogSegment.new()
@@ -318,6 +373,10 @@ func _construct_dia_seg__intro_02_sequence_001():
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
 	dia_seg__intro_02_sequence_004.connect("fully_displayed", self, "_on_dia_seg__intro_02_sequence_004__fully_displayed", [], CONNECT_ONESHOT)
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_02_sequence_004, self, "_on_intro_02_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	#####
 	
@@ -335,6 +394,11 @@ func _construct_dia_seg__intro_02_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_02_sequence_005, self, "_on_intro_02_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
+	
+	
 	#######
 	
 	var dia_seg__intro_02_sequence_006 = DialogSegment.new()
@@ -349,6 +413,10 @@ func _construct_dia_seg__intro_02_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_006)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_006, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_02_sequence_006, self, "_on_intro_02_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	#######
 	
@@ -365,6 +433,10 @@ func _construct_dia_seg__intro_02_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_007, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_02_sequence_007, self, "_on_intro_02_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
+	
 	######
 	
 	
@@ -380,6 +452,10 @@ func _construct_dia_seg__intro_02_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__intro_02_sequence_008)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__intro_02_sequence_008, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__intro_02_sequence_008, self, "_on_intro_02_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	#####
 	
@@ -407,27 +483,37 @@ func _play_dia_seg__intro_02_sequence_001():
 
 func _on_dia_seg__intro_02_sequence_004__fully_displayed():
 	var arrows = display_white_arrows_pointed_at_node(get_ability_button_with_ability(blocker_ability))
-	
+	arrows[0].x_offset = -25
+	arrows[1].y_offset = -25
 
 
 func _on_dia_seg__intro_02_sequence_009__ended(arg_seg, arg_params):
+	_on_intro_02_completed()
+
+
+func _on_round_started__into_round_05(arg_stageround_id):
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__info_01_sequence_001()
+		_play_dia_seg__info_01_sequence_001()
+		
+
+
+func _on_intro_02_completed():
 	listen_for_round_end_into_stage_round_id_and_call_func("45", self, "_on_round_started__into_round_05")
 	
 	set_round_is_startable(true)
 	
 	play_dialog_segment_or_advance_or_finish_elements(null)
 
-func _on_round_started__into_round_05(arg_stageround_id):
-	if !prevent_other_dia_segs_from_playing__from_loss:
-		_construct_dia_seg__info_01_sequence_001()
-		_play_dia_seg__intro_01_sequence_001()
-		
+	# flag setting
+	world_completion_num_state = set_flag(world_completion_num_state, World04_States.SHOWN_BLOCKER_ABILITY_USE)
+	set_CYDE_Singleton_world_completion_state_num(world_completion_num_state)
+
 
 
 ########### INFO 01
 
 func _construct_dia_seg__info_01_sequence_001():
-	
 	dia_seg__info_01_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__info_01_sequence_001__descs = [
@@ -437,6 +523,7 @@ func _construct_dia_seg__info_01_sequence_001():
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__info_01_sequence_001, dia_seg__info_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__info_01_sequence_001)
+	
 	
 	#######
 	
@@ -502,6 +589,8 @@ func _on_round_ended__into_round_06():
 func _construct_dia_seg__question_01_sequence_001():
 	_construct_questions_and_choices_for__adware_Q01()
 	
+	var show_skip = flag_is_enabled(CydeSingleton.get_world_completion_state_num_to_world_id(StoreOfGameModifiers.GameModiIds__CYDE_World_04), World04_States.SHOWN_ALTER_AND_REDUC)
+	
 	
 	dia_seg__question_01_sequence_001 = DialogSegment.new()
 	
@@ -514,6 +603,10 @@ func _construct_dia_seg__question_01_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_sequence_001)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__question_01_sequence_001, self, "_on_alter_and_reduc_info_shown_skipped", SKIP_BUTTON__SKIP_DIALOG_TEXT)
+	
 	
 	####
 	
@@ -599,7 +692,7 @@ func _construct_dia_seg__question_01_sequence_001():
 	
 	###
 	
-	var dia_seg__question_01_ag_sequence_001 = DialogSegment.new()
+	dia_seg__question_01_ag_sequence_001 = DialogSegment.new()
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_af_sequence_001, dia_seg__question_01_ag_sequence_001)
 	
 	var dia_seg__question_01_ag_sequence_001__descs = [
@@ -639,6 +732,9 @@ func _play_dia_seg__question_01_sequence_001():
 	
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_01_sequence_001)
 	
+
+func _on_alter_and_reduc_info_shown_skipped():
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_01_ag_sequence_001)
 
 
 func _on_dia_seg__question_01_sequence_02__setted_into_whole_screen_panel():
@@ -733,6 +829,9 @@ func _on_dia_seg__question_01_sequence_003__ended(arg_seg, arg_param):
 	_construct_dia_seg__info_02_sequence_001()
 	listen_for_round_end_into_stage_round_id_and_call_func("48", self, "_on_round_started__into_round_08")
 	
+	# flag setting
+	world_completion_num_state = set_flag(world_completion_num_state, World04_States.SHOWN_ALTER_AND_REDUC)
+	set_CYDE_Singleton_world_completion_state_num(world_completion_num_state)
 
 
 
@@ -1029,7 +1128,7 @@ func _on_round_ended__into_round_12():
 
 
 func _construct_dia_seg__question_03_sequence_001():
-	_construct_questions_and_choices_for__adware_Q02()
+	_construct_questions_and_choices_for__adware_Q03()
 	
 	
 	dia_seg__question_03_sequence_001 = DialogSegment.new()
@@ -1266,7 +1365,7 @@ func _construct_questions_and_choices_for__adware_Q01():
 	var question_info__02 = QuestionInfoForChoicesPanel.new()
 	question_info__02.choices_for_questions = choices_for_question_info__02
 	question_info__02.question_as_desc = question_02_desc
-	question_info__02.time_for_question = dia_time_duration__short
+	question_info__02.time_for_question = dia_time_duration__medium
 	question_info__02.timeout_func_source = self
 	question_info__02.timeout_func_name = "_on_adware_Q01_timeout"
 	
@@ -1330,7 +1429,7 @@ func _construct_questions_and_choices_for__adware_Q02():
 	var question_info__01 = QuestionInfoForChoicesPanel.new()
 	question_info__01.choices_for_questions = choices_for_question_info__01
 	question_info__01.question_as_desc = question_01_desc
-	question_info__01.time_for_question = dia_time_duration__long
+	question_info__01.time_for_question = dia_time_duration__short
 	question_info__01.timeout_func_source = self
 	question_info__01.timeout_func_name = "_on_adware_Q02_timeout"
 	

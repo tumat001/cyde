@@ -3,4 +3,6 @@ enum {
 	CIRCLE,
 	RECTANGLE,
 	
+	TRIANGLE,
+	
 }

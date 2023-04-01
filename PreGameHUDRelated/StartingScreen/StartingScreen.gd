@@ -11,14 +11,17 @@ const AboutPanel_Scene = preload("res://PreGameHUDRelated/AboutPanel/AboutPanel.
 const Almanac_Page = preload("res://GeneralGUIRelated/AlmanacGUI/Subs/Almanac_Page/Almanac_Page.gd")
 const Almanac_Page_Scene = preload("res://GeneralGUIRelated/AlmanacGUI/Subs/Almanac_Page/Almanac_Page.tscn")
 
-const StartingScreen_WholeScreen_Phase_02_01 = preload("res://PreGameHUDRelated/StartingScreen/Assets/StartingScreen_WholeScreen_Phase02_01.png")
-const StartingScreen_WholeScreen_Phase_02_02 = preload("res://PreGameHUDRelated/StartingScreen/Assets/StartingScreen_WholeScreen_Phase02_02.png")
+#const StartingScreen_WholeScreen_Phase_02_01 = preload("res://PreGameHUDRelated/StartingScreen/Assets/StartingScreen_WholeScreen_Phase02_01.png")
+#const StartingScreen_WholeScreen_Phase_02_02 = preload("res://PreGameHUDRelated/StartingScreen/Assets/StartingScreen_WholeScreen_Phase02_02.png")
+
+const StartingScreen_WholeScreen_Phase_03_01 = preload("res://PreGameHUDRelated/StartingScreen/Assets/StartingScreen_WholeScreen_Phase03_01.png")
 
 #
 
 const background_selection : Array = [
-	StartingScreen_WholeScreen_Phase_02_01,
-	StartingScreen_WholeScreen_Phase_02_02
+	#StartingScreen_WholeScreen_Phase_02_01,
+	#StartingScreen_WholeScreen_Phase_02_02,
+	StartingScreen_WholeScreen_Phase_03_01,
 ]
 
 #

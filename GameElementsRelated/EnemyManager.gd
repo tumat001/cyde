@@ -505,6 +505,9 @@ func get_all_targetable_and_invisible_enemies() -> Array:
 func get_random_targetable_enemies(arg_num_of_enemies : int, arg_pos_of_reference : Vector2 = Vector2(0, 0), arg_include_invis : bool = false):
 	return Targeting.enemies_to_target(get_all_enemies(), Targeting.RANDOM, arg_num_of_enemies, arg_pos_of_reference, arg_include_invis)
 
+func get_first_targetable_enemies(arg_num_of_enemies : int, arg_pos_of_reference : Vector2 = Vector2(0, 0), arg_include_invis : bool = false):
+	return Targeting.enemies_to_target(get_all_enemies(), Targeting.FIRST, arg_num_of_enemies, arg_pos_of_reference, arg_include_invis)
+
 
 func get_path_of_enemy(arg_enemy) -> EnemyPath:
 	return _enemy_paths_array.get_path_of_enemy(arg_enemy)

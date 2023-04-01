@@ -18,7 +18,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 17, 13.5 )
+extents = Vector2( 22, 18.5 )
 
 [node name="Adware_Boss" instance=ExtResource( 2 )]
 script = ExtResource( 3 )

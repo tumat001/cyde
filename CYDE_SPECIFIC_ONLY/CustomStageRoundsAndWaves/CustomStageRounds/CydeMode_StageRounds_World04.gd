@@ -48,7 +48,7 @@ func _get_stageround_4_2():
 	var stageround = StageRound.new(4, 2)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.3
+	stageround.enemy_health_multiplier = 0.5
 	stageround.enemy_first_damage = 0
 	
 	
@@ -58,7 +58,7 @@ func _get_stageround_4_3():
 	var stageround = StageRound.new(4, 3)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.3
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	
@@ -68,7 +68,7 @@ func _get_stageround_4_4():
 	var stageround = StageRound.new(4, 4)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	
@@ -79,7 +79,7 @@ func _get_stageround_4_5():
 	var stageround = StageRound.new(4, 5)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	stageround.is_info_round = true
@@ -90,7 +90,7 @@ func _get_stageround_4_6():
 	var stageround = StageRound.new(4, 6)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	stageround.is_question_round = true
@@ -101,7 +101,7 @@ func _get_stageround_4_7():
 	var stageround = StageRound.new(4, 7)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	
@@ -111,7 +111,7 @@ func _get_stageround_4_8():
 	var stageround = StageRound.new(4, 8)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	stageround.is_info_round = true
@@ -122,7 +122,7 @@ func _get_stageround_4_9():
 	var stageround = StageRound.new(4, 9)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	stageround.is_question_round = true
@@ -133,7 +133,7 @@ func _get_stageround_4_10():
 	var stageround = StageRound.new(4, 10)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	
@@ -143,7 +143,7 @@ func _get_stageround_4_11():
 	var stageround = StageRound.new(4, 11)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	
@@ -155,7 +155,7 @@ func _get_stageround_4_12():
 	var stageround = StageRound.new(4, 12)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	stageround.is_question_round = true
@@ -166,7 +166,7 @@ func _get_stageround_4_13():
 	var stageround = StageRound.new(4, 13)
 	stageround.end_of_round_gold = 2
 	stageround.enemy_damage_multiplier = 1
-	stageround.enemy_health_multiplier = 0.65
+	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
 	return stageround

@@ -48,9 +48,8 @@ func _get_instructions_for_0_1():
 func _get_instructions_for_0_2():
 	return [
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		
-		SingleEnemySpawnInstruction.new(3, EnemyConstants.Enemies.ADWARE__APPEARCH),
+		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		
 	]
 
@@ -59,11 +58,8 @@ func _get_instructions_for_0_3():
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		
-		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(7, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(9.5, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.ADWARE__APPEARCH),
+		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		
 	]
 
@@ -71,15 +67,11 @@ func _get_instructions_for_0_4():
 	return [
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		
-		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(5.5, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(6.5, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		SingleEnemySpawnInstruction.new(7, EnemyConstants.Enemies.ADWARE__APPEARCH),
-		SingleEnemySpawnInstruction.new(7.5, EnemyConstants.Enemies.ADWARE__APPEARCH),
+		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		
+		SingleEnemySpawnInstruction.new(15, EnemyConstants.Enemies.ADWARE__APPEARCH),
+		SingleEnemySpawnInstruction.new(16, EnemyConstants.Enemies.ADWARE__APPEARCH),
 		
 	]
 

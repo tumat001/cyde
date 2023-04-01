@@ -530,7 +530,7 @@ func _construct_tidbit__adware_background_01():
 	
 	tidbit.id = TidbitId.CYDE__ADWARE_BACKGROUND_01
 	tidbit.name = "Adware -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image =  preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -557,7 +557,7 @@ func _construct_tidbit__adware_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__ADWARE_BEHAVIOR_01
 	tidbit.name = "Adware -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image =  preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -586,7 +586,7 @@ func _construct_tidbit__adware_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__ADWARE_PRACTICES_01
 	tidbit.name = "Adware -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image =  preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -606,7 +606,7 @@ func _construct_tidbit__ransomware_background_01():
 	
 	tidbit.id = TidbitId.CYDE__RANSOMWARE_BACKGROUND_01
 	tidbit.name = "Ransomware -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image =  preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -633,7 +633,7 @@ func _construct_tidbit__ransomware_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__RANSOMWARE_BEHAVIOR_01
 	tidbit.name = "Ransomware -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image =  preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -665,7 +665,7 @@ func _construct_tidbit__ransomware_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__RANSOMWARE_PRACTICES_01
 	tidbit.name = "Ransomware -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -689,7 +689,7 @@ func _construct_tidbit__spyware_background_01():
 	
 	tidbit.id = TidbitId.CYDE__SPYWARE_BACKGROUND_01
 	tidbit.name = "Spyware -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -730,7 +730,7 @@ func _construct_tidbit__spyware_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__SPYWARE_BEHAVIOR_01
 	tidbit.name = "Spyware -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -759,7 +759,7 @@ func _construct_tidbit__spyware_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__SPYWARE_PRACTICES_01
 	tidbit.name = "Spyware -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -783,7 +783,7 @@ func _construct_tidbit__rootkit_background_01():
 	
 	tidbit.id = TidbitId.CYDE__ROOTKIT_BACKGROUND_01
 	tidbit.name = "Rootkit -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -803,7 +803,7 @@ func _construct_tidbit__rootkit_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__ROOTKIT_BEHAVIOR_01
 	tidbit.name = "Rootkit -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -831,7 +831,7 @@ func _construct_tidbit__rootkit_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__ROOTKIT_PRACTICES_01
 	tidbit.name = "Rootkit -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -852,7 +852,7 @@ func _construct_tidbit__fileless_background_01():
 	
 	tidbit.id = TidbitId.CYDE__FILELESS_BACKGROUND_01
 	tidbit.name = "Fileless -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -873,7 +873,7 @@ func _construct_tidbit__fileless_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__FILELESS_BEHAVIOR_01
 	tidbit.name = "Fileless -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -900,7 +900,7 @@ func _construct_tidbit__fileless_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__FILELESS_PRACTICES_01
 	tidbit.name = "Fileless -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -923,7 +923,7 @@ func _construct_tidbit__malbots_background_01():
 	
 	tidbit.id = TidbitId.CYDE__MALBOTS_BACKGROUND_01
 	tidbit.name = "Malware Bots -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -944,7 +944,7 @@ func _construct_tidbit__malbots_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__MALBOTS_BEHAVIOR_01
 	tidbit.name = "Malware Bots -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -973,7 +973,7 @@ func _construct_tidbit__malbots_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__MALBOTS_PRACTICES_01
 	tidbit.name = "Malware Bots -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -995,7 +995,7 @@ func _construct_tidbit__mobile_malware_background_01():
 	
 	tidbit.id = TidbitId.CYDE__MOBILE_MALWARE_BACKGROUND_01
 	tidbit.name = "Mobile Malware -- Background"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/information123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -1021,7 +1021,7 @@ func _construct_tidbit__mobile_malware_behavior_01():
 	
 	tidbit.id = TidbitId.CYDE__MOBILE_MALWARE_BEHAVIOR_01
 	tidbit.name = "Mobile Malware -- Behavior"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/behavior123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
@@ -1052,7 +1052,7 @@ func _construct_tidbit__mobile_malware_practices_01():
 	
 	tidbit.id = TidbitId.CYDE__MOBILE_MALWARE_PRACTICES_01
 	tidbit.name = "Mobile Malware -- Practices"
-	tidbit.atlased_image = load("res://GeneralGUIRelated/AlmanacGUI/Assets/TidbitPage_RightSide/Icons/TidbitIcon_Orange12.png")  #todo
+	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit

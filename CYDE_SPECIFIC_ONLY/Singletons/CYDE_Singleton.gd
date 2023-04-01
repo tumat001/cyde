@@ -170,7 +170,7 @@ func _fill_in_missing_world_id_to_world_completion_num_state(arg_specific_save_d
 func set_world_completion_state_num_to_world_id(arg_state, arg_id):
 	world_id_to_world_completion_num_state_dict[arg_id] = arg_state
 
-func get_world_completion_state_num_to_world_id(arg_id):
+func get_world_completion_state_num_to_world_id(arg_id) -> int:
 	return world_id_to_world_completion_num_state_dict[arg_id]
 
 

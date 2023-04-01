@@ -1254,6 +1254,10 @@ func _on_tower_placed_in_map_from_bench(arg_tower, arg_in_map_placable, arg_benc
 func _on_tower_in_queue_free__for_restore_position(arg_tower):
 	if stage_round_manager.round_started:
 		_unrecord_tower_for_restore_position(arg_tower)
+	
+	var star_level = arg_tower.get_cyde_current_star_level()
+	if star_level == 3:
+		game_elements.shop_manager.add_tower_to_inventory(arg_tower.tower_id, Towers.TowerTiersMap[arg_tower.tower_id])
 
 
 func _emit_tower_ingredients_absorbed_changed(arg_tower):

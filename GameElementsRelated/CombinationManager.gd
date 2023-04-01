@@ -518,7 +518,9 @@ func _on_candidate_tower_queue_free__create_higher_star_tower(arg_tower, arg_tow
 	tower.set_cyde_current_star_level(arg_star_level)
 	
 	game_elements.tower_inventory_bench.add_tower_to_scene(tower)
-
+	
+	if arg_star_level == 3:
+		game_elements.shop_manager.remove_tower_from_inventory(arg_tower_id)
 
 
 func _construct_combination_effect_from_tower(arg_tower_id : int) -> CombinationEffect:
@@ -609,9 +611,9 @@ func _update_combination_effects_of_towers_based_on_current():
 			else:
 				_remove_combination_effect_id_from_tower(combi_effect.combination_id, tower)
 			
-			if tower.tower_type_info.tower_type_id == Towers.TRANSPORTER:
-				print(tiers_affected_per_combo_tier)
-				print(str(_if_combination_effect_can_apply_to_tier(combi_effect, tower.tower_type_info.tower_tier)))
+#			if tower.tower_type_info.tower_type_id == Towers.TRANSPORTER:
+#				print(tiers_affected_per_combo_tier)
+#				print(str(_if_combination_effect_can_apply_to_tier(combi_effect, tower.tower_type_info.tower_tier)))
 
 
 func _remove_combination_effect_id_from_tower(combi_id : int, arg_tower):

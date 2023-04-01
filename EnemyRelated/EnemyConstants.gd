@@ -420,7 +420,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.ADWARE__APPEARCH:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 38
+		info.base_health = 36
 		info.base_movement_speed = 50
 		
 		if arg_include_non_combat_info:
@@ -432,7 +432,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.ADWARE__DESK_AD:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 30
+		info.base_health = 32
 		info.base_movement_speed = 55
 		
 		if arg_include_non_combat_info:

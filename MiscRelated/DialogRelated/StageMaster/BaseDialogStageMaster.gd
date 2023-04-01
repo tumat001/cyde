@@ -40,9 +40,16 @@ const AttackSpritePoolComponent = preload("res://MiscRelated/AttackSpriteRelated
 const AttackSprite_Scene = preload("res://MiscRelated/AttackSpriteRelated/AttackSprite.tscn")
 
 const TowerParticlePlayerEffect = preload("res://CYDE_SPECIFIC_ONLY/PowerupEffectsRelated/TowerRelated/TowerParticlePlayerEffect.gd")
+const EnemyParticlePlayerEffect = preload("res://CYDE_SPECIFIC_ONLY/PowerupEffectsRelated/EnemyRelated/EnemyParticlePlayerEffect.gd")
 
 const BaseAbility = preload("res://GameInfoRelated/AbilityRelated/BaseAbility.gd")
 
+
+const AOEAttackModule_Scene = preload("res://TowerRelated/Modules/AOEAttackModule.tscn")
+const BaseAOE_Scene = preload("res://TowerRelated/DamageAndSpawnables/BaseAOE.tscn")
+const BaseAOEDefaultShapes = preload("res://TowerRelated/DamageAndSpawnables/BaseAOEDefaultShapes.gd")
+const AOEAttackModule = preload("res://TowerRelated/Modules/AOEAttackModule.gd")
+const DamageType = preload("res://GameInfoRelated/DamageType.gd")
 
 ###
 
@@ -78,6 +85,7 @@ const dia_portrait__pos__standard_right := Vector2(600, 150)
 
 const dia_time_duration__very_short : float = 20.0
 const dia_time_duration__short : float = 25.0
+const dia_time_duration__medium : float = 40.0
 const dia_time_duration__long : float = 60.0
 
 
@@ -141,14 +149,22 @@ var tower_power_up_particle_pool_component : AttackSpritePoolComponent
 const tower_power_up_particle_color__a_range := Color(2/255.0, 217/255.0, 215/255.0, 0.8)
 const tower_power_up_particle_color__b_range := Color(2/255.0, 139/255.0, 218/255.0, 1)
 
+var enemy_power_up_particle_pool_component : AttackSpritePoolComponent
+const enemy_power_up_particle_color__a_range := Color(217/255.0, 2/255.0, 6/255.0, 0.8)
+const enemy_power_up_particle_color__b_range := Color(218/255.0, 83/255.0, 2/255.0, 1)
+
+
 
 var non_essential_rng : RandomNumberGenerator
 
 #
 
 var blocker_ability : BaseAbility
-const blocker_ability_round_cooldown : int = 4
+const blocker_ability_round_cooldown : int = 3
 const blocker_duration : float = 10.0
+
+var blocker_aoe_attack_module
+var _enemy_to_blocker_entered_count_map : Dictionary
 
 #
 
@@ -232,8 +248,15 @@ func _initialize_particle_pool_components():
 	tower_power_up_particle_pool_component.source_for_funcs_for_attk_sprite = self
 	tower_power_up_particle_pool_component.func_name_for_creating_attack_sprite = "_create_tower_power_up_particle"
 	#tower_power_up_particle_pool_component.func_name_for_setting_attks_sprite_properties_when_get_from_pool_after_add_child = "_configure_tower_power_up_particle_on_show"
-
-
+	
+	
+	enemy_power_up_particle_pool_component = AttackSpritePoolComponent.new()
+	enemy_power_up_particle_pool_component.node_to_parent_attack_sprites = CommsForBetweenScenes.current_game_elements__other_node_hoster
+	enemy_power_up_particle_pool_component.node_to_listen_for_queue_free = CommsForBetweenScenes.current_game_elements__other_node_hoster
+	enemy_power_up_particle_pool_component.source_for_funcs_for_attk_sprite = self
+	enemy_power_up_particle_pool_component.func_name_for_creating_attack_sprite = "_create_enemy_power_up_particle"
+	
+	
 
 
 func _create_tower_power_up_particle():
@@ -256,6 +279,17 @@ func _get_random_color_between(arg_color_01, arg_color_02):
 	
 	return Color(rand_r, rand_g, rand_b, rand_a)
 
+
+func _create_enemy_power_up_particle():
+	var particle = AttackSprite_Scene.instance()
+	
+	particle.texture_to_use = preload("res://CYDE_SPECIFIC_ONLY/PowerupEffectsRelated/Assets/PowerUpParticle_Square_3x3.png")
+	
+	particle.lifetime = 0.5
+	particle.queue_free_at_end_of_lifetime = false
+	particle.frames_based_on_lifetime = false
+	
+	return particle
 
 #
 
@@ -1207,14 +1241,14 @@ func display_white_circle_at_node(arg_node):
 
 ######### BITWISE STUFFS
 
-static func flag_is_enabled(b, flag):
+static func flag_is_enabled(b : int, flag : int):
 	return b & flag != 0
 
-static func set_flag(b, flag):
+static func set_flag(b : int, flag : int):
 	b = b|flag
 	return b
 
-static func unset_flag(b, flag):
+static func unset_flag(b : int, flag : int):
 	b = b & ~flag
 	return b
 
@@ -1338,6 +1372,10 @@ func apply_enemy_power_up_effects():
 	game_elements.enemy_manager.add_effect_to_apply_to_all_enemies(speed_effect)
 	game_elements.enemy_manager.add_effect_to_apply_on_enemy_spawn__time_reduced_by_process(speed_effect)
 	
+	var particle_effect = _construct_particle_effect_effect_for_enemy()
+	game_elements.enemy_manager.add_effect_to_apply_to_all_enemies(particle_effect)
+	game_elements.enemy_manager.add_effect_to_apply_on_enemy_spawn__time_reduced_by_process(particle_effect)
+	
 
 
 func _construct_enemy_speed_up_effect():
@@ -1351,8 +1389,33 @@ func _construct_enemy_speed_up_effect():
 	
 	return speed_bonus_effect
 
+func _construct_particle_effect_effect_for_enemy():
+	var effect = EnemyParticlePlayerEffect.new(StoreOfEnemyEffectsUUID.ENEMY_POWER_UP__PARTICLE_PLAY_EFFECT)
+	effect.particle_pool_component = enemy_power_up_particle_pool_component
+	effect.particle_show_delta = 0.3
+	effect.non_essential_rng = non_essential_rng
+	effect.apply_common_attack_sprite_template_float_slow = true
+	
+	effect.is_timebound = true
+	effect.time_in_seconds = POWER_UP__DEFAULT_DURATION
+	
+	effect.connect("before_particle_is_shown", self, "_configure_enemy_power_up_particle_on_show")
+	effect.connect("copy_is_created", self, "enemy_particle_effect_effect__copy_is_created")
+	
+	return effect
 
-#####
+
+func _configure_enemy_power_up_particle_on_show(arg_particle):
+	arg_particle.modulate = _get_random_color_between(enemy_power_up_particle_color__a_range, enemy_power_up_particle_color__b_range)
+	
+
+func enemy_particle_effect_effect__copy_is_created(arg_copy):
+	arg_copy.connect("before_particle_is_shown", self, "_configure_tower_power_up_particle_on_show")
+	
+
+
+##### audio related
+
 
 func play_correct_choice_sound():
 	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.CORRECT_ANSWER)
@@ -1414,18 +1477,24 @@ func do_all_related_audios__for_quiz_timer_timeout():
 
 ########### ABILITY RELATED
 
+func _initialize_blocker_ability():
+	_construct_blocker_ability()
+	_construct_and_add_blocker_aoe_attk_module()
+
+
 func _construct_blocker_ability():
 	blocker_ability = BaseAbility.new()
 	
-	blocker_ability.is_timebound = true
+	#blocker_ability.is_timebound = true
 	blocker_ability.connect("ability_activated", self, "_blocker_ability_activated", [], CONNECT_PERSIST)
-	blocker_ability.icon = null  #todo
+	blocker_ability.icon = preload("res://CYDE_SPECIFIC_ONLY/AbilityAssets/Blocker/BlockerAbility_AbilityIcon.png")
 	
 	blocker_ability.descriptions = [
 		"Summon a Blocker that stops enemies from moving past it for %s seconds." % [blocker_duration]
 	]
 	blocker_ability.display_name = "Blocker"
 	
+	blocker_ability.is_roundbound = true
 	
 	register_ability_to_manager(blocker_ability)
 
@@ -1434,10 +1503,92 @@ func register_ability_to_manager(ability : BaseAbility, add_to_panel : bool = tr
 
 
 func _blocker_ability_activated():
-	blocker_ability.start_round_cooldown(blocker_ability_round_cooldown)
+	var first_enemies = game_elements.enemy_manager.get_first_targetable_enemies(1)
 	
-	#todo
+	if first_enemies.size() != 0:
+		var first_enemy = first_enemies[0]
+		if is_instance_valid(first_enemy):
+			blocker_ability.start_round_cooldown(blocker_ability_round_cooldown)
+			
+			_create_blocker_aoe_on_enemy(first_enemy)
+			
+		else:
+			#blocker_ability.start_time_cooldown(1)
+			pass
 
+
+func _construct_and_add_blocker_aoe_attk_module():
+	blocker_aoe_attack_module = AOEAttackModule_Scene.instance()
+	blocker_aoe_attack_module.base_damage = 0
+	blocker_aoe_attack_module.base_damage_type = DamageType.ELEMENTAL
+	blocker_aoe_attack_module.base_attack_speed = 0
+	blocker_aoe_attack_module.base_attack_wind_up = 0
+	blocker_aoe_attack_module.base_on_hit_damage_internal_id = StoreOfTowerEffectsUUID.TOWER_MAIN_DAMAGE
+	blocker_aoe_attack_module.is_main_attack = false
+	blocker_aoe_attack_module.module_id = StoreOfAttackModuleID.PART_OF_SELF
+	blocker_aoe_attack_module.base_explosion_scale = 01
+	
+	blocker_aoe_attack_module.benefits_from_bonus_explosion_scale = false
+	blocker_aoe_attack_module.benefits_from_bonus_base_damage = false
+	blocker_aoe_attack_module.benefits_from_bonus_attack_speed = false
+	blocker_aoe_attack_module.benefits_from_bonus_on_hit_damage = false
+	blocker_aoe_attack_module.benefits_from_bonus_on_hit_effect = false
+	blocker_aoe_attack_module.benefits_from_any_effect = false
+	
+	#var sprite_frames = SpriteFrames.new()
+	
+	#blocker_aoe_attack_module.aoe_sprite_frames = sprite_frames
+	#blocker_aoe_attack_module.sprite_frames_only_play_once = true
+	blocker_aoe_attack_module.pierce = -1
+	blocker_aoe_attack_module.duration = 1
+	blocker_aoe_attack_module.damage_repeat_count = 1
+	
+	blocker_aoe_attack_module.aoe_default_coll_shape = BaseAOEDefaultShapes.RECTANGLE
+	blocker_aoe_attack_module.base_aoe_scene = BaseAOE_Scene
+	blocker_aoe_attack_module.spawn_location_and_change = AOEAttackModule.SpawnLocationAndChange.CENTERED_TO_ENEMY
+	
+	blocker_aoe_attack_module.can_be_commanded_by_tower = false
+	
+	blocker_aoe_attack_module.is_displayed_in_tracker = false
+	
+	blocker_aoe_attack_module.kill_all_created_aoe_at_round_end = false
+	blocker_aoe_attack_module.pause_decrease_duration_of_aoe_at_round_end = true
+	blocker_aoe_attack_module.unpause_decrease_duration_of_aoe_at_round_start = true
+	
+	blocker_aoe_attack_module.aoe_count_limit = 1
+	
+	#add_attack_module(blocker_aoe_attack_module)
+	CommsForBetweenScenes.ge_add_child_to_other_node_hoster(blocker_aoe_attack_module)
+
+
+func _create_blocker_aoe_on_enemy(arg_enemy):
+	var pos = arg_enemy.global_position
+	
+	var aoe = blocker_aoe_attack_module.construct_aoe(pos, pos)
+	aoe.aoe_texture = preload("res://CYDE_SPECIFIC_ONLY/AbilityAssets/Blocker/BlockerAbility_BlockerAOE.png")
+	aoe.duration = blocker_duration
+	aoe.duration_decrease_based_on_amount_of_enmeies_collided = false
+	
+	aoe.connect("enemy_entered", self, "_on_blocker_aoe_enemy_entered", [arg_enemy.distance_to_exit])
+	aoe.connect("enemy_exited", self, "_on_blocker_aoe_enemy_exited")
+	
+	blocker_aoe_attack_module.set_up_aoe__add_child_and_emit_signals(aoe)
+
+
+func _on_blocker_aoe_enemy_entered(arg_enemy, arg_distance_to_exit):
+	#if arg_enemy.distance_to_exit > arg_distance_to_exit:
+	if !_enemy_to_blocker_entered_count_map.has(arg_enemy):
+		_enemy_to_blocker_entered_count_map[arg_enemy] = 1
+	else:
+		_enemy_to_blocker_entered_count_map[arg_enemy] += 1
+	
+	arg_enemy.no_movement_from_self_clauses.attempt_insert_clause(arg_enemy.NoMovementClauses.BLOCKER_AOE)
+
+func _on_blocker_aoe_enemy_exited(arg_enemy):
+	if _enemy_to_blocker_entered_count_map.has(arg_enemy):
+		_enemy_to_blocker_entered_count_map[arg_enemy] -= 1
+		if _enemy_to_blocker_entered_count_map[arg_enemy] <= 0:
+			arg_enemy.no_movement_from_self_clauses.remove_clause(arg_enemy.NoMovementClauses.BLOCKER_AOE)
 
 
 ####################

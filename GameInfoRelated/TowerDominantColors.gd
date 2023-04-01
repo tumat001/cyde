@@ -101,7 +101,7 @@ const synergy_id_to_syn_name_dictionary := {
 	
 	CYDE_SynergyID__Confidentiality : "Confidentiality",
 	CYDE_SynergyID__Integrity : "Integrity",
-	CYDE_SynergyID__Availability : "Availability",
+	CYDE_SynergyID__Availability : "Accessibility",
 }
 
 var synergy_id_to_pic_map__big : Dictionary = {

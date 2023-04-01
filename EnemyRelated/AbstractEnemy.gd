@@ -112,6 +112,9 @@ enum NoMovementClauses {
 	
 	CUSTOM_CLAUSE_01 = 200,
 	CUSTOM_CLAUSE_02 = 201,
+	
+	
+	BLOCKER_AOE = 300,
 }
 
 enum NoActionClauses {
