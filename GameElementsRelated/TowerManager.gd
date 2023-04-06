@@ -572,7 +572,8 @@ func _tower_being_dragged(tower_dragged : AbstractTower):
 	
 	if is_in_ingredient_mode:
 		emit_signal("show_ingredient_acceptability", tower_being_dragged.ingredient_of_self, tower_being_dragged)
-
+	
+	_play_tower_drag_sound_at_pos(tower_dragged.global_position)
 
 func _tower_dropped_from_dragged(tower_released : AbstractTower):
 	tower_being_dragged = null
@@ -586,6 +587,8 @@ func _tower_dropped_from_dragged(tower_released : AbstractTower):
 	
 	if is_in_ingredient_mode:
 		emit_signal("hide_ingredient_acceptability")
+	
+	_play_tower_drop_sound_at_pos(tower_released.global_position)
 
 func _tower_transfered_to_placable(arg_tower, arg_placable):
 	emit_signal("tower_transfered_to_placable", arg_tower, arg_placable)
@@ -673,6 +676,8 @@ func _tower_sold(sellback_gold : int, tower):
 	emit_signal("tower_being_sold", sellback_gold, tower)
 	gold_manager.increase_gold_by(sellback_gold, GoldManager.IncreaseGoldSource.TOWER_SELLBACK)
 	game_elements.display_gold_particles(tower.global_position, sellback_gold)
+	
+	_play_tower_sell_sound_at_pos(tower.global_position)
 
 func _tower_generate_gold(gold : int, source_type : int):
 	gold_manager.increase_gold_by(gold, source_type)
@@ -1729,5 +1734,31 @@ func _play_tower_purchase_sound_at_pos(arg_pos):
 	player.global_position = arg_pos
 	
 	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
+
+func _play_tower_drag_sound_at_pos(arg_pos):
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.DRAG_TOWER)
+	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.TWO_D)
+	player.autoplay = true
+	player.global_position = arg_pos
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
+
+func _play_tower_drop_sound_at_pos(arg_pos):
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.DROP_TOWER)
+	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.TWO_D)
+	player.autoplay = true
+	player.global_position = arg_pos
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
+
+func _play_tower_sell_sound_at_pos(arg_pos):
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.SELL_TOWER)
+	var player = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.TWO_D)
+	player.autoplay = true
+	player.global_position = arg_pos
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_01, audio_player_adv_params)
+
+
 
 

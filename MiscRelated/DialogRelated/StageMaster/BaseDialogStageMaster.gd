@@ -187,6 +187,7 @@ func set_dialog_whole_screen_panel(arg_panel):
 	dialog_whole_screen_panel.connect("resolve_block_advanced_requested_status", self, "_on_resolve_block_advanced_requested_status")
 
 func play_dialog_segment_or_advance_or_finish_elements(arg_segment : DialogSegment):
+	# for arrows, circles, etc
 	for node in _nodes_to_queue_free_on_dia_seg_advance:
 		if is_instance_valid(node) and !node.is_queued_for_deletion():
 			node.queue_free()
@@ -357,8 +358,18 @@ func configure_dia_seg_to_call_func_on_player_click_or_enter(arg_seg : DialogSeg
 	arg_seg.connect("requested_action_advance", self, "_on_configured_dia_seg_to_call_func_on_player_click_or_enter", [arg_seg, arg_func_source, arg_func_name, arg_func_params], CONNECT_ONESHOT)
 
 
+
+class SkipAdvParams:
+	
+	var is_skip_button_in_main_dialog_panel : bool = true
+	
+	var skip_button_rect_pos__for_non_main_dialog_panel : Vector2
+	var skip_button_rect_pos_origin : int = DialogSegment.RectPosOrigin.TOP_LEFT
+
+
 func configure_dia_seg_to_skip_to_next_on_player_skip__based_on_checks(arg_seg : DialogSegment, arg_next_seg : DialogSegment, 
-		arg_func_source_bool_check, arg_func_name_bool_check, arg_func_params_bool_check, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT):
+		arg_func_source_bool_check, arg_func_name_bool_check, arg_func_params_bool_check, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT,
+		arg_adv_params : SkipAdvParams = SkipAdvParams.new()):
 	
 	arg_seg.func_source_for__is_skip_exec = arg_func_source_bool_check
 	arg_seg.func_name_for__is_skip_exec = arg_func_name_bool_check
@@ -366,8 +377,15 @@ func configure_dia_seg_to_skip_to_next_on_player_skip__based_on_checks(arg_seg :
 	arg_seg.connect("requested_action_skip", self, "_on_configured_dia_seg_requested_advance_to_next_seg__thru_skip", [arg_next_seg], CONNECT_ONESHOT)
 	
 	arg_seg.skip_button_text = arg_text_to_use
+	
+	##
+	
+	arg_seg.is_skip_button_in_main_dialog_panel = arg_adv_params.is_skip_button_in_main_dialog_panel
+	arg_seg.skip_button_rect_pos__for_non_main_dialog_panel = arg_adv_params.skip_button_rect_pos__for_non_main_dialog_panel
+	arg_seg.skip_button_rect_pos_origin = arg_adv_params.skip_button_rect_pos_origin
 
-func configure_dia_seg_to_skip_to_next_on_player_skip(arg_seg : DialogSegment, arg_next_seg : DialogSegment, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT):
+func configure_dia_seg_to_skip_to_next_on_player_skip(arg_seg : DialogSegment, arg_next_seg : DialogSegment, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT,
+		arg_adv_params : SkipAdvParams = SkipAdvParams.new()):
 	
 	arg_seg.func_source_for__is_skip_exec = self
 	arg_seg.func_name_for__is_skip_exec = "_on_dia_seg_requested_action_skip__always_pass_bool_check"
@@ -375,15 +393,29 @@ func configure_dia_seg_to_skip_to_next_on_player_skip(arg_seg : DialogSegment, a
 	arg_seg.connect("requested_action_skip", self, "_on_configured_dia_seg_requested_advance_to_next_seg__thru_skip", [arg_next_seg], CONNECT_ONESHOT)
 	
 	arg_seg.skip_button_text = arg_text_to_use
-
-func configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(arg_seg : DialogSegment, arg_func_source_for_next_seg, arg_func_name_for_next_seg, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT):
 	
+	##
+	
+	arg_seg.is_skip_button_in_main_dialog_panel = arg_adv_params.is_skip_button_in_main_dialog_panel
+	arg_seg.skip_button_rect_pos__for_non_main_dialog_panel = arg_adv_params.skip_button_rect_pos__for_non_main_dialog_panel
+	arg_seg.skip_button_rect_pos_origin = arg_adv_params.skip_button_rect_pos_origin
+
+
+func configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(arg_seg : DialogSegment, arg_func_source_for_next_seg, arg_func_name_for_next_seg, arg_text_to_use : String = SKIP_BUTTON__DEFAULT_TEXT,
+		arg_adv_params : SkipAdvParams = SkipAdvParams.new()):
 	arg_seg.func_source_for__is_skip_exec = self
 	arg_seg.func_name_for__is_skip_exec = "_on_dia_seg_requested_action_skip__always_pass_bool_check"
 	arg_seg.func_param_for__is_skip_exec = null
 	arg_seg.connect("requested_action_skip", self, "_on_configured_dia_seg_requested_advance_to_next_seg__thru_skip__next_seg_as_func_name", [arg_func_source_for_next_seg, arg_func_name_for_next_seg], CONNECT_ONESHOT)
 	
 	arg_seg.skip_button_text = arg_text_to_use
+	
+	##
+	
+	arg_seg.is_skip_button_in_main_dialog_panel = arg_adv_params.is_skip_button_in_main_dialog_panel
+	arg_seg.skip_button_rect_pos__for_non_main_dialog_panel = arg_adv_params.skip_button_rect_pos__for_non_main_dialog_panel
+	arg_seg.skip_button_rect_pos_origin = arg_adv_params.skip_button_rect_pos_origin
+
 
 
 func _on_dia_seg_requested_action_skip__always_pass_bool_check(arg_params):
@@ -415,21 +447,36 @@ func _set_dialog_segment_to_block_almanac_button(arg_seg : DialogSegment, arg_cl
 ########## HELPER FUNCS FOR DIALOG ELEMENTS
 ## 
 
+class DescriptionsAdvParams:
+	var default_text_color : Color = Color("#dddddd")
+	var use_dark_mode_text : bool = true
+	
+	var background_texture_of_segment : Texture = DialogSegment.Background_Pic_Default
+	
+
 ## DESCRIPTIONS
-func _configure_dia_seg_to_default_templated_dialog_with_descs_only(arg_seg : DialogSegment, arg_descs : Array):#, arg_pos : Vector2, arg_size : Vector2):
+func _configure_dia_seg_to_default_templated_dialog_with_descs_only(arg_seg : DialogSegment, arg_descs : Array,
+		adv_params : DescriptionsAdvParams = DescriptionsAdvParams.new()):#, arg_pos : Vector2, arg_size : Vector2):
 	var diag_construction_ins := DialogSegment.DialogElementsConstructionIns.new()
 	diag_construction_ins.func_source = self
 	diag_construction_ins.func_name_for_construction = "_construct_default_templated_dialog_for_dia_seg"
-	diag_construction_ins.func_params = [arg_seg, arg_descs] #arg_pos, arg_size]
+	diag_construction_ins.func_params = [arg_seg, arg_descs, adv_params] #arg_pos, arg_size]
+	
+	#
+	arg_seg.background_texture = adv_params.background_texture_of_segment
 	
 	arg_seg.add_dialog_element_construction_ins(diag_construction_ins)
 
 func _construct_default_templated_dialog_for_dia_seg(arg_params : Array):
 	var dia_seg : DialogSegment = arg_params[0]
 	var descs : Array = arg_params[1]
+	var adv_params : DescriptionsAdvParams = arg_params[2]
 	
 	var panel = DialogDescsPanel_Scene.instance()
 	panel.descs = descs
+	
+	panel.default_text_color = adv_params.default_text_color
+	panel.use_dark_mode_text = adv_params.use_dark_mode_text
 	
 	return panel
 
@@ -761,14 +808,46 @@ func _configure_dia_set_to_x_type_info_tidbit_pos_and_size(arg_seg : DialogSegme
 	arg_seg.final_dialog_top_left_pos = dia_main_panel__pos__x_type_info_panel
 	arg_seg.final_dialog_custom_size = dia_main_panel__size__x_type_info_panel__tidbit
 
+func _configure_dia_set_to_pos_and_size(arg_seg : DialogSegment, arg_top_left_pos, arg_size):
+	arg_seg.final_dialog_top_left_pos = arg_top_left_pos
+	arg_seg.final_dialog_custom_size = arg_size
+
+func _configure_dia_set_to_pos_and_size__to_instant_transition_times(arg_seg : DialogSegment):
+	arg_seg.final_dialog_custom_size_val_trans_mode = DialogSegment.ValTransition.ValueIncrementMode.INSTANT
+	arg_seg.final_dialog_top_left_pos_val_trans_mode = DialogSegment.ValTransition.ValueIncrementMode.INSTANT
 
 ## BACKGROUND ELEMENT -- TEXTURE IMAGE
 
-func _configure_dia_seg_to_default_templated_background_ele_dia_texture_image(arg_seg : DialogSegment, arg_image, arg_ending_pos, arg_starting_pos = BackDialogImagePanel.VECTOR_UNDEFINED, arg_persistence_id = DialogSegment.BackgroundElementsConstructionIns.NO_PERSISTENCE_ID):
+class BackgroundElementAdvParams:
+	var starting_initial_mod_a : float = 1.0
+	var starting_target_mod_a : float = 1.0
+	var starting_mod_a_duration : float = 0.3
+	
+	var ending_initial_mod_a : float = 1.0
+	var ending_target_mod_a : float = 1.0
+	var ending_mod_a_duration : float = 0.3
+	
+	var wait_for_all_background_elements_to_fade_out : bool = false
+	
+	var ignored_for_wait_for_all_background_elements_to_fade_out : bool = false
+	
+	#
+	
+	var fade_out_on_next_dia_seg : bool = true
+	
+	####
+	
+	var func_name_to_call_on_element_constructed : String
+	
+
+func _configure_dia_seg_to_default_templated_background_ele_dia_texture_image(arg_seg : DialogSegment, arg_image, arg_ending_pos, arg_starting_pos = BackDialogImagePanel.VECTOR_UNDEFINED, 
+		arg_persistence_id = DialogSegment.BackgroundElementsConstructionIns.NO_PERSISTENCE_ID,
+		arg_adv_param : BackgroundElementAdvParams = BackgroundElementAdvParams.new()):
+	
 	var diag_construction_ins := DialogSegment.BackgroundElementsConstructionIns.new()
 	diag_construction_ins.func_source = self
 	diag_construction_ins.func_name_for_construction = "_construct_default_templated_background_ele_dia_texture_image_for_dia_seg"
-	diag_construction_ins.func_params = [arg_seg, arg_image, arg_ending_pos, arg_starting_pos]
+	diag_construction_ins.func_params = [arg_seg, arg_image, arg_ending_pos, arg_starting_pos, arg_adv_param]
 	diag_construction_ins.persistence_id = arg_persistence_id
 	
 	arg_seg.add_background_element_construction_ins(diag_construction_ins)
@@ -779,6 +858,7 @@ func _construct_default_templated_background_ele_dia_texture_image_for_dia_seg(a
 	var texture : Texture = arg_params[1]
 	var ending_pos : Vector2 = arg_params[2]
 	var starting_pos : Vector2 = arg_params[3]
+	var adv_params : BackgroundElementAdvParams = arg_params[4]
 	
 	if arg_background_element == null:
 		arg_background_element = BackDialogImagePanel_Scene.instance()
@@ -789,6 +869,24 @@ func _construct_default_templated_background_ele_dia_texture_image_for_dia_seg(a
 	
 	arg_background_element.texture_to_use = texture
 	
+	arg_background_element.starting_initial_mod_a = adv_params.starting_initial_mod_a
+	arg_background_element.starting_target_mod_a = adv_params.starting_target_mod_a
+	arg_background_element.starting_mod_a_duration = adv_params.starting_mod_a_duration
+	
+	arg_background_element.ending_initial_mod_a = adv_params.ending_initial_mod_a
+	arg_background_element.ending_target_mod_a = adv_params.ending_target_mod_a
+	arg_background_element.ending_mod_a_duration = adv_params.ending_mod_a_duration
+	
+	arg_background_element.wait_for_all_background_elements_to_fade_out = adv_params.wait_for_all_background_elements_to_fade_out
+	arg_background_element.ignored_for_wait_for_all_background_elements_to_fade_out = adv_params.ignored_for_wait_for_all_background_elements_to_fade_out
+	
+	arg_background_element.fade_out_on_next_dia_seg = adv_params.fade_out_on_next_dia_seg
+	
+	
+	##
+	
+	if adv_params.func_name_to_call_on_element_constructed.length() != 0:
+		call(adv_params.func_name_to_call_on_element_constructed, arg_background_element)
 	
 	return arg_background_element
 

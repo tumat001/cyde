@@ -14,24 +14,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Aesthetics" type="MarginContainer" parent="."]
 margin_right = 960.0
 margin_bottom = 540.0
 rect_min_size = Vector2( 960, 540 )
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="WholeScreen" type="TextureRect" parent="Aesthetics"]
 margin_right = 960.0
 margin_bottom = 540.0
 mouse_filter = 2
 texture = ExtResource( 1 )
+
+[node name="VideoPlayer" type="VideoPlayer" parent="Aesthetics"]
+visible = false
+margin_right = 960.0
+margin_bottom = 540.0
 
 [node name="ControlContent" type="MarginContainer" parent="."]
 margin_left = 614.0

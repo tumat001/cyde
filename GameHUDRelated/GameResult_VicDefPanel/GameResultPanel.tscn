@@ -25,36 +25,36 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 321.0
-margin_bottom = 166.0
+margin_right = 199.0
+margin_bottom = 148.0
 mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 mouse_filter = 2
 
 [node name="LeftBorder" type="MarginContainer" parent="HBoxContainer/MarginContainer"]
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 mouse_filter = 2
 
 [node name="VicLeftBorder" type="HBoxContainer" parent="HBoxContainer/MarginContainer/LeftBorder"]
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder"]
 margin_right = 11.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 custom_constants/margin_top = 20
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/MarginContainer"]
 margin_top = 20.0
 margin_right = 11.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 custom_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/MarginContainer/VBoxContainer2"]
@@ -66,7 +66,7 @@ flip_h = true
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/MarginContainer/VBoxContainer2"]
 margin_top = 11.0
 margin_right = 11.0
-margin_bottom = 146.0
+margin_bottom = 128.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -75,7 +75,7 @@ stretch_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder"]
 margin_left = 11.0
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 custom_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/VBoxContainer"]
@@ -86,7 +86,7 @@ texture = ExtResource( 2 )
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/VBoxContainer"]
 margin_top = 11.0
 margin_right = 11.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -95,7 +95,7 @@ stretch_mode = 2
 [node name="DefLeftBorder" type="HBoxContainer" parent="HBoxContainer/MarginContainer/LeftBorder"]
 visible = false
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 mouse_filter = 2
 custom_constants/separation = 0
 
@@ -146,8 +146,8 @@ texture = ExtResource( 6 )
 
 [node name="MiddleContainer" type="MarginContainer" parent="HBoxContainer"]
 margin_left = 22.0
-margin_right = 299.0
-margin_bottom = 166.0
+margin_right = 177.0
+margin_bottom = 148.0
 mouse_filter = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -156,8 +156,8 @@ custom_constants/margin_bottom = 20
 
 [node name="Background" type="TextureRect" parent="HBoxContainer/MiddleContainer"]
 margin_top = 20.0
-margin_right = 277.0
-margin_bottom = 146.0
+margin_right = 155.0
+margin_bottom = 128.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -166,8 +166,8 @@ stretch_mode = 2
 
 [node name="ContentContainer" type="MarginContainer" parent="HBoxContainer/MiddleContainer"]
 margin_top = 20.0
-margin_right = 277.0
-margin_bottom = 146.0
+margin_right = 155.0
+margin_bottom = 128.0
 mouse_filter = 2
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -177,58 +177,57 @@ custom_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MiddleContainer/ContentContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 257.0
-margin_bottom = 106.0
+margin_right = 135.0
+margin_bottom = 88.0
 mouse_filter = 2
 custom_constants/separation = 12
 
 [node name="GameResultLabel" type="Label" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer"]
-margin_right = 237.0
+margin_right = 115.0
 margin_bottom = 25.0
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.992157, 0.752941, 0.0313726, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Victory"
 align = 1
 
 [node name="ButtonsContainer" type="HBoxContainer" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer"]
 margin_top = 37.0
-margin_right = 237.0
-margin_bottom = 86.0
+margin_right = 115.0
+margin_bottom = 68.0
 mouse_filter = 2
 custom_constants/separation = 15
 
 [node name="ViewButton" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer/ButtonsContainer" instance=ExtResource( 5 )]
-margin_right = 111.0
-margin_bottom = 49.0
-text_for_label = "View Battlefield"
+margin_bottom = 31.0
+text_for_label = "Continue"
 
 [node name="MainMenuButton" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer/ButtonsContainer" instance=ExtResource( 5 )]
-margin_left = 126.0
-margin_right = 237.0
-margin_bottom = 49.0
+margin_left = 65.0
+margin_right = 115.0
+margin_bottom = 31.0
 mouse_filter = 0
 text_for_label = "Main Menu"
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
-margin_left = 299.0
-margin_right = 321.0
-margin_bottom = 166.0
+margin_left = 177.0
+margin_right = 199.0
+margin_bottom = 148.0
 mouse_filter = 2
 
 [node name="RightBorder" type="MarginContainer" parent="HBoxContainer/MarginContainer2"]
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 mouse_filter = 2
 
 [node name="VicRightBorder" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/RightBorder"]
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder"]
 margin_right = 11.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 custom_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/VBoxContainer"]
@@ -240,7 +239,7 @@ flip_h = true
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/VBoxContainer"]
 margin_top = 11.0
 margin_right = 11.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -249,13 +248,13 @@ stretch_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder"]
 margin_left = 11.0
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 custom_constants/margin_top = 20
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/MarginContainer"]
 margin_top = 20.0
 margin_right = 11.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 custom_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/MarginContainer/VBoxContainer2"]
@@ -266,7 +265,7 @@ texture = ExtResource( 2 )
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/MarginContainer/VBoxContainer2"]
 margin_top = 11.0
 margin_right = 11.0
-margin_bottom = 146.0
+margin_bottom = 128.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -275,7 +274,7 @@ stretch_mode = 2
 [node name="DefRightBorder" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/RightBorder"]
 visible = false
 margin_right = 22.0
-margin_bottom = 166.0
+margin_bottom = 148.0
 mouse_filter = 2
 custom_constants/separation = 0
 

@@ -77,6 +77,7 @@ func configure_self(arg_initial_val : float, arg_curr_val : float,
 		
 		_final_time_before_finish = _time_to_reach_target_val
 		
+		
 		#print("instant val trans -- ValTransition: %s. mode: %s" % [_instant_val_transition, arg_val_inc_mode])
 		
 	elif _val_inc_per_sec != VALUE_UNSET:

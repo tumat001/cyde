@@ -20,6 +20,11 @@ onready var tooltip_body = $HBoxContainer/TooltipBody
 
 #
 
+var default_text_color : Color
+var use_dark_mode_text : bool = true
+
+#
+
 func initialize():
 	timer_for_char_appear = Timer.new()
 	timer_for_char_appear.one_shot = false
@@ -41,6 +46,9 @@ func _start_display():
 	
 	_reset_num_of_char_visible()
 	tooltip_body.descriptions = descs
+	
+	tooltip_body.default_font_color = default_text_color
+	tooltip_body.use_color_for_dark_background = use_dark_mode_text
 	
 	tooltip_body.update_display()
 	

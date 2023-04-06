@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Comics_P01.png-8f0b4a6c0cb9d20b4bdf553d6f0c35ea.stex"
+path="res://.import/Dialog_WhiteBackground_ForContent_3x3.png-3053e3933b0614ca84360d14833d722c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P01.png"
-dest_files=[ "res://.import/Comics_P01.png-8f0b4a6c0cb9d20b4bdf553d6f0c35ea.stex" ]
+source_file="res://MiscRelated/DialogRelated/Assets/Shared/Dialog_WhiteBackground_ForContent_3x3.png"
+dest_files=[ "res://.import/Dialog_WhiteBackground_ForContent_3x3.png-3053e3933b0614ca84360d14833d722c.stex" ]
 
 [params]
 

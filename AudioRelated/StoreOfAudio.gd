@@ -20,7 +20,9 @@ enum AudioIds {
 	EXPLOSION_01 = 1500,
 	TOWER_PURCHASE_01 = 1501,
 	
-	
+	SELL_TOWER = 1502,
+	DRAG_TOWER = 1503,
+	DROP_TOWER = 1504,
 	
 }
 
@@ -39,7 +41,9 @@ const _audio_id_to_sound_file_path = {
 	AudioIds.TIMER_SOUND : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TimerSound.ogg",
 	AudioIds.TOWER_PURCHASE_01 : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/TowerPurchase(1).wav",
 	
-	
+	AudioIds.SELL_TOWER : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/SellTower.wav",
+	AudioIds.DRAG_TOWER : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/DragTower.wav",
+	AudioIds.DROP_TOWER : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/DropTower.wav",
 	
 }
 

@@ -17,3 +17,9 @@ func set_texture_to_use(arg_texture):
 	
 	if is_inside_tree():
 		texture_rect.texture = texture_to_use
+
+######
+
+
+
+####

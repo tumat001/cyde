@@ -168,7 +168,10 @@ func set_dialog_segment(arg_segment, arg_set_to_visible : bool = true):
 	
 	dialog_segment.evaluate_is_skip_exec__from_func_source()
 	skip_button.text_for_label = dialog_segment.skip_button_text
-	skip_button.visible = dialog_segment.is_skip_executable
+	if dialog_segment.is_skip_button_in_main_dialog_panel:
+		skip_button.visible = dialog_segment.is_skip_executable
+	else:
+		skip_button.visible = false
 	
 	#
 	
@@ -199,8 +202,16 @@ func set_dialog_segment(arg_segment, arg_set_to_visible : bool = true):
 		
 		if !reached_x:
 			is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.SIZE_X)
+		else:
+			rect_min_size.x =  dialog_segment.final_dialog_custom_size.x
+			rect_size.x =  dialog_segment.final_dialog_custom_size.x
+		
 		if !reached_y:
 			is_transitioning_clauses.attempt_insert_clause(TransitioningClauseIds.SIZE_Y)
+		else:
+			rect_min_size.y =  dialog_segment.final_dialog_custom_size.y
+			rect_size.y =  dialog_segment.final_dialog_custom_size.y
+		
 	else:
 		rect_min_size = dialog_segment.final_dialog_custom_size
 		
@@ -219,6 +230,8 @@ func set_dialog_segment(arg_segment, arg_set_to_visible : bool = true):
 	bottom_border.texture = dialog_segment.bottom_border_texture
 	left_border.texture = dialog_segment.left_border_texture
 	right_border.texture = dialog_segment.right_border_texture
+	
+	background.texture = dialog_segment.background_texture
 	
 	if arg_set_to_visible:
 		visible = true
@@ -317,7 +330,7 @@ func if_mouse_pos_is_inside_main_panel_bounds():
 #
 
 func is_block_advance():
-	return last_calculated_is_transitioning or !_latest_base_dialog_ele_control.last_calculated_is_fully_finished #and last_calculated_not_all_BDEs_are_shown
+	return last_calculated_is_transitioning or (is_instance_valid(_latest_base_dialog_ele_control) and !_latest_base_dialog_ele_control.last_calculated_is_fully_finished) #and last_calculated_not_all_BDEs_are_shown
 
 func resolve_block_advance():
 	if last_calculated_is_transitioning:
@@ -343,7 +356,7 @@ func resolve_block_advance():
 	
 	#
 	
-	if !_latest_base_dialog_ele_control.last_calculated_is_fully_finished:
+	if is_instance_valid(_latest_base_dialog_ele_control) and !_latest_base_dialog_ele_control.last_calculated_is_fully_finished:
 		_latest_base_dialog_ele_control._force_finish_display()
 	
 	#if last_calculated_not_all_BDEs_are_shown:

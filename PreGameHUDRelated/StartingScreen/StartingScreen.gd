@@ -34,9 +34,13 @@ var tutorial_hub_screen : TutorialHubScreen
 var about_panel : AboutPanel
 var almanac_page : Almanac_Page
 
+#
+
 onready var general_container = $GeneralContainer
 
 onready var whole_screen_texture_rect = $Aesthetics/WholeScreen
+
+onready var video_player = $Aesthetics/VideoPlayer
 
 #
 
