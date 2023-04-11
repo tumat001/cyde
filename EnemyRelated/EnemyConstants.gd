@@ -129,6 +129,37 @@ enum Enemies {
 	ADWARE__DESK_AD = 1302,
 	ADWARE__DOLLAR_REVENUE = 1303,
 	
+	# RANSOMWARE
+	RANSOMWARE_BOSS = 1400
+	RANSOMWARE__AS_A_SERVICE = 1401
+	RANSOMWARE__ENCRYPTORS = 1402
+	RANSOMWARE__LOCKERSWARE = 1403
+	
+	
+	# ROOTKIT
+	ROOTKIT_BOSS = 1450
+	ROOTKIT_KERNEL_MODE = 1451
+	ROOTKIT_MEMORY = 1452
+	ROOTKIT_VIRTUAL = 1453
+	
+	# FILELESS
+	FILELESS_BOSS = 1500
+	FILELESS__KEYLOG = 1501,
+	FILELESS__PHISHING = 1502,
+	FILELESS__SCAMBOTS = 1503,
+	
+	# MALWARE BOTS
+	MALWARE_BOT_BOSS = 1600,
+	MALWARE_BOT__CHATTER_BOT = 1601,
+	MALWARE_BOT__DOS = 1602,
+	MALWARE_BOT__SPAM_BOT = 1603,
+	
+	# MOBILE MALWARE
+	MOBILE_MALWARE_BOSS = 1700,
+	MOBILE_MALWARE__MEMORY_RESIDENT = 1701,
+	MOBILE_MALWARE__SAMSAM = 1702,
+	MOBILE_MALWARE__WINDOWS_REGISTRY = 1703,
+	
 }
 
 var all_cyde_specific_enemy_ids : Array = [
@@ -158,6 +189,45 @@ var all_cyde_specific_enemy_ids : Array = [
 	
 	#####
 	
+	Enemies.ADWARE_BOSS,
+	Enemies.ADWARE__APPEARCH,
+	Enemies.ADWARE__DESK_AD,
+	Enemies.ADWARE__DOLLAR_REVENUE,
+	
+	#######
+	
+	Enemies.RANSOMWARE_BOSS,
+	Enemies.RANSOMWARE__AS_A_SERVICE,
+	Enemies.RANSOMWARE__ENCRYPTORS,
+	Enemies.RANSOMWARE__LOCKERSWARE,
+	
+	#####
+	
+	Enemies.ROOTKIT_BOSS,
+	Enemies.ROOTKIT_KERNEL_MODE,
+	Enemies.ROOTKIT_MEMORY,
+	Enemies.ROOTKIT_VIRTUAL,
+	
+	#####
+	
+	Enemies.FILELESS_BOSS,
+	Enemies.FILELESS__KEYLOG,
+	Enemies.FILELESS__PHISHING,
+	Enemies.FILELESS__SCAMBOTS,
+	
+	#####
+	
+	Enemies.MALWARE_BOT_BOSS,
+	Enemies.MALWARE_BOT__CHATTER_BOT,
+	Enemies.MALWARE_BOT__DOS,
+	Enemies.MALWARE_BOT__SPAM_BOT,
+	
+	#####
+	
+	Enemies.MOBILE_MALWARE_BOSS,
+	Enemies.MOBILE_MALWARE__MEMORY_RESIDENT,
+	Enemies.MOBILE_MALWARE__SAMSAM,
+	Enemies.MOBILE_MALWARE__WINDOWS_REGISTRY,
 	
 	
 ]
@@ -452,6 +522,273 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/DollarRevenue/Adware_DollarRevenue_Omni.png"))
 			info.descriptions = [
 				"An adware that displays advertisements and tracks your internet searches."
+			]
+		
+		
+		
+	# RANSOMWARE
+	elif enemy_id == Enemies.RANSOMWARE_BOSS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 325
+		info.base_movement_speed = 24
+		info.enemy_type == info.EnemyType.ELITE
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Ransomware Boss"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/RansomwareBoss/RansomwareBoss_E.png"))
+			info.descriptions = [
+				"The boss of the ransomware." #todo make more inspiring desc LOL
+			]
+		
+		
+	elif enemy_id == Enemies.RANSOMWARE__ENCRYPTORS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 30
+		info.base_movement_speed = 70
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Encryptors"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/Encryptors/Ransomware_Encryptors_Omni.png"))
+			info.descriptions = [
+				"A ransomware that encrypts your data, making them unaccessable."
+			]
+		
+		
+	elif enemy_id == Enemies.RANSOMWARE__LOCKERSWARE:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 140
+		info.base_movement_speed = 31
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Lockerware"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/Lockersware/Ransomware_Lockersware_Omni.png"))
+			info.descriptions = [
+				"A ransomware that prevents a user from accessing critical services until it is paid."
+			]
+		
+		
+	elif enemy_id == Enemies.RANSOMWARE__AS_A_SERVICE:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 88
+		info.base_movement_speed = 50
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "As A Service"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"A ransomware that is deployed by operators. The operators are paid to release the ransomware to their targets.."
+			]
+		
+		
+	# ROOTKIT
+	elif enemy_id == Enemies.ROOTKIT_BOSS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 375
+		info.base_movement_speed = 28
+		info.enemy_type == info.EnemyType.ELITE
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Rootkit Boss"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/MobileMalwareBoss/MobileMalwareBoss_Omni.png"))
+			info.descriptions = [
+				"The boss of the rootkits." #todo make more inspiring desc LOL
+			]
+		
+		
+	elif enemy_id == Enemies.ROOTKIT_KERNEL_MODE:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 50
+		info.base_movement_speed = 55
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Kernel Mode"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"Alters your entire operating system!"
+			]
+		
+	elif enemy_id == Enemies.ROOTKIT_MEMORY:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 60
+		info.base_movement_speed = 50
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Memory"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"Hides in your computer's RAM (random access memory), and uses your computer's resources to do malicious activities."
+			]
+		
+		
+	elif enemy_id == Enemies.ROOTKIT_VIRTUAL:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 40
+		info.base_movement_speed = 70
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Virtual"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"Loads itself underneath your operating system, and hosts a Virtual machine."
+			]
+		
+		
+		
+	# FILELESS
+	elif enemy_id == Enemies.FILELESS_BOSS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 285
+		info.base_movement_speed = 40
+		info.enemy_type == info.EnemyType.ELITE
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Fileless Boss"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Fileless/FilelessBoss/FilelessBoss_E.png"))
+			info.descriptions = [
+				"The boss of the fileless." #todo make more inspiring desc LOL
+			]
+		
+		
+	elif enemy_id == Enemies.FILELESS__KEYLOG:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 45
+		info.base_movement_speed = 60
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Keylog"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"A malware that keeps track of your keypresses."
+			]
+		
+		
+	elif enemy_id == Enemies.FILELESS__PHISHING:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 35
+		info.base_movement_speed = 85
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Phising"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"A fileless type of malware that steals user credentials."
+			]
+		
+	elif enemy_id == Enemies.FILELESS__SCAMBOTS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 25
+		info.base_movement_speed = 100
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Scambots"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"A fileless type of malware that tricks users to giving crucial information such as credentials."
+			]
+		
+		
+	# MALWARE BOTS
+	elif enemy_id == Enemies.MALWARE_BOT_BOSS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 160 # low health because many
+		info.base_movement_speed = 36
+		info.enemy_type == info.EnemyType.ELITE
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "MalwareBot Boss"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MalwareBots/MalwareBotsBoss/MalwareBotsBoss_E.png"))
+			info.descriptions = [
+				"The boss of the malware bots." #todo make more inspiring desc LOL
+			]
+		
+	elif enemy_id == Enemies.MALWARE_BOT__CHATTER_BOT:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 35 # low because many
+		info.base_movement_speed = 55
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Chatter Bot"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"A bot that spams messeges and advertisements to forums, chat rooms, message boards, and more."
+			]
+		
+		
+	elif enemy_id == Enemies.MALWARE_BOT__DOS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 30 # low because many
+		info.base_movement_speed = 65
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Dos Bot"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"A bot that requests services from service providers. Has little impact alone but with many they can overwhelm a service provider."
+			]
+		
+		
+	elif enemy_id == Enemies.MALWARE_BOT__SPAM_BOT:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 40 # low because many
+		info.base_movement_speed = 60
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Spam Bot"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"A bot that spams or assists with spamming. They usually create accounts for the purpose for spamming."
+			]
+		
+		
+	# MALWARE BOTS
+	elif enemy_id == Enemies.MOBILE_MALWARE_BOSS:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 500
+		info.base_movement_speed = 28
+		info.enemy_type == info.EnemyType.ELITE
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Mobile Malware Boss"
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/MobileMalwareBoss/MobileMalwareBoss_Omni.png"))
+			info.descriptions = [
+				"The boss of the mobile malware." #todo make more inspiring desc LOL
+			]
+		
+		
+	elif enemy_id == Enemies.MOBILE_MALWARE__MEMORY_RESIDENT:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 60
+		info.base_movement_speed = 60
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Memory Resident"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"Memory Residents places itself into permanent memory, able to continuously run."
+			]
+		
+	elif enemy_id == Enemies.MOBILE_MALWARE__SAMSAM:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 95
+		info.base_movement_speed = 50
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "SamSam"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"A real life ransomware that leaves notes on encrypted devices."
+			]
+		
+	elif enemy_id == Enemies.MOBILE_MALWARE__WINDOWS_REGISTRY:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 150
+		info.base_movement_speed = 40
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Windows Registry based Malware"
+			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.descriptions = [
+				"This can crash your operating system and data on your device."
 			]
 		
 	
@@ -1461,4 +1798,57 @@ static func get_enemy_scene(enemy_id : int):
 	elif enemy_id == Enemies.ADWARE__DOLLAR_REVENUE:
 		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Adware/DollarRevenue/Adware_DollarRevenue.tscn")
 		
+	# RANSOMWARE
+	elif enemy_id == Enemies.RANSOMWARE_BOSS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/RansomwareBoss/RansomwareBoss.tscn")
+	elif enemy_id == Enemies.RANSOMWARE__AS_A_SERVICE:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService.tscn")
+	elif enemy_id == Enemies.RANSOMWARE__ENCRYPTORS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/Encryptors/Ransomware_Encryptors.tscn")
+	elif enemy_id == Enemies.RANSOMWARE__LOCKERSWARE:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/Lockersware/Ransomware_Lockersware.tscn")
+		
+	# ROOTKIT
+	elif enemy_id == Enemies.ROOTKIT_BOSS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Rootkits/RootkitsBoss/RootkitBoss.tscn")
+	elif enemy_id == Enemies.ROOTKIT_KERNEL_MODE:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Rootkits/Rootkit_KernelMode/Rootkit_KernelMode.tscn")
+	elif enemy_id == Enemies.ROOTKIT_MEMORY:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Rootkits/Rootkit_Memory/Rootkit_Memory.tscn")
+	elif enemy_id == Enemies.ROOTKIT_VIRTUAL:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Rootkits/Rootkit_Virtual/Rootkit_Virtual.tscn")
+		
+		
+	# FILELESS
+	elif enemy_id == Enemies.FILELESS_BOSS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Fileless/FilelessBoss/FilelessBoss.tscn")
+	elif enemy_id == Enemies.FILELESS__KEYLOG:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Fileless/Keylog/Fileless_Keylog.tscn")
+	elif enemy_id == Enemies.FILELESS__PHISHING:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Fileless/Phising/Fileless_Phising.tscn")
+	elif enemy_id == Enemies.FILELESS__SCAMBOTS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Fileless/Scambots/Fileless_Scambots.tscn")
+		
+		
+	# MALWARE BOTS
+	elif enemy_id == Enemies.MALWARE_BOT_BOSS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MalwareBots/MalwareBotsBoss/MalwareBots_Boss.tscn")
+	elif enemy_id == Enemies.MALWARE_BOT__CHATTER_BOT:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MalwareBots/ChatterBot/MalwareBots_ChatterBot.tscn")
+	elif enemy_id == Enemies.MALWARE_BOT__DOS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MalwareBots/DOS/MalwareBots_DOS.tscn")
+	elif enemy_id == Enemies.MALWARE_BOT__SPAM_BOT:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MalwareBots/SpamBot/MalwareBots_SpamBot.tscn")
+		
+		
+	# MOBILE MALWARE
+	elif enemy_id == Enemies.MOBILE_MALWARE_BOSS:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/MobileMalwareBoss/MobileMalware_Boss.tscn")
+	elif enemy_id == Enemies.MOBILE_MALWARE__MEMORY_RESIDENT:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/MemoryResident/MobileMalware_MemoryResident.tscn")
+	elif enemy_id == Enemies.MOBILE_MALWARE__SAMSAM:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/SamSam/MobileMalware_SamSam.tscn")
+	elif enemy_id == Enemies.MOBILE_MALWARE__WINDOWS_REGISTRY:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/WindowsRegistry/MobileMalware_WindowsRegistry.tscn")
+	
 	

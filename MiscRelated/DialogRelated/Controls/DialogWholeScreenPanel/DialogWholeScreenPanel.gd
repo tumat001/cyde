@@ -122,6 +122,8 @@ func _ready():
 	absolute_block_timer.one_shot = true
 	absolute_block_timer.connect("timeout", self, "_on_absolute_block_timer_timeout", [], CONNECT_PERSIST)
 	add_child(absolute_block_timer)
+	
+	skip_button.visible = false
 
 func _on_absolute_block_timer_timeout():
 	_is_absolute_block_active = false

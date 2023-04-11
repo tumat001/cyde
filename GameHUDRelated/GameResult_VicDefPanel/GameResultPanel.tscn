@@ -25,7 +25,7 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 199.0
+margin_right = 175.0
 margin_bottom = 148.0
 mouse_filter = 2
 custom_constants/separation = 0
@@ -146,7 +146,7 @@ texture = ExtResource( 6 )
 
 [node name="MiddleContainer" type="MarginContainer" parent="HBoxContainer"]
 margin_left = 22.0
-margin_right = 177.0
+margin_right = 153.0
 margin_bottom = 148.0
 mouse_filter = 2
 size_flags_horizontal = 6
@@ -156,7 +156,7 @@ custom_constants/margin_bottom = 20
 
 [node name="Background" type="TextureRect" parent="HBoxContainer/MiddleContainer"]
 margin_top = 20.0
-margin_right = 155.0
+margin_right = 131.0
 margin_bottom = 128.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -166,7 +166,7 @@ stretch_mode = 2
 
 [node name="ContentContainer" type="MarginContainer" parent="HBoxContainer/MiddleContainer"]
 margin_top = 20.0
-margin_right = 155.0
+margin_right = 131.0
 margin_bottom = 128.0
 mouse_filter = 2
 custom_constants/margin_right = 20
@@ -177,13 +177,13 @@ custom_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MiddleContainer/ContentContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 135.0
+margin_right = 111.0
 margin_bottom = 88.0
 mouse_filter = 2
 custom_constants/separation = 12
 
 [node name="GameResultLabel" type="Label" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer"]
-margin_right = 115.0
+margin_right = 91.0
 margin_bottom = 25.0
 custom_colors/font_color = Color( 0.992157, 0.752941, 0.0313726, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -192,16 +192,20 @@ align = 1
 
 [node name="ButtonsContainer" type="HBoxContainer" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer"]
 margin_top = 37.0
-margin_right = 115.0
+margin_right = 91.0
 margin_bottom = 68.0
 mouse_filter = 2
 custom_constants/separation = 15
 
 [node name="ViewButton" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer/ButtonsContainer" instance=ExtResource( 5 )]
+margin_left = 20.0
+margin_right = 70.0
 margin_bottom = 31.0
+size_flags_horizontal = 6
 text_for_label = "Continue"
 
 [node name="MainMenuButton" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer/ButtonsContainer" instance=ExtResource( 5 )]
+visible = false
 margin_left = 65.0
 margin_right = 115.0
 margin_bottom = 31.0
@@ -209,8 +213,8 @@ mouse_filter = 0
 text_for_label = "Main Menu"
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
-margin_left = 177.0
-margin_right = 199.0
+margin_left = 153.0
+margin_right = 175.0
 margin_bottom = 148.0
 mouse_filter = 2
 

@@ -64,6 +64,35 @@ const cyde_state_to_image_map : Dictionary = {
 }
 
 
+enum DR_ASI_STATES {
+	
+	STANDARD_001 = 0,
+	
+	ANGRY_001 = 1,
+	
+	HAPPY_001 = 2,
+	
+	SAD_001 = 3,
+	
+	TALKING_001 = 4,
+	
+	TEMPTING_001 = 5,
+	
+}
+const dr_asi_state_to_image_map : Dictionary = {
+	DR_ASI_STATES.STANDARD_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/DrAsi_Portraits/Dr_Asi_v2_Normal.png"),
+	
+	DR_ASI_STATES.ANGRY_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/DrAsi_Portraits/Dr_Asi_v2_Angry.png"),
+	
+	DR_ASI_STATES.HAPPY_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/DrAsi_Portraits/Dr_Asi_v2_Happy.png"),
+	
+	DR_ASI_STATES.SAD_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/DrAsi_Portraits/Dr_Asi_v2_Sad.png"),
+	
+	DR_ASI_STATES.TALKING_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/DrAsi_Portraits/Dr_Asi_v2_Talking.png"),
+	
+	DR_ASI_STATES.TEMPTING_001 : preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/DrAsi_Portraits/Dr_Asi_v2_Tempting.png"),
+	
+}
 
 
 ###########################

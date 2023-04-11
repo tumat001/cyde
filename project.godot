@@ -77,6 +77,7 @@ StoreOfTextTidbit="*res://GeneralInfoRelated/TextTidbitRelated/StoreOfTextTidbit
 CydeSingleton="*res://CYDE_SPECIFIC_ONLY/Singletons/CYDE_Singleton.gd"
 AudioManager="*res://AudioRelated/AudioManager.gd"
 StoreOfAudio="*res://AudioRelated/StoreOfAudio.gd"
+StoreOfQuestions="*res://CYDE_SPECIFIC_ONLY/Singletons/StoreOfQuestions.gd"
 
 [debug]
 

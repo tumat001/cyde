@@ -84,12 +84,12 @@ const game_modifier_id_to_script_name_map : Dictionary = {
 	GameModiIds__CYDE_World_02 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World02/Imp_DialogSM_World02.gd",
 	GameModiIds__CYDE_World_03 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World03/Imp_DialogSM_World03.gd",
 	GameModiIds__CYDE_World_04 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World04/Imp_DialogSM_World04.gd",
-	GameModiIds__CYDE_World_05 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World04/Imp_DialogSM_World05.gd",
-	GameModiIds__CYDE_World_06 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World04/Imp_DialogSM_World06.gd",
-	GameModiIds__CYDE_World_07 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World04/Imp_DialogSM_World07.gd",
-	GameModiIds__CYDE_World_08 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World04/Imp_DialogSM_World08.gd",
-	GameModiIds__CYDE_World_09 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World04/Imp_DialogSM_World09.gd",
-	GameModiIds__CYDE_World_10 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World04/Imp_DialogSM_World10.gd",
+	GameModiIds__CYDE_World_05 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World05/Imp_DialogSM_World05.gd",
+	GameModiIds__CYDE_World_06 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World06/Imp_DialogSM_World06.gd",
+	GameModiIds__CYDE_World_07 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World07/Imp_DialogSM_World07.gd",
+	GameModiIds__CYDE_World_08 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World08/Imp_DialogSM_World08.gd",
+	GameModiIds__CYDE_World_09 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World09/Imp_DialogSM_World09.gd",
+	GameModiIds__CYDE_World_10 : "res://CYDE_SPECIFIC_ONLY/DialogRelated/GameModifiers/DialogStageMasters/Worlds/World10/Imp_DialogSM_World10.gd",
 	
 }
 

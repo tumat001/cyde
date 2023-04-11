@@ -80,7 +80,7 @@ const dia_main_panel__size__x_type_info_panel__tidbit := Almanac_XTypeInfoPanel.
 
 
 const dia_portrait__pos__standard_left := Vector2(150, 150)
-const dia_portrait__pos__standard_right := Vector2(600, 150)
+const dia_portrait__pos__standard_right := Vector2(680, 150)
 
 
 const dia_time_duration__very_short : float = 20.0
@@ -95,7 +95,7 @@ const SKIP_BUTTON__SKIP_DIALOG_TEXT = "Skip Dialog"
 
 const COLOR_OF__NAME_CYDE := "#029FA1"
 const COLOR_OF__NAME_PLAYER := "#FEC9AA"
-
+const COLOR_OF__NAME_ASI := "#AF62FD"
 
 ######
 
@@ -1757,6 +1757,10 @@ func generate_colored_text__player_name():
 	return "[b][color=%s]%s[/color][/b]" % [COLOR_OF__NAME_PLAYER, CydeSingleton.player_name]
 	
 
+func generate_colored_text__asi_name():
+	return "[b][color=%s]%s[/color][/b]" % [COLOR_OF__NAME_ASI, CydeSingleton.dr_asi_mitnick__last_name]
+	
+
 
 func generate_colored_text__cyde_name__as_line():
 	return "%s:" % generate_colored_text__cyde_name()
@@ -1764,6 +1768,8 @@ func generate_colored_text__cyde_name__as_line():
 func generate_colored_text__player_name__as_line():
 	return "%s:" % generate_colored_text__player_name()
 
+func generate_colored_text__asi_name__as_line():
+	return "%s:" % generate_colored_text__asi_name()
 
 ############
 

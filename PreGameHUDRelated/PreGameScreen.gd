@@ -7,6 +7,15 @@ const AudioSettingsPanel = preload("res://AudioRelated/GUIRelated/AudioSettingsP
 
 #
 
+const background_video_paths : Array = [
+	#"res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_01.ogv",
+	"res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_03.ogv",
+	"res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_05.ogv",
+	
+]
+
+#
+
 var node_tree_of_screen : Array = []
 var starting_screen : StartingScreen
 var current_visible_control : Control
@@ -25,6 +34,8 @@ onready var back_button = $TopRightPanel/HBoxContainer/BackButton
 onready var content_panel = $ContentPanel
 
 onready var top_right_panel = $TopRightPanel
+
+onready var video_player = $BackgroundPanel/VideoPlayer
 
 #
 
@@ -48,6 +59,23 @@ func _ready():
 	player.autoplay = true
 	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_adv_param)
 	
+	##
+	
+	var non_essential_rng = StoreOfRNG.get_rng(StoreOfRNG.RNGSource.NON_ESSENTIAL)
+	var rand_vid_path = StoreOfRNG.randomly_select_one_element(background_video_paths, non_essential_rng)
+	var vid = load(rand_vid_path)
+	video_player.stream = vid
+	video_player.connect("finished", self, "_on_video_player_finished")
+	
+	call_deferred("_deferred_ready")
+
+func _deferred_ready():
+	video_player.play()
+	
+
+func _on_video_player_finished():
+	video_player.play()
+
 
 func _on_before_comms_goto_scene(arg_scene_to_remove, arg_new_scene_path):
 	AudioManager.stop_stream_players_with_source_ids(audio_adv_param.id_source)

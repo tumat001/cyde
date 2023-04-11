@@ -57,6 +57,7 @@ enum TidbitId {
 	CYDE__MOBILE_MALWARE_PRACTICES_01 = 1002
 	
 	
+	LETTER_01 = 1100
 }
 
 # IF ADDING TIDBIT CATEGORY, ADD CATEGORY IN ALAMANC_MANAGER's CategoryIds AS WELL
@@ -72,6 +73,9 @@ enum TidbitCategory {
 	FILELESS = 7,
 	MALWARE_BOTS = 8,
 	MOBILE_MALWARE = 9,
+	
+	
+	LETTERS = 20,
 }
 
 const tidbit_category_id_to_tidbit_category_name : Dictionary = {
@@ -138,6 +142,10 @@ const tidbit_id_to_category_id_map : Dictionary = {
 	TidbitId.CYDE__MOBILE_MALWARE_BEHAVIOR_01 : TidbitCategory.MOBILE_MALWARE,
 	TidbitId.CYDE__MOBILE_MALWARE_PRACTICES_01 : TidbitCategory.MOBILE_MALWARE,
 	
+	
+	####
+	
+	TidbitId.LETTER_01 : TidbitCategory.LETTERS,
 	
 }
 
@@ -1053,6 +1061,38 @@ func _construct_tidbit__mobile_malware_practices_01():
 	tidbit.id = TidbitId.CYDE__MOBILE_MALWARE_PRACTICES_01
 	tidbit.name = "Mobile Malware -- Practices"
 	tidbit.atlased_image = preload("res://CYDE_SPECIFIC_ONLY/TidbitRelated/Assets/practice123.png")
+	tidbit.tidbit_tier = 1
+	
+	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit
+
+
+#######
+
+
+func _construct_tidbit__letter_01():
+	var tidbit = TextTidbitTypeInfo.new()
+	
+	
+	tidbit.add_description([
+		PlainTextFragment.get_text__with_center_BBCode("The secrets will be uncovered, the truth will come forth."),
+		"",
+		PlainTextFragment.get_text__indented(
+			PlainTextFragment.get_text__as_unordered_list([
+				"I'm writing to you today with a heavy heart, knowing that this letter will most likely surprise you. I will have died by the time you read this letter. It is difficult for me to write these words, but I want you to know the truth about what happened.",
+				"",
+				"I found out recently that someone is secretly planning my death. Knowing about it upset me, but knowing that it was someone I trusted, someone I treated not only as my one true friend but like a brother to me; it made me feel betrayed. But I cherish him so much that I couldn't stop him and just want to accept my fate. I know you have someone in mind right now, yes, it is Asi.",
+				"",
+				"I'm not asking you for vengeance, but I do want you to stop him and save my beloved land. Do everything in your power to restore peace. I believe you will do the right thing. I want you to know that I am always there for you and that you are the best thing that has ever happened to me. Take care of yourself, and know that I am always proud of you.",
+				"",
+				"",
+				"With love, Dr. Kevin Murphy",
+			])
+		)
+	])
+	
+	tidbit.id = TidbitId.LETTER_01
+	tidbit.name = "Letter"
+	tidbit.atlased_image #=  #todo 
 	tidbit.tidbit_tier = 1
 	
 	tidbit_id_to_info_singleton_map[tidbit.id] = tidbit

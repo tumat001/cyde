@@ -40,7 +40,6 @@ onready var general_container = $GeneralContainer
 
 onready var whole_screen_texture_rect = $Aesthetics/WholeScreen
 
-onready var video_player = $Aesthetics/VideoPlayer
 
 #
 

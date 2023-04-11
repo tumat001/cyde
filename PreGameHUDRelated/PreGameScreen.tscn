@@ -12,6 +12,14 @@ rect_min_size = Vector2( 960, 540 )
 mouse_filter = 2
 script = ExtResource( 1 )
 
+[node name="BackgroundPanel" type="MarginContainer" parent="."]
+margin_right = 960.0
+margin_bottom = 540.0
+
+[node name="VideoPlayer" type="VideoPlayer" parent="BackgroundPanel"]
+margin_right = 960.0
+margin_bottom = 540.0
+
 [node name="ContentPanel" type="MarginContainer" parent="."]
 margin_right = 960.0
 margin_bottom = 540.0
