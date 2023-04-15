@@ -21,29 +21,42 @@ var stage_rounds_to_use
 
 var dia_seg__intro_01_sequence_001 : DialogSegment
 
-# Info 01
-var dia_seg__info_01_sequence_001 : DialogSegment
 
 # Question 01
 var dia_seg__question_01_sequence_001 : DialogSegment
 var dia_seg__question_01_sequence_003 : DialogSegment
 
-
-# Info 02
-var dia_seg__info_02_sequence_001 : DialogSegment
-
 # Question 02
 var dia_seg__question_02_sequence_001 : DialogSegment
 var dia_seg__question_02_sequence_003 : DialogSegment
-
-
-# Info 03
-var dia_seg__info_03_sequence_001 : DialogSegment
 
 # Question 03
 var dia_seg__question_03_sequence_001 : DialogSegment
 var dia_seg__question_03_sequence_003 : DialogSegment
 
+# Question 04
+var dia_seg__question_04_sequence_001 : DialogSegment
+var dia_seg__question_04_sequence_003 : DialogSegment
+
+# Question 05
+var dia_seg__question_05_sequence_001 : DialogSegment
+var dia_seg__question_05_sequence_003 : DialogSegment
+
+# Question 06
+var dia_seg__question_06_sequence_001 : DialogSegment
+var dia_seg__question_06_sequence_003 : DialogSegment
+
+# Question 07
+var dia_seg__question_07_sequence_001 : DialogSegment
+var dia_seg__question_07_sequence_003 : DialogSegment
+
+# Question 08
+var dia_seg__question_08_sequence_001 : DialogSegment
+var dia_seg__question_08_sequence_003 : DialogSegment
+
+# Question 09
+var dia_seg__question_09_sequence_001 : DialogSegment
+var dia_seg__question_09_sequence_003 : DialogSegment
 
 
 
@@ -59,11 +72,26 @@ var dia_seg__on_lose_01_sequence_001 : DialogSegment
 var dia_seg__on_win_01_sequence_001 : DialogSegment
 
 
+#######
+
+var all_possible_ques_and_ans__01
+var all_possible_ques_and_ans__02
+var all_possible_ques_and_ans__03
+var all_possible_ques_and_ans__04
+var all_possible_ques_and_ans__05
+var all_possible_ques_and_ans__06
+var all_possible_ques_and_ans__07
+var all_possible_ques_and_ans__08
+var all_possible_ques_and_ans__09
+
+
 #####################
 # QUESTIONS RELATED -- CAN BE COPY PASTED TO OTHERS
 var current_possible_ques_and_ans
 
-var show_change_questions : bool = true
+var show_change_question_use_left : int = 3
+var remove_false_answer_use_left : int = 3
+
 var remove_choice_count : int = 1
 
 # STATES
@@ -74,12 +102,6 @@ var prevent_other_dia_segs_from_playing__from_loss : bool
 
 var persistence_id_for_portrait__cyde : int = 1
 var persistence_id_for_portrait__asi : int = 2
-
-#
-
-var all_possible_ques_and_ans__for_mobile_mal_01
-var all_possible_ques_and_ans__for_mobile_mal_02
-var all_possible_ques_and_ans__for_mobile_mal_03
 
 #######
 
@@ -276,14 +298,15 @@ func _on_round_started__into_round_02(arg_stageround_id):
 ########### QUESTION 01 - VIRUS
 
 func _construct_dia_seg__question_01_sequence_001():
-	_construct_questions_and_choices_for__mobile_mal_Q01()
+	_construct_questions_and_choices_for__Q01()
 	
 	
 	dia_seg__question_01_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__question_01_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? Proceed to test your knowledge."
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Viruses[/b]",
+		"Proceed to test your knowledge."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_sequence_001, dia_seg__question_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_sequence_001)
@@ -322,7 +345,7 @@ func _on_dia_seg__question_01_sequence_002__fully_displayed():
 
 
 
-func _on_mobile_mal_Q01_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+func _on_Q01_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
 	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
 	
 	
@@ -349,7 +372,7 @@ func _on_mobile_mal_Q01_choice_right_clicked(arg_id, arg_button_info : DialogCho
 	
 
 
-func _on_mobile_mal_Q01_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+func _on_Q01_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
 	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
 	
 	
@@ -375,7 +398,7 @@ func _on_mobile_mal_Q01_choice_wrong_clicked(arg_id, arg_button_info : DialogCho
 	
 	
 
-func _on_mobile_mal_Q01_timeout(arg_params):
+func _on_Q01_timeout(arg_params):
 	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
 	
 	
@@ -405,96 +428,31 @@ func _on_dia_seg__question_01_sequence_003__ended(arg_seg, arg_param):
 	set_round_is_startable(true)
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
-	#_construct_dia_seg__intro_11_sequence_001()
 	
-	#listen_for_round_end_into_stage_round_id_and_call_func("311", self, "_on_round_started__into_round_11")
+	listen_for_round_end_into_stage_round_id_and_call_func("104", self, "_on_round_started__into_round_04")
 
 
 
-
-########## INFO 02
-
-func _construct_dia_seg__info_02_sequence_001():
-	
-	dia_seg__info_02_sequence_001 = DialogSegment.new()
-	
-	var dia_seg__info_02_sequence_001__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"New information regarding our enemies, the Mobile Malwares, has been researched. This time, it is about their behavior on devices.",
-		"I'll put it on display for you to review."
-		
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__info_02_sequence_001, dia_seg__info_02_sequence_001__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__info_02_sequence_001)
-	
-	#######
-	
-	var dia_seg__info_02_sequence_002 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__info_02_sequence_001, dia_seg__info_02_sequence_002)
-	
-	var tidbit_to_view_and_enable = StoreOfTextTidbit.TidbitId.CYDE__MOBILE_MALWARE_BEHAVIOR_01
-	var x_type_item_entry_data = AlmanacManager.tidbit_id_to_tidbit_item_entry_data_option_map[tidbit_to_view_and_enable]
-	_configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(dia_seg__info_02_sequence_002, x_type_item_entry_data, AlmanacManager.Almanac_ItemListEntry_Data.TypeInfoClassification.TEXT_TIDBIT)
-	_configure_dia_set_to_x_type_info_tidbit_pos_and_size(dia_seg__info_02_sequence_002)
-	dia_seg__info_02_sequence_002.connect("fully_displayed", self, "_on_dia_seg__info_02_sequence_002__fully_displayed", [tidbit_to_view_and_enable], CONNECT_ONESHOT)
-	#dia_seg__info_01_sequence_002.final_dialog_custom_size_val_trans_mode = DialogSegment.ValTransition.ValueIncrementMode.INSTANT
-	#dia_seg__info_01_sequence_002.final_dialog_top_left_pos_val_trans_mode = DialogSegment.ValTransition.ValueIncrementMode.INSTANT
-	
-	
-	####
-	
-	var dia_seg__info_02_sequence_003 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__info_02_sequence_002, dia_seg__info_02_sequence_003)
-	
-	
-	var dia_seg__info_02_sequence_003__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"You can start the round whenever you're ready."
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__info_02_sequence_003, dia_seg__info_02_sequence_003__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__info_02_sequence_003)
-	dia_seg__info_02_sequence_003.connect("fully_displayed", self, "_on_dia_seg__info_02_sequence_003__fully_displayed", [], CONNECT_ONESHOT)
-	
-	
-
-func _play_dia_seg__info_02_sequence_001():
-	set_round_is_startable(false)
-	
-	play_dialog_segment_or_advance_or_finish_elements(dia_seg__info_02_sequence_001)
-
-func _on_dia_seg__info_02_sequence_002__fully_displayed(arg_tidbit_id):
-	set_stats_tidbit_val_of_id_to_enabled(arg_tidbit_id)
-
-func _on_dia_seg__info_02_sequence_003__fully_displayed():
-	set_round_is_startable(true)
-	
-	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_round_09", "_on_round_ended__into_round_09")
-
-
-
-func _on_round_started__into_round_09():
-	_construct_dia_seg__question_02_sequence_001()
-	
-	play_dialog_segment_or_advance_or_finish_elements(null)
-
-func _on_round_ended__into_round_09():
+func _on_round_started__into_round_04(arg_stageround_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__question_02_sequence_001()
 		_play_dia_seg__question_02_sequence_001()
 
 
 ######### QUESTION 02
 
 func _construct_dia_seg__question_02_sequence_001():
-	_construct_questions_and_choices_for__mobile_mal_Q02()
+	_construct_questions_and_choices_for__Q02()
 	
 	
 	dia_seg__question_02_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__question_02_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? Proceed to test your knowledge."
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Trojans[/b]",
+		"Proceed to test your knowledge."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_02_sequence_001, dia_seg__question_02_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_02_sequence_001)
@@ -534,7 +492,7 @@ func _on_dia_seg__question_02_sequence_002__fully_displayed():
 
 
 
-func _on_mobile_mal_Q02_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+func _on_Q02_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
 	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
 	
 	
@@ -559,7 +517,7 @@ func _on_mobile_mal_Q02_choice_right_clicked(arg_id, arg_button_info : DialogCho
 	do_all_related_audios__for_correct_choice()
 	
 
-func _on_mobile_mal_Q02_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+func _on_Q02_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
 	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
 	
 	
@@ -584,7 +542,7 @@ func _on_mobile_mal_Q02_choice_wrong_clicked(arg_id, arg_button_info : DialogCho
 	do_all_related_audios__for_wrong_choice()
 	
 
-func _on_mobile_mal_Q02_timeout(arg_params):
+func _on_Q02_timeout(arg_params):
 	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
 	
 	
@@ -616,95 +574,30 @@ func _on_dia_seg__question_02_sequence_003__ended(arg_seg, arg_param):
 	
 	#_construct_dia_seg__intro_11_sequence_001()
 	
-	#listen_for_round_end_into_stage_round_id_and_call_func("311", self, "_on_round_started__into_round_11")
+	listen_for_round_end_into_stage_round_id_and_call_func("106", self, "_on_round_started__into_round_06")
 
-
-
-########## INFO 03
-
-func _construct_dia_seg__info_03_sequence_001():
-	
-	dia_seg__info_03_sequence_001 = DialogSegment.new()
-	
-	var dia_seg__info_03_sequence_001__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"One last information regarding our enemies, the Mobile Malwares, has been researched. This time, it is about how to avoid them, in general.",
-		"I'll put it on display for you to review."
-		
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__info_03_sequence_001, dia_seg__info_03_sequence_001__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__info_03_sequence_001)
-	
-	#######
-	
-	var dia_seg__info_03_sequence_002 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__info_03_sequence_001, dia_seg__info_03_sequence_002)
-	
-	var tidbit_to_view_and_enable = StoreOfTextTidbit.TidbitId.CYDE__MOBILE_MALWARE_PRACTICES_01
-	var x_type_item_entry_data = AlmanacManager.tidbit_id_to_tidbit_item_entry_data_option_map[tidbit_to_view_and_enable]
-	_configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(dia_seg__info_03_sequence_002, x_type_item_entry_data, AlmanacManager.Almanac_ItemListEntry_Data.TypeInfoClassification.TEXT_TIDBIT)
-	_configure_dia_set_to_x_type_info_tidbit_pos_and_size(dia_seg__info_03_sequence_002)
-	dia_seg__info_03_sequence_002.connect("fully_displayed", self, "_on_dia_seg__info_03_sequence_002__fully_displayed", [tidbit_to_view_and_enable], CONNECT_ONESHOT)
-	#dia_seg__info_01_sequence_002.final_dialog_custom_size_val_trans_mode = DialogSegment.ValTransition.ValueIncrementMode.INSTANT
-	#dia_seg__info_01_sequence_002.final_dialog_top_left_pos_val_trans_mode = DialogSegment.ValTransition.ValueIncrementMode.INSTANT
-	
-	
-	####
-	
-	var dia_seg__info_03_sequence_003 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__info_03_sequence_002, dia_seg__info_03_sequence_003)
-	
-	
-	var dia_seg__info_03_sequence_003__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"You can start the round whenever you're ready."
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__info_03_sequence_003, dia_seg__info_03_sequence_003__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__info_03_sequence_003)
-	dia_seg__info_03_sequence_003.connect("fully_displayed", self, "_on_dia_seg__info_03_sequence_003__fully_displayed", [], CONNECT_ONESHOT)
-	
-	
-
-func _play_dia_seg__info_03_sequence_001():
-	set_round_is_startable(false)
-	
-	play_dialog_segment_or_advance_or_finish_elements(dia_seg__info_03_sequence_001)
-
-
-func _on_dia_seg__info_03_sequence_002__fully_displayed(arg_tidbit_id):
-	set_stats_tidbit_val_of_id_to_enabled(arg_tidbit_id)
-
-func _on_dia_seg__info_03_sequence_003__fully_displayed():
-	set_round_is_startable(true)
-	
-	listen_for_round_start__then_listen_for_round_end__call_func_for_both(self, "_on_round_started__into_round_12", "_on_round_ended__into_round_12")
-
-
-func _on_round_started__into_round_12():
-	_construct_dia_seg__question_03_sequence_001()
-	
-	play_dialog_segment_or_advance_or_finish_elements(null)
-
-func _on_round_ended__into_round_12():
+func _on_round_started__into_round_06():
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__question_03_sequence_001()
+		
 		_play_dia_seg__question_03_sequence_001()
 
 
 
 ########## QUESTION 03
 
-
 func _construct_dia_seg__question_03_sequence_001():
-	_construct_questions_and_choices_for__mobile_mal_Q03()
+	_construct_questions_and_choices_for__Q03()
 	
 	
 	dia_seg__question_03_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__question_03_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Last Icebreaker quiz of this stage? Proceed to test your knowledge."
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Computer Worms[/b]",
+		"Proceed to test your knowledge."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_03_sequence_001, dia_seg__question_03_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_03_sequence_001)
@@ -743,7 +636,7 @@ func _on_dia_seg__question_03_sequence_002__fully_displayed():
 
 
 
-func _on_mobile_mal_Q03_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+func _on_Q03_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
 	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
 	
 	
@@ -769,7 +662,7 @@ func _on_mobile_mal_Q03_choice_right_clicked(arg_id, arg_button_info : DialogCho
 	
 	
 
-func _on_mobile_mal_Q03_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+func _on_Q03_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
 	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
 	
 	
@@ -794,7 +687,7 @@ func _on_mobile_mal_Q03_choice_wrong_clicked(arg_id, arg_button_info : DialogCho
 	do_all_related_audios__for_wrong_choice()
 	
 
-func _on_mobile_mal_Q03_timeout(arg_params):
+func _on_Q03_timeout(arg_params):
 	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
 	
 	
@@ -823,12 +716,894 @@ func _on_dia_seg__question_03_sequence_003__ended(arg_seg, arg_param):
 	set_round_is_startable(true)
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
+	listen_for_round_end_into_stage_round_id_and_call_func("108", self, "_on_round_started__into_round_08")
+
+func _on_round_started__into_round_08():
+	set_round_is_startable(false)
+	
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__question_04_sequence_001()
+		
+		_play_dia_seg__question_04_sequence_001()
+
+
+########## QUESTION 04
+
+func _construct_dia_seg__question_04_sequence_001():
+	_construct_questions_and_choices_for__Q04()
+	
+	
+	dia_seg__question_04_sequence_001 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_001 = dia_seg__question_04_sequence_001
+	
+	var dia_seg__question_xx_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Adwares[/b]",
+		"Proceed to test your knowledge."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_001)
+	
+	###
+	
+	var dia_seg__question_xx_sequence_002 = _construct_and_configure_choices_for_question_xx_questions(all_possible_ques_and_ans__04)[0]
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_002)
+	dia_seg__question_xx_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_04_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
+	dia_seg__question_xx_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_04_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
+	
+	###
+	
+	dia_seg__question_04_sequence_003 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_003 = dia_seg__question_04_sequence_003
+	
+	var dia_seg__question_xx_sequence_003__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"But that is not all. There is so much more knowledge to gain against the enemies. Be prepared for more!"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_003, dia_seg__question_xx_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_003)
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_003, self, "_on_dia_seg__question_04_sequence_003__ended", null)
+	
+
+func _play_dia_seg__question_04_sequence_001():
+	set_round_is_startable(false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_04_sequence_001)
+	
+
+func _on_dia_seg__question_04_sequence_002__setted_into_whole_screen_panel():
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
+
+func _on_dia_seg__question_04_sequence_002__fully_displayed():
+	play_quiz_time_music()
+
+
+
+func _on_Q04_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Nice job! You got it right!",
+		["With the proper knowledge used at the right time, your |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__towers]],
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_tower_power_up_effects()
+	do_all_related_audios__for_correct_choice()
+	
+	
+
+func _on_Q04_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you got it wrong.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from mistakes."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_wrong_choice()
+	
+
+func _on_Q04_timeout(arg_params):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you ran out of time.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from setbacks."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_quiz_timer_timeout()
+	
+
+func _on_dia_seg__question_04_sequence_003__ended(arg_seg, arg_param):
+	set_round_is_startable(true)
+	play_dialog_segment_or_advance_or_finish_elements(null)
+	
 	#_construct_dia_seg__intro_11_sequence_001()
 	
 	#listen_for_round_end_into_stage_round_id_and_call_func("311", self, "_on_round_started__into_round_11")
 	
 
+	listen_for_round_end_into_stage_round_id_and_call_func("1010", self, "_on_round_started__into_round_10")
 
+func _on_round_started__into_round_10():
+	set_round_is_startable(false)
+	
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__question_05_sequence_001()
+		
+		_play_dia_seg__question_05_sequence_001()
+
+
+
+########## QUESTION 05
+
+func _construct_dia_seg__question_05_sequence_001():
+	_construct_questions_and_choices_for__Q05()
+	
+	
+	dia_seg__question_05_sequence_001 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_001 = dia_seg__question_05_sequence_001
+	
+	var dia_seg__question_xx_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Ransomwares[/b]",
+		"Proceed to test your knowledge."
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_001)
+	
+	###
+	
+	var dia_seg__question_xx_sequence_002 = _construct_and_configure_choices_for_question_xx_questions(all_possible_ques_and_ans__05)[0]
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_002)
+	dia_seg__question_xx_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_05_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
+	dia_seg__question_xx_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_05_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
+	
+	###
+	
+	dia_seg__question_05_sequence_003 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_003 = dia_seg__question_05_sequence_003
+	
+	var dia_seg__question_xx_sequence_003__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"But that is not all. There is so much more knowledge to gain against the enemies. Be prepared for more!"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_003, dia_seg__question_xx_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_003)
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_003, self, "_on_dia_seg__question_05_sequence_003__ended", null)
+	
+
+func _play_dia_seg__question_05_sequence_001():
+	set_round_is_startable(false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_05_sequence_001)
+	
+
+func _on_dia_seg__question_05_sequence_002__setted_into_whole_screen_panel():
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
+
+func _on_dia_seg__question_05_sequence_002__fully_displayed():
+	play_quiz_time_music()
+
+
+
+func _on_Q05_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Nice job! You got it right!",
+		["With the proper knowledge used at the right time, your |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__towers]],
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_05_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_tower_power_up_effects()
+	do_all_related_audios__for_correct_choice()
+	
+	
+
+func _on_Q05_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you got it wrong.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from mistakes."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_05_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_wrong_choice()
+	
+
+func _on_Q05_timeout(arg_params):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you ran out of time.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from setbacks."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_05_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_quiz_timer_timeout()
+	
+
+func _on_dia_seg__question_05_sequence_003__ended(arg_seg, arg_param):
+	set_round_is_startable(true)
+	play_dialog_segment_or_advance_or_finish_elements(null)
+	
+	
+	listen_for_round_end_into_stage_round_id_and_call_func("1012", self, "_on_round_started__into_round_12")
+
+func _on_round_started__into_round_12():
+	set_round_is_startable(false)
+	
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__question_06_sequence_001()
+		
+		_play_dia_seg__question_06_sequence_001()
+
+
+
+
+########## QUESTION 06
+
+func _construct_dia_seg__question_06_sequence_001():
+	_construct_questions_and_choices_for__Q06()
+	
+	
+	dia_seg__question_06_sequence_001 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_001 = dia_seg__question_06_sequence_001
+	
+	var dia_seg__question_xx_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Rootkits[/b]",
+		"Proceed to test your knowledge."
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_001)
+	
+	###
+	
+	var dia_seg__question_xx_sequence_002 = _construct_and_configure_choices_for_question_xx_questions(all_possible_ques_and_ans__06)[0]
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_002)
+	dia_seg__question_xx_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_06_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
+	dia_seg__question_xx_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_06_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
+	
+	###
+	
+	dia_seg__question_06_sequence_003 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_003 = dia_seg__question_06_sequence_003
+	
+	var dia_seg__question_xx_sequence_003__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"But that is not all. There is so much more knowledge to gain against the enemies. Be prepared for more!"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_003, dia_seg__question_xx_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_003)
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_003, self, "_on_dia_seg__question_06_sequence_003__ended", null)
+	
+
+func _play_dia_seg__question_06_sequence_001():
+	set_round_is_startable(false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_06_sequence_001)
+	
+
+func _on_dia_seg__question_06_sequence_002__setted_into_whole_screen_panel():
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
+
+func _on_dia_seg__question_06_sequence_002__fully_displayed():
+	play_quiz_time_music()
+
+
+
+func _on_Q06_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Nice job! You got it right!",
+		["With the proper knowledge used at the right time, your |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__towers]],
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_06_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_tower_power_up_effects()
+	do_all_related_audios__for_correct_choice()
+	
+	
+
+func _on_Q06_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you got it wrong.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from mistakes."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_06_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_wrong_choice()
+	
+
+func _on_Q06_timeout(arg_params):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you ran out of time.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from setbacks."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_06_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_quiz_timer_timeout()
+	
+
+func _on_dia_seg__question_06_sequence_003__ended(arg_seg, arg_param):
+	set_round_is_startable(true)
+	play_dialog_segment_or_advance_or_finish_elements(null)
+	
+	
+	listen_for_round_end_into_stage_round_id_and_call_func("1014", self, "_on_round_started__into_round_14")
+
+func _on_round_started__into_round_14():
+	set_round_is_startable(false)
+	
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__question_07_sequence_001()
+		
+		_play_dia_seg__question_07_sequence_001()
+
+
+########## QUESTION 07
+
+func _construct_dia_seg__question_07_sequence_001():
+	_construct_questions_and_choices_for__Q07()
+	
+	
+	dia_seg__question_07_sequence_001 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_001 = dia_seg__question_07_sequence_001
+	
+	var dia_seg__question_xx_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Fileless[/b]",
+		"Proceed to test your knowledge."
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_001)
+	
+	###
+	
+	var dia_seg__question_xx_sequence_002 = _construct_and_configure_choices_for_question_xx_questions(all_possible_ques_and_ans__07)[0]
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_002)
+	dia_seg__question_xx_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_07_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
+	dia_seg__question_xx_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_07_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
+	
+	###
+	
+	dia_seg__question_07_sequence_003 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_003 = dia_seg__question_07_sequence_003
+	
+	var dia_seg__question_xx_sequence_003__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"But that is not all. There is so much more knowledge to gain against the enemies. Be prepared for more!"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_003, dia_seg__question_xx_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_003)
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_003, self, "_on_dia_seg__question_07_sequence_003__ended", null)
+	
+
+func _play_dia_seg__question_07_sequence_001():
+	set_round_is_startable(false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_07_sequence_001)
+	
+
+func _on_dia_seg__question_07_sequence_002__setted_into_whole_screen_panel():
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
+
+func _on_dia_seg__question_07_sequence_002__fully_displayed():
+	play_quiz_time_music()
+
+
+
+func _on_Q07_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Nice job! You got it right!",
+		["With the proper knowledge used at the right time, your |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__towers]],
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_07_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_tower_power_up_effects()
+	do_all_related_audios__for_correct_choice()
+	
+	
+
+func _on_Q07_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you got it wrong.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from mistakes."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_07_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_wrong_choice()
+	
+
+func _on_Q07_timeout(arg_params):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you ran out of time.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from setbacks."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_07_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_quiz_timer_timeout()
+	
+
+func _on_dia_seg__question_07_sequence_003__ended(arg_seg, arg_param):
+	set_round_is_startable(true)
+	play_dialog_segment_or_advance_or_finish_elements(null)
+	
+	
+	listen_for_round_end_into_stage_round_id_and_call_func("1016", self, "_on_round_started__into_round_16")
+
+func _on_round_started__into_round_16():
+	set_round_is_startable(false)
+	
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__question_08_sequence_001()
+		
+		_play_dia_seg__question_08_sequence_001()
+
+
+########## QUESTION 08
+
+func _construct_dia_seg__question_08_sequence_001():
+	_construct_questions_and_choices_for__Q08()
+	
+	
+	dia_seg__question_08_sequence_001 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_001 = dia_seg__question_08_sequence_001
+	
+	var dia_seg__question_xx_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Malware Bots[/b]",
+		"Proceed to test your knowledge."
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_001)
+	
+	###
+	
+	var dia_seg__question_xx_sequence_002 = _construct_and_configure_choices_for_question_xx_questions(all_possible_ques_and_ans__08)[0]
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_002)
+	dia_seg__question_xx_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_08_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
+	dia_seg__question_xx_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_08_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
+	
+	###
+	
+	dia_seg__question_08_sequence_003 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_003 = dia_seg__question_08_sequence_003
+	
+	var dia_seg__question_xx_sequence_003__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"But that is not all. There is so much more knowledge to gain against the enemies. Be prepared for more!"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_003, dia_seg__question_xx_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_003)
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_003, self, "_on_dia_seg__question_08_sequence_003__ended", null)
+	
+
+func _play_dia_seg__question_08_sequence_001():
+	set_round_is_startable(false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_08_sequence_001)
+	
+
+func _on_dia_seg__question_08_sequence_002__setted_into_whole_screen_panel():
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
+
+func _on_dia_seg__question_08_sequence_002__fully_displayed():
+	play_quiz_time_music()
+
+
+
+func _on_Q08_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Nice job! You got it right!",
+		["With the proper knowledge used at the right time, your |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__towers]],
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_08_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_tower_power_up_effects()
+	do_all_related_audios__for_correct_choice()
+	
+	
+
+func _on_Q08_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you got it wrong.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from mistakes."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_08_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_wrong_choice()
+	
+
+func _on_Q08_timeout(arg_params):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you ran out of time.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from setbacks."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_08_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_quiz_timer_timeout()
+	
+
+func _on_dia_seg__question_08_sequence_003__ended(arg_seg, arg_param):
+	set_round_is_startable(true)
+	play_dialog_segment_or_advance_or_finish_elements(null)
+	
+	
+	listen_for_round_end_into_stage_round_id_and_call_func("1018", self, "_on_round_started__into_round_18")
+
+func _on_round_started__into_round_18():
+	set_round_is_startable(false)
+	
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__question_09_sequence_001()
+		
+		_play_dia_seg__question_09_sequence_001()
+
+
+
+########## QUESTION 09
+
+func _construct_dia_seg__question_09_sequence_001():
+	_construct_questions_and_choices_for__Q09()
+	
+	
+	dia_seg__question_09_sequence_001 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_001 = dia_seg__question_09_sequence_001
+	
+	var dia_seg__question_xx_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Mobile Malwares[/b]",
+		"Proceed to test your knowledge."
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_001)
+	
+	###
+	
+	var dia_seg__question_xx_sequence_002 = _construct_and_configure_choices_for_question_xx_questions(all_possible_ques_and_ans__09)[0]
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_002)
+	dia_seg__question_xx_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_09_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
+	dia_seg__question_xx_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_09_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
+	
+	###
+	
+	dia_seg__question_09_sequence_003 = DialogSegment.new()
+	var dia_seg__question_xx_sequence_003 = dia_seg__question_09_sequence_003
+	
+	var dia_seg__question_xx_sequence_003__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"But that is not all. There is so much more knowledge to gain against the enemies. Be prepared for more!"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_003, dia_seg__question_xx_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_003)
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_003, self, "_on_dia_seg__question_09_sequence_003__ended", null)
+	
+
+func _play_dia_seg__question_09_sequence_001():
+	set_round_is_startable(false)
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_09_sequence_001)
+	
+
+func _on_dia_seg__question_09_sequence_002__setted_into_whole_screen_panel():
+	game_elements.linearly_set_game_play_theme_db_to_inaudiable()
+
+func _on_dia_seg__question_09_sequence_002__fully_displayed():
+	play_quiz_time_music()
+
+
+
+func _on_Q09_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "towers")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Nice job! You got it right!",
+		["With the proper knowledge used at the right time, your |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__towers]],
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_09_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_tower_power_up_effects()
+	do_all_related_audios__for_correct_choice()
+	
+	
+
+func _on_Q09_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you got it wrong.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from mistakes."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_09_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_wrong_choice()
+	
+
+func _on_Q09_timeout(arg_params):
+	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
+	
+	
+	var dia_seg__question_xx_sequence_002 = DialogSegment.new()
+	
+	var dia_seg__question_xx_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Unfortunately, you ran out of time.",
+		["With our weakness exposed, the |0| are empowered for %s seconds." % [POWER_UP__DEFAULT_DURATION], [plain_fragment__enemies]],
+		"Do not worry however. There are always more chances to recover from setbacks."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_002, dia_seg__question_xx_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_09_sequence_003)
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
+	#
+	
+	apply_enemy_power_up_effects()
+	do_all_related_audios__for_quiz_timer_timeout()
+	
+
+func _on_dia_seg__question_09_sequence_003__ended(arg_seg, arg_param):
+	set_round_is_startable(true)
+	play_dialog_segment_or_advance_or_finish_elements(null)
+	
+	
+	listen_for_round_end_into_stage_round_id_and_call_func("1020", self, "_on_round_started__into_round_20")
+
+func _on_round_started__into_round_20():
+	set_round_is_startable(false)
+	
+	if !prevent_other_dia_segs_from_playing__from_loss:
+		_construct_dia_seg__asi_convo_01_sequence_001()
+		
+		_play_dia_seg__asi_convo_01_sequence_001()
+
+#############
 
 func _construct_dia_seg__asi_convo_01_sequence_001():
 	var show_skip = flag_is_enabled(CydeSingleton.get_world_completion_state_num_to_world_id(StoreOfGameModifiers.GameModiIds__CYDE_World_10), World10_States.SHOWN_ASI_CONVO_01)
@@ -1052,360 +1827,6 @@ func _on_asi_convo_01_completed():
 	
 
 
-############
-
-func _construct_questions_and_choices_for__mobile_mal_Q01():
-	var choice_01__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_01__ques_01.id = 1
-	choice_01__ques_01.display_text = "Tablets"
-	choice_01__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_01__ques_01.func_source_on_click = self
-	choice_01__ques_01.func_name_on_click = "_on_mobile_mal_Q01_choice_right_clicked"
-	choice_01__ques_01.choice_result_type = choice_01__ques_01.ChoiceResultType.CORRECT
-	
-	var choice_02__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_02__ques_01.id = 2
-	choice_02__ques_01.display_text = "Telephone"
-	choice_02__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_02__ques_01.func_source_on_click = self
-	choice_02__ques_01.func_name_on_click = "_on_mobile_mal_Q01_choice_wrong_clicked"
-	choice_02__ques_01.choice_result_type = choice_02__ques_01.ChoiceResultType.WRONG
-	
-	var choice_03_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_03_ques_01.id = 3
-	choice_03_ques_01.display_text = "Computers"
-	choice_03_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_03_ques_01.func_source_on_click = self
-	choice_03_ques_01.func_name_on_click = "_on_mobile_mal_Q01_choice_wrong_clicked"
-	choice_03_ques_01.choice_result_type = choice_03_ques_01.ChoiceResultType.WRONG
-	
-	var choice_04_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_04_ques_01.id = 3
-	choice_04_ques_01.display_text = "Server"
-	choice_04_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_04_ques_01.func_source_on_click = self
-	choice_04_ques_01.func_name_on_click = "_on_mobile_mal_Q01_choice_wrong_clicked"
-	choice_04_ques_01.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
-	
-	
-	var choices_for_question_info__01 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
-	choices_for_question_info__01.add_choice(choice_01__ques_01)
-	choices_for_question_info__01.add_choice(choice_02__ques_01)
-	choices_for_question_info__01.add_choice(choice_03_ques_01)
-	choices_for_question_info__01.add_choice(choice_04_ques_01)
-	
-	
-	var question_01_desc = [
-		"Mobile Malware is specifically designed to target mobile devices, such as smartphones and ________,\nwith the goal of gaining access to private data."
-	]
-	
-	var question_info__01 = QuestionInfoForChoicesPanel.new()
-	question_info__01.choices_for_questions = choices_for_question_info__01
-	question_info__01.question_as_desc = question_01_desc
-	question_info__01.time_for_question = dia_time_duration__long
-	question_info__01.timeout_func_source = self
-	question_info__01.timeout_func_name = "_on_mobile_mal_Q01_timeout"
-	
-	#######
-	
-	var choice_01__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_01__ques_02.id = 1
-	choice_01__ques_02.display_text = "Cabir"
-	choice_01__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_01__ques_02.func_source_on_click = self
-	choice_01__ques_02.func_name_on_click = "_on_mobile_mal_Q01_choice_right_clicked"
-	choice_01__ques_02.choice_result_type = choice_01__ques_02.ChoiceResultType.CORRECT
-	
-	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_02__ques_02.id = 2
-	choice_02__ques_02.display_text = "Skulls"
-	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_02__ques_02.func_source_on_click = self
-	choice_02__ques_02.func_name_on_click = "_on_mobile_mal_Q01_choice_wrong_clicked"
-	choice_02__ques_02.choice_result_type = choice_02__ques_02.ChoiceResultType.WRONG
-	
-	var choice_03_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_03_ques_02.id = 3
-	choice_03_ques_02.display_text = "FakePlayer"
-	choice_03_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_03_ques_02.func_source_on_click = self
-	choice_03_ques_02.func_name_on_click = "_on_mobile_mal_Q01_choice_wrong_clicked"
-	choice_03_ques_02.choice_result_type = choice_03_ques_02.ChoiceResultType.WRONG
-	
-	var choice_04_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_04_ques_02.id = 3
-	choice_04_ques_02.display_text = "HummingBad"
-	choice_04_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_04_ques_02.func_source_on_click = self
-	choice_04_ques_02.func_name_on_click = "_on_mobile_mal_Q01_choice_wrong_clicked"
-	choice_04_ques_02.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
-	
-	
-	var choices_for_question_info__02 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
-	choices_for_question_info__02.add_choice(choice_01__ques_02)
-	choices_for_question_info__02.add_choice(choice_02__ques_02)
-	choices_for_question_info__02.add_choice(choice_03_ques_02)
-	choices_for_question_info__02.add_choice(choice_04_ques_02)
-	
-	
-	var question_02_desc = [
-		"What is the first real worm, which spread from phone to phone in 2004,\nwhich spread through Bluetooth on Nokia's Symbian devices?"
-	]
-	
-	var question_info__02 = QuestionInfoForChoicesPanel.new()
-	question_info__02.choices_for_questions = choices_for_question_info__02
-	question_info__02.question_as_desc = question_02_desc
-	question_info__02.time_for_question = dia_time_duration__short
-	question_info__02.timeout_func_source = self
-	question_info__02.timeout_func_name = "_on_mobile_mal_Q01_timeout"
-	
-	
-	#######
-	#######
-	
-	all_possible_ques_and_ans__for_mobile_mal_01 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
-	all_possible_ques_and_ans__for_mobile_mal_01.add_question_info_for_choices_panel(question_info__01)
-	all_possible_ques_and_ans__for_mobile_mal_01.add_question_info_for_choices_panel(question_info__02)
-
-
-########################
-
-
-func _construct_questions_and_choices_for__mobile_mal_Q02():
-	var choice_01__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_01__ques_01.id = 1
-	choice_01__ques_01.display_text = "Downloading infected apps"
-	choice_01__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_01__ques_01.func_source_on_click = self
-	choice_01__ques_01.func_name_on_click = "_on_mobile_mal_Q02_choice_right_clicked"
-	choice_01__ques_01.choice_result_type = choice_01__ques_01.ChoiceResultType.CORRECT
-	
-	var choice_02__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_02__ques_01.id = 2
-	choice_02__ques_01.display_text = "Visiting malicious websites"
-	choice_02__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_02__ques_01.func_source_on_click = self
-	choice_02__ques_01.func_name_on_click = "_on_mobile_mal_Q02_choice_wrong_clicked"
-	choice_02__ques_01.choice_result_type = choice_02__ques_01.ChoiceResultType.WRONG
-	
-	var choice_03_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_03_ques_01.id = 3
-	choice_03_ques_01.display_text = "Using infected USB drives"
-	choice_03_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_03_ques_01.func_source_on_click = self
-	choice_03_ques_01.func_name_on_click = "_on_mobile_mal_Q02_choice_wrong_clicked"
-	choice_03_ques_01.choice_result_type = choice_03_ques_01.ChoiceResultType.WRONG
-	
-	var choice_04_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_04_ques_01.id = 3
-	choice_04_ques_01.display_text = "Opening malicious email attachments"
-	choice_04_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_04_ques_01.func_source_on_click = self
-	choice_04_ques_01.func_name_on_click = "_on_mobile_mal_Q02_choice_wrong_clicked"
-	choice_04_ques_01.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
-	
-	
-	var choices_for_question_info__01 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
-	choices_for_question_info__01.add_choice(choice_01__ques_01)
-	choices_for_question_info__01.add_choice(choice_02__ques_01)
-	choices_for_question_info__01.add_choice(choice_03_ques_01)
-	choices_for_question_info__01.add_choice(choice_04_ques_01)
-	
-	
-	var question_01_desc = [
-		"Mobile malware can be hidden in apps available for download from app stores or third-party websites.\nWhen a user downloads and installs the app, malware is also installed on their device."
-	]
-	
-	var question_info__01 = QuestionInfoForChoicesPanel.new()
-	question_info__01.choices_for_questions = choices_for_question_info__01
-	question_info__01.question_as_desc = question_01_desc
-	question_info__01.time_for_question = dia_time_duration__long
-	question_info__01.timeout_func_source = self
-	question_info__01.timeout_func_name = "_on_mobile_mal_Q02_timeout"
-	
-	#######
-	
-	var choice_01__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_01__ques_02.id = 1
-	choice_01__ques_02.display_text = "Using infected USB drives"
-	choice_01__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_01__ques_02.func_source_on_click = self
-	choice_01__ques_02.func_name_on_click = "_on_mobile_mal_Q02_choice_right_clicked"
-	choice_01__ques_02.choice_result_type = choice_01__ques_02.ChoiceResultType.CORRECT
-	
-	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_02__ques_02.id = 2
-	choice_02__ques_02.display_text = "Visiting malicious websites"
-	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_02__ques_02.func_source_on_click = self
-	choice_02__ques_02.func_name_on_click = "_on_mobile_mal_Q02_choice_wrong_clicked"
-	choice_02__ques_02.choice_result_type = choice_02__ques_02.ChoiceResultType.WRONG
-	
-	var choice_03_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_03_ques_02.id = 3
-	choice_03_ques_02.display_text = "Downloading infected apps"
-	choice_03_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_03_ques_02.func_source_on_click = self
-	choice_03_ques_02.func_name_on_click = "_on_mobile_mal_Q02_choice_wrong_clicked"
-	choice_03_ques_02.choice_result_type = choice_03_ques_02.ChoiceResultType.WRONG
-	
-	var choice_04_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_04_ques_02.id = 3
-	choice_04_ques_02.display_text = "Opening malicious email attachments"
-	choice_04_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_04_ques_02.func_source_on_click = self
-	choice_04_ques_02.func_name_on_click = "_on_mobile_mal_Q02_choice_wrong_clicked"
-	choice_04_ques_02.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
-	
-	
-	var choices_for_question_info__02 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
-	choices_for_question_info__02.add_choice(choice_01__ques_02)
-	choices_for_question_info__02.add_choice(choice_02__ques_02)
-	choices_for_question_info__02.add_choice(choice_03_ques_02)
-	choices_for_question_info__02.add_choice(choice_04_ques_02)
-	
-	
-	var question_02_desc = [
-		"Mobile malware can be spread through USB drives that are infected with the malware.\nWhen a user connects the USB drive to their device, the malware is transferred to the device."
-	]
-	
-	var question_info__02 = QuestionInfoForChoicesPanel.new()
-	question_info__02.choices_for_questions = choices_for_question_info__02
-	question_info__02.question_as_desc = question_02_desc
-	question_info__02.time_for_question = dia_time_duration__short
-	question_info__02.timeout_func_source = self
-	question_info__02.timeout_func_name = "_on_mobile_mal_Q02_timeout"
-	
-	
-	#######
-	#######
-	
-	all_possible_ques_and_ans__for_mobile_mal_01 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
-	all_possible_ques_and_ans__for_mobile_mal_01.add_question_info_for_choices_panel(question_info__01)
-	all_possible_ques_and_ans__for_mobile_mal_01.add_question_info_for_choices_panel(question_info__02)
-
-
-############
-
-
-
-func _construct_questions_and_choices_for__mobile_mal_Q03():
-	var choice_01__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_01__ques_01.id = 1
-	choice_01__ques_01.display_text = "Install apps from trusted sources only"
-	choice_01__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_01__ques_01.func_source_on_click = self
-	choice_01__ques_01.func_name_on_click = "_on_mobile_mal_Q03_choice_right_clicked"
-	choice_01__ques_01.choice_result_type = choice_01__ques_01.ChoiceResultType.CORRECT
-	
-	var choice_02__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_02__ques_01.id = 2
-	choice_02__ques_01.display_text = "Root your phone"
-	choice_02__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_02__ques_01.func_source_on_click = self
-	choice_02__ques_01.func_name_on_click = "_on_mobile_mal_Q03_choice_wrong_clicked"
-	choice_02__ques_01.choice_result_type = choice_02__ques_01.ChoiceResultType.WRONG
-	
-	var choice_03_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_03_ques_01.id = 3
-	choice_03_ques_01.display_text = "Click on links or attachments in unsolicited emails or text messages"
-	choice_03_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_03_ques_01.func_source_on_click = self
-	choice_03_ques_01.func_name_on_click = "_on_mobile_mal_Q03_choice_wrong_clicked"
-	choice_03_ques_01.choice_result_type = choice_03_ques_01.ChoiceResultType.WRONG
-	
-	var choice_04_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_04_ques_01.id = 3
-	choice_04_ques_01.display_text = "Don't use the phone except on a data plan"
-	choice_04_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_04_ques_01.func_source_on_click = self
-	choice_04_ques_01.func_name_on_click = "_on_mobile_mal_Q03_choice_wrong_clicked"
-	choice_04_ques_01.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
-	
-	
-	var choices_for_question_info__01 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
-	choices_for_question_info__01.add_choice(choice_01__ques_01)
-	choices_for_question_info__01.add_choice(choice_02__ques_01)
-	choices_for_question_info__01.add_choice(choice_03_ques_01)
-	choices_for_question_info__01.add_choice(choice_04_ques_01)
-	
-	
-	var question_01_desc = [
-		"Which of the following is one of the best ways to prevent mobile malware?"
-	]
-	
-	var question_info__01 = QuestionInfoForChoicesPanel.new()
-	question_info__01.choices_for_questions = choices_for_question_info__01
-	question_info__01.question_as_desc = question_01_desc
-	question_info__01.time_for_question = dia_time_duration__long
-	question_info__01.timeout_func_source = self
-	question_info__01.timeout_func_name = "_on_mobile_mal_Q03_timeout"
-	
-	#######
-	
-	var choice_01__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_01__ques_02.id = 1
-	choice_01__ques_02.display_text = "Factory reset your device"
-	choice_01__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_01__ques_02.func_source_on_click = self
-	choice_01__ques_02.func_name_on_click = "_on_mobile_mal_Q03_choice_right_clicked"
-	choice_01__ques_02.choice_result_type = choice_01__ques_02.ChoiceResultType.CORRECT
-	
-	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_02__ques_02.id = 2
-	choice_02__ques_02.display_text = "Never save usernames and passwords in your mobile browsers or apps"
-	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_02__ques_02.func_source_on_click = self
-	choice_02__ques_02.func_name_on_click = "_on_mobile_mal_Q03_choice_wrong_clicked"
-	choice_02__ques_02.choice_result_type = choice_02__ques_02.ChoiceResultType.WRONG
-	
-	var choice_03_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_03_ques_02.id = 3
-	choice_03_ques_02.display_text = "Install apps from trusted sources only"
-	choice_03_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_03_ques_02.func_source_on_click = self
-	choice_03_ques_02.func_name_on_click = "_on_mobile_mal_Q03_choice_wrong_clicked"
-	choice_03_ques_02.choice_result_type = choice_03_ques_02.ChoiceResultType.WRONG
-	
-	var choice_04_ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
-	choice_04_ques_02.id = 3
-	choice_04_ques_02.display_text = "Don’t bank or shop online using public Wi-Fi connections"
-	choice_04_ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
-	choice_04_ques_02.func_source_on_click = self
-	choice_04_ques_02.func_name_on_click = "_on_mobile_mal_Q03_choice_wrong_clicked"
-	choice_04_ques_02.choice_result_type = choice_04_ques_01.ChoiceResultType.WRONG
-	
-	
-	var choices_for_question_info__02 = ChoicesForQuestionsInfo.new(rng_to_use_for_randomized_questions_and_ans, 3)
-	choices_for_question_info__02.add_choice(choice_01__ques_02)
-	choices_for_question_info__02.add_choice(choice_02__ques_02)
-	choices_for_question_info__02.add_choice(choice_03_ques_02)
-	choices_for_question_info__02.add_choice(choice_04_ques_02)
-	
-	
-	var question_02_desc = [
-		"Which of the following is not one of the best ways to prevent mobile malware?"
-	]
-	
-	var question_info__02 = QuestionInfoForChoicesPanel.new()
-	question_info__02.choices_for_questions = choices_for_question_info__02
-	question_info__02.question_as_desc = question_02_desc
-	question_info__02.time_for_question = dia_time_duration__short
-	question_info__02.timeout_func_source = self
-	question_info__02.timeout_func_name = "_on_mobile_mal_Q03_timeout"
-	
-	
-	#######
-	#######
-	
-	all_possible_ques_and_ans__for_mobile_mal_03 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
-	all_possible_ques_and_ans__for_mobile_mal_03.add_question_info_for_choices_panel(question_info__01)
-	all_possible_ques_and_ans__for_mobile_mal_03.add_question_info_for_choices_panel(question_info__02)
-
-
-##############
-
-
 ######################### ON LOSE
 
 
@@ -1468,42 +1889,85 @@ func _show_dialog_choices_modi_panel():
 func _build_dialog_choices_modi_panel_config():
 	var config = DialogChoicesModiPanel.ModiPanelConfig.new()
 	
+	config.show_change_question_use_left = show_change_question_use_left
+	config.remove_false_answer_use_left = remove_false_answer_use_left
+	
 	config.remove_false_answer_count = remove_choice_count
-	config.show_change_question = show_change_questions
 	
 	config.func_source_for_actions = self
 	config.func_name_for__change_question = "_on_dialog_choices_modi_panel__change_question"
 	config.func_name_for__remove_false_answer = "_on_dialog_choices_modi_panel__removed_choices"
 	
+	# stage 10 specific
+	config.show_use_labels = (show_change_question_use_left != 0) || (remove_false_answer_use_left != 0)
+	
 	return config
 
 
 func _on_dialog_choices_modi_panel__removed_choices(arg_param):
-	remove_choice_count -= 1
+	remove_false_answer_use_left -= 1
 
 func _on_dialog_choices_modi_panel__change_question(arg_param):
-	show_change_questions = false
+	show_change_question_use_left -= 1
 	
-	if current_possible_ques_and_ans == all_possible_ques_and_ans__for_mobile_mal_01:
+	if current_possible_ques_and_ans == all_possible_ques_and_ans__01:
 		var dia_seg = _construct_and_configure_choices_for_question_01_questions()[0]
 		
 		play_dialog_segment_or_advance_or_finish_elements(dia_seg)
-	elif current_possible_ques_and_ans == all_possible_ques_and_ans__for_mobile_mal_02:
+	elif current_possible_ques_and_ans == all_possible_ques_and_ans__02:
 		var dia_seg = _construct_and_configure_choices_for_question_02_questions()[0]
 		
 		play_dialog_segment_or_advance_or_finish_elements(dia_seg)
-	elif current_possible_ques_and_ans == all_possible_ques_and_ans__for_mobile_mal_03:
+	elif current_possible_ques_and_ans == all_possible_ques_and_ans__03:
 		var dia_seg = _construct_and_configure_choices_for_question_03_questions()[0]
 		
 		play_dialog_segment_or_advance_or_finish_elements(dia_seg)
-
-
+		
+	else:
+		var dia_seg = _construct_and_configure_choices_for_question_xx_questions(current_possible_ques_and_ans)
+		
+		play_dialog_segment_or_advance_or_finish_elements(dia_seg)
 
 ############
+##########
+############
+
+func _construct_questions_and_choices_for__Q01():
+	all_possible_ques_and_ans__01 = StoreOfQuestions.construct_questions_and_choices_for__all_virus(self, "_on_Q01_choice_right_clicked", "_on_Q01_choice_wrong_clicked", "_on_Q01_timeout")
+
+func _construct_questions_and_choices_for__Q02():
+	all_possible_ques_and_ans__02 = StoreOfQuestions.construct_questions_and_choices_for__all_trojan(self, "_on_Q02_choice_right_clicked", "_on_Q02_choice_wrong_clicked", "_on_Q02_timeout")
+
+func _construct_questions_and_choices_for__Q03():
+	all_possible_ques_and_ans__03 = StoreOfQuestions.construct_questions_and_choices_for__all_worm(self, "_on_Q03_choice_right_clicked", "_on_Q03_choice_wrong_clicked", "_on_Q03_timeout")
+
+func _construct_questions_and_choices_for__Q04():
+	all_possible_ques_and_ans__04 = StoreOfQuestions.construct_questions_and_choices_for__all_adware(self, "_on_Q04_choice_right_clicked", "_on_Q04_choice_wrong_clicked", "_on_Q04_timeout")
+
+func _construct_questions_and_choices_for__Q05():
+	all_possible_ques_and_ans__05 = StoreOfQuestions.construct_questions_and_choices_for__all_ransom(self, "_on_Q05_choice_right_clicked", "_on_Q05_choice_wrong_clicked", "_on_Q05_timeout")
+
+func _construct_questions_and_choices_for__Q06():
+	all_possible_ques_and_ans__06 = StoreOfQuestions.construct_questions_and_choices_for__all_rootkit(self, "_on_Q06_choice_right_clicked", "_on_Q06_choice_wrong_clicked", "_on_Q06_timeout")
+
+func _construct_questions_and_choices_for__Q07():
+	all_possible_ques_and_ans__07 = StoreOfQuestions.construct_questions_and_choices_for__all_fileless(self, "_on_Q07_choice_right_clicked", "_on_Q07_choice_wrong_clicked", "_on_Q07_timeout")
+
+func _construct_questions_and_choices_for__Q08():
+	all_possible_ques_and_ans__08 = StoreOfQuestions.construct_questions_and_choices_for__all_malbots(self, "_on_Q08_choice_right_clicked", "_on_Q08_choice_wrong_clicked", "_on_Q08_timeout")
+
+func _construct_questions_and_choices_for__Q09():
+	all_possible_ques_and_ans__09 = StoreOfQuestions.construct_questions_and_choices_for__all_mobile_mal(self, "_on_Q09_choice_right_clicked", "_on_Q09_choice_wrong_clicked", "_on_Q09_timeout")
+
+
+
+
+####
+
 
 func _construct_and_configure_choices_for_question_01_questions():
-	current_possible_ques_and_ans = all_possible_ques_and_ans__for_mobile_mal_01
-	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__question_01", all_possible_ques_and_ans__for_mobile_mal_01, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
+	current_possible_ques_and_ans = all_possible_ques_and_ans__01
+	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__question_01", all_possible_ques_and_ans__01, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
 
 
 func _construct_dia_seg_for_questions__question_01(arg_rand_ques_for_choices_selected):
@@ -1519,8 +1983,8 @@ func _construct_dia_seg_for_questions__question_01(arg_rand_ques_for_choices_sel
 ##
 
 func _construct_and_configure_choices_for_question_02_questions():
-	current_possible_ques_and_ans = all_possible_ques_and_ans__for_mobile_mal_02
-	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__question_02", all_possible_ques_and_ans__for_mobile_mal_02, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
+	current_possible_ques_and_ans = all_possible_ques_and_ans__02
+	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__question_02", all_possible_ques_and_ans__02, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
 
 
 func _construct_dia_seg_for_questions__question_02(arg_rand_ques_for_choices_selected):
@@ -1536,8 +2000,8 @@ func _construct_dia_seg_for_questions__question_02(arg_rand_ques_for_choices_sel
 ##
 
 func _construct_and_configure_choices_for_question_03_questions():
-	current_possible_ques_and_ans = all_possible_ques_and_ans__for_mobile_mal_03
-	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__question_03", all_possible_ques_and_ans__for_mobile_mal_03, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
+	current_possible_ques_and_ans = all_possible_ques_and_ans__03
+	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__question_03", all_possible_ques_and_ans__03, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
 
 
 func _construct_dia_seg_for_questions__question_03(arg_rand_ques_for_choices_selected):
@@ -1548,5 +2012,23 @@ func _construct_dia_seg_for_questions__question_03(arg_rand_ques_for_choices_sel
 	_configure_dia_set_to_plate_middle_pos_and_size(dia_seg_question__for_intro_xx)
 	
 	return dia_seg_question__for_intro_xx
+
+
+####
+
+func _construct_and_configure_choices_for_question_xx_questions(arg_all_possible_ques_and_ans):
+	current_possible_ques_and_ans = arg_all_possible_ques_and_ans
+	return _construct_dia_seg_to_default_templated__questions_from_pool(self, "_construct_dia_seg_for_questions__question_xx", arg_all_possible_ques_and_ans, self, "_show_dialog_choices_modi_panel", "_build_dialog_choices_modi_panel_config")
+
+
+func _construct_dia_seg_for_questions__question_xx(arg_rand_ques_for_choices_selected):
+	var dia_seg_question__for_intro_xx = DialogSegment.new()
+	
+	_set_dialog_segment_to_block_almanac_button(dia_seg_question__for_intro_xx, AlmanacButtonPanel.IsDisabledClauseId.QUESTION_IN_PROGRESS)
+	
+	_configure_dia_set_to_plate_middle_pos_and_size(dia_seg_question__for_intro_xx)
+	
+	return dia_seg_question__for_intro_xx
+
 
 

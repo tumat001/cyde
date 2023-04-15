@@ -28,9 +28,9 @@ const compressed_stage_round_graph_points : Array = [
 	"91",
 	"94",
 ]
-const health_line_label_of_col : String = "Health"
+const health_line_label_of_col : String = "Shield"
 const health_line_color : Color = Color(46/255.0, 195/255.0, 24/255.0, 1)
-const health_graph_name : String = "Player Health"
+const health_graph_name : String = "Player Shield"
 
 const gold_line_label_of_col : String = "Gold"
 const gold_line_color : Color = Color(253/255.0, 192/255.0, 8/255.0, 1)

@@ -5,7 +5,8 @@ const BaseTowerSpecificTooltip_Scene = preload("res://MiscRelated/GUI_Category_R
 const BaseTowerSpecificTooltip_GreenHeader_Pic = preload("res://MiscRelated/GUI_Category_Related/BaseTowerSpecificTooltip/BaseTowerSpecificTooltip_HeaderBackground_Green.png")
 const CustomButtonGroup = preload("res://MiscRelated/PlayerGUI_Category_Related/ButtonToggleStandard/ButtonGroup.gd")
 
-const HeartIcon = preload("res://GameHUDRelated/GameStatsPanel/shared/Assets/PlayerHealthHeart_20x20.png")
+#const HeartIcon = preload("res://GameHUDRelated/GameStatsPanel/shared/Assets/PlayerHealthHeart_20x20.png")
+const ShieldIcon = preload("res://GameHUDRelated/GameStatsPanel/shared/Assets/PlayerShield_20x20.png")
 const GoldIcon = preload("res://GameHUDRelated/GameStatsPanel/shared/Assets/GoldIcon_20x20.png")
 
 signal done_with_setup()
@@ -79,7 +80,7 @@ func _update_displays():
 func _update_stage_round_graph__show_health():
 	stageround_linegraph_label.text = _game_stats_manager.health_graph_name
 	stageround_linegraph.set_stage_rounds_col_label_to_point_val_map({_game_stats_manager.health_line_label_of_col : _game_stats_manager.health_line_color}, _stat_overview.stage_round_data_points, _stat_overview.total_data_points_count, _stat_overview.highest_player_health_amount)
-	stageround_linegraph_icon.texture = HeartIcon
+	stageround_linegraph_icon.texture = ShieldIcon
 
 func _update_stage_round_graph__show_gold():
 	stageround_linegraph_label.text = _game_stats_manager.gold_graph_name

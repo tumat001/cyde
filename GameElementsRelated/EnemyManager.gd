@@ -404,6 +404,8 @@ func spawn_enemy_instance(enemy_instance, arg_path : EnemyPath = _get_path_based
 		current_enemy_spawned_from_ins_count += 1
 	
 	
+	enemy_instance.connect("on_killed_by_damage", self, "_on_any_enemy_killed_by_damage")
+	
 	enemy_instance.connect("on_finished_ready_prep", self, "_on_enemy_finished_ready_prep", [enemy_instance], CONNECT_ONESHOT)
 	enemy_instance.connect("on_killed_by_damage_with_no_more_revives", self, "_on_enemy_killed_by_damage_with_no_more_revives")
 	
@@ -900,6 +902,13 @@ func _update_sv_flat_value_modi_map__non_average_moving():
 	
 	last_calculated_sv_flat_value_modi_map__non_average_moving = total
 	emit_signal("sv_flat_value_modi_map__non_average_moving_changed")
+
+
+func _on_any_enemy_killed_by_damage(damage_instance_report, enemy):
+	pass
+	
+	
+
 
 
 ################### EFFECTS RELATED

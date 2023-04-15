@@ -15,6 +15,8 @@ enum TransitioningClauseIds {
 	MOD_A = 4,
 	
 	#NEEDS_REQUEST_FOR_ENDING = 5,
+	
+	IMAGE_TRANSITION = 5,
 }
 
 var persistence_id : int

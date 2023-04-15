@@ -112,7 +112,7 @@ margin_right = 95.0
 margin_bottom = 31.0
 text_for_label = "Health"
 custom_button_icon = ExtResource( 5 )
-is_toggle_on_by_hover_instead_of_click = false
+use_texture_defaults = true
 can_be_untoggled_if_is_toggled = false
 
 [node name="Stat_GoldButton" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource( 6 )]
@@ -121,7 +121,7 @@ margin_right = 95.0
 margin_bottom = 70.0
 text_for_label = "Gold"
 custom_button_icon = ExtResource( 4 )
-is_toggle_on_by_hover_instead_of_click = false
+use_texture_defaults = true
 can_be_untoggled_if_is_toggled = false
 
 [node name="StageRoundLineGraphPanel" parent="VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/HBoxContainer" instance=ExtResource( 1 )]

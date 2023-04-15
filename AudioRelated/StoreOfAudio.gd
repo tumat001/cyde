@@ -24,6 +24,21 @@ enum AudioIds {
 	DRAG_TOWER = 1503,
 	DROP_TOWER = 1504,
 	
+	####
+	
+	CYDE_SPEAK_01 = 1600,
+	PLAYER_SPEAK_01 = 1601,
+	DR_ASI_SPEAK_01 = 1602,
+	
+	BLOCKER_DROP = 1603,
+	
+	ALTER_TRIGGERED = 1604,
+	REDUCTION_TRIGGERED = 1605,
+	
+	PLAYER_SHIELD_DAMAGED = 1606,
+	
+	ENEMY_DEATH = 1607,
+	
 }
 
 const _audio_id_to_sound_file_path = {
@@ -44,6 +59,21 @@ const _audio_id_to_sound_file_path = {
 	AudioIds.SELL_TOWER : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/SellTower.wav",
 	AudioIds.DRAG_TOWER : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/DragTower.wav",
 	AudioIds.DROP_TOWER : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/DropTower.wav",
+	
+	# todo enable when available
+#	AudioIds.CYDE_SPEAK_01 : "",
+#	AudioIds.PLAYER_SPEAK_01 : "",
+#	AudioIds.DR_ASI_SPEAK_01 : "",
+#
+#	AudioIds.BLOCKER_DROP : "",
+#
+#	AudioIds.ALTER_TRIGGERED : "",
+#	AudioIds.REDUCTION_TRIGGERED : "",
+#
+#	AudioIds.PLAYER_SHIELD_DAMAGED : "",
+#
+#	AudioIds.ENEMY_DEATH : "",
+	
 	
 }
 

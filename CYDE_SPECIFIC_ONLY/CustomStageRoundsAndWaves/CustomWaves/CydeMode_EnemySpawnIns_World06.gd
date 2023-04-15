@@ -6,6 +6,9 @@ extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
 # TODO MUST BE ROOKIT instead of Fileless
 
 func get_instructions_for_stageround(uuid : String):
+	#todo
+	return []
+	
 	if uuid == "61":
 		return _get_instructions_for_0_1()
 	elif uuid == "62":

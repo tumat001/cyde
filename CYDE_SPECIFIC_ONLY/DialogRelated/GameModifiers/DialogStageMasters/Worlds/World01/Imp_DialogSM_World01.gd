@@ -28,6 +28,14 @@ const Comics_06_aa = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comi
 const Comics_06_ab = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P06_ab.png")
 const Comics_06_ac = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P06_ac.png")
 
+const Comics_07_aa = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P07_ab.png")  # intentional
+const Comics_07_ab = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P07_aa.png")  # intentional
+const Comics_07_ac = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P07_ac.png")
+
+const Comics_08_aa = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P08_aa.png")
+const Comics_08_ab = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P08_ab.png")
+const Comics_08_ac = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_P08_ac.png")
+
 
 #const tower_buff_desc_on_correct_ice_breaker = "If you got it correct, all towers become stronger for 1 minute."
 #const enemy_buff_desc_on_incorrect_ice_breaker = "Otherwise, if you got it wrong, all enemies become stronger for 1 minute."
@@ -58,6 +66,8 @@ var dia_seg__comic_sequence_007 : DialogSegment
 var dia_seg__comic_sequence_008 : DialogSegment #04
 var dia_seg__comic_sequence_012 : DialogSegment #05
 var dia_seg__comic_sequence_013 : DialogSegment #06
+var dia_seg__comic_sequence_016 : DialogSegment #07
+var dia_seg__comic_sequence_019 : DialogSegment #08
 
 #var dia_seg__comic_sequence_last : DialogSegment
 
@@ -168,7 +178,9 @@ var all_possible_ques_and_ans__for_virus_03
 
 var current_possible_ques_and_ans
 
-var show_change_questions : bool = true
+var show_change_question_use_left : int = 1
+var remove_false_answer_use_left : int = 1
+
 var remove_choice_count : int = 1
 
 # STATES
@@ -202,6 +214,13 @@ var persistence_id_for_comics__06_aa : int = 25
 var persistence_id_for_comics__06_ab : int = 26
 var persistence_id_for_comics__06_ac : int = 27
 
+var persistence_id_for_comics__07_aa : int = 28
+var persistence_id_for_comics__07_ab : int = 29
+var persistence_id_for_comics__07_ac : int = 30
+
+var persistence_id_for_comics__08_aa : int = 31
+var persistence_id_for_comics__08_ab : int = 32
+var persistence_id_for_comics__08_ac : int = 33
 
 #
 
@@ -711,11 +730,151 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_015, Comics_06_ac, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__06_ac, adv_params__0_to_1__1_to_0)
 	
+	# clear for next
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__comic_sequence_015, self, "_on_comic_P06_part_ended", null)
+	
+	
+	##### COMIC 07
+	
+	dia_seg__comic_sequence_016 = DialogSegment.new()
+	
+	var dia_seg__comic_sequence_016__descs = [
+		"Lorem Ipsum Yada Yada"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_016, dia_seg__comic_sequence_016__descs, comic_style_descs_adv_param)
+	
+	var seg_comic_sequence_016_pos := Vector2(-180, -120)
+	var seg_comic_sequence_016_size := Vector2(250, 100)
+	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_016, seg_comic_sequence_016_pos, seg_comic_sequence_016_size)
+	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_016)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_016, Comics_07_aa, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__07_aa, adv_params__0_to_1__1_to_0)
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_016, self, "_set_up_actions__to_construct_and_play__enter_name_or_intro_01", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
+	
+	
+	#####
+	
+	var dia_seg__comic_sequence_017 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_016, dia_seg__comic_sequence_017)
+	
+	var dia_seg__comic_sequence_017__descs = [
+		"Lorem Ipsum Yada Yada"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_017, dia_seg__comic_sequence_017__descs, comic_style_descs_adv_param)
+	
+	var seg_comic_sequence_017_pos := Vector2(180, -120)
+	var seg_comic_sequence_017_size := Vector2(250, 100)
+	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_017, seg_comic_sequence_017_pos, seg_comic_sequence_017_size)
+	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_017)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_017, Comics_07_ab, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__07_ab, adv_params__0_to_1__1_to_0)
+	
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_017, self, "_set_up_actions__to_construct_and_play__enter_name_or_intro_01", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
+	
+	
+	#####
+	
+	var dia_seg__comic_sequence_018 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_017, dia_seg__comic_sequence_018)
+	
+	var dia_seg__comic_sequence_018__descs = [
+		"Lorem Ipsum Yada Yada"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_018, dia_seg__comic_sequence_018__descs, comic_style_descs_adv_param)
+	
+	var seg_comic_sequence_018_pos := Vector2(0, -20)
+	var seg_comic_sequence_018_size := Vector2(250, 100)
+	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_018, seg_comic_sequence_018_pos, seg_comic_sequence_018_size)
+	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_018)
+	
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_018, self, "_set_up_actions__to_construct_and_play__enter_name_or_intro_01", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_018, Comics_07_ac, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__07_ac, adv_params__0_to_1__1_to_0)
+	
+	
+	# clear for next
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__comic_sequence_018, self, "_on_comic_P07_part_ended", null)
+	
+	
+	###### COMICS 08
+	
+	dia_seg__comic_sequence_019 = DialogSegment.new()
+	
+	var dia_seg__comic_sequence_019__descs = [
+		"Lorem Ipsum Yada Yada"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_019, dia_seg__comic_sequence_019__descs, comic_style_descs_adv_param)
+	
+	var seg_comic_sequence_019_pos := Vector2(-180, -120)
+	var seg_comic_sequence_019_size := Vector2(250, 100)
+	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_019, seg_comic_sequence_019_pos, seg_comic_sequence_019_size)
+	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_019)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_019, Comics_08_aa, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__08_aa, adv_params__0_to_1__1_to_0)
+	
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_019, self, "_set_up_actions__to_construct_and_play__enter_name_or_intro_01", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
+	
+	
+	#####
+	
+	
+	var dia_seg__comic_sequence_020 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_019, dia_seg__comic_sequence_020)
+	
+	
+	var dia_seg__comic_sequence_020__descs = [
+		"Lorem Ipsum Yada Yada"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_020, dia_seg__comic_sequence_020__descs, comic_style_descs_adv_param)
+	
+	var seg_comic_sequence_020_pos := Vector2(180, -120)
+	var seg_comic_sequence_020_size := Vector2(250, 100)
+	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_020, seg_comic_sequence_020_pos, seg_comic_sequence_020_size)
+	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_020)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_020, Comics_08_ab, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__08_ab, adv_params__0_to_1__1_to_0)
+	
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_020, self, "_set_up_actions__to_construct_and_play__enter_name_or_intro_01", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
+	
+	
+	#####
+	
+	var dia_seg__comic_sequence_021 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_020, dia_seg__comic_sequence_021)
+	
+	
+	var dia_seg__comic_sequence_021__descs = [
+		"Lorem Ipsum Yada Yada"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_021, dia_seg__comic_sequence_021__descs, comic_style_descs_adv_param)
+	
+	var seg_comic_sequence_021_pos := Vector2(0, -20)
+	var seg_comic_sequence_021_size := Vector2(250, 100)
+	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_021, seg_comic_sequence_021_pos, seg_comic_sequence_021_size)
+	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_021)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_021, Comics_08_ac, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__08_ac, adv_params__0_to_1__1_to_0)
+	
+	
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_021, self, "_set_up_actions__to_construct_and_play__enter_name_or_intro_01", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
+	
+	
 	
 	##############
 	
 	#TODO do this on appropriate sequence
-	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__comic_sequence_015, self, "_on_comic_last_sequence_ended", null)
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__comic_sequence_021, self, "_on_comic_last_sequence_ended", null)
 	
 	# play
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__comic_sequence_001)
@@ -766,6 +925,17 @@ func _on_comic_P05_part_ended(arg_seg, arg_params):
 	
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__comic_sequence_013)
 
+func _on_comic_P06_part_ended(arg_seg, arg_params):
+	_set_all__temp_active_comic_background_dia_eles_fade_out_at_next_dia_seg__to_true()
+	_temp_active_comic_background_dia_eles.clear()
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__comic_sequence_016)
+
+func _on_comic_P07_part_ended(arg_seg, arg_params):
+	_set_all__temp_active_comic_background_dia_eles_fade_out_at_next_dia_seg__to_true()
+	_temp_active_comic_background_dia_eles.clear()
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__comic_sequence_019)
 
 
 
@@ -3293,8 +3463,10 @@ func _show_dialog_choices_modi_panel():
 func _build_dialog_choices_modi_panel_config():
 	var config = DialogChoicesModiPanel.ModiPanelConfig.new()
 	
+	config.show_change_question_use_left = show_change_question_use_left
+	config.remove_false_answer_use_left = remove_false_answer_use_left
+	
 	config.remove_false_answer_count = remove_choice_count
-	config.show_change_question = show_change_questions
 	
 	config.func_source_for_actions = self
 	config.func_name_for__change_question = "_on_dialog_choices_modi_panel__change_question"
@@ -3304,10 +3476,12 @@ func _build_dialog_choices_modi_panel_config():
 
 
 func _on_dialog_choices_modi_panel__removed_choices(arg_param):
-	remove_choice_count -= 1
+	#remove_choice_count -= 1
+	
+	remove_false_answer_use_left -= 1
 
 func _on_dialog_choices_modi_panel__change_question(arg_param):
-	show_change_questions = false
+	show_change_question_use_left -= 1
 	
 	if current_possible_ques_and_ans == all_possible_ques_and_ans__for_virus_01:
 		var dia_seg = _construct_and_configure_choices_for_intro_07_questions()[0]

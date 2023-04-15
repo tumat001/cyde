@@ -1573,6 +1573,27 @@ func do_all_related_audios__for_quiz_timer_timeout():
 	
 
 
+#
+
+func play_change_question_sound():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.ALTER_TRIGGERED)
+	var player : AudioStreamPlayer = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	player.autoplay = false
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
+	
+
+func play_remove_false_answer_sound():
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.REDUCTION_TRIGGERED)
+	var player : AudioStreamPlayer = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+	player.autoplay = false
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
+
+	
+
+
+
 ########### ABILITY RELATED
 
 func _initialize_blocker_ability():
@@ -1671,6 +1692,15 @@ func _create_blocker_aoe_on_enemy(arg_enemy):
 	aoe.connect("enemy_exited", self, "_on_blocker_aoe_enemy_exited")
 	
 	blocker_aoe_attack_module.set_up_aoe__add_child_and_emit_signals(aoe)
+	
+	###
+	
+	var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.BLOCKER_DROP)
+	var player : AudioStreamPlayer2D = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.TWO_D)
+	player.autoplay = false
+	player.global_position = pos
+	
+	AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
 
 
 func _on_blocker_aoe_enemy_entered(arg_enemy, arg_distance_to_exit):

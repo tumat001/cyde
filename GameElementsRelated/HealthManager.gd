@@ -65,6 +65,9 @@ const particle_count_for_dmg_medium : int = 6
 const particle_count_for_dmg_large : int = 10
 
 
+
+var audio_player_adv_params
+
 #
 
 func _ready():
@@ -72,6 +75,13 @@ func _ready():
 	_initialize_trail_component_for_player_health_dmg_particle()
 	
 	non_essential_rng = StoreOfRNG.get_rng(StoreOfRNG.RNGSource.NON_ESSENTIAL)
+	
+	#
+	
+	audio_player_adv_params = AudioManager.construct_play_adv_params()
+	audio_player_adv_params.node_source = game_elements
+	
+
 
 #
 
@@ -209,6 +219,17 @@ func _on_player_health_dmg_particle_reached_final_destination(arg_particle):
 	if arg_particle.cause_damage_at_destination_reach:
 		#create_player_heart_hit_particles(arg_particle.get_dmg_amount())
 		call_deferred("create_player_heart_hit_particles", arg_particle.get_dmg_amount())
+		
+		
+		####
+		
+		var path_name = StoreOfAudio.get_audio_path_of_id(StoreOfAudio.AudioIds.PLAYER_SHIELD_DAMAGED)
+		var player : AudioStreamPlayer = AudioManager.get_available_or_construct_new_audio_stream_player(path_name, AudioManager.PlayerConstructionType.PLAIN)
+		player.autoplay = false
+		
+		AudioManager.play_sound__with_provided_stream_player(path_name, player, AudioManager.MaskLevel.MASK_02, audio_player_adv_params)
+
+
 
 func _inc_player_health_dmg_particles_in_flight():
 	_player_health_dmg_particles_in_flight += 1

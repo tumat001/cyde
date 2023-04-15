@@ -10,11 +10,17 @@ enum {
 	
 	MAP_ENCHANT__SPECIAL_ENEMY_MARKER = 1001
 	
+	
+	####
+	
+	STAGE_10_BOSS_PATH = 2000
+	
 }
 
 const metadata_path_reserving : Array = [
 	MAP_ENCHANT__SPECIAL_ENEMY_MARKER,
 	
+	STAGE_10_BOSS_PATH,
 ]
 
 static func is_enemy_metadata_free_from_reserved_paths_metadata(arg_metadata, arg_blacklist : Array):

@@ -56,7 +56,9 @@ var dia_seg__on_win_01_sequence_001 : DialogSegment
 # QUESTIONS RELATED -- CAN BE COPY PASTED TO OTHERS
 var current_possible_ques_and_ans
 
-var show_change_questions : bool = true
+var show_change_question_use_left : int = 1
+var remove_false_answer_use_left : int = 1
+
 var remove_choice_count : int = 1
 
 # STATES
@@ -1364,8 +1366,10 @@ func _show_dialog_choices_modi_panel():
 func _build_dialog_choices_modi_panel_config():
 	var config = DialogChoicesModiPanel.ModiPanelConfig.new()
 	
+	config.show_change_question_use_left = show_change_question_use_left
+	config.remove_false_answer_use_left = remove_false_answer_use_left
+	
 	config.remove_false_answer_count = remove_choice_count
-	config.show_change_question = show_change_questions
 	
 	config.func_source_for_actions = self
 	config.func_name_for__change_question = "_on_dialog_choices_modi_panel__change_question"
@@ -1375,10 +1379,10 @@ func _build_dialog_choices_modi_panel_config():
 
 
 func _on_dialog_choices_modi_panel__removed_choices(arg_param):
-	remove_choice_count -= 1
+	remove_false_answer_use_left -= 1
 
 func _on_dialog_choices_modi_panel__change_question(arg_param):
-	show_change_questions = false
+	show_change_question_use_left -= 1
 	
 	if current_possible_ques_and_ans == all_possible_ques_and_ans__for_malbots_01:
 		var dia_seg = _construct_and_configure_choices_for_question_01_questions()[0]
