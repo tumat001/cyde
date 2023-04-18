@@ -2914,6 +2914,8 @@ func _on_round_ended__into_round_12():
 
 ##########
 
+
+# on win
 func _construct_dia_seg__intro_14_sequence_001():
 	dia_seg__intro_14_sequence_001 = DialogSegment.new()
 	

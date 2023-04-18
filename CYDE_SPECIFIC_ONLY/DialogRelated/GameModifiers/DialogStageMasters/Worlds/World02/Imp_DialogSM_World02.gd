@@ -2070,6 +2070,10 @@ func _construct_dia_seg__on_win_01_sequence_001():
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_01_sequence_001)
 	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__on_win_01_sequence_001, self, "_on_end_of_dia_seg__on_win_x_segment__end", null)
 	
+	var custom_pos = dia_portrait__pos__standard_left
+	custom_pos.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	
 	
 
 

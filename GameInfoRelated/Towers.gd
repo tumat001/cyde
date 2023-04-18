@@ -276,13 +276,15 @@ enum {
 	
 }
 
+#todo
+# REMOVED: [Volcano]
+# ADDED: [Iota, Nucleus, Accumulae, Adept] [CIA: 112]
 
-
+# TOTAL [CIA: [x, x, x]]
 # Can be used as official list of all towers
 const TowerTiersMap : Dictionary = {
 	
 	STRIKER : 1, #todo remove this soon!
-	
 	MINI_TESLA : 1,
 	SPRINKLER : 1,
 	COAL_LAUNCHER : 1,
@@ -297,9 +299,28 @@ const TowerTiersMap : Dictionary = {
 	MAGNETIZER : 3,
 	ROYAL_FLAME : 3,
 	BEACON_DISH : 3,
+	NUCLEUS : 3,
+	ADEPT : 3,
 	
 	TESLA : 4,
-	VOLCANO : 4,
+	PAROXYSM : 4,
+	IOTA : 4,
+	ACCUMULAE : 4,
+	
+	
+	## NEED REDESIGN/RESKIN BUT WILL INCLUDE:
+	
+	# CELESTIAL : 2, [Confi]
+	# WYVERN : 3, [Confi] (massive nerf on ability needed)
+	# REALMD : 4, [Integ] (maybe)
+	# PROMINENCE : 4, [Integ]
+	# PROBE : 2, [Confi]
+	# FLAMEBURST : 2, [Avail]
+	# CHARGE : 3 [Avail]
+	# ENERVATE : 3 [Integ]
+	
+	## SOME TIER REASSIGNMENTS NEED TO BE DONE
+	
 	
 #	HEALING_SYMBOL : 1,
 #	NIGHTWATCHER : 6,
@@ -3284,11 +3305,11 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Adept", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.RED)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = adept_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
-		info.base_damage = 2.5
+		info.base_damage = 2.4
 		info.base_attk_speed = 1.20
 		info.base_pierce = 1
 		info.base_range = 145
@@ -4152,8 +4173,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Accumulae", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.BLUE)
-		info.colors.append(TowerColors.GRAY)
+		info.colors.append(TowerColors.INTEGRITY)
 		info.base_tower_image = accumulae_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -4492,14 +4512,14 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Nucleus", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.YELLOW)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = nucleus_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
-		info.base_damage = 2.75
+		info.base_damage = 1.5
 		info.base_attk_speed = 0.9
 		info.base_pierce = 1
-		info.base_range = 130
+		info.base_range = 120
 		info.base_damage_type = DamageType.PHYSICAL
 		info.on_hit_multiplier = 1
 		
@@ -5303,11 +5323,11 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Paroxysm", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.ORANGE)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = paroxysm_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
-		info.base_damage = 4
+		info.base_damage = 3
 		info.base_attk_speed = 0.6
 		info.base_pierce = 1
 		info.base_range = 140
@@ -5422,15 +5442,15 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Iota", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.YELLOW)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = iota_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
-		info.base_damage = 2.4
-		info.base_attk_speed = 0.888
+		info.base_damage = 2
+		info.base_attk_speed = 0.777
 		info.base_pierce = 1
-		info.base_range = 120
-		info.base_damage_type = DamageType.ELEMENTAL
+		info.base_range = 110
+		info.base_damage_type = DamageType.PHYSICAL
 		info.on_hit_multiplier = 1
 		
 		#
@@ -5440,9 +5460,9 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		interpreter_for_crash_dmg.display_body = true
 		
 		var ins_for_crash_dmg = []
-		ins_for_crash_dmg.append(NumericalTextFragment.new(5.0, false, DamageType.PHYSICAL))
+		ins_for_crash_dmg.append(NumericalTextFragment.new(3.0, false, DamageType.PHYSICAL))
 		ins_for_crash_dmg.append(TextFragmentInterpreter.STAT_OPERATION.ADDITION)
-		ins_for_crash_dmg.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.ON_HIT_DAMAGE, TowerStatTextFragment.STAT_BASIS.TOTAL, 7.5)) # stat basis does not matter here
+		ins_for_crash_dmg.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.ON_HIT_DAMAGE, TowerStatTextFragment.STAT_BASIS.TOTAL, 5.0)) # stat basis does not matter here
 		
 		interpreter_for_crash_dmg.array_of_instructions = ins_for_crash_dmg
 		
@@ -5452,7 +5472,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		interpreter_for_beam_dmg.display_body = true
 		
 		var ins_for_beam_dmg = []
-		ins_for_beam_dmg.append(NumericalTextFragment.new(0.5, false, DamageType.ELEMENTAL))
+		ins_for_beam_dmg.append(NumericalTextFragment.new(0.25, false, DamageType.ELEMENTAL))
 		ins_for_beam_dmg.append(TextFragmentInterpreter.STAT_OPERATION.ADDITION)
 		ins_for_beam_dmg.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.BASE_DAMAGE, TowerStatTextFragment.STAT_BASIS.BONUS, 0.5, DamageType.ELEMENTAL))
 		

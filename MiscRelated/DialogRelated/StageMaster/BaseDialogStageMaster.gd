@@ -60,6 +60,13 @@ const FlatModifier = preload("res://GameInfoRelated/FlatModifier.gd")
 const PercentModifier = preload("res://GameInfoRelated/PercentModifier.gd")
 const PercentType = preload("res://GameInfoRelated/PercentType.gd")
 
+#
+
+
+const BasePickupable = preload("res://MiscRelated/PickupableRelated/BasePickupable.gd")
+const BasePickupable_Scene = preload("res://MiscRelated/PickupableRelated/BasePickupable.tscn")
+
+
 ######
 
 
@@ -1717,6 +1724,67 @@ func _on_blocker_aoe_enemy_exited(arg_enemy):
 		_enemy_to_blocker_entered_count_map[arg_enemy] -= 1
 		if _enemy_to_blocker_entered_count_map[arg_enemy] <= 0:
 			arg_enemy.no_movement_from_self_clauses.remove_clause(arg_enemy.NoMovementClauses.BLOCKER_AOE)
+
+
+## Pickupable related
+
+class PickupableAdvParams:
+	
+	var original_location : Vector2
+	var final_location : Vector2
+	var speed : float
+	
+	var texture_normal : Texture
+	var texture_hover : Texture
+	
+	#
+	var func_source : Object
+	var func_name_for__on_click : String
+	var func_params_for__on_click : Array
+	
+	var func_name_for__on_end_of_animation : String
+	var func_params_for__on_end_of_animation : Array
+	
+	
+	#### Vars with defaults
+	
+	var func_source_for__add_child : Object = CommsForBetweenScenes
+	var func_name_for__add_child : String = "ge_add_child_to_other_node_hoster"
+	
+	#####
+	
+	func configure_final_location_towards_center(arg_magnitude_min : float, arg_magnitude_max, arg_center : Vector2):
+		var rng_to_use = StoreOfRNG.get_rng(StoreOfRNG.RNGSource.NON_ESSENTIAL)
+		var mag_to_use = rng_to_use.randf_range(arg_magnitude_min, arg_magnitude_max)
+		var angle = original_location.angle_to_point(arg_center)
+		
+		var vector_modi = Vector2(mag_to_use, 0).rotated(angle)
+		
+		final_location = original_location + vector_modi
+
+
+# on_pressed -> expects method with 1 param -> Array (custom params)
+# on_end_of_anim -> expects method with 2 param -> Vector2 (final pos), Array (custom params)
+func create_pickupable(arg_params : PickupableAdvParams, arg_start_flight : bool = true) -> BasePickupable:
+	var pickupable = BasePickupable_Scene.instance()
+	
+	pickupable.texture_normal = arg_params.texture_normal
+	pickupable.texture_hover = arg_params.texture_hover
+	
+	pickupable.connect("on_pressed", arg_params.func_source, arg_params.func_name_for__on_click, [arg_params.func_params_for__on_click], CONNECT_PERSIST)
+	pickupable.connect("on_final_location_reached", arg_params.func_source, arg_params.func_name_for__on_end_of_animation, [arg_params.func_params_for__on_end_of_animation], CONNECT_PERSIST)
+	
+	pickupable.original_location = arg_params.original_location
+	pickupable.final_location = arg_params.final_location
+	pickupable.speed = arg_params.speed
+	
+	arg_params.func_source_for__add_child.call(arg_params.func_name_for__add_child)
+	
+	
+	if arg_start_flight:
+		pickupable.start_flight_to_final_location()
+	
+	return pickupable
 
 
 ####################

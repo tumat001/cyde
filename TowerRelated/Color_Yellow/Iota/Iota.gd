@@ -53,12 +53,12 @@ signal all_stars_crash_to_target()
 signal all_stars_beam_to_target(arg_target)
 
 const star_base_lifetime : float = 30.0
-const star_beam_flat_dmg_amount : float = 0.5
+const star_beam_flat_dmg_amount : float = 0.25
 const star_beam_base_dmg_scale : float = 0.5
 const star_beam_attack_speed : float = 4.0 # 4 times per sec (just like attack speed)
 
-const star_crash_flat_dmg_amount : float = 5.0
-const star_crash_on_hit_dmg_scale : float = 7.5
+const star_crash_flat_dmg_amount : float = 3.0
+const star_crash_on_hit_dmg_scale : float = 5.0
 
 const original_main_attacks_for_star_summon : int = 7
 const energy_module_main_attacks_for_star_summon : int = 5

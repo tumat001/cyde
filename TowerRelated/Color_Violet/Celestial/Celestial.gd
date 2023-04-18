@@ -69,7 +69,7 @@ var non_essential_rng : RandomNumberGenerator
 #
 
 const line_draw_color__main_shot := Color(217/255.0, 164/255.0, 2/255.0, 0.75)
-const line_draw_color__meteor_side_main_shot := Color(217/255.0, 164/255.0, 2/255.0, 0.4)
+#const line_draw_color__meteor_side_main_shot := Color(217/255.0, 164/255.0, 2/255.0, 0.4)
 
 const line_draw_color__meteor_sides_falling_shot := Color(127/255.0, 1/255.0, 146/255.0, 0.75)
 
@@ -288,14 +288,6 @@ func _on_main_attack_finished_c(arg_attk_module):
 #
 
 func _on_before_bullet_is_shot_from_orig_main_attk_module(bullet : ArcingBaseBullet):
-	var cd = _get_cd_to_use(BaseAbility.ON_ABILITY_CAST_NO_COOLDOWN)
-	meteor_ability.on_ability_before_cast_start(cd)
-	
-	meteor_ability.start_time_cooldown(cd)
-	meteor_ability.on_ability_after_cast_ended(cd)
-	
-	#
-	
 	if _next_shot_is_meteor:
 		var rand_num = non_essential_rng.randi_range(1, 3)
 		
@@ -305,6 +297,12 @@ func _on_before_bullet_is_shot_from_orig_main_attk_module(bullet : ArcingBaseBul
 			bullet.set_texture_as_sprite_frames(MainAttackProj_Meteor_02)
 		elif rand_num == 3:
 			bullet.set_texture_as_sprite_frames(MainAttackProj_Meteor_03)
+		
+		var cd = _get_cd_to_use(BaseAbility.ON_ABILITY_CAST_NO_COOLDOWN)
+		meteor_ability.on_ability_before_cast_start(cd)
+		
+		meteor_ability.start_time_cooldown(cd)
+		meteor_ability.on_ability_after_cast_ended(cd)
 		
 		
 	else:

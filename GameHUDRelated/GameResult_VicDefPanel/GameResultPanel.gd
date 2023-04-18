@@ -91,9 +91,11 @@ func start_show_display(arg_as_victory : bool):
 	tweener_for_start.tween_property(self, "modulate:a", 1.0, 0.25)
 	
 	if arg_as_victory:
-		pass
+		video_player.stream = load(vid_path_for__win)
 	else:
-		pass
+		video_player.stream = load(vid_path_for__defeat)
+	
+	video_player.play()
 
 func _on_start_display_finished():
 	tweener_for_start = null
