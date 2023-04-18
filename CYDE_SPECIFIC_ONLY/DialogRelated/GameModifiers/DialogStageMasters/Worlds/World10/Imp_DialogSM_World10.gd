@@ -1,9 +1,8 @@
 extends "res://MiscRelated/DialogRelated/StageMaster/BaseDialogStageMaster.gd"
 
 
-#todo make stagerounds for them
-#const CydeMode_StageRounds_World04 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomStageRounds/CydeMode_StageRounds_World04.gd")
-#const CydeMode_EnemySpawnIns_World04 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomWaves/CydeMode_EnemySpawnIns_World04.gd")
+const CydeMode_StageRounds_World10 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomStageRounds/CydeMode_StageRounds_World10.gd")
+const CydeMode_EnemySpawnIns_World10 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomWaves/CydeMode_EnemySpawnIns_World10.gd")
 
 
 enum World10_States {
@@ -118,10 +117,9 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	
 	#
 	
-	#todo make stagerounds for them
-	#stage_rounds_to_use = CydeMode_StageRounds_World04.new()
-	#game_elements.stage_round_manager.set_stage_rounds(stage_rounds_to_use, true)
-	#game_elements.stage_round_manager.set_spawn_ins(CydeMode_EnemySpawnIns_World04.new())
+	stage_rounds_to_use = CydeMode_StageRounds_World10.new()
+	game_elements.stage_round_manager.set_stage_rounds(stage_rounds_to_use, true)
+	game_elements.stage_round_manager.set_spawn_ins(CydeMode_EnemySpawnIns_World10.new())
 	
 	#
 	
@@ -286,9 +284,9 @@ func _on_intro_01_completed():
 	
 	####
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("102", self, "_on_round_started__into_round_02")
+	listen_for_round_end_into_stage_round_id_and_call_func("103", self, "_on_round_started__into_round_03")
 
-func _on_round_started__into_round_02(arg_stageround_id):
+func _on_round_started__into_round_03(arg_stageround_id):
 	if !prevent_other_dia_segs_from_playing__from_loss:
 		_construct_dia_seg__question_01_sequence_001()
 		_play_dia_seg__question_01_sequence_001()
@@ -305,16 +303,33 @@ func _construct_dia_seg__question_01_sequence_001():
 	
 	var dia_seg__question_01_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Viruses[/b]",
-		"Proceed to test your knowledge."
+		"%s has recreated the bosses of each type of malware! We need to use information and knowledge to our advantage!" % [CydeSingleton.dr_asi_mitnick__last_name]
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_sequence_001, dia_seg__question_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_sequence_001)
 	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	###
+	
+	var dia_seg__question_01_sequence_001_ab = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001, dia_seg__question_01_sequence_001_ab)
+	
+	var dia_seg__question_01_sequence_001_ab__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Viruses[/b].",
+		"Proceed to test your knowledge."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_sequence_001_ab, dia_seg__question_01_sequence_001_ab__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_sequence_001_ab)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001_ab, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__question_01_sequence_002 = _construct_and_configure_choices_for_question_01_questions()[0]
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001, dia_seg__question_01_sequence_002)
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001_ab, dia_seg__question_01_sequence_002)
 	dia_seg__question_01_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_01_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
 	dia_seg__question_01_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_01_sequence_02__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
 	
@@ -429,11 +444,11 @@ func _on_dia_seg__question_01_sequence_003__ended(arg_seg, arg_param):
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("104", self, "_on_round_started__into_round_04")
+	listen_for_round_end_into_stage_round_id_and_call_func("105", self, "_on_round_started__into_round_05")
 
 
 
-func _on_round_started__into_round_04(arg_stageround_id):
+func _on_round_started__into_round_05(arg_stageround_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -451,7 +466,7 @@ func _construct_dia_seg__question_02_sequence_001():
 	
 	var dia_seg__question_02_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Trojans[/b]",
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Trojans[/b].",
 		"Proceed to test your knowledge."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_02_sequence_001, dia_seg__question_02_sequence_001__descs)
@@ -574,9 +589,9 @@ func _on_dia_seg__question_02_sequence_003__ended(arg_seg, arg_param):
 	
 	#_construct_dia_seg__intro_11_sequence_001()
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("106", self, "_on_round_started__into_round_06")
+	listen_for_round_end_into_stage_round_id_and_call_func("107", self, "_on_round_started__into_round_07")
 
-func _on_round_started__into_round_06():
+func _on_round_started__into_round_07(arg_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -596,7 +611,7 @@ func _construct_dia_seg__question_03_sequence_001():
 	
 	var dia_seg__question_03_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Computer Worms[/b]",
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Computer Worms[/b].",
 		"Proceed to test your knowledge."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_03_sequence_001, dia_seg__question_03_sequence_001__descs)
@@ -716,9 +731,9 @@ func _on_dia_seg__question_03_sequence_003__ended(arg_seg, arg_param):
 	set_round_is_startable(true)
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("108", self, "_on_round_started__into_round_08")
+	listen_for_round_end_into_stage_round_id_and_call_func("109", self, "_on_round_started__into_round_09")
 
-func _on_round_started__into_round_08():
+func _on_round_started__into_round_09(arg_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -738,7 +753,7 @@ func _construct_dia_seg__question_04_sequence_001():
 	
 	var dia_seg__question_xx_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Adwares[/b]",
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Adwares[/b].",
 		"Proceed to test your knowledge."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_001__descs)
@@ -864,9 +879,9 @@ func _on_dia_seg__question_04_sequence_003__ended(arg_seg, arg_param):
 	#listen_for_round_end_into_stage_round_id_and_call_func("311", self, "_on_round_started__into_round_11")
 	
 
-	listen_for_round_end_into_stage_round_id_and_call_func("1010", self, "_on_round_started__into_round_10")
+	listen_for_round_end_into_stage_round_id_and_call_func("1011", self, "_on_round_started__into_round_11")
 
-func _on_round_started__into_round_10():
+func _on_round_started__into_round_11(arg_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -887,7 +902,7 @@ func _construct_dia_seg__question_05_sequence_001():
 	
 	var dia_seg__question_xx_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Ransomwares[/b]",
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Ransomwares[/b].",
 		"Proceed to test your knowledge."
 		
 	]
@@ -1010,9 +1025,9 @@ func _on_dia_seg__question_05_sequence_003__ended(arg_seg, arg_param):
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("1012", self, "_on_round_started__into_round_12")
+	listen_for_round_end_into_stage_round_id_and_call_func("1013", self, "_on_round_started__into_round_13")
 
-func _on_round_started__into_round_12():
+func _on_round_started__into_round_13(arg_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -1034,7 +1049,7 @@ func _construct_dia_seg__question_06_sequence_001():
 	
 	var dia_seg__question_xx_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Rootkits[/b]",
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Rootkits[/b].",
 		"Proceed to test your knowledge."
 		
 	]
@@ -1157,9 +1172,9 @@ func _on_dia_seg__question_06_sequence_003__ended(arg_seg, arg_param):
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("1014", self, "_on_round_started__into_round_14")
+	listen_for_round_end_into_stage_round_id_and_call_func("1015", self, "_on_round_started__into_round_15")
 
-func _on_round_started__into_round_14():
+func _on_round_started__into_round_15(arg_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -1179,7 +1194,7 @@ func _construct_dia_seg__question_07_sequence_001():
 	
 	var dia_seg__question_xx_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Fileless[/b]",
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Fileless[/b].",
 		"Proceed to test your knowledge."
 		
 	]
@@ -1302,9 +1317,9 @@ func _on_dia_seg__question_07_sequence_003__ended(arg_seg, arg_param):
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("1016", self, "_on_round_started__into_round_16")
+	listen_for_round_end_into_stage_round_id_and_call_func("1017", self, "_on_round_started__into_round_17")
 
-func _on_round_started__into_round_16():
+func _on_round_started__into_round_17(arg_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -1324,7 +1339,7 @@ func _construct_dia_seg__question_08_sequence_001():
 	
 	var dia_seg__question_xx_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Malware Bots[/b]",
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Malware Bots[/b].",
 		"Proceed to test your knowledge."
 		
 	]
@@ -1447,9 +1462,9 @@ func _on_dia_seg__question_08_sequence_003__ended(arg_seg, arg_param):
 	play_dialog_segment_or_advance_or_finish_elements(null)
 	
 	
-	listen_for_round_end_into_stage_round_id_and_call_func("1018", self, "_on_round_started__into_round_18")
+	listen_for_round_end_into_stage_round_id_and_call_func("1019", self, "_on_round_started__into_round_19")
 
-func _on_round_started__into_round_18():
+func _on_round_started__into_round_19(arg_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -1470,7 +1485,7 @@ func _construct_dia_seg__question_09_sequence_001():
 	
 	var dia_seg__question_xx_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Mobile Malwares[/b]",
+		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Mobile Malwares[/b].",
 		"Proceed to test your knowledge."
 		
 	]
@@ -1595,7 +1610,7 @@ func _on_dia_seg__question_09_sequence_003__ended(arg_seg, arg_param):
 	
 	listen_for_round_end_into_stage_round_id_and_call_func("1020", self, "_on_round_started__into_round_20")
 
-func _on_round_started__into_round_20():
+func _on_round_started__into_round_20(arg_id):
 	set_round_is_startable(false)
 	
 	if !prevent_other_dia_segs_from_playing__from_loss:
@@ -1834,16 +1849,113 @@ func _construct_dia_seg__on_lose_01_sequence_001():
 	dia_seg__on_lose_01_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__on_lose_01_sequence_001__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"Unfortunately, your data has been breached..."
+		generate_colored_text__asi_name__as_line(),
+		"No... This... can't... be...",
+		
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_lose_01_sequence_001, dia_seg__on_lose_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_lose_01_sequence_001)
-	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__on_lose_01_sequence_001, self, "_on_end_of_dia_seg__on_lose_x_segment__end", null)
 	
-	#########
+	var custom_pos__for_left = dia_portrait__pos__standard_left
+	custom_pos__for_left.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, custom_pos__for_left, persistence_id_for_portrait__cyde)
 	
 	
+	####
+	
+	var dia_seg__on_lose_01_sequence_002 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_lose_01_sequence_001, dia_seg__on_lose_01_sequence_002)
+	
+	var dia_seg__on_lose_01_sequence_002__descs = [
+		generate_colored_text__asi_name__as_line(),
+		"Hahaha! You thought you could defeat me? How naive. My superior intellect has proven to be too much for you.",
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_lose_01_sequence_002, dia_seg__on_lose_01_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_lose_01_sequence_002)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	var custom_pos__for_right = dia_portrait__pos__standard_right
+	custom_pos__for_right.x = 960
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_002, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.TEMPTING_001], dia_portrait__pos__standard_right, custom_pos__for_right, persistence_id_for_portrait__asi)
+	
+	
+	#####
+	
+	var dia_seg__on_lose_01_sequence_003 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_lose_01_sequence_002, dia_seg__on_lose_01_sequence_003)
+	
+	var dia_seg__on_lose_01_sequence_003__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"This isn't over! We'll find a way to stop you, no matter what it takes!",
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_lose_01_sequence_003, dia_seg__on_lose_01_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_lose_01_sequence_003)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_003, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.TEMPTING_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	
+	
+	######
+	
+	var dia_seg__on_lose_01_sequence_004 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_lose_01_sequence_003, dia_seg__on_lose_01_sequence_004)
+	
+	var dia_seg__on_lose_01_sequence_004__descs = [
+		generate_colored_text__asi_name__as_line(),
+		"Oh, please. Your efforts are pointless. Your resistance only delays the inevitable. I have already won, and there's nothing you can do to change that."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_lose_01_sequence_004, dia_seg__on_lose_01_sequence_004__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_lose_01_sequence_004)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_004, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.TEMPTING_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	
+	
+	#####
+	
+	
+	var dia_seg__on_lose_01_sequence_005 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_lose_01_sequence_004, dia_seg__on_lose_01_sequence_005)
+	
+	var dia_seg__on_lose_01_sequence_005__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"You may have won this battle, but the war is far from over.",
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_lose_01_sequence_005, dia_seg__on_lose_01_sequence_005__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_lose_01_sequence_005)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_005, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.TEMPTING_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	
+	
+	#####
+	
+	var dia_seg__on_lose_01_sequence_006 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_lose_01_sequence_005, dia_seg__on_lose_01_sequence_006)
+	
+	var dia_seg__on_lose_01_sequence_006__descs = [
+		generate_colored_text__asi_name__as_line(),
+		"Hahaha! We'll see about that. Your resistance ends here. Say goodbye to your pointless disobedience attempts. Prepare to witness the dawn of a new era of %s, with me as its ruler!" % [CydeSingleton.cyberland__name],
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_lose_01_sequence_006, dia_seg__on_lose_01_sequence_006__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_lose_01_sequence_006)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_006, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_lose_01_sequence_006, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.TEMPTING_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	
+	
+	#####
+	
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__on_lose_01_sequence_006, self, "_on_end_of_dia_seg__on_lose_x_segment__end", null)
 	
 
 func _play_dia_seg__on_lose_01_sequence_001():
@@ -1860,16 +1972,95 @@ func _construct_dia_seg__on_win_01_sequence_001():
 	dia_seg__on_win_01_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__on_win_01_sequence_001__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"Congratulations for winning the stage! [b]The Mobile Malwares[/b] have been defeated.",
-		"You can proceed to the next map to continue the story."
+		generate_colored_text__asi_name__as_line(),
+		"No! This can't be happening! My research... my life's work!",
+		
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_win_01_sequence_001, dia_seg__on_win_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_01_sequence_001)
-	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__on_win_01_sequence_001, self, "_on_end_of_dia_seg__on_win_x_segment__end", null)
+	
+	var custom_pos__for_right = dia_portrait__pos__standard_right
+	custom_pos__for_right.x = 960
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_001, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.SAD_001], dia_portrait__pos__standard_right, custom_pos__for_right, persistence_id_for_portrait__asi)
+	
+	#######
 	
 	
-
+	var dia_seg__on_win_01_sequence_002 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_win_01_sequence_001, dia_seg__on_win_01_sequence_002)
+	
+	var dia_seg__on_win_01_sequence_002__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Your research ends here! It's time to face the consequences of your actions!"
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_win_01_sequence_002, dia_seg__on_win_01_sequence_002__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_01_sequence_002)
+	
+	var custom_pos__for_left = dia_portrait__pos__standard_left
+	custom_pos__for_left.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, custom_pos__for_left, persistence_id_for_portrait__cyde)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_002, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.STANDARD_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	
+	
+	#######
+	
+	var dia_seg__on_win_01_sequence_003 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_win_01_sequence_002, dia_seg__on_win_01_sequence_003)
+	
+	var dia_seg__on_win_01_sequence_003__descs = [
+		generate_colored_text__asi_name__as_line(),
+		"Impossible! This... can't... be... I won't be defeated!",
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_win_01_sequence_003, dia_seg__on_win_01_sequence_003__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_01_sequence_003)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_003, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.ANGRY_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	
+	
+	####
+	
+	var dia_seg__on_win_01_sequence_004 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_win_01_sequence_003, dia_seg__on_win_01_sequence_004)
+	
+	var dia_seg__on_win_01_sequence_004__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"It is over now, %s." % [CydeSingleton.dr_asi_mitnick__last_name],
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_win_01_sequence_004, dia_seg__on_win_01_sequence_004__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_01_sequence_004)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_004, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.TEMPTING_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	
+	
+	####
+	
+	
+	var dia_seg__on_win_01_sequence_005 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__on_win_01_sequence_004, dia_seg__on_win_01_sequence_005)
+	
+	var dia_seg__on_win_01_sequence_005__descs = [
+		generate_colored_text__asi_name__as_line(),
+		"This is not... the end... I will return.",
+		
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_win_01_sequence_005, dia_seg__on_win_01_sequence_005__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_01_sequence_005)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_005, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_005, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.ANGRY_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	
+	######
+	
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__on_win_01_sequence_005, self, "_on_end_of_dia_seg__on_win_x_segment__end", null)
+	
 
 func _play_dia_seg__on_win_01_sequence_001():
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__on_win_01_sequence_001)
@@ -1906,6 +2097,7 @@ func _build_dialog_choices_modi_panel_config():
 
 func _on_dialog_choices_modi_panel__removed_choices(arg_param):
 	remove_false_answer_use_left -= 1
+	
 
 func _on_dialog_choices_modi_panel__change_question(arg_param):
 	show_change_question_use_left -= 1
@@ -1933,31 +2125,74 @@ func _on_dialog_choices_modi_panel__change_question(arg_param):
 ############
 
 func _construct_questions_and_choices_for__Q01():
-	all_possible_ques_and_ans__01 = StoreOfQuestions.construct_questions_and_choices_for__all_virus(self, "_on_Q01_choice_right_clicked", "_on_Q01_choice_wrong_clicked", "_on_Q01_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_virus(self, "_on_Q01_choice_right_clicked", "_on_Q01_choice_wrong_clicked", "_on_Q01_timeout")
+	
+	all_possible_ques_and_ans__01 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__01.add_question_info_for_choices_panel(question)
 
 func _construct_questions_and_choices_for__Q02():
-	all_possible_ques_and_ans__02 = StoreOfQuestions.construct_questions_and_choices_for__all_trojan(self, "_on_Q02_choice_right_clicked", "_on_Q02_choice_wrong_clicked", "_on_Q02_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_trojan(self, "_on_Q02_choice_right_clicked", "_on_Q02_choice_wrong_clicked", "_on_Q02_timeout")
+	
+	all_possible_ques_and_ans__02 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__02.add_question_info_for_choices_panel(question)
+
 
 func _construct_questions_and_choices_for__Q03():
-	all_possible_ques_and_ans__03 = StoreOfQuestions.construct_questions_and_choices_for__all_worm(self, "_on_Q03_choice_right_clicked", "_on_Q03_choice_wrong_clicked", "_on_Q03_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_worm(self, "_on_Q03_choice_right_clicked", "_on_Q03_choice_wrong_clicked", "_on_Q03_timeout")
+	
+	all_possible_ques_and_ans__03 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__03.add_question_info_for_choices_panel(question)
+
 
 func _construct_questions_and_choices_for__Q04():
-	all_possible_ques_and_ans__04 = StoreOfQuestions.construct_questions_and_choices_for__all_adware(self, "_on_Q04_choice_right_clicked", "_on_Q04_choice_wrong_clicked", "_on_Q04_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_adware(self, "_on_Q04_choice_right_clicked", "_on_Q04_choice_wrong_clicked", "_on_Q04_timeout")
+	
+	all_possible_ques_and_ans__04 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__04.add_question_info_for_choices_panel(question)
+
 
 func _construct_questions_and_choices_for__Q05():
-	all_possible_ques_and_ans__05 = StoreOfQuestions.construct_questions_and_choices_for__all_ransom(self, "_on_Q05_choice_right_clicked", "_on_Q05_choice_wrong_clicked", "_on_Q05_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_ransom(self, "_on_Q05_choice_right_clicked", "_on_Q05_choice_wrong_clicked", "_on_Q05_timeout")
+	
+	all_possible_ques_and_ans__05 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__05.add_question_info_for_choices_panel(question)
+
 
 func _construct_questions_and_choices_for__Q06():
-	all_possible_ques_and_ans__06 = StoreOfQuestions.construct_questions_and_choices_for__all_rootkit(self, "_on_Q06_choice_right_clicked", "_on_Q06_choice_wrong_clicked", "_on_Q06_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_rootkit(self, "_on_Q06_choice_right_clicked", "_on_Q06_choice_wrong_clicked", "_on_Q06_timeout")
+	
+	all_possible_ques_and_ans__06 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__06.add_question_info_for_choices_panel(question)
+
 
 func _construct_questions_and_choices_for__Q07():
-	all_possible_ques_and_ans__07 = StoreOfQuestions.construct_questions_and_choices_for__all_fileless(self, "_on_Q07_choice_right_clicked", "_on_Q07_choice_wrong_clicked", "_on_Q07_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_fileless(self, "_on_Q07_choice_right_clicked", "_on_Q07_choice_wrong_clicked", "_on_Q07_timeout")
+	
+	all_possible_ques_and_ans__07 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__07.add_question_info_for_choices_panel(question)
+
 
 func _construct_questions_and_choices_for__Q08():
-	all_possible_ques_and_ans__08 = StoreOfQuestions.construct_questions_and_choices_for__all_malbots(self, "_on_Q08_choice_right_clicked", "_on_Q08_choice_wrong_clicked", "_on_Q08_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_malbots(self, "_on_Q08_choice_right_clicked", "_on_Q08_choice_wrong_clicked", "_on_Q08_timeout")
+	
+	all_possible_ques_and_ans__08 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__08.add_question_info_for_choices_panel(question)
+
 
 func _construct_questions_and_choices_for__Q09():
-	all_possible_ques_and_ans__09 = StoreOfQuestions.construct_questions_and_choices_for__all_mobile_mal(self, "_on_Q09_choice_right_clicked", "_on_Q09_choice_wrong_clicked", "_on_Q09_timeout")
+	var questions = StoreOfQuestions.construct_questions_and_choices_for__all_mobile_mal(self, "_on_Q09_choice_right_clicked", "_on_Q09_choice_wrong_clicked", "_on_Q09_timeout")
+	
+	all_possible_ques_and_ans__09 = AllPossibleQuestionsAndChoices_AndMiscInfo.new(rng_to_use_for_randomized_questions_and_ans)
+	for question in questions:
+		all_possible_ques_and_ans__09.add_question_info_for_choices_panel(question)
 
 
 

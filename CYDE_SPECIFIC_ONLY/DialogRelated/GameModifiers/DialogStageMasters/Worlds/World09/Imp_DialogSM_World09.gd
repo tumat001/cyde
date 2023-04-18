@@ -79,9 +79,9 @@ var all_possible_ques_and_ans__for_mobile_mal_03
 #######
 
 
-func _init().(StoreOfGameModifiers.GameModiIds__CYDE_World_10,
+func _init().(StoreOfGameModifiers.GameModiIds__CYDE_World_09,
 		BreakpointActivation.BEFORE_GAME_START, 
-		"Cyde_World10_Modi"):
+		"Cyde_World09_Modi"):
 	
 	pass
 

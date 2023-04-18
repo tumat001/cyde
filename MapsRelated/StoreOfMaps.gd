@@ -120,10 +120,10 @@ const MapIdsAvailableFromMenu : Array = [
 	MapsId_World04,
 	MapsId_World05,
 	MapsId_World06,
-#	MapsId_World07,
-#	MapsId_World08,
-#	MapsId_World09,
-#	MapsId_World10,
+	MapsId_World07,
+	MapsId_World08,
+	MapsId_World09,
+	MapsId_World10,
 	
 ]
 
@@ -208,7 +208,7 @@ func _init():
 	
 	var world_id__07 = MapsId_World07
 	add_map(world_id__07, "World 07",
-			"res://MapsRelated/MapList/Map_Riverside/Map_Riverside.tscn", #todo
+			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World07/Map_World07.tscn",
 			self,
 			"_construct_map_type_info__map_world_07",
 			MapIdsAvailableFromMenu.has(world_id__07),
@@ -216,7 +216,7 @@ func _init():
 	
 	var world_id__08 = MapsId_World08
 	add_map(world_id__08, "World 08",
-			"res://MapsRelated/MapList/Map_Riverside/Map_Riverside.tscn", #todo
+			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World08/Map_World08.tscn",
 			self,
 			"_construct_map_type_info__map_world_08",
 			MapIdsAvailableFromMenu.has(world_id__08),
@@ -224,7 +224,7 @@ func _init():
 	
 	var world_id__09 = MapsId_World09
 	add_map(world_id__09, "World 09",
-			"res://MapsRelated/MapList/Map_Riverside/Map_Riverside.tscn", #todo
+			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World09/Map_World09.tscn",
 			self,
 			"_construct_map_type_info__map_world_09",
 			MapIdsAvailableFromMenu.has(world_id__09),
@@ -232,7 +232,7 @@ func _init():
 	
 	var world_id__10 = MapsId_World10
 	add_map(world_id__10, "World 10",
-			"res://MapsRelated/MapList/Map_Riverside/Map_Riverside.tscn", #todo
+			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World10/Map_World10.tscn",
 			self,
 			"_construct_map_type_info__map_world_10",
 			MapIdsAvailableFromMenu.has(world_id__10),
@@ -383,28 +383,28 @@ func _construct_map_type_info__map_world_06(info : MapTypeInformation):
 
 func _construct_map_type_info__map_world_07(info : MapTypeInformation):
 	info.map_name = "World 07"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage
+	info.map_display_texture = Map_Glade_PreviewImage #img todo
 	info.map_tier = 4
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_08(info : MapTypeInformation):
 	info.map_name = "World 08"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage
+	info.map_display_texture = Map_Glade_PreviewImage #img todo
 	info.map_tier = 4
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_09(info : MapTypeInformation):
 	info.map_name = "World 09"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage
+	info.map_display_texture = Map_Glade_PreviewImage #img todo
 	info.map_tier = 5
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_10(info : MapTypeInformation):
 	info.map_name = "World 10"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage
+	info.map_display_texture = Map_Glade_PreviewImage #img todo
 	info.map_tier = 5
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info

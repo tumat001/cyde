@@ -7,8 +7,8 @@ func _init():
 	stage_rounds = [
 		_get_stageround_10_1(),
 		
-		_get_stageround_10_2(), # virus question
-		_get_stageround_10_3(), # virus boss
+		_get_stageround_10_2(), # normal
+		_get_stageround_10_3(), # virus boss + question
 		
 		_get_stageround_10_4(), # trojan
 		_get_stageround_10_5(), 
@@ -64,7 +64,6 @@ func _get_stageround_10_2():
 	stageround.enemy_health_multiplier = 0.5
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
 	
 	return stageround
 
@@ -75,6 +74,7 @@ func _get_stageround_10_3():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
+	stageround.is_question_round = true
 	
 	return stageround
 
@@ -85,8 +85,6 @@ func _get_stageround_10_4():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
-	
 	return stageround
 
 func _get_stageround_10_5():
@@ -95,6 +93,8 @@ func _get_stageround_10_5():
 	stageround.enemy_damage_multiplier = 1
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
+	
+	stageround.is_question_round = true
 	
 	return stageround
 
@@ -105,8 +105,6 @@ func _get_stageround_10_6():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
-	
 	return stageround
 
 func _get_stageround_10_7():
@@ -116,6 +114,7 @@ func _get_stageround_10_7():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
+	stageround.is_question_round = true
 	
 	return stageround
 
@@ -126,8 +125,6 @@ func _get_stageround_10_8():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
-	
 	return stageround
 
 func _get_stageround_10_9():
@@ -137,6 +134,7 @@ func _get_stageround_10_9():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
+	stageround.is_question_round = true
 	
 	return stageround
 
@@ -147,8 +145,6 @@ func _get_stageround_10_10():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
-	
 	return stageround
 
 func _get_stageround_10_11():
@@ -158,6 +154,7 @@ func _get_stageround_10_11():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
+	stageround.is_question_round = true
 	
 	return stageround
 
@@ -168,8 +165,6 @@ func _get_stageround_10_12():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
-	
 	return stageround
 
 func _get_stageround_10_13():
@@ -178,6 +173,8 @@ func _get_stageround_10_13():
 	stageround.enemy_damage_multiplier = 1
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
+	
+	stageround.is_question_round = true
 	
 	return stageround
 
@@ -189,8 +186,6 @@ func _get_stageround_10_14():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
-	
 	return stageround
 
 
@@ -201,6 +196,8 @@ func _get_stageround_10_15():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
+	stageround.is_question_round = true
+	
 	return stageround
 
 func _get_stageround_10_16():
@@ -210,8 +207,6 @@ func _get_stageround_10_16():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
-	
 	return stageround
 
 func _get_stageround_10_17():
@@ -220,6 +215,8 @@ func _get_stageround_10_17():
 	stageround.enemy_damage_multiplier = 1
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
+	
+	stageround.is_question_round = true
 	
 	return stageround
 
@@ -231,8 +228,6 @@ func _get_stageround_10_18():
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
 	
-	stageround.is_question_round = true
-	
 	return stageround
 
 
@@ -242,6 +237,8 @@ func _get_stageround_10_19():
 	stageround.enemy_damage_multiplier = 1
 	stageround.enemy_health_multiplier = 1
 	stageround.enemy_first_damage = 0
+	
+	stageround.is_question_round = true
 	
 	return stageround
 

@@ -4,53 +4,62 @@ extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
 # THIS is same as in stage 04
 
 
+# CHANGE INTO: Boss style waves
 
 func get_instructions_for_stageround(uuid : String):
 	#todo
 	return []
 	
-	if uuid == "71":
+	if uuid == "101":
 		return _get_instructions_for_0_1()
-	elif uuid == "72":
+	elif uuid == "102":
 		return _get_instructions_for_0_2()
-	elif uuid == "73":
+	elif uuid == "103":
 		return _get_instructions_for_0_3()
-	elif uuid == "74":
+	elif uuid == "104":
 		return _get_instructions_for_0_4()
-	elif uuid == "75":
+	elif uuid == "105":
 		return _get_instructions_for_0_5()
-	elif uuid == "76":
+	elif uuid == "106":
 		return _get_instructions_for_0_6()
-	elif uuid == "77":
+	elif uuid == "107":
 		return _get_instructions_for_0_7()
-	elif uuid == "78":
+	elif uuid == "108":
 		return _get_instructions_for_0_8()
-	elif uuid == "79":
+	elif uuid == "109":
 		return _get_instructions_for_0_9()
-	elif uuid == "710":
+	elif uuid == "1010":
 		return _get_instructions_for_0_10()
-	elif uuid == "711":
+	elif uuid == "1011":
 		return _get_instructions_for_0_11()
-	elif uuid == "712":
+	elif uuid == "1012":
 		return _get_instructions_for_0_12()
-	elif uuid == "713":
+	elif uuid == "1013":
 		return _get_instructions_for_0_13()
+	elif uuid == "1014":
+		return _get_instructions_for_0_14()
+	elif uuid == "1015":
+		return _get_instructions_for_0_15()
+	elif uuid == "1016":
+		return _get_instructions_for_0_16()
+	elif uuid == "1017":
+		return _get_instructions_for_0_17()
+	elif uuid == "1018":
+		return _get_instructions_for_0_18()
+	elif uuid == "1019":
+		return _get_instructions_for_0_19()
+	elif uuid == "1020":
+		return _get_instructions_for_0_20()
 	
 	
 	return null
 
 
+
 func is_transition_time_in_stageround(uuid : String) -> bool:
-	return uuid == "41" #anything but starting with 5
+	return uuid == "41" #anything but starting with 10
 	
 	#return uuid == "01"  # to transfer to other factions
-
-
-#todo
-#func _get_instructions_for_instant_win():
-#	return [
-#		#SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-#	]
 
 
 
@@ -189,7 +198,6 @@ func _get_instructions_for_0_12():
 		
 	]
 
-# BOSS
 func _get_instructions_for_0_13():
 	return [
 		MultipleEnemySpawnInstruction.new(0, 6, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
@@ -199,3 +207,40 @@ func _get_instructions_for_0_13():
 		MultipleEnemySpawnInstruction.new(16, 6, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
 	]
+
+
+func _get_instructions_for_0_14():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+	]
+
+func _get_instructions_for_0_15():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+	]
+
+func _get_instructions_for_0_16():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+	]
+
+func _get_instructions_for_0_17():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+	]
+
+func _get_instructions_for_0_18():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+	]
+
+func _get_instructions_for_0_19():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+	]
+
+func _get_instructions_for_0_20():
+	return [
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+	]
+

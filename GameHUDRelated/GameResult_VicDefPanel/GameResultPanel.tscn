@@ -20,41 +20,53 @@ mouse_filter = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="VideoPlayer" type="VideoPlayer" parent="."]
+margin_right = 153.0
+margin_bottom = 105.0
+
+[node name="SkipButton" type="TextureButton" parent="."]
+margin_right = 153.0
+margin_bottom = 105.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 175.0
-margin_bottom = 148.0
+visible = false
+margin_left = -11.0
+margin_top = -22.0
+margin_right = 164.0
+margin_bottom = 126.0
 mouse_filter = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 custom_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 
 [node name="LeftBorder" type="MarginContainer" parent="HBoxContainer/MarginContainer"]
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 
 [node name="VicLeftBorder" type="HBoxContainer" parent="HBoxContainer/MarginContainer/LeftBorder"]
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder"]
 margin_right = 11.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 custom_constants/margin_top = 20
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/MarginContainer"]
 margin_top = 20.0
 margin_right = 11.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 custom_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/MarginContainer/VBoxContainer2"]
@@ -66,7 +78,7 @@ flip_h = true
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/MarginContainer/VBoxContainer2"]
 margin_top = 11.0
 margin_right = 11.0
-margin_bottom = 128.0
+margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -75,7 +87,7 @@ stretch_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder"]
 margin_left = 11.0
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 custom_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/VBoxContainer"]
@@ -86,7 +98,7 @@ texture = ExtResource( 2 )
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/MarginContainer/LeftBorder/VicLeftBorder/VBoxContainer"]
 margin_top = 11.0
 margin_right = 11.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -95,7 +107,7 @@ stretch_mode = 2
 [node name="DefLeftBorder" type="HBoxContainer" parent="HBoxContainer/MarginContainer/LeftBorder"]
 visible = false
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 custom_constants/separation = 0
 
@@ -147,7 +159,7 @@ texture = ExtResource( 6 )
 [node name="MiddleContainer" type="MarginContainer" parent="HBoxContainer"]
 margin_left = 22.0
 margin_right = 153.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -193,7 +205,7 @@ align = 1
 [node name="ButtonsContainer" type="HBoxContainer" parent="HBoxContainer/MiddleContainer/ContentContainer/VBoxContainer"]
 margin_top = 37.0
 margin_right = 91.0
-margin_bottom = 68.0
+margin_bottom = 37.0
 mouse_filter = 2
 custom_constants/separation = 15
 
@@ -215,23 +227,23 @@ text_for_label = "Main Menu"
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
 margin_left = 153.0
 margin_right = 175.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 
 [node name="RightBorder" type="MarginContainer" parent="HBoxContainer/MarginContainer2"]
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 
 [node name="VicRightBorder" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/RightBorder"]
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder"]
 margin_right = 11.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 custom_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/VBoxContainer"]
@@ -243,7 +255,7 @@ flip_h = true
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/VBoxContainer"]
 margin_top = 11.0
 margin_right = 11.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -252,13 +264,13 @@ stretch_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder"]
 margin_left = 11.0
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 custom_constants/margin_top = 20
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/MarginContainer"]
 margin_top = 20.0
 margin_right = 11.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 custom_constants/separation = 0
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/MarginContainer/VBoxContainer2"]
@@ -269,7 +281,7 @@ texture = ExtResource( 2 )
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/MarginContainer2/RightBorder/VicRightBorder/MarginContainer/VBoxContainer2"]
 margin_top = 11.0
 margin_right = 11.0
-margin_bottom = 128.0
+margin_bottom = 97.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -278,7 +290,7 @@ stretch_mode = 2
 [node name="DefRightBorder" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/RightBorder"]
 visible = false
 margin_right = 22.0
-margin_bottom = 148.0
+margin_bottom = 117.0
 mouse_filter = 2
 custom_constants/separation = 0
 
@@ -326,3 +338,5 @@ margin_top = 74.0
 margin_right = 11.0
 margin_bottom = 85.0
 texture = ExtResource( 6 )
+
+[connection signal="pressed" from="SkipButton" to="." method="_on_SkipButton_pressed"]

@@ -90,6 +90,8 @@ const tidbit_category_id_to_tidbit_category_name : Dictionary = {
 	TidbitCategory.MALWARE_BOTS : "Malware Bots",
 	TidbitCategory.MOBILE_MALWARE : "Mobile Malware",
 	
+	TidbitCategory.LETTERS : "Others",
+	
 }
 
 const tidbit_id_to_category_id_map : Dictionary = {
@@ -240,6 +242,12 @@ func _initialize_tidbit_map():
 	_construct_tidbit__mobile_malware_background_01()
 	_construct_tidbit__mobile_malware_behavior_01()
 	_construct_tidbit__mobile_malware_practices_01()
+	
+	
+	
+	# OTHERS
+	
+	_construct_tidbit__letter_01()
 	
 	
 #

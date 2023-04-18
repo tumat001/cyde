@@ -79,9 +79,9 @@ var all_possible_ques_and_ans__for_fileless_03
 ##########
 
 
-func _init().(StoreOfGameModifiers.GameModiIds__CYDE_World_08,
+func _init().(StoreOfGameModifiers.GameModiIds__CYDE_World_07,
 		BreakpointActivation.BEFORE_GAME_START, 
-		"Cyde_World08_Modi"):
+		"Cyde_World07_Modi"):
 	
 	pass
 

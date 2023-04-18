@@ -61,18 +61,18 @@ const _audio_id_to_sound_file_path = {
 	AudioIds.DROP_TOWER : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/DropTower.wav",
 	
 	# todo enable when available
-#	AudioIds.CYDE_SPEAK_01 : "",
-#	AudioIds.PLAYER_SPEAK_01 : "",
-#	AudioIds.DR_ASI_SPEAK_01 : "",
-#
-#	AudioIds.BLOCKER_DROP : "",
-#
-#	AudioIds.ALTER_TRIGGERED : "",
-#	AudioIds.REDUCTION_TRIGGERED : "",
-#
-#	AudioIds.PLAYER_SHIELD_DAMAGED : "",
-#
-#	AudioIds.ENEMY_DEATH : "",
+	AudioIds.CYDE_SPEAK_01 : "",
+	AudioIds.PLAYER_SPEAK_01 : "",
+	AudioIds.DR_ASI_SPEAK_01 : "",
+	
+	AudioIds.BLOCKER_DROP : "",
+	
+	AudioIds.ALTER_TRIGGERED : "",
+	AudioIds.REDUCTION_TRIGGERED : "",
+	
+	AudioIds.PLAYER_SHIELD_DAMAGED : "",
+	
+	AudioIds.ENEMY_DEATH : "",
 	
 	
 }
@@ -80,6 +80,9 @@ const _audio_id_to_sound_file_path = {
 ##
 
 func get_audio_path_of_id(arg_id):
-	return _audio_id_to_sound_file_path[arg_id]
-	
+	if _audio_id_to_sound_file_path.has(arg_id):
+		return _audio_id_to_sound_file_path[arg_id]
+	else:
+		# why default to this? i dunno... hahahhahahhahah
+		return "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/CorrectAnswer.wav"
 

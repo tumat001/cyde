@@ -3,42 +3,43 @@ extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
 # TODO, change enemy spawn styles.
 # THIS is same as in stage 04
 
-
-# CHANGE INTO: MobileMalwares
+# CHANGE INTO: MalwareBots
 
 func get_instructions_for_stageround(uuid : String):
 	#todo
 	return []
 	
-	if uuid == "91":
+	if uuid == "81":
 		return _get_instructions_for_0_1()
-	elif uuid == "92":
+	elif uuid == "82":
 		return _get_instructions_for_0_2()
-	elif uuid == "93":
+	elif uuid == "83":
 		return _get_instructions_for_0_3()
-	elif uuid == "94":
+	elif uuid == "84":
 		return _get_instructions_for_0_4()
-	elif uuid == "95":
+	elif uuid == "85":
 		return _get_instructions_for_0_5()
-	elif uuid == "96":
+	elif uuid == "86":
 		return _get_instructions_for_0_6()
-	elif uuid == "97":
+	elif uuid == "87":
 		return _get_instructions_for_0_7()
-	elif uuid == "98":
+	elif uuid == "88":
 		return _get_instructions_for_0_8()
-	elif uuid == "99":
+	elif uuid == "89":
 		return _get_instructions_for_0_9()
-	elif uuid == "910":
+	elif uuid == "810":
 		return _get_instructions_for_0_10()
-	elif uuid == "911":
+	elif uuid == "811":
 		return _get_instructions_for_0_11()
-	elif uuid == "912":
+	elif uuid == "812":
 		return _get_instructions_for_0_12()
-	elif uuid == "913":
+	elif uuid == "813":
 		return _get_instructions_for_0_13()
 	
 	
 	return null
+
+#####
 
 
 func is_transition_time_in_stageround(uuid : String) -> bool:
