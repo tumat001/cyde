@@ -1733,6 +1733,9 @@ class PickupableAdvParams:
 	var original_location : Vector2
 	var final_location : Vector2
 	var speed : float
+	var max_height : float
+	
+	var queue_free_on_animation_end : bool = true
 	
 	var texture_normal : Texture
 	var texture_hover : Texture
@@ -1763,25 +1766,28 @@ class PickupableAdvParams:
 		final_location = original_location + vector_modi
 
 
-# on_pressed -> expects method with 1 param -> Array (custom params)
-# on_end_of_anim -> expects method with 2 param -> Vector2 (final pos), Array (custom params)
-func create_pickupable(arg_params : PickupableAdvParams, arg_start_flight : bool = true) -> BasePickupable:
+# on_pressed -> expects method with 2 param -> pickupable, Array (custom params)
+# on_end_of_anim -> expects method with 2 param -> pickupable, Array (custom params)
+func create_pickupable(arg_params : PickupableAdvParams, arg_start_flight_immediately : bool = true) -> BasePickupable:
 	var pickupable = BasePickupable_Scene.instance()
 	
 	pickupable.texture_normal = arg_params.texture_normal
 	pickupable.texture_hover = arg_params.texture_hover
 	
 	pickupable.connect("on_pressed", arg_params.func_source, arg_params.func_name_for__on_click, [arg_params.func_params_for__on_click], CONNECT_PERSIST)
-	pickupable.connect("on_final_location_reached", arg_params.func_source, arg_params.func_name_for__on_end_of_animation, [arg_params.func_params_for__on_end_of_animation], CONNECT_PERSIST)
+	pickupable.connect("exit_animation_finished", arg_params.func_source, arg_params.func_name_for__on_end_of_animation, [arg_params.func_params_for__on_end_of_animation], CONNECT_PERSIST)
 	
 	pickupable.original_location = arg_params.original_location
 	pickupable.final_location = arg_params.final_location
 	pickupable.speed = arg_params.speed
+	pickupable.max_height = arg_params.max_height
 	
-	arg_params.func_source_for__add_child.call(arg_params.func_name_for__add_child)
+	pickupable.queue_free_on_animation_end = arg_params.queue_free_on_animation_end
+	
+	arg_params.func_source_for__add_child.call(arg_params.func_name_for__add_child, pickupable)
 	
 	
-	if arg_start_flight:
+	if arg_start_flight_immediately:
 		pickupable.start_flight_to_final_location()
 	
 	return pickupable

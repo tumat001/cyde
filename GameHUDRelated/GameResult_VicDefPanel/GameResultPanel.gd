@@ -5,8 +5,17 @@ signal option_main_menu_selected()
 
 #########
 
-const vid_path_for__defeat = ""
-const vid_path_for__win = ""
+#todo
+const vid_path_for__defeat = "res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_03.ogv"
+const vid_path_for__win = "res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_05.ogv"
+
+#todo
+const img_path_for__defeat = ""
+const img_path_for__win = ""
+
+
+const display_vid : bool = true
+
 
 #
 
@@ -31,6 +40,7 @@ onready var main_menu_button = $HBoxContainer/MiddleContainer/ContentContainer/V
 #
 
 onready var video_player = $VideoPlayer
+onready var result_texture_rect = $ResultTextureRect
 
 onready var skip_button = $SkipButton
 
@@ -65,6 +75,13 @@ func _ready():
 	####
 	
 	video_player.connect("finished", self, "_on_video_player_finished", [], CONNECT_PERSIST)
+	
+	
+	if display_vid:
+		result_texture_rect.visible = false
+	else:
+		video_player.visible = false
+
 
 func _on_view_battlefield_selected():
 	emit_signal("option_view_battlefield_selected")
@@ -90,16 +107,24 @@ func start_show_display(arg_as_victory : bool):
 	tweener_for_start.connect("finished", self, "_on_start_display_finished")
 	tweener_for_start.tween_property(self, "modulate:a", 1.0, 0.25)
 	
-	if arg_as_victory:
-		video_player.stream = load(vid_path_for__win)
+	if display_vid:
+		if arg_as_victory:
+			video_player.stream = load(vid_path_for__win)
+		else:
+			video_player.stream = load(vid_path_for__defeat)
+		
+		video_player.play()
+		
+		
 	else:
-		video_player.stream = load(vid_path_for__defeat)
-	
-	video_player.play()
+		if arg_as_victory:
+			result_texture_rect.texture = load(img_path_for__win)
+		else:
+			result_texture_rect.texture = load(img_path_for__defeat)
+
 
 func _on_start_display_finished():
 	tweener_for_start = null
-
 
 
 func _on_video_player_finished():

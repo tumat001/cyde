@@ -520,12 +520,14 @@ func _on_after_tower_added(tower_instance : AbstractTower):
 	if is_instance_valid(tower_instance):
 		
 		var tower_tier = tower_instance.tower_type_info.tower_tier
-		var first_time = _first_time_tower_tier_acquired_status[tower_tier]
+		var first_time = is_first_time_tower_tier_acquired_status(tower_tier)
 		if first_time:
 			_first_time_tower_tier_acquired_status[tower_tier] = false
 			
 			_add_to_tier_aesth_queue__and_attempt_start_display(tower_tier, tower_instance.global_position)
 
+func is_first_time_tower_tier_acquired_status(arg_tower_tier):
+	return _first_time_tower_tier_acquired_status[arg_tower_tier]
 
 # Color and grouping related
 
@@ -1581,8 +1583,8 @@ func _create_first_time_aesth__for_pool():
 
 #
 
-func _add_to_tier_aesth_queue__and_attempt_start_display(arg_tier, arg_pos):
-	if arg_tier >= 3:
+func _add_to_tier_aesth_queue__and_attempt_start_display(arg_tier, arg_pos, arg_ignore_min_tier_condition : bool = false):
+	if arg_tier >= 3 or arg_ignore_min_tier_condition:
 		_tier_aesthetic_queue_arr.append(arg_tier)
 		_pos_aesthetic_queue_arr.append(arg_pos)
 		

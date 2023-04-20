@@ -140,6 +140,7 @@ const variance_image = preload("res://TowerRelated/Color_Violet/Variance/Varianc
 const bounded_image = preload("res://TowerRelated/Color_Violet/Bounded/Bounded_Omni.png")
 const celestial_image = preload("res://TowerRelated/Color_Violet/Celestial/Celestial_TowerBase_Omni.png")
 const biomorph_image = preload("res://TowerRelated/Color_Violet/BioMorph/Biomorph_Omni.png")
+const realmd_image = preload("res://TowerRelated/Color_Violet/Realmd/Realmd_WholeImage.png")
 
 # OTHERS
 const hero_image = preload("res://TowerRelated/Color_White/Hero/Hero_Omni.png")
@@ -255,6 +256,7 @@ enum {
 	BOUNDED = 708,
 	CELESTIAL = 709,
 	BIOMORPH = 710,
+	REALMD = 711,
 	
 	# OTHERS (900)
 	HERO = 900, # WHITE
@@ -295,18 +297,36 @@ const TowerTiersMap : Dictionary = {
 	COIN : 2,
 	BLEACH : 2,
 	DOUSER : 2,
+	CELESTIAL : 2,
+	PROBE : 2,
+	FLAMEBURST : 2,
 	
 	MAGNETIZER : 3,
 	ROYAL_FLAME : 3,
 	BEACON_DISH : 3,
 	NUCLEUS : 3,
 	ADEPT : 3,
+	WYVERN : 3,
+	CHARGE : 3,
+	ENERVATE : 3,
 	
 	TESLA : 4,
 	PAROXYSM : 4,
 	IOTA : 4,
 	ACCUMULAE : 4,
+	REALMD : 4,
+	PROMINENCE : 4,
 	
+	## REMOVED:
+	# VOLC
+	# 
+	
+	## NEW:
+	# IOTA
+	# PARO
+	# ACC
+	# ADEPT
+	# NUC
 	
 	## NEED REDESIGN/RESKIN BUT WILL INCLUDE:
 	
@@ -1276,8 +1296,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Charge", CHARGE)
 		info.tower_tier = TowerTiersMap[CHARGE]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.YELLOW)
-		info.colors.append(TowerColors.RED)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = charge_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -1758,7 +1777,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Flameburst", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.ORANGE)
+		info.colors.append(TowerColors.AVAILABILITY)
 		info.base_tower_image = flameburst_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -3930,12 +3949,12 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Prominence", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.VIOLET)
+		info.colors.append(TowerColors.INTEGRITY)
 		info.base_tower_image = prominence_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
-		info.base_damage = 3
-		info.base_attk_speed = 0.6
+		info.base_damage = 2
+		info.base_attk_speed = 0.5
 		info.base_pierce = 1
 		info.base_range = 120
 		info.base_damage_type = DamageType.ELEMENTAL
@@ -4271,7 +4290,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Probe", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.RED)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = probe_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -5900,11 +5919,11 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Wyvern", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.RED)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = wyvern_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
-		info.base_damage = 7
+		info.base_damage = 5
 		info.base_attk_speed = 0.4
 		info.base_pierce = 1
 		info.base_range = 185
@@ -5933,9 +5952,9 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		interpreter_for_bonus_dmg.header_description = "damage"
 		
 		var ins_for_bonus_dmg = []
-		ins_for_bonus_dmg.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.BASE_DAMAGE, TowerStatTextFragment.STAT_BASIS.TOTAL, 3.5, DamageType.PHYSICAL))
+		ins_for_bonus_dmg.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.BASE_DAMAGE, TowerStatTextFragment.STAT_BASIS.TOTAL, 2.5, DamageType.PHYSICAL))
 		ins_for_bonus_dmg.append(TextFragmentInterpreter.STAT_OPERATION.ADDITION)
-		ins_for_bonus_dmg.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.ON_HIT_DAMAGE, TowerStatTextFragment.STAT_BASIS.TOTAL, 4.5)) # stat basis does not matter here
+		ins_for_bonus_dmg.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.ON_HIT_DAMAGE, TowerStatTextFragment.STAT_BASIS.TOTAL, 3.5)) # stat basis does not matter here
 		
 		interpreter_for_bonus_dmg.array_of_instructions = ins_for_bonus_dmg
 		
@@ -6059,7 +6078,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Enervate", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.RED)
+		info.colors.append(TowerColors.INTEGRITY)
 		info.base_tower_image = enervate_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image)
 		
@@ -6743,7 +6762,7 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		info = TowerTypeInformation.new("Celestial", tower_id)
 		info.tower_tier = TowerTiersMap[tower_id]
 		info.tower_cost = info.tower_tier
-		info.colors.append(TowerColors.VIOLET)
+		info.colors.append(TowerColors.CONFIDENTIALITY)
 		info.base_tower_image = celestial_image
 		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image, Vector2(0, 0))
 		
@@ -6914,6 +6933,107 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 			["|0|: Reduces 3 |1| if not lethal. In exchange, Biomorph gains |2|.", [plain_fragment__on_round_start, plain_fragment__player_health, interpreter_for_flat_on_hit]],
 			"",
 			ability_desc[0]
+		]
+		
+		
+		
+	elif tower_id == REALMD:
+		info = TowerTypeInformation.new("Realmd", tower_id)
+		info.tower_tier = TowerTiersMap[tower_id]
+		info.tower_cost = info.tower_tier
+		info.colors.append(TowerColors.INTEGRITY)
+		info.base_tower_image = realmd_image
+		info.tower_atlased_image = _generate_tower_image_icon_atlas_texture(info.base_tower_image, Vector2(0, 0))
+		
+		info.base_damage = 2.5
+		info.base_attk_speed = 1.1
+		info.base_pierce = 1
+		info.base_range = 80
+		info.base_damage_type = DamageType.ELEMENTAL
+		info.on_hit_multiplier = 1
+		
+		
+		var plain_fragment__ability = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ABILITY, "Ability")
+		
+		
+		var interpreter_for_domain_explosion = TextFragmentInterpreter.new()
+		interpreter_for_domain_explosion.tower_info_to_use_for_tower_stat_fragments = info
+		interpreter_for_domain_explosion.display_body = true
+		
+		var outer_ins = []
+		var ins = []
+		ins.append(NumericalTextFragment.new(5, false, DamageType.ELEMENTAL))
+		ins.append(TextFragmentInterpreter.STAT_OPERATION.ADDITION)
+		ins.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.ON_HIT_DAMAGE, TowerStatTextFragment.STAT_BASIS.TOTAL, 1.5))
+		
+		outer_ins.append(ins)
+		
+		outer_ins.append(TextFragmentInterpreter.STAT_OPERATION.MULTIPLICATION)
+		outer_ins.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.ABILITY_POTENCY, TowerStatTextFragment.STAT_BASIS.TOTAL, 1))
+		
+		interpreter_for_domain_explosion.array_of_instructions = outer_ins
+		
+		#
+		
+		var interpreter_for_cooldown = TextFragmentInterpreter.new()
+		interpreter_for_cooldown.tower_info_to_use_for_tower_stat_fragments = info
+		interpreter_for_cooldown.display_body = true
+		interpreter_for_cooldown.header_description = "s"
+		
+		var ins_for_cooldown = []
+		ins_for_cooldown.append(NumericalTextFragment.new(15, false))
+		ins_for_cooldown.append(TextFragmentInterpreter.STAT_OPERATION.PERCENT_SUBTRACT)
+		ins_for_cooldown.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.PERCENT_COOLDOWN_REDUCTION, TowerStatTextFragment.STAT_BASIS.TOTAL, 1))
+		
+		interpreter_for_cooldown.array_of_instructions = ins_for_cooldown
+		
+		#
+		
+		var interpreter_for_domain_radius = TextFragmentInterpreter.new()
+		interpreter_for_domain_radius.tower_info_to_use_for_tower_stat_fragments = info
+		interpreter_for_domain_radius.display_body = true
+		interpreter_for_domain_radius.header_description = "range"
+		
+		var ins_for_domain_radius = []
+		ins_for_domain_radius.append(NumericalTextFragment.new(50, false, -1))
+		ins_for_domain_radius.append(TextFragmentInterpreter.STAT_OPERATION.ADDITION)
+		ins_for_domain_radius.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.RANGE, TowerStatTextFragment.STAT_BASIS.BONUS, 0.5)) # stat basis does not matter here
+		
+		interpreter_for_domain_radius.array_of_instructions = ins_for_domain_radius
+		
+		#
+		
+		var interpreter_for_domain_dot = TextFragmentInterpreter.new()
+		interpreter_for_domain_dot.tower_info_to_use_for_tower_stat_fragments = info
+		interpreter_for_domain_dot.display_body = true
+		
+		var ins_for_domain_dot = []
+		ins_for_domain_dot.append(NumericalTextFragment.new(1, false, DamageType.ELEMENTAL))
+		ins_for_domain_dot.append(TextFragmentInterpreter.STAT_OPERATION.ADDITION)
+		ins_for_domain_dot.append(TowerStatTextFragment.new(null, info, TowerStatTextFragment.STAT_TYPE.BASE_DAMAGE, TowerStatTextFragment.STAT_BASIS.BONUS, 0.2, DamageType.ELEMENTAL)) # stat basis does not matter here
+		
+		interpreter_for_domain_dot.array_of_instructions = ins_for_domain_dot
+		
+		
+		
+		info.tower_descriptions = [
+			"Auto casts Realm if there is at least 1 enemy in the map.",
+			["|0|: Realm. Fire a globule at a random enemy's position. The globule expands into a Domain.", [plain_fragment__ability]],
+			["After a brief delay, Realmd creates explosions within all Domains, dealing |0|.", [interpreter_for_domain_explosion]],
+			["Cooldown: |0|", [interpreter_for_cooldown]],
+			"",
+			["Domains last for 35 seconds, and have |0|.", [interpreter_for_domain_radius]],
+			["Enemies in a Domain are dealt |0| per second. This applies on hit effects.", [interpreter_for_domain_dot]],
+			"Enemies in a Domain are treated to be within Realmd's range."
+		]
+		
+		info.tower_simple_descriptions = [
+			"Auto casts Realm if there is at least 1 enemy.",
+			["|0|: Realm. Fire a globule at a random enemy's position. The globule expands into a Domain.", [plain_fragment__ability]],
+			["After a brief delay, Realmd creates explosions within all Domains, dealing |0|.", [interpreter_for_domain_explosion]],
+			["Cooldown: |0|", [interpreter_for_cooldown]],
+			"",
+			["Enemies in a Domain are dealt |0| per second.", [interpreter_for_domain_dot]],
 		]
 		
 		

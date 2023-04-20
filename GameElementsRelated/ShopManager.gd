@@ -278,10 +278,14 @@ func _ready():
 
 func finalize_towers_in_shop():
 	for tower_id in Towers.TowerTiersMap.keys():
-		if !towers_not_initially_in_inventory.has(tower_id):
+		if is_tower_id_valid_for_adding_to_inventory(tower_id):
 			add_tower_to_inventory(tower_id, Towers.TowerTiersMap[tower_id])
 	
 	_update_tier_has_tower_map()
+
+# can be used by outside sources
+func is_tower_id_valid_for_adding_to_inventory(arg_tower_id):
+	return !towers_not_initially_in_inventory.has(arg_tower_id)
 
 
 func add_tower_to_inventory(tower_id : int, tower_tier : int):
@@ -406,9 +410,11 @@ func if_can_roll() -> bool:
 	return false
 
 func roll_towers_in_shop(level_of_roll : int = last_calculated_effective_shop_level_odds):
+	# return unbought towers to pool
 	for tower_id in buy_sell_level_roll_panel.get_all_unbought_tower_ids():
 		_add_stock_to_tower_id(tower_id, 1)
 	
+	# 
 	var tower_ids : Array = []
 	for i in last_calculated_towers_per_shop:
 		tower_ids.append(_determine_tower_id_to_be_rolled_from_level_of_roll(level_of_roll))
@@ -420,15 +426,23 @@ func roll_towers_in_shop__specific_ids(arg_tower_ids):
 	emit_signal("shop_rolled_with_towers", arg_tower_ids)
 
 
-func _determine_tower_id_to_be_rolled_from_level_of_roll(level_of_roll : int) -> int:
-	var tier = _determine_tier_to_be_rolled(level_of_roll)
-	return _determine_tower_id_to_be_rolled_from_tier(tier)
+# the public facing part of rolling for a single tower.
+# takes from the pool.
+# used by Syn_Availability
+func generate_tower_id_to_be_rolled_from_level_of_roll(level_of_roll : int, arg_tier_tower_map : Dictionary = tier_tower_map) -> int:
+	return _determine_tower_id_to_be_rolled_from_level_of_roll(level_of_roll, arg_tier_tower_map)
 
-func _determine_tower_id_to_be_rolled_from_tier(arg_tier : int):
+
+
+func _determine_tower_id_to_be_rolled_from_level_of_roll(level_of_roll : int, arg_tier_tower_map : Dictionary = tier_tower_map) -> int:
+	var tier = _determine_tier_to_be_rolled(level_of_roll)
+	return _determine_tower_id_to_be_rolled_from_tier(tier, arg_tier_tower_map[tier].duplicate())
+
+func _determine_tower_id_to_be_rolled_from_tier(arg_tier : int, arg_tower_ids_to_select_from : Array):
 	var tower_id_to_roll : int = -1
 	
 	if arg_tier != -1:
-		var tower_ids_in_tier : Array = tier_tower_map[arg_tier].duplicate()
+		var tower_ids_in_tier : Array = arg_tower_ids_to_select_from
 		_remove_tower_ids_with_no_available_inventory_from_array(tower_ids_in_tier)
 		
 		var tower_id_count_map : Dictionary = _get_tower_id_inventory_count_map(tower_ids_in_tier)
@@ -535,7 +549,7 @@ func create_random_tower_at_bench(arg_tier : int, arg_is_tower_bought : bool = f
 	return game_elements.tower_inventory_bench.insert_tower_from_last(rand_tower_id, arg_is_tower_bought)
 
 func _get_random_tower_id_with_stock_in_shop(arg_tier : int):
-	return _determine_tower_id_to_be_rolled_from_tier(arg_tier)
+	return _determine_tower_id_to_be_rolled_from_tier(arg_tier, tier_tower_map[arg_tier].duplicate())
 #	var tower_ids_in_tier : Array = tier_tower_map[arg_tier].duplicate()
 #	_remove_tower_ids_with_no_available_inventory_from_array(tower_ids_in_tier)
 #

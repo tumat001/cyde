@@ -1,5 +1,7 @@
 extends "res://MiscRelated/DialogRelated/StageMaster/BaseDialogStageMaster.gd"
 
+const CenterBasedAttackParticle = preload("res://MiscRelated/AttackSpriteRelated/CenterBasedAttackSprite.gd")
+const CenterBasedAttackParticle_Scene = preload("res://MiscRelated/AttackSpriteRelated/CenterBasedAttackSprite.tscn")
 
 const CydeMode_StageRounds_World08 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomStageRounds/CydeMode_StageRounds_World08.gd")
 const CydeMode_EnemySpawnIns_World08 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomWaves/CydeMode_EnemySpawnIns_World08.gd")
@@ -50,6 +52,13 @@ var dia_seg__on_lose_01_sequence_001 : DialogSegment
 
 ## on win
 var dia_seg__on_win_01_sequence_001 : DialogSegment
+var dia_seg__on_win_02_sequence_001 : DialogSegment
+
+
+# world 8 specific
+
+#var pos_of_final_enemy_killed : Vector2 = Vector2(200, 200) #default val
+var letter_star_particle_pool_component : AttackSpritePoolComponent
 
 
 #####################
@@ -269,7 +278,9 @@ func _construct_dia_seg__intro_01_sequence_001():
 
 func _play_dia_seg__intro_01_sequence_001():
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_01_sequence_001)
-
+	
+	#_initialize_letter_star_particle_pool_components()
+	#_play_letter_star_particles(game_elements.get_middle_coordinates_of_playable_map())
 
 func _on_dia_seg__intro_01__ended(arg_seg, arg_params):
 	_on_intro_01_completed()
@@ -929,8 +940,15 @@ func _on_dia_seg__question_03_sequence_003__ended(arg_seg, arg_param):
 	
 	#_construct_dia_seg__intro_11_sequence_001()
 	
-	#listen_for_round_end_into_stage_round_id_and_call_func("311", self, "_on_round_started__into_round_11")
-	
+	listen_for_round_end_into_stage_round_id_and_call_func("813", self, "_on_round_started__into_round_13")
+
+
+func _on_round_started__into_round_13(arg_stageround_id):
+	game_elements.enemy_manager.connect("last_enemy_standing_killed_by_damage_no_revives", self, "_on_round_13_last_enemy_standing_killed_by_damage_no_revives", [], CONNECT_ONESHOT)
+
+func _on_round_13_last_enemy_standing_killed_by_damage_no_revives(damage_instance_report, enemy):
+	#pos_of_final_enemy_killed = enemy.global_position
+	pass
 
 
 ##########
@@ -1331,28 +1349,133 @@ func _on_end_of_dia_seg__on_lose_x_segment__end(arg_seg, arg_params):
 	CommsForBetweenScenes.goto_starting_screen(game_elements)
 
 
-############### ON WIN
+############### BEFORE PICK UP OF LETTER (ON WIN)
 
 func _construct_dia_seg__on_win_01_sequence_001():
 	dia_seg__on_win_01_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__on_win_01_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"Congratulations for winning the stage! [b]The Malware Bots[/b] have been defeated.",
-		"You can proceed to the next map to continue the story."
+		"Looks like a letter was dropped on the ground. Let's click on it to pick it up."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_win_01_sequence_001, dia_seg__on_win_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_01_sequence_001)
-	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__on_win_01_sequence_001, self, "_on_end_of_dia_seg__on_win_x_segment__end", null)
 	
 	var custom_pos = dia_portrait__pos__standard_left
 	custom_pos.x = 0
-	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
 	
-
+	
+	######
+	
+	_initialize_letter_star_particle_pool_components()
+	
+	# drop letter
+	
+	var pickable_adv_param := PickupableAdvParams.new()
+	
+	pickable_adv_param.original_location = game_elements.get_middle_coordinates_of_playable_map() #pos_of_final_enemy_killed
+	pickable_adv_param.configure_final_location_towards_center(0, 0, game_elements.get_middle_coordinates_of_playable_map())
+	pickable_adv_param.max_height = 80
+	pickable_adv_param.speed = 0.5
+	
+	pickable_adv_param.queue_free_on_animation_end = true
+	
+	pickable_adv_param.texture_normal = preload("res://CYDE_SPECIFIC_ONLY/TestTemp/Test_LetterNormal.png") #= #todo
+	pickable_adv_param.texture_hover = preload("res://CYDE_SPECIFIC_ONLY/TestTemp/Test_LetterGlow.png") #= #todo
+	
+	pickable_adv_param.func_source = self
+	pickable_adv_param.func_name_for__on_click = "_on_letter_clicked"
+	pickable_adv_param.func_name_for__on_end_of_animation = "_on_letter_end_of_animation"
+	
+	create_pickupable(pickable_adv_param)
+	
 
 func _play_dia_seg__on_win_01_sequence_001():
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__on_win_01_sequence_001)
+	
+
+
+func _on_letter_clicked(arg_letter, arg_custom_params):
+	_play_letter_star_particles(arg_letter.rect_global_position + (arg_letter.rect_size / 2))
+	
+	_construct_dia_seg__on_win_02_sequence_001()
+
+func _on_letter_end_of_animation(arg_letter, arg_custom_params):
+	_play_dia_seg__on_win_02_sequence_001()
+	
+
+
+# star particles related
+
+func _initialize_letter_star_particle_pool_components():
+	letter_star_particle_pool_component = AttackSpritePoolComponent.new()
+	letter_star_particle_pool_component.node_to_parent_attack_sprites = CommsForBetweenScenes.current_game_elements__other_node_hoster
+	letter_star_particle_pool_component.node_to_listen_for_queue_free = CommsForBetweenScenes.current_game_elements__other_node_hoster
+	letter_star_particle_pool_component.source_for_funcs_for_attk_sprite = self
+	letter_star_particle_pool_component.func_name_for_creating_attack_sprite = "_create_letter_star_particle"
+
+func _create_letter_star_particle():
+	var particle = CenterBasedAttackParticle_Scene.instance()
+	
+	particle.texture_to_use = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/LetterRelated/Letter_StarParticle.png")
+	
+	particle.speed_accel_towards_center = 270
+	particle.initial_speed_towards_center = non_essential_rng.randf_range(-230, -270)
+	
+	particle.max_speed_towards_center = -5
+	
+	particle.lifetime_to_start_transparency = 0.45
+	particle.transparency_per_sec = 1 / 0.45
+	
+	particle.min_starting_angle = 0
+	particle.max_starting_angle = 359
+	
+	return particle
+
+
+func _play_letter_star_particles(arg_pos):
+	for i in 10:
+		var particle = letter_star_particle_pool_component.get_or_create_attack_sprite_from_pool()
+		
+		particle.center_pos_of_basis = arg_pos
+		particle.lifetime = 0.9
+		
+		particle.reset_for_another_use()
+		particle.is_enabled_mov_toward_center = true
+		particle.rotation = particle.global_position.angle_to_point(arg_pos)
+		
+		particle.visible = true
+		particle.modulate.a = 0.8
+
+
+############## ON PICK UP OF LETTER (ON WIN)
+
+func _construct_dia_seg__on_win_02_sequence_001():
+	dia_seg__on_win_02_sequence_001 = DialogSegment.new()
+	
+	var dia_seg__on_win_02_sequence_001__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"TODO put new things here",
+		
+		#"Congratulations for winning the stage! [b]The Malware Bots[/b] have been defeated.",
+		#"You can proceed to the next map to continue the story."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_win_02_sequence_001, dia_seg__on_win_02_sequence_001__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_02_sequence_001)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_02_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
+	
+	
+	####
+	
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__on_win_02_sequence_001, self, "_on_end_of_dia_seg__on_win_x_segment__end", null)
+	
+
+
+func _play_dia_seg__on_win_02_sequence_001():
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__on_win_02_sequence_001)
 
 
 func _on_end_of_dia_seg__on_win_x_segment__end(arg_seg, arg_params):

@@ -198,6 +198,13 @@ func _init():
 			MapIdsAvailableFromMenu.has(world_id__05),
 			_construct_map_resource_variation_info__with_default_settings())
 	
+	
+	var res_var_info__map_06 = MapResourceVariationInfo.new(
+		range_module__circle_range_color__darker_025,
+		in_map_placable__normal_texture__standard,
+		in_map_placable__highlighted_texture__standard
+	)
+	
 	var world_id__06 = MapsId_World06
 	add_map(world_id__06, "World 06",
 			"res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World06/Map_World06.tscn",

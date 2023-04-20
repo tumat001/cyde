@@ -241,16 +241,27 @@ func _on_singleton_initialize():
 	var plain_fragment__tier_1_gold_amount = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.GOLD, "5 gold")
 	
 	
+	var plain_fragment__availability_towers = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "Availability Tower(s)")
+	var plain_fragment__on_round_end = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ON_ROUND_END, "on round end")
+	
+	var plain_fragment_tier_2_availability_tower_count = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "1 Availability Tower")
+	var plain_fragment_tier_1_availability_tower_count = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.TOWER, "2 Availability Towers")
+	
+	
 	var availability_syn = ColorSynergy.new(CYDE_SynergyID__Availability, synergy_id_to_syn_name_dictionary[CYDE_SynergyID__Availability], [TowerColors.AVAILABILITY], [7, 4],
 	[tier_gold_pic, tier_silver_pic],
 	cyde_synicon_availability_14x14, synergy_id_to_pic_map__big[CYDE_SynergyID__Availability],
 	[
-		"Gain gold generating capabilities."
+		#"Gain gold generating capabilities."
+		["Gain |0| |1|.", [plain_fragment__availability_towers, plain_fragment__on_round_end]]
 	],
 	[CydeSyn_Availability],
 	[
-		["Gain |0| per |1|.", [plain_fragment__tier_2_gold_amount, plain_fragment__end_of_round]],
-		["Gain |0| per |1|.", [plain_fragment__tier_1_gold_amount, plain_fragment__end_of_round]]
+		#["Gain |0| per |1|.", [plain_fragment__tier_2_gold_amount, plain_fragment__end_of_round]],
+		#["Gain |0| per |1|.", [plain_fragment__tier_1_gold_amount, plain_fragment__end_of_round]]
+		["|0|", [plain_fragment_tier_2_availability_tower_count]],
+		["|0|", [plain_fragment_tier_1_availability_tower_count]],
+		
 	],
 	ColorSynergy.HighlightDeterminer.SINGLE,
 	{},

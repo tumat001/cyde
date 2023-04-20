@@ -5,6 +5,8 @@
 [node name="BasePickupable" type="TextureButton"]
 margin_right = 40.0
 margin_bottom = 40.0
+action_mode = 0
+button_mask = 3
 script = ExtResource( 1 )
 
 [connection signal="pressed" from="." to="." method="_on_BasePickupable_pressed"]

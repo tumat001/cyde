@@ -1,8 +1,7 @@
 extends TextureButton
 
 signal on_final_location_reached(arg_final_pos)
-signal on_pressed()
-
+signal on_pressed(arg_self)
 signal exit_animation_finished()
 
 
@@ -14,6 +13,7 @@ var max_height : float
 var speed  # the time it takes to reach final_location
 var current_life_distance   # current timeline of speed from 0 to speed
 
+var queue_free_on_animation_end : bool = false
 
 var _midpoint : float
 var _x_speed : float
@@ -28,12 +28,25 @@ var lifetime : float
 
 #
 
-const glow_frequency : float = 1.0
-const glow_min_val : float = 0.4
+const glow_frequency : float = 2.5
+const glow_min_val : float = 0.6
 #const glow_min_mag : float = 0.0
 const glow_mag_multiplier : float = 1 - glow_min_val
 
 ############
+
+#func _ready():
+#	set_original_location(Vector2(200, 00))
+#	final_location = Vector2(250, 250)
+#	speed = 0.75
+#	max_height = 300
+#
+#	texture_normal = preload("res://CYDE_SPECIFIC_ONLY/TestTemp/Test_LetterNormal.png")
+#	texture_hover = preload("res://CYDE_SPECIFIC_ONLY/TestTemp/Test_LetterGlow.png")
+#
+#	start_flight_to_final_location()
+
+#
 
 func set_original_location(arg_val):
 	original_location = arg_val
@@ -53,6 +66,8 @@ func start_flight_to_final_location():
 	_midpoint = speed / 2
 	
 	disabled = true
+	
+	_reached_final_location = false
 
 
 func end_flight_to_final_location():
@@ -130,7 +145,7 @@ func _move(delta):
 
 
 func _oscillate_self_glow():
-	var mag = glow_min_val + (sin(lifetime * glow_frequency) * glow_mag_multiplier)
+	var mag = glow_min_val + (sin(lifetime * glow_frequency) * 0.5 * glow_mag_multiplier)
 	
 	modulate.r = mag
 	modulate.g = mag
@@ -141,17 +156,20 @@ func _on_BasePickupable_pressed():
 	_clicked_and_during_animation = true
 	
 	_start_fade_out_tween_transition()
-	emit_signal("on_pressed")
+	emit_signal("on_pressed", self)
 
 
 
 func _start_fade_out_tween_transition():
 	var tween = create_tween()
 	tween.connect("finished", self, "_on_fade_out_tween_finished")
-	tween.tween_property(self, "modulate:a", 0, 0.25)
+	tween.tween_property(self, "modulate:a", 0.0, 0.25)
 
 func _on_fade_out_tween_finished():
-	emit_signal("exit_animation_finished")
+	if queue_free_on_animation_end:
+		queue_free()
+	
+	emit_signal("exit_animation_finished", self)
 	
 
 
