@@ -6,8 +6,11 @@ signal option_main_menu_selected()
 #########
 
 #todo
-const vid_path_for__defeat = "res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_03.ogv"
-const vid_path_for__win = "res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_05.ogv"
+#const vid_path_for__defeat_intro = "res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_03.ogv"
+#const vid_path_for__win_intro = "res://CYDE_SPECIFIC_ONLY/PreGameLobbyRelated/VidBackgrounds/PreGameLobby_BG_05.ogv"
+
+const vid_path_for__defeat = "res://CYDE_SPECIFIC_ONLY/GameResultAssets/GameResult_DefeatScreen_Body.ogv"
+const vid_path_for__win = "res://CYDE_SPECIFIC_ONLY/GameResultAssets/GameResult_VictoryScreen_Body.ogv"
 
 #todo
 const img_path_for__defeat = ""

@@ -65,8 +65,6 @@ func _initialize_tier_tower_map():
 		if game_elements.shop_manager.is_tower_id_valid_for_adding_to_inventory(tower_id):
 			availa_tier_tower_map[Towers.TowerTiersMap[tower_id]].append(tower_id)
 	
-	#todo
-	print(availa_tier_tower_map)
 
 ###
 

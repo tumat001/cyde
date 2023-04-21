@@ -1365,7 +1365,6 @@ func _construct_dia_seg__on_win_01_sequence_001():
 	custom_pos.x = 0
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
 	
-	
 	######
 	
 	_initialize_letter_star_particle_pool_components()
@@ -1381,8 +1380,8 @@ func _construct_dia_seg__on_win_01_sequence_001():
 	
 	pickable_adv_param.queue_free_on_animation_end = true
 	
-	pickable_adv_param.texture_normal = preload("res://CYDE_SPECIFIC_ONLY/TestTemp/Test_LetterNormal.png") #= #todo
-	pickable_adv_param.texture_hover = preload("res://CYDE_SPECIFIC_ONLY/TestTemp/Test_LetterGlow.png") #= #todo
+	pickable_adv_param.texture_normal = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/LetterRelated/Letter_Normal.png")
+	pickable_adv_param.texture_hover = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/LetterRelated/Letter_Hover.png")
 	
 	pickable_adv_param.func_source = self
 	pickable_adv_param.func_name_for__on_click = "_on_letter_clicked"
@@ -1456,10 +1455,9 @@ func _construct_dia_seg__on_win_02_sequence_001():
 	
 	var dia_seg__on_win_02_sequence_001__descs = [
 		generate_colored_text__cyde_name__as_line(),
-		"TODO put new things here",
-		
-		#"Congratulations for winning the stage! [b]The Malware Bots[/b] have been defeated.",
-		#"You can proceed to the next map to continue the story."
+		"Let's open the letter at the next stage.",
+		"Congratulations for winning the stage! [b]The Malware Bots[/b] have been defeated.",
+		"You can proceed to the next map to continue the story."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__on_win_02_sequence_001, dia_seg__on_win_02_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__on_win_02_sequence_001)

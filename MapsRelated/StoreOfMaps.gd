@@ -390,21 +390,21 @@ func _construct_map_type_info__map_world_06(info : MapTypeInformation):
 
 func _construct_map_type_info__map_world_07(info : MapTypeInformation):
 	info.map_name = "World 07"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage #img todo
+	info.map_display_texture = preload("res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World07/Map_World07_PreviewImage.png")
 	info.map_tier = 4
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_08(info : MapTypeInformation):
 	info.map_name = "World 08"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage #img todo
+	info.map_display_texture = preload("res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World08/Map_World08_PreviewImage.png")
 	info.map_tier = 4
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 
 func _construct_map_type_info__map_world_09(info : MapTypeInformation):
 	info.map_name = "World 09"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage #img todo
+	info.map_display_texture = preload("res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World09/Map_World09_PreviewImage.png")
 	info.map_tier = 5
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
@@ -489,7 +489,7 @@ func set_map_is_available_from_menu(arg_map_id, arg_is_available):
 
 func _construct_map_resource_variation_info__with_default_settings():
 	return MapResourceVariationInfo.new(
-		range_module__circle_range_color__standard,
+		range_module__circle_range_color__darker_025,
 		in_map_placable__normal_texture__standard,
 		in_map_placable__highlighted_texture__standard
 	)

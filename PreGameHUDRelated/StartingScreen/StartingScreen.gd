@@ -72,13 +72,13 @@ func set_pre_game_screen(arg_screen):
 	#pre_game_screen.set_should_show_top_right_panel(!visible)
 
 
-#
+
 
 func _on_PlayButton_on_button_released_with_button_left():
 	if !is_instance_valid(whole_map_selection_screen):
 		whole_map_selection_screen = WholeMapSelectionScreen_Scene.instance()
 		whole_map_selection_screen.pre_game_screen = pre_game_screen
-	
+
 	pre_game_screen.show_control(whole_map_selection_screen)
 
 
@@ -88,7 +88,7 @@ func _on_TutorialButton_on_button_released_with_button_left():
 	if !is_instance_valid(tutorial_hub_screen):
 		tutorial_hub_screen = TutorialHubScreen_Scene.instance()
 		tutorial_hub_screen.pre_game_screen = pre_game_screen
-	
+
 	pre_game_screen.show_control(tutorial_hub_screen)
 
 #
@@ -99,16 +99,16 @@ func _on_AlmanacButton_on_button_released_with_button_left():
 			almanac_page = Almanac_Page_Scene.instance()
 		else:
 			almanac_page = AlmanacManager.almanac_page_gui
-	
+
 	if is_instance_valid(almanac_page.get_parent()) and almanac_page.get_parent() != pre_game_screen.get_control_child_adding_node():
 		almanac_page.get_parent().remove_child(almanac_page)
-	
+
 	if !AlmanacManager.is_connected("requested_exit_almanac", self, "_on_requested_exit_almanac"):
 		AlmanacManager.connect("requested_exit_almanac", self, "_on_requested_exit_almanac", [], CONNECT_PERSIST)
 
 	pre_game_screen.show_control(almanac_page)
 	AlmanacManager.set_almanac_page_gui(almanac_page)
-	
+
 	pre_game_screen.set_should_show_top_right_panel(false)
 
 func _on_requested_exit_almanac():
@@ -127,7 +127,7 @@ func _on_QuitButton_on_button_released_with_button_left():
 		general_container.add_child(quit_game_general_dialog)
 		quit_game_general_dialog.set_title_label_text("")
 		quit_game_general_dialog.set_content_label_text("Quit the game?")
-	
+
 	quit_game_general_dialog.start_dialog_prompt(GeneralDialog.DialogMode.OK_CANCEL)
 
 func _on_quit_game_dialog__ok_chosen():
@@ -139,7 +139,7 @@ func _on_AboutButton_on_button_released_with_button_left():
 	if !is_instance_valid(about_panel):
 		about_panel = AboutPanel_Scene.instance()
 		general_container.add_child(about_panel)
-	
+
 	about_panel.show_panel()
 
 #
@@ -152,6 +152,24 @@ func _unhandled_key_input(event : InputEventKey):
 				return
 			
 			_on_QuitButton_on_button_released_with_button_left()
+			
 	
 	accept_event()
+
+
+
+func _on_PlayButton02_pressed():
+	_on_PlayButton_on_button_released_with_button_left()
+
+func _on_AlmanacButton02_pressed():
+	_on_AlmanacButton_on_button_released_with_button_left()
+
+
+func _on_AboutButton_pressed():
+	_on_AboutButton_on_button_released_with_button_left()
+
+func _on_QuitButton_pressed():
+	_on_QuitButton_on_button_released_with_button_left()
+
+
 

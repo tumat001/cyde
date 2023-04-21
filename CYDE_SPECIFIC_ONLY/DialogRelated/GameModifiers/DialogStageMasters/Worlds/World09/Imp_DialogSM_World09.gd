@@ -1,8 +1,14 @@
 extends "res://MiscRelated/DialogRelated/StageMaster/BaseDialogStageMaster.gd"
 
+const Comics_BlackScreen = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_BlackScreen.png")
+
 
 const CydeMode_StageRounds_World09 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomStageRounds/CydeMode_StageRounds_World09.gd")
 const CydeMode_EnemySpawnIns_World09 = preload("res://CYDE_SPECIFIC_ONLY/CustomStageRoundsAndWaves/CustomWaves/CydeMode_EnemySpawnIns_World09.gd")
+
+const Comics_Stage08_02_aa = preload("res://CYDE_SPECIFIC_ONLY/DialogRelated/Assets/Comics/Comics_Stage08_P02.png")
+
+
 
 enum World09_States {
 	
@@ -20,6 +26,7 @@ var stage_rounds_to_use
 
 var dia_seg__intro_01_sequence_001 : DialogSegment
 
+var dia_seg__intro_01_sequence_004 : DialogSegment
 
 # Info 01
 var dia_seg__info_01_sequence_001 : DialogSegment
@@ -69,6 +76,15 @@ var prevent_other_dia_segs_from_playing__from_loss : bool
 #
 
 var persistence_id_for_portrait__cyde : int = 1
+
+
+var persistence_id_for_comics__black_background : int = 9
+var persistence_id_for_comics__02_aa : int = 10
+
+
+
+var _temp_active_comic_background_dia_eles = []
+var _comic_black_background_dia_ele
 
 #
 
@@ -197,20 +213,82 @@ func _construct_dia_seg__intro_01_sequence_001():
 	#####
 	
 	
-	var dia_seg__intro_01_sequence_003 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_01_sequence_002, dia_seg__intro_01_sequence_003)
+#	var dia_seg__intro_01_sequence_003 = DialogSegment.new()
+#	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_01_sequence_002, dia_seg__intro_01_sequence_003)
+#
+#	var tidbit_to_view_and_enable = StoreOfTextTidbit.TidbitId.LETTER_01
+#	var x_type_item_entry_data = AlmanacManager.tidbit_id_to_tidbit_item_entry_data_option_map[tidbit_to_view_and_enable]
+#	_configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(dia_seg__intro_01_sequence_003, x_type_item_entry_data, AlmanacManager.Almanac_ItemListEntry_Data.TypeInfoClassification.TEXT_TIDBIT)
+#	_configure_dia_set_to_x_type_info_tidbit_pos_and_size(dia_seg__intro_01_sequence_003)
+#	dia_seg__intro_01_sequence_003.connect("fully_displayed", self, "_on_dia_seg__intro_01_sequence_003__fully_displayed", [tidbit_to_view_and_enable], CONNECT_ONESHOT)
+#
 	
-	var tidbit_to_view_and_enable = StoreOfTextTidbit.TidbitId.LETTER_01
-	var x_type_item_entry_data = AlmanacManager.tidbit_id_to_tidbit_item_entry_data_option_map[tidbit_to_view_and_enable]
-	_configure_dia_seg_to_default_templated_dialog_almanac_x_type_info_panel(dia_seg__intro_01_sequence_003, x_type_item_entry_data, AlmanacManager.Almanac_ItemListEntry_Data.TypeInfoClassification.TEXT_TIDBIT)
-	_configure_dia_set_to_x_type_info_tidbit_pos_and_size(dia_seg__intro_01_sequence_003)
-	dia_seg__intro_01_sequence_003.connect("fully_displayed", self, "_on_dia_seg__intro_01_sequence_003__fully_displayed", [tidbit_to_view_and_enable], CONNECT_ONESHOT)
+	var skip_adv_params__bot_right = SkipAdvParams.new()
+	skip_adv_params__bot_right.skip_button_rect_pos__for_non_main_dialog_panel = Vector2(960, 540)
+	skip_adv_params__bot_right.skip_button_rect_pos_origin = DialogSegment.RectPosOrigin.BOT_RIGHT
+	skip_adv_params__bot_right.is_skip_button_in_main_dialog_panel = false
+	
+	var comic_style_descs_adv_param = DescriptionsAdvParams.new()
+	comic_style_descs_adv_param.default_text_color = Color("#151515")
+	comic_style_descs_adv_param.use_dark_mode_text = false
+	comic_style_descs_adv_param.background_texture_of_segment = DialogSegment.Background_Pic_White
+	
+	
+	var dia_seg__comic_sequence_001 = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_01_sequence_002, dia_seg__comic_sequence_001)
+	
+#	var dia_seg__comic_sequence_001__descs = [
+#		"Lorem ipsum"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_001, dia_seg__comic_sequence_001__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_001_pos := Vector2(200, 0)
+#	var seg_comic_sequence_001_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_001, seg_comic_sequence_001_pos, seg_comic_sequence_001_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_001)
+#
+	if show_skip:
+		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_001, self, "_on_intro_01_completed", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
+	
+	var adv_params_for_black_background := BackgroundElementAdvParams.new()
+	adv_params_for_black_background.starting_initial_mod_a = 1
+	adv_params_for_black_background.starting_target_mod_a = 1
+	adv_params_for_black_background.ending_initial_mod_a = 1
+	adv_params_for_black_background.ending_target_mod_a = 0
+	adv_params_for_black_background.func_name_to_call_on_element_constructed = "_add_comic_black_background_ele"
+	adv_params_for_black_background.wait_for_all_background_elements_to_fade_out = false
+	
+	adv_params_for_black_background.fade_out_on_next_dia_seg = false
+	#adv_params_for_black_background.ignored_for_wait_for_all_background_elements_to_fade_out = true
+	
+	var custom_pos_0_0 = Vector2(0, 0)
+	# black background
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_001, Comics_BlackScreen, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__black_background, adv_params_for_black_background)
+	
+	
+	var adv_params__0_to_1__1_to_0 := BackgroundElementAdvParams.new()
+	adv_params__0_to_1__1_to_0.starting_initial_mod_a = 0
+	adv_params__0_to_1__1_to_0.starting_target_mod_a = 1
+	adv_params__0_to_1__1_to_0.ending_initial_mod_a = 1
+	adv_params__0_to_1__1_to_0.ending_target_mod_a = 0
+	adv_params__0_to_1__1_to_0.func_name_to_call_on_element_constructed = "_add_constructed_background_ele_to_arr"
+	adv_params__0_to_1__1_to_0.wait_for_all_background_elements_to_fade_out = false
+	
+	adv_params__0_to_1__1_to_0.fade_out_on_next_dia_seg = false
+	
+	# actual comic
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_001, Comics_Stage08_02_aa, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__02_aa, adv_params__0_to_1__1_to_0)
+	
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__comic_sequence_001, self, "_on_comic_P02_part_ended", null)
+	
+	#Do this on kast comic sequence
+	#configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__comic_sequence_001, self, "_on_comic_last_sequence_ended", null)
+	
 	
 	######
 	
 	
-	var dia_seg__intro_01_sequence_004 = DialogSegment.new()
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__intro_01_sequence_003, dia_seg__intro_01_sequence_004)
+	dia_seg__intro_01_sequence_004 = DialogSegment.new()
 	
 	var dia_seg__intro_01_sequence_004__descs = [
 		generate_colored_text__cyde_name__as_line(),
@@ -234,6 +312,41 @@ func _play_dia_seg__intro_01_sequence_001():
 
 func _on_dia_seg__intro_01_sequence_003__fully_displayed(arg_tidbit_id):
 	set_stats_tidbit_val_of_id_to_enabled(arg_tidbit_id)
+
+
+
+func _on_comic_P02_part_ended(arg_seg, arg_params):
+	_set_all__temp_active_comic_background_dia_eles_fade_out_at_next_dia_seg__to_true()
+	_temp_active_comic_background_dia_eles.clear()
+	
+	
+	_comic_black_background_dia_ele.ignored_for_wait_for_all_background_elements_to_fade_out = false
+	_comic_black_background_dia_ele.fade_out_on_next_dia_seg = true
+	
+	play_dialog_segment_or_advance_or_finish_elements(dia_seg__intro_01_sequence_004)
+
+
+
+func _on_comic_last_sequence_ended(arg_seg, arg_params):
+	_set_all__temp_active_comic_background_dia_eles_fade_out_at_next_dia_seg__to_true()
+	_temp_active_comic_background_dia_eles.clear()
+	
+	if _comic_black_background_dia_ele != null:
+		_comic_black_background_dia_ele.ignored_for_wait_for_all_background_elements_to_fade_out = false
+		_comic_black_background_dia_ele.fade_out_on_next_dia_seg = true
+	
+
+func _add_comic_black_background_ele(arg_ele):
+	_comic_black_background_dia_ele = arg_ele
+
+func _add_constructed_background_ele_to_arr(arg_ele):
+	_temp_active_comic_background_dia_eles.append(arg_ele)
+
+func _set_all__temp_active_comic_background_dia_eles_fade_out_at_next_dia_seg__to_true():
+	for ele in _temp_active_comic_background_dia_eles:
+		ele.fade_out_on_next_dia_seg = true
+	
+
 
 
 func _on_dia_seg__intro_01__ended(arg_seg, arg_params):

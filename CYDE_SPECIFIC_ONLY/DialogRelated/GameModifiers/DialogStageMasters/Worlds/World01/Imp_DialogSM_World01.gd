@@ -353,7 +353,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	dia_seg__comic_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__comic_sequence_001__descs = [
-		"Lorem Ipsum Yada Yada"
+		"Long time ago, in the heart of Cyberland City, there was a renowned laboratory known as Techno-Data Laboratory. Its mission was to safeguard the city's data from any form of breach."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_001, dia_seg__comic_sequence_001__descs, comic_style_descs_adv_param)
 	
@@ -403,7 +403,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	
 	var dia_seg__comic_sequence_002__descs = [
-		"Lorem Ipsum Yada Yada"
+		"Meet Dr. Asi Mitnick, one of the assistants in the laboratory. Dr. Mitnick's reputation in Cyberland City is bad because of his intimidating look and wrongdoing."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_002, dia_seg__comic_sequence_002__descs, comic_style_descs_adv_param)
 	
@@ -438,7 +438,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	
 	var dia_seg__comic_sequence_003__descs = [
-		"Lorem Ipsum Yada Yada"
+		"This is Dr. Kevin Murphy, the founder and head scientist of the laboratory. Dr. Murphy is highly valued by the citizens of Cyberland City because of his good deeds, and he is also very close to the people."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_003, dia_seg__comic_sequence_003__descs, comic_style_descs_adv_param)
 	
@@ -464,7 +464,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	
 	var dia_seg__comic_sequence_004__descs = [
-		"Lorem Ipsum Yada Yada"
+		"In an unexpected turn of events, Dr. Murphy died under unexplainable circumstances. When this happened, Dr. Mitnick couldn't contain his happiness as the laboratory would now be under his control. However, on the outside, he pretended to mourn."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_004, dia_seg__comic_sequence_004__descs, comic_style_descs_adv_param)
 	
@@ -489,7 +489,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	
 	var dia_seg__comic_sequence_005__descs = [
-		"Lorem Ipsum Yada Yada"
+		"Most of the citizens of Cyberland City are in mourning because Dr. Murphy has passed away."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_005, dia_seg__comic_sequence_005__descs, comic_style_descs_adv_param)
 	
@@ -510,16 +510,16 @@ func _construct_and_play__comic_sequence_dialogs():
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_005, dia_seg__comic_sequence_006)
 	
 	
-	var dia_seg__comic_sequence_006__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_006, dia_seg__comic_sequence_006__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_006_pos := Vector2(0, 0)
-	var seg_comic_sequence_006_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_006, seg_comic_sequence_006_pos, seg_comic_sequence_006_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_006)
-	
+#	var dia_seg__comic_sequence_006__descs = [
+#		"Lorem Ipsum Yada Yada"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_006, dia_seg__comic_sequence_006__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_006_pos := Vector2(0, 0)
+#	var seg_comic_sequence_006_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_006, seg_comic_sequence_006_pos, seg_comic_sequence_006_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_006)
+#
 	
 	if show_skip:
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_006, self, "_set_up_actions__to_construct_and_play__enter_name_or_intro_01", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
@@ -535,7 +535,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	
 	var dia_seg__comic_sequence_007__descs = [
-		"Lorem Ipsum Yada Yada"
+		"Dr. Mitnick changed the name of Techno-Data Laboratory to Wicked Laboratory and is planning to gain control of all data in Cyberland City."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_007, dia_seg__comic_sequence_007__descs, comic_style_descs_adv_param)
 	
@@ -873,7 +873,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	##############
 	
-	#TODO do this on appropriate sequence
+	#Do this on appropriate sequence
 	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__comic_sequence_021, self, "_on_comic_last_sequence_ended", null)
 	
 	# play
