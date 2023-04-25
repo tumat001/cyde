@@ -1,14 +1,7 @@
 extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
 
-# TODO, change enemy spawn styles.
-# THIS is same as in stage 04
-
-
 
 func get_instructions_for_stageround(uuid : String):
-	#todo
-	return []
-	
 	if uuid == "71":
 		return _get_instructions_for_0_1()
 	elif uuid == "72":
@@ -41,17 +34,9 @@ func get_instructions_for_stageround(uuid : String):
 
 
 func is_transition_time_in_stageround(uuid : String) -> bool:
-	return uuid == "41" #anything but starting with 5
+	return uuid == "41" #anything but starting with 7
 	
 	#return uuid == "01"  # to transfer to other factions
-
-
-#todo
-#func _get_instructions_for_instant_win():
-#	return [
-#		#SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-#	]
-
 
 
 func _get_instructions_for_0_1():
@@ -62,7 +47,6 @@ func _get_instructions_for_0_1():
 func _get_instructions_for_0_2():
 	return [
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		
 		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		
 	]
@@ -70,10 +54,10 @@ func _get_instructions_for_0_2():
 func _get_instructions_for_0_3():
 	return [
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		
-		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(4, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		
 	]
 
@@ -81,12 +65,15 @@ func _get_instructions_for_0_4():
 	return [
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		
 		SingleEnemySpawnInstruction.new(7, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(9, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		
 		SingleEnemySpawnInstruction.new(15, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		SingleEnemySpawnInstruction.new(16, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		
+		SingleEnemySpawnInstruction.new(17, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(18, EnemyConstants.Enemies.FILELESS__KEYLOG),
 	]
 
 func _get_instructions_for_0_5():
@@ -94,11 +81,12 @@ func _get_instructions_for_0_5():
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		
 		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.FILELESS__PHISHING),
 		SingleEnemySpawnInstruction.new(7, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(9, EnemyConstants.Enemies.FILELESS__PHISHING),
 		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.FILELESS__PHISHING),
 		SingleEnemySpawnInstruction.new(11, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(15, EnemyConstants.Enemies.FILELESS__PHISHING),
-		
 		
 	]
 
@@ -111,22 +99,30 @@ func _get_instructions_for_0_6():
 		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS__PHISHING),
 		SingleEnemySpawnInstruction.new(8.25, EnemyConstants.Enemies.FILELESS__PHISHING),
 		SingleEnemySpawnInstruction.new(8.5, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(8.75, EnemyConstants.Enemies.FILELESS__PHISHING),
+		
+		SingleEnemySpawnInstruction.new(9.5, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(9.75, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(10.0, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(10.25, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
 	]
 
 func _get_instructions_for_0_7():
 	return [
-		MultipleEnemySpawnInstruction.new(0, 10, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
+		MultipleEnemySpawnInstruction.new(0, 5, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
+		MultipleEnemySpawnInstruction.new(5, 5, 0.15, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		MultipleEnemySpawnInstruction.new(10, 5, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
+		MultipleEnemySpawnInstruction.new(15, 5, 0.15, EnemyConstants.Enemies.FILELESS__KEYLOG),
 	]
 
 func _get_instructions_for_0_8():
 	return [
 		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
 		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(13, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
+		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
 		
-		
+		LinearEnemySpawnInstruction.new(9, 15, 0.5, 0.060, EnemyConstants.Enemies.FILELESS__SCAMBOTS, 0.1),
 	]
 
 func _get_instructions_for_0_9():
@@ -137,21 +133,17 @@ func _get_instructions_for_0_9():
 		
 		MultipleEnemySpawnInstruction.new(5, 4, 0.5, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
-		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(16, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		
+		MultipleEnemySpawnInstruction.new(10, 18, 0.3, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
 	]
 
 func _get_instructions_for_0_10():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
-		LinearEnemySpawnInstruction.new(6, 15, 0.5, 0.060, EnemyConstants.Enemies.FILELESS__KEYLOG, 0.1),
+		LinearEnemySpawnInstruction.new(6, 23, 0.5, 0.060, EnemyConstants.Enemies.FILELESS__KEYLOG, 0.1),
 		
 	]
 
@@ -163,39 +155,23 @@ func _get_instructions_for_0_11():
 		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.FILELESS__PHISHING),
 		SingleEnemySpawnInstruction.new(3, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
-		MultipleEnemySpawnInstruction.new(5, 8, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
-		
-		
-		MultipleEnemySpawnInstruction.new(12, 2, 0.1, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		MultipleEnemySpawnInstruction.new(14, 2, 0.1, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		MultipleEnemySpawnInstruction.new(16, 2, 0.1, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		
-		
+		MultipleEnemySpawnInstruction.new(5, 24, 0.05, EnemyConstants.Enemies.FILELESS__PHISHING),
 	]
 
 func _get_instructions_for_0_12():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__PHISHING),
+		MultipleEnemySpawnInstruction.new(0, 20, 0.8, EnemyConstants.Enemies.FILELESS__KEYLOG),
 		
-		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(6.5, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(6.75, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
-		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(15, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(16, EnemyConstants.Enemies.FILELESS__PHISHING),
+		MultipleEnemySpawnInstruction.new(5, 10, 0.2, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
+		MultipleEnemySpawnInstruction.new(12, 10, 0.2, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
 	]
 
 # BOSS
 func _get_instructions_for_0_13():
 	return [
-		MultipleEnemySpawnInstruction.new(0, 6, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
+		MultipleEnemySpawnInstruction.new(0, 20, 0.5, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
 		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS_BOSS),
-		
-		MultipleEnemySpawnInstruction.new(16, 6, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
-		
 	]

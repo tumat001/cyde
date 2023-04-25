@@ -201,71 +201,71 @@ func _ready():
 	
 	#
 	
-	regards_ability_attk_module = InstantDamageAttackModule_Scene.instance()
-	regards_ability_attk_module.base_damage = regards_damage_amount
-	regards_ability_attk_module.base_damage_type = DamageType.PHYSICAL
-	regards_ability_attk_module.base_attack_speed = 0
-	regards_ability_attk_module.base_attack_wind_up = 0
-	regards_ability_attk_module.is_main_attack = false
-	regards_ability_attk_module.module_id = StoreOfAttackModuleID.PART_OF_SELF
-	regards_ability_attk_module.base_on_hit_damage_internal_id = StoreOfTowerEffectsUUID.TOWER_MAIN_DAMAGE
-	regards_ability_attk_module.on_hit_damage_scale = info.on_hit_multiplier
-	
-	regards_ability_attk_module.benefits_from_bonus_base_damage = false
-	regards_ability_attk_module.benefits_from_bonus_attack_speed = false
-	regards_ability_attk_module.benefits_from_bonus_on_hit_effect = false
-	regards_ability_attk_module.benefits_from_bonus_on_hit_damage = false
-	
-	regards_ability_attk_module.can_be_commanded_by_tower = false
-	
-	regards_ability_attk_module.set_image_as_tracker_image(RegardsShockwave_AttackModule_Icon)
-	
-	add_attack_module(regards_ability_attk_module)
-	
-	#
-	
-	sword_explosion_attk_module = AOEAttackModule_Scene.instance()
-	sword_explosion_attk_module.base_damage_scale = 3
-	sword_explosion_attk_module.base_damage = 5 / sword_explosion_attk_module.base_damage_scale
-	sword_explosion_attk_module.base_damage_type = DamageType.PHYSICAL
-	sword_explosion_attk_module.base_attack_speed = 0
-	sword_explosion_attk_module.base_attack_wind_up = 0
-	sword_explosion_attk_module.base_on_hit_damage_internal_id = StoreOfTowerEffectsUUID.TOWER_MAIN_DAMAGE
-	sword_explosion_attk_module.is_main_attack = false
-	sword_explosion_attk_module.module_id = StoreOfAttackModuleID.PART_OF_SELF
-	
-	sword_explosion_attk_module.benefits_from_bonus_explosion_scale = true
-	sword_explosion_attk_module.benefits_from_bonus_base_damage = true
-	sword_explosion_attk_module.benefits_from_bonus_attack_speed = false
-	sword_explosion_attk_module.benefits_from_bonus_on_hit_damage = false
-	sword_explosion_attk_module.benefits_from_bonus_on_hit_effect = false
-	
-	var sprite_frames = SpriteFrames.new()
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic01)
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic02)
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic03)
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic04)
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic05)
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic06)
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic07)
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic08)
-	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic09)
-	
-	sword_explosion_attk_module.aoe_sprite_frames = sprite_frames
-	sword_explosion_attk_module.sprite_frames_only_play_once = true
-	sword_explosion_attk_module.pierce = -1
-	sword_explosion_attk_module.duration = 0.3
-	sword_explosion_attk_module.damage_repeat_count = 1
-	
-	sword_explosion_attk_module.aoe_default_coll_shape = BaseAOEDefaultShapes.CIRCLE
-	sword_explosion_attk_module.base_aoe_scene = BaseAOE_Scene
-	sword_explosion_attk_module.spawn_location_and_change = AOEAttackModule.SpawnLocationAndChange.CENTERED_TO_ENEMY
-	
-	sword_explosion_attk_module.can_be_commanded_by_tower = false
-	
-	sword_explosion_attk_module.set_image_as_tracker_image(RegardsExplosionAttack_AttackModule_Icon)
-	
-	add_attack_module(sword_explosion_attk_module)
+#	regards_ability_attk_module = InstantDamageAttackModule_Scene.instance()
+#	regards_ability_attk_module.base_damage = regards_damage_amount
+#	regards_ability_attk_module.base_damage_type = DamageType.PHYSICAL
+#	regards_ability_attk_module.base_attack_speed = 0
+#	regards_ability_attk_module.base_attack_wind_up = 0
+#	regards_ability_attk_module.is_main_attack = false
+#	regards_ability_attk_module.module_id = StoreOfAttackModuleID.PART_OF_SELF
+#	regards_ability_attk_module.base_on_hit_damage_internal_id = StoreOfTowerEffectsUUID.TOWER_MAIN_DAMAGE
+#	regards_ability_attk_module.on_hit_damage_scale = info.on_hit_multiplier
+#
+#	regards_ability_attk_module.benefits_from_bonus_base_damage = false
+#	regards_ability_attk_module.benefits_from_bonus_attack_speed = false
+#	regards_ability_attk_module.benefits_from_bonus_on_hit_effect = false
+#	regards_ability_attk_module.benefits_from_bonus_on_hit_damage = false
+#
+#	regards_ability_attk_module.can_be_commanded_by_tower = false
+#
+#	regards_ability_attk_module.set_image_as_tracker_image(RegardsShockwave_AttackModule_Icon)
+#
+#	add_attack_module(regards_ability_attk_module)
+#
+#	#
+#
+#	sword_explosion_attk_module = AOEAttackModule_Scene.instance()
+#	sword_explosion_attk_module.base_damage_scale = 3
+#	sword_explosion_attk_module.base_damage = 5 / sword_explosion_attk_module.base_damage_scale
+#	sword_explosion_attk_module.base_damage_type = DamageType.PHYSICAL
+#	sword_explosion_attk_module.base_attack_speed = 0
+#	sword_explosion_attk_module.base_attack_wind_up = 0
+#	sword_explosion_attk_module.base_on_hit_damage_internal_id = StoreOfTowerEffectsUUID.TOWER_MAIN_DAMAGE
+#	sword_explosion_attk_module.is_main_attack = false
+#	sword_explosion_attk_module.module_id = StoreOfAttackModuleID.PART_OF_SELF
+#
+#	sword_explosion_attk_module.benefits_from_bonus_explosion_scale = true
+#	sword_explosion_attk_module.benefits_from_bonus_base_damage = true
+#	sword_explosion_attk_module.benefits_from_bonus_attack_speed = false
+#	sword_explosion_attk_module.benefits_from_bonus_on_hit_damage = false
+#	sword_explosion_attk_module.benefits_from_bonus_on_hit_effect = false
+#
+#	var sprite_frames = SpriteFrames.new()
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic01)
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic02)
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic03)
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic04)
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic05)
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic06)
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic07)
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic08)
+#	sprite_frames.add_frame("default", Prominence_SwordBeam_Explosion_Pic09)
+#
+#	sword_explosion_attk_module.aoe_sprite_frames = sprite_frames
+#	sword_explosion_attk_module.sprite_frames_only_play_once = true
+#	sword_explosion_attk_module.pierce = -1
+#	sword_explosion_attk_module.duration = 0.3
+#	sword_explosion_attk_module.damage_repeat_count = 1
+#
+#	sword_explosion_attk_module.aoe_default_coll_shape = BaseAOEDefaultShapes.CIRCLE
+#	sword_explosion_attk_module.base_aoe_scene = BaseAOE_Scene
+#	sword_explosion_attk_module.spawn_location_and_change = AOEAttackModule.SpawnLocationAndChange.CENTERED_TO_ENEMY
+#
+#	sword_explosion_attk_module.can_be_commanded_by_tower = false
+#
+#	sword_explosion_attk_module.set_image_as_tracker_image(RegardsExplosionAttack_AttackModule_Icon)
+#
+#	add_attack_module(sword_explosion_attk_module)
 	
 	#
 	
@@ -276,10 +276,10 @@ func _ready():
 	
 	#
 	
-	_construct_ability()
-	_construct_tower_indicator_shower()
+	#_construct_ability()
+	#_construct_tower_indicator_shower()
 	
-	connect("final_ability_potency_changed", self, "_on_ap_changed_p", [], CONNECT_PERSIST)
+	#connect("final_ability_potency_changed", self, "_on_ap_changed_p", [], CONNECT_PERSIST)
 	#connect("global_position_changed", self, "_on_global_pos_changed_p", [], CONNECT_PERSIST)
 	#connect("tower_dropped_from_dragged", self, "_on_dropped_from_drag", [], CONNECT_PERSIST)
 	
@@ -289,9 +289,9 @@ func _ready():
 func _post_inherit_ready():
 	._post_inherit_ready()
 	
-	_construct_and_add_knock_up_effect()
+	#_construct_and_add_knock_up_effect()
 	
-	_on_ap_changed_p()
+	#_on_ap_changed_p()
 
 
 func _construct_globule_attk_module(info) -> BulletAttackModule:
@@ -336,239 +336,239 @@ func _construct_globule_attk_module(info) -> BulletAttackModule:
 	
 	#
 	
-	_monitor_globule_if_attacking_enemies(attack_module)
+	#_monitor_globule_if_attacking_enemies(attack_module)
 	
 	#
 	
 	return attack_module
 
 
-func _construct_ability():
-	regards_ability = BaseAbility.new()
-	
-	regards_ability.is_timebound = true
-	regards_ability.connect("ability_activated", self, "_regards_ability_activated", [], CONNECT_PERSIST)
-	regards_ability.icon = Prominence_Regards_Ability_Icon
-	
-	regards_ability.set_properties_to_usual_tower_based()
-	regards_ability.tower = self
-	
-	regards_ability.set_properties_to_auto_castable()
-	regards_ability.auto_cast_func = "_regards_ability_activated"
-	
-	
-	regards_ability.descriptions = _tower_info.metadata_id_to_data_map[TowerTypeInformation.Metadata.ABILITY_DESCRIPTION]
-	regards_ability.simple_descriptions = _tower_info.metadata_id_to_data_map[TowerTypeInformation.Metadata.ABILITY_SIMPLE_DESCRIPTION]
-	
-	regards_ability.display_name = "Regards"
-	
-	regards_activation_conditional_clauses = regards_ability.activation_conditional_clauses
-	regards_activation_conditional_clauses.attempt_insert_clause(regards_globule_attacking_count_clause)
-	
-	register_ability_to_manager(regards_ability)
+#func _construct_ability():
+#	regards_ability = BaseAbility.new()
+#
+#	regards_ability.is_timebound = true
+#	regards_ability.connect("ability_activated", self, "_regards_ability_activated", [], CONNECT_PERSIST)
+#	regards_ability.icon = Prominence_Regards_Ability_Icon
+#
+#	regards_ability.set_properties_to_usual_tower_based()
+#	regards_ability.tower = self
+#
+#	regards_ability.set_properties_to_auto_castable()
+#	regards_ability.auto_cast_func = "_regards_ability_activated"
+#
+#
+#	regards_ability.descriptions = _tower_info.metadata_id_to_data_map[TowerTypeInformation.Metadata.ABILITY_DESCRIPTION]
+#	regards_ability.simple_descriptions = _tower_info.metadata_id_to_data_map[TowerTypeInformation.Metadata.ABILITY_SIMPLE_DESCRIPTION]
+#
+#	regards_ability.display_name = "Regards"
+#
+#	regards_activation_conditional_clauses = regards_ability.activation_conditional_clauses
+#	regards_activation_conditional_clauses.attempt_insert_clause(regards_globule_attacking_count_clause)
+#
+#	#register_ability_to_manager(regards_ability)
 
 
-func _construct_and_add_knock_up_effect():
-	regards_knock_up_effect = EnemyKnockUpEffect.new(1, regards_height_y_accel, StoreOfEnemyEffectsUUID.PROMINENCE_KNOCK_UP_EFFECT)
-	regards_knock_up_effect.custom_stun_duration = regards_stun_duration
-	
-	var tower_effect : TowerOnHitEffectAdderEffect = TowerOnHitEffectAdderEffect.new(regards_knock_up_effect, StoreOfTowerEffectsUUID.PROMINENCE_KNOCK_UP_EFFECT)
-	tower_effect.force_apply = true
-	
-	add_tower_effect(tower_effect, [regards_ability_attk_module], false)
-
-
-func _construct_tower_indicator_shower():
-	regards_candidate_tower_indicator_shower = ShowTowersWithParticleComponent.new()
-	regards_candidate_tower_indicator_shower.set_tower_particle_indicator_to_usual_properties()
-	regards_candidate_tower_indicator_shower.set_source_and_provider_func_name(self, "_get_candidate_towers")
+#func _construct_and_add_knock_up_effect():
+#	regards_knock_up_effect = EnemyKnockUpEffect.new(1, regards_height_y_accel, StoreOfEnemyEffectsUUID.PROMINENCE_KNOCK_UP_EFFECT)
+#	regards_knock_up_effect.custom_stun_duration = regards_stun_duration
+#
+#	var tower_effect : TowerOnHitEffectAdderEffect = TowerOnHitEffectAdderEffect.new(regards_knock_up_effect, StoreOfTowerEffectsUUID.PROMINENCE_KNOCK_UP_EFFECT)
+#	tower_effect.force_apply = true
+#
+#	add_tower_effect(tower_effect, [regards_ability_attk_module], false)
+#
+#
+#func _construct_tower_indicator_shower():
+#	regards_candidate_tower_indicator_shower = ShowTowersWithParticleComponent.new()
+#	regards_candidate_tower_indicator_shower.set_tower_particle_indicator_to_usual_properties()
+#	regards_candidate_tower_indicator_shower.set_source_and_provider_func_name(self, "_get_candidate_towers")
 
 
 
 #
 
-func add_after_regards_empowered_attack_count(amount : int):
-	_current_regards_empowered_attks += amount
-	
-	if _current_regards_empowered_attks > 0:
-		prominence_attk_module.can_be_commanded_by_tower_other_clauses.remove_clause(after_regards_sword_attack_command_clause)
-	else:
-		prominence_attk_module.can_be_commanded_by_tower_other_clauses.attempt_insert_clause(after_regards_sword_attack_command_clause)
-		prominence_sword_sprite.texture = Prominence_Sword_Normal_Pic
+#func add_after_regards_empowered_attack_count(amount : int):
+#	_current_regards_empowered_attks += amount
+#
+#	if _current_regards_empowered_attks > 0:
+#		prominence_attk_module.can_be_commanded_by_tower_other_clauses.remove_clause(after_regards_sword_attack_command_clause)
+#	else:
+#		prominence_attk_module.can_be_commanded_by_tower_other_clauses.attempt_insert_clause(after_regards_sword_attack_command_clause)
+#		prominence_sword_sprite.texture = Prominence_Sword_Normal_Pic
+#
+#
+#func _sword_beam_attk_module_hit_enemy(enemy, damage_register_id, damage_instance, module):
+#	var explosion = sword_explosion_attk_module.construct_aoe(enemy.global_position, enemy.global_position)
+#	explosion.scale *= 2.5
+#	explosion.modulate.a = 0.7
+#
+#	sword_explosion_attk_module.set_up_aoe__add_child_and_emit_signals(explosion)
+#
+#	add_after_regards_empowered_attack_count(-1)
+#
+##
+#
+#
+#func _regards_ability_activated():
+#	var cd_to_use : float
+#	if !is_energy_module_on:
+#		cd_to_use = _get_cd_to_use(regards_ability_cooldown)
+#	else:
+#		cd_to_use = _get_cd_to_use(regards_ability_energy_module_cooldown)
+#
+#	regards_ability.on_ability_before_cast_start(cd_to_use)
+#	regards_ability.start_time_cooldown(cd_to_use)
+#
+#	_sword_gain_height()
+#	regards_ability.on_ability_after_cast_ended(cd_to_use)
+#
+#
+#func _sword_gain_height():
+#	sword_y_speed = sword_y_max_height * 1.25
+#
+#func _sword_lose_height():
+#	sword_y_speed = -sword_y_max_height * 6
+#	prominence_sword_sprite.texture = Prominence_Sword_Empowered_Pic
+#
+#
+#func _physics_process(delta):
+#	prominence_sword_sprite.offset.y += sword_y_speed * delta
+#
+#	# gaining - on max height
+#	if sword_y_speed < 0 and prominence_sword_sprite.offset.y <= sword_y_max_height:
+#		_sword_lose_height()
+#
+#
+#	# losing - on ground
+#	elif sword_y_speed > 0 and prominence_sword_sprite.offset.y >= 0:
+#		_sword_landed_to_ground()
+#
+#		sword_y_speed = 0
+#		prominence_sword_sprite.offset.y = 0
+#
+#
+#func _sword_landed_to_ground():
+#	if is_instance_valid(range_module):
+#		_execute_knock_up()
+#
+#	add_after_regards_empowered_attack_count(base_after_regards_empowered_attks)
+#
+##
+#
+#func _execute_knock_up():
+#	var enemies : Array = range_module.enemies_in_range.duplicate(true)
+#	var candidate_towers_and_enemies = _get_candidate_towers_and_enemies_in_range()
+#	var candidate_towers : Array = []
+#	if candidate_towers_and_enemies.size() > 0:
+#		for enemy in candidate_towers_and_enemies[1]:
+#			if !enemies.has(enemy):
+#				enemies.append(enemy)
+#
+#		candidate_towers = candidate_towers_and_enemies[0]
+#
+#	regards_ability_attk_module._attack_enemies(enemies)
+#
+#	_construct_and_show_regards_expanding_attk_sprite(global_position, range_module)
+#
+#	for tower in candidate_towers:
+#		_construct_and_show_regards_expanding_attk_sprite(tower.global_position, tower.range_module)
+#
+#
+#func _get_candidate_towers_and_enemies_in_range() -> Array:
+#	var towers = _get_candidate_towers()
+#
+#	var enemies : Array = []
+#
+#	for tower in towers:
+#		for enemy in tower.range_module.enemies_in_range:
+#			if !enemies.has(enemy):
+#				enemies.append(enemy)
+#
+#	return [towers, enemies]
+#
+#	return []
+#
+#func _get_candidate_towers():
+#	var towers = tower_manager.get_all_active_towers()
+#	var sorted_towers = Targeting.enemies_to_target(towers, Targeting.FAR, towers.size(), global_position, true)
+#	var bucket : Array = []
+#
+#	for tower in sorted_towers:
+#		if is_instance_valid(tower.range_module) and tower != self:
+#			bucket.append(tower)
+#
+#			if bucket.size() > 0 and !is_energy_module_on:
+#				break
+#
+#	return bucket
+#
+#
+#func _construct_and_show_regards_expanding_attk_sprite(arg_global_pos, arg_range_module):
+#	if is_instance_valid(arg_range_module):
+#		var particle = Regards_Explosion_AS_Scene.instance()
+#
+#		CommonAttackSpriteTemplater.configure_scale_and_expansion_of_expanding_attk_sprite(particle, 10, arg_range_module.last_calculated_final_range)
+#
+#		particle.position = arg_global_pos
+#		particle.z_index = ZIndexStore.PARTICLE_EFFECTS_BELOW_ENEMIES
+#		CommsForBetweenScenes.deferred_ge_add_child_to_other_node_hoster(particle)
 
-
-func _sword_beam_attk_module_hit_enemy(enemy, damage_register_id, damage_instance, module):
-	var explosion = sword_explosion_attk_module.construct_aoe(enemy.global_position, enemy.global_position)
-	explosion.scale *= 2.5
-	explosion.modulate.a = 0.7
-	
-	sword_explosion_attk_module.set_up_aoe__add_child_and_emit_signals(explosion)
-	
-	add_after_regards_empowered_attack_count(-1)
 
 #
 
-
-func _regards_ability_activated():
-	var cd_to_use : float
-	if !is_energy_module_on:
-		cd_to_use = _get_cd_to_use(regards_ability_cooldown)
-	else:
-		cd_to_use = _get_cd_to_use(regards_ability_energy_module_cooldown)
-	
-	regards_ability.on_ability_before_cast_start(cd_to_use)
-	regards_ability.start_time_cooldown(cd_to_use)
-	
-	_sword_gain_height()
-	regards_ability.on_ability_after_cast_ended(cd_to_use)
-
-
-func _sword_gain_height():
-	sword_y_speed = sword_y_max_height * 1.25
-
-func _sword_lose_height():
-	sword_y_speed = -sword_y_max_height * 6
-	prominence_sword_sprite.texture = Prominence_Sword_Empowered_Pic
-
-
-func _physics_process(delta):
-	prominence_sword_sprite.offset.y += sword_y_speed * delta
-	
-	# gaining - on max height
-	if sword_y_speed < 0 and prominence_sword_sprite.offset.y <= sword_y_max_height:
-		_sword_lose_height()
-		
-		
-	# losing - on ground
-	elif sword_y_speed > 0 and prominence_sword_sprite.offset.y >= 0:
-		_sword_landed_to_ground()
-		
-		sword_y_speed = 0
-		prominence_sword_sprite.offset.y = 0
-
-
-func _sword_landed_to_ground():
-	if is_instance_valid(range_module):
-		_execute_knock_up()
-	
-	add_after_regards_empowered_attack_count(base_after_regards_empowered_attks)
-
+#func _monitor_globule_if_attacking_enemies(module):
+#	range_module_has_enemy_in_range_map[module.range_module] = false
 #
-
-func _execute_knock_up():
-	var enemies : Array = range_module.enemies_in_range.duplicate(true)
-	var candidate_towers_and_enemies = _get_candidate_towers_and_enemies_in_range()
-	var candidate_towers : Array = []
-	if candidate_towers_and_enemies.size() > 0:
-		for enemy in candidate_towers_and_enemies[1]:
-			if !enemies.has(enemy):
-				enemies.append(enemy)
-		
-		candidate_towers = candidate_towers_and_enemies[0]
-	
-	regards_ability_attk_module._attack_enemies(enemies)
-	
-	_construct_and_show_regards_expanding_attk_sprite(global_position, range_module)
-	
-	for tower in candidate_towers:
-		_construct_and_show_regards_expanding_attk_sprite(tower.global_position, tower.range_module)
-
-
-func _get_candidate_towers_and_enemies_in_range() -> Array:
-	var towers = _get_candidate_towers()
-	
-	var enemies : Array = []
-	
-	for tower in towers:
-		for enemy in tower.range_module.enemies_in_range:
-			if !enemies.has(enemy):
-				enemies.append(enemy)
-	
-	return [towers, enemies]
-	
-	return []
-
-func _get_candidate_towers():
-	var towers = tower_manager.get_all_active_towers()
-	var sorted_towers = Targeting.enemies_to_target(towers, Targeting.FAR, towers.size(), global_position, true)
-	var bucket : Array = []
-	
-	for tower in sorted_towers:
-		if is_instance_valid(tower.range_module) and tower != self:
-			bucket.append(tower)
-			
-			if bucket.size() > 0 and !is_energy_module_on:
-				break
-	
-	return bucket
-
-
-func _construct_and_show_regards_expanding_attk_sprite(arg_global_pos, arg_range_module):
-	if is_instance_valid(arg_range_module):
-		var particle = Regards_Explosion_AS_Scene.instance()
-		
-		CommonAttackSpriteTemplater.configure_scale_and_expansion_of_expanding_attk_sprite(particle, 10, arg_range_module.last_calculated_final_range)
-		
-		particle.position = arg_global_pos
-		particle.z_index = ZIndexStore.PARTICLE_EFFECTS_BELOW_ENEMIES
-		CommsForBetweenScenes.deferred_ge_add_child_to_other_node_hoster(particle)
-
-
+#	module.range_module.connect("enemy_entered_range", self, "_on_globule_enemy_entered_range", [module.range_module], CONNECT_PERSIST)
+#	module.range_module.connect("enemy_left_range", self, "_on_globule_enemy_exited_range", [module.range_module], CONNECT_PERSIST)
 #
-
-func _monitor_globule_if_attacking_enemies(module):
-	range_module_has_enemy_in_range_map[module.range_module] = false
-	
-	module.range_module.connect("enemy_entered_range", self, "_on_globule_enemy_entered_range", [module.range_module], CONNECT_PERSIST)
-	module.range_module.connect("enemy_left_range", self, "_on_globule_enemy_exited_range", [module.range_module], CONNECT_PERSIST)
-
-
-func _on_globule_enemy_entered_range(enemy, globule_range_module):
-	_update_module_has_enemy_in_range_map(globule_range_module, true)
-
-func _on_globule_enemy_exited_range(enemy, globule_range_module):
-	var has_enemies : bool = globule_range_module.enemies_in_range.size() != 0
-	_update_module_has_enemy_in_range_map(globule_range_module, has_enemies)
-
-
-func _update_module_has_enemy_in_range_map(globule_range_module, has_enemy : bool):
-	range_module_has_enemy_in_range_map[globule_range_module] = has_enemy
-	
-	var modules_with_enemies : int = 0
-	for has_enemies in range_module_has_enemy_in_range_map.values():
-		if has_enemies:
-			modules_with_enemies += 1
-	
-	# if requirements met
-	if modules_with_enemies >= regards_globule_attacking_count_requirement:
-		regards_activation_conditional_clauses.remove_clause(regards_globule_attacking_count_clause)
-	else:
-		regards_activation_conditional_clauses.attempt_insert_clause(regards_globule_attacking_count_clause)
-
 #
-
-func _on_ap_changed_p():
-	var ap_scale = regards_ability.get_potency_to_use(last_calculated_final_ability_potency)
-	
-	regards_knock_up_effect.custom_stun_duration = regards_stun_duration * ap_scale
-	regards_knock_up_effect.knock_up_y_acceleration = regards_height_y_accel * ap_scale
-
-
-# energy module related
-
-
-func set_energy_module(module):
-	.set_energy_module(module)
-	
-	if module != null:
-		module.module_effect_descriptions = [
-			"All towers cast Regards using Prominence's ability potency.",
-			"Cooldown is reduced to 20 s."
-		]
-
-
-func _module_turned_on(_first_time_per_round : bool):
-	is_energy_module_on = true
-
-func _module_turned_off():
-	is_energy_module_on = false
+#func _on_globule_enemy_entered_range(enemy, globule_range_module):
+#	_update_module_has_enemy_in_range_map(globule_range_module, true)
+#
+#func _on_globule_enemy_exited_range(enemy, globule_range_module):
+#	var has_enemies : bool = globule_range_module.enemies_in_range.size() != 0
+#	_update_module_has_enemy_in_range_map(globule_range_module, has_enemies)
+#
+#
+#func _update_module_has_enemy_in_range_map(globule_range_module, has_enemy : bool):
+#	range_module_has_enemy_in_range_map[globule_range_module] = has_enemy
+#
+#	var modules_with_enemies : int = 0
+#	for has_enemies in range_module_has_enemy_in_range_map.values():
+#		if has_enemies:
+#			modules_with_enemies += 1
+#
+#	# if requirements met
+#	if modules_with_enemies >= regards_globule_attacking_count_requirement:
+#		regards_activation_conditional_clauses.remove_clause(regards_globule_attacking_count_clause)
+#	else:
+#		regards_activation_conditional_clauses.attempt_insert_clause(regards_globule_attacking_count_clause)
+#
+##
+#
+#func _on_ap_changed_p():
+#	var ap_scale = regards_ability.get_potency_to_use(last_calculated_final_ability_potency)
+#
+#	regards_knock_up_effect.custom_stun_duration = regards_stun_duration * ap_scale
+#	regards_knock_up_effect.knock_up_y_acceleration = regards_height_y_accel * ap_scale
+#
+#
+## energy module related
+#
+#
+#func set_energy_module(module):
+#	.set_energy_module(module)
+#
+#	if module != null:
+#		module.module_effect_descriptions = [
+#			"All towers cast Regards using Prominence's ability potency.",
+#			"Cooldown is reduced to 20 s."
+#		]
+#
+#
+#func _module_turned_on(_first_time_per_round : bool):
+#	is_energy_module_on = true
+#
+#func _module_turned_off():
+#	is_energy_module_on = false

@@ -31,7 +31,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 9.56844, 16.9702 )
+extents = Vector2( 9.56844, 11.8597 )
 
 [node name="Adept" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -41,8 +41,8 @@ position = Vector2( 0, -8 )
 
 [node name="BaseSprites" parent="TowerBase/KnockUpLayer" index="0"]
 frames = SubResource( 1 )
-animation = "W_NoHealth"
+animation = "E"
 
 [node name="CollisionShape" parent="." index="1"]
-position = Vector2( 0, -2 )
+position = Vector2( 0, -7.11053 )
 shape = SubResource( 2 )

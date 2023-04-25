@@ -179,6 +179,10 @@ func _on_game_elements_before_game_start__base_class():
 	
 	game_elements.game_result_manager.show_main_menu_button = false
 	
+	
+	######
+	var expert_based_fac_passive = preload("res://CYDE_SPECIFIC_ONLY/EnemyFactionPassiveRelated/CydeFactionPassive_ExpertBased.gd")
+	add_cyde_faction_passive(expert_based_fac_passive.new())
 
 #######
 

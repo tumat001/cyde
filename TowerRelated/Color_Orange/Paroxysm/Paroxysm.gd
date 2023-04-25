@@ -77,7 +77,7 @@ func _ready():
 	_initialize_stats_from_tower_info(info)
 	
 	
-	var attack_module_y_shift : float = 16.0
+	var attack_module_y_shift : float = 8.0
 	
 	range_module = RangeModule_Scene.instance()
 	range_module.base_range_radius = info.base_range

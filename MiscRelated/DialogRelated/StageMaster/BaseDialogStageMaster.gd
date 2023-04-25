@@ -1887,3 +1887,10 @@ func _on_tower_dropped_from_dragged(arg_tower):
 		dialog_whole_screen_panel.start_mod_a_change__to_visible()
 	
 
+
+############
+
+func add_cyde_faction_passive(arg_cyde_faction_passive):
+	arg_cyde_faction_passive._apply_faction_to_game_elements(game_elements)
+
+

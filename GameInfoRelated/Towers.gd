@@ -291,19 +291,19 @@ const TowerTiersMap : Dictionary = {
 	SPRINKLER : 1,
 	COAL_LAUNCHER : 1,
 	EMBER : 1,
+	COIN : 1,
 	
 	ENTROPY : 2,
 	VACUUM : 2,
-	COIN : 2,
 	BLEACH : 2,
 	DOUSER : 2,
 	CELESTIAL : 2,
 	PROBE : 2,
 	FLAMEBURST : 2,
+	BEACON_DISH : 2,
 	
 	MAGNETIZER : 3,
 	ROYAL_FLAME : 3,
-	BEACON_DISH : 3,
 	NUCLEUS : 3,
 	ADEPT : 3,
 	WYVERN : 3,
@@ -4020,41 +4020,41 @@ static func get_tower_info(tower_id : int) -> TowerTypeInformation :
 		
 		#
 		
-		var ability_desc = [
-			["|0|: Regards: After a delay, Prominence smashes the ground, |1| and |2| nearby enemies for |3|, and dealing |4|.", [plain_fragment__ability, plain_fragment__knocking_up, plain_fragment__stunning, interpreter_for_stun_duration, interpreter_for_smash_damage]],
-			"Regards also applies to the furthest tower. Enemies can only be affected once.",
-			["Prominece also gains 3 attacks with its sword, with each attack exploding, dealing |0| to enemies hit.", [interpreter_for_sword_dmg]],
-			["Cooldown: |0|", [interpreter_for_cooldown]],
-		]
-		
-		info.metadata_id_to_data_map[TowerTypeInformation.Metadata.ABILITY_DESCRIPTION] = ability_desc
-		
+#		var ability_desc = [
+#			["|0|: Regards: After a delay, Prominence smashes the ground, |1| and |2| nearby enemies for |3|, and dealing |4|.", [plain_fragment__ability, plain_fragment__knocking_up, plain_fragment__stunning, interpreter_for_stun_duration, interpreter_for_smash_damage]],
+#			"Regards also applies to the furthest tower. Enemies can only be affected once.",
+#			["Prominece also gains 3 attacks with its sword, with each attack exploding, dealing |0| to enemies hit.", [interpreter_for_sword_dmg]],
+#			["Cooldown: |0|", [interpreter_for_cooldown]],
+#		]
+#
+#		info.metadata_id_to_data_map[TowerTypeInformation.Metadata.ABILITY_DESCRIPTION] = ability_desc
+#
 		info.tower_descriptions = [
 			"Prominence attacks through its Globules. Prominence possesses 4 Globules which attack independently. Globules benefit from all buffs and inherit Prominence's stats.",
 			"Globule's attacks are considered to be Prominence's main attacks.",
-			"",
-			"When at least 2 Globules have enemies in their range, Prominence can cast Regards.",
+			#"",
+			#"When at least 2 Globules have enemies in their range, Prominence can cast Regards.",
 		]
 		
-		for desc in ability_desc:
-			info.tower_descriptions.append(desc)
+		#for desc in ability_desc:
+		#	info.tower_descriptions.append(desc)
 		
 		####
 		
-		var simple_ability_desc = [
-			["|0|: Prominence smashes the ground, |1| and |2| nearby enemies for |3|, and dealing |4|.", [plain_fragment__ability_name, plain_fragment__knocking_up, plain_fragment__stunning, interpreter_for_stun_duration, interpreter_for_smash_damage]],
-			"Regards also applies to the furthest tower.",
-			#["Prominece also gains 3 attacks with its sword, with each attack exploding, dealing |0| to enemies hit.", [interpreter_for_sword_dmg]],
-			["Cooldown: |0|", [interpreter_for_cooldown]],
-		]
-		info.metadata_id_to_data_map[TowerTypeInformation.Metadata.ABILITY_SIMPLE_DESCRIPTION] = simple_ability_desc
+#		var simple_ability_desc = [
+#			["|0|: Prominence smashes the ground, |1| and |2| nearby enemies for |3|, and dealing |4|.", [plain_fragment__ability_name, plain_fragment__knocking_up, plain_fragment__stunning, interpreter_for_stun_duration, interpreter_for_smash_damage]],
+#			"Regards also applies to the furthest tower.",
+#			#["Prominece also gains 3 attacks with its sword, with each attack exploding, dealing |0| to enemies hit.", [interpreter_for_sword_dmg]],
+#			["Cooldown: |0|", [interpreter_for_cooldown]],
+#		]
+#		info.metadata_id_to_data_map[TowerTypeInformation.Metadata.ABILITY_SIMPLE_DESCRIPTION] = simple_ability_desc
 		
 		info.tower_simple_descriptions = [
 			"When at least 2 Globules have enemies in their range, Prominence can cast Regards.",
 		]
 		
-		for desc in simple_ability_desc:
-			info.tower_simple_descriptions.append(desc)
+		#for desc in simple_ability_desc:
+		#	info.tower_simple_descriptions.append(desc)
 		
 		
 		var effect = Ing_ProminenceEffect.new()
@@ -7226,5 +7226,7 @@ static func get_tower_scene(tower_id : int):
 		return load("res://TowerRelated/Color_Violet/Celestial/Celestial.tscn")
 	elif tower_id == BIOMORPH:
 		return load("res://TowerRelated/Color_Violet/BioMorph/Biomorph.tscn")
+	elif tower_id == REALMD:
+		return load("res://TowerRelated/Color_Violet/Realmd/Realmd.tscn")
 	
 	

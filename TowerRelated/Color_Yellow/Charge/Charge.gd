@@ -116,6 +116,8 @@ func _ready():
 	
 	connect("final_attack_speed_changed", self, "_calculate_recharge_per_sec")
 	
+	anim_face_dir_component.connect("on_animation_of_of_anim_sprite_changed", self, "_on_animation_of_of_anim_sprite_changed_c", [], CONNECT_PERSIST)
+	
 	add_attack_module(attack_module)
 	
 	_post_inherit_ready()
@@ -338,5 +340,18 @@ func _heat_module_current_heat_effect_changed():
 	._heat_module_current_heat_effect_changed()
 	
 	_calculate_final_ability_potency()
+
+######
+
+
+func _on_animation_of_of_anim_sprite_changed_c(anim_name : String):
+	if anim_name == "E":
+		charge_bar_sprite.position.x = -3
+		
+	else:
+		charge_bar_sprite.position.x = 3
+	
+	
+
 
 

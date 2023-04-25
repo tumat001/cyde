@@ -216,6 +216,9 @@ var tower_image_icon_atlas_texture : AtlasTexture
 var tower_id : int
 var tower_type_info : TowerTypeInformation   # dont change this name, since its being used to check if obj is tower (by some codes: ex: Enchant_Pillar from Map_Enchant)
 
+const modulate_for_no_health = Color(0.3, 0.3, 0.3, 1)
+
+
 enum DisabledFromAttackingSourceClauses {
 	
 	HEAT_MODULE = 1,
@@ -455,6 +458,8 @@ enum TowerModulateIds {
 	BOUNDED_CLONE = 11
 	
 	PROPEL_INVIS = 100
+	
+	NO_HEALTH = 101
 }
 
 var all_id_to_tower_base_modulate : Dictionary = {}
@@ -3688,14 +3693,22 @@ func configure_self_to_change_direction_on_attack_module_when_commanded(arg_atta
 
 
 func _on_tower_no_health__for_anim_change():
-	var anim_name = anim_face_dir_component.get_anim_name_to_use_on_no_health_based_on_current_name()
-	anim_face_dir_component.set_animation_sprite_animation_using_anim_name(tower_base_sprites, anim_name)
+	# commented -> to prevent anim change to dead
+	#var anim_name = anim_face_dir_component.get_anim_name_to_use_on_no_health_based_on_current_name()
+	#anim_face_dir_component.set_animation_sprite_animation_using_anim_name(tower_base_sprites, anim_name)
+	set_tower_base_modulate(TowerModulateIds.NO_HEALTH, modulate_for_no_health)
+	
 	emit_signal("changed_anim_from_alive_to_dead")
+	
 
 func _on_tower_healed_from_no_health__for_anim_change():
-	var anim_name = anim_face_dir_component.get_anim_name_to_use_on_normal_based_on_current_no_health_name()
-	anim_face_dir_component.set_animation_sprite_animation_using_anim_name(tower_base_sprites, anim_name)
+	# commented -> since anim change to dead is disabled
+	#var anim_name = anim_face_dir_component.get_anim_name_to_use_on_normal_based_on_current_no_health_name()
+	#anim_face_dir_component.set_animation_sprite_animation_using_anim_name(tower_base_sprites, anim_name)
+	remove_tower_base_modulate(TowerModulateIds.NO_HEALTH)
+	
 	emit_signal("changed_anim_from_dead_to_alive")
+	
 
 
 # Terrain related

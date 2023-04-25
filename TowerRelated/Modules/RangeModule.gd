@@ -95,6 +95,14 @@ var _wait_one_physics_step : bool = false
 var _poly_calculating_thread : Thread # note: threads are single use
 var _wait_for_finish_called_from_thread : bool
 
+# EXTRA Range shapes
+
+const extra_range_coll_shape_name_header := "ExtraRangeCollShape_"
+var _next_extra_range_coll_shape_id : int = 1
+
+var extra_range_shape_id_to_range_coll_shape_map : Dictionary
+
+
 
 #var _is_updating_range__prevent_area_signals : bool
 #var _enemies_attempting_exit_during_update_range : NullErasingArray
@@ -984,4 +992,47 @@ func _on_tower_transfered_to_placable(arg_tower, arg_placable):
 
 func _exit_tree():
 	_wait_for_curr_poly_calc_thread_to_finish()
+
+
+
+######
+
+func add_extra_range_coll_shape__circle(arg_radius : float, arg_glob_pos : Vector2):
+	var circle_shape = CircleShape2D.new()
+	circle_shape.radius = arg_radius
+	return add_extra_range_coll_shape(circle_shape, arg_glob_pos)
+
+
+func add_extra_range_coll_shape(arg_shape : Shape2D, arg_glob_pos : Vector2):
+	var coll_shape = CollisionShape2D.new()
+	coll_shape.shape = arg_shape
+	coll_shape.name = "%s_%s" % [extra_range_coll_shape_name_header, str(_next_extra_range_coll_shape_id)]
+	
+	extra_range_shape_id_to_range_coll_shape_map[_next_extra_range_coll_shape_id] = coll_shape
+	_next_extra_range_coll_shape_id += 1
+	
+	add_child(coll_shape)
+	
+	coll_shape.global_position = arg_glob_pos
+	
+	return _next_extra_range_coll_shape_id - 1
+
+func get_extra_range_coll_shape(arg_id):
+	if extra_range_shape_id_to_range_coll_shape_map.has(arg_id):
+		return extra_range_shape_id_to_range_coll_shape_map[arg_id]
+	else:
+		return null
+
+func remove_and_queue_free_extra_range_coll_shape(arg_id):
+	var coll_shape = get_extra_range_coll_shape(arg_id)
+	
+	if coll_shape != null and !coll_shape.is_queued_for_deletion():
+		coll_shape.queue_free()
+
+
+func set_extra_range_coll_shape__circle_radius(arg_id, arg_radius):
+	var coll_shape = get_extra_range_coll_shape(arg_id)
+	
+	if coll_shape != null:
+		coll_shape.shape.set_deferred("radius", arg_radius)
 

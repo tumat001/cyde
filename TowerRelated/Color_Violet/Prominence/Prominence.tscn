@@ -30,9 +30,10 @@ position = Vector2( 0, -10 )
 
 [node name="BaseSprites" parent="TowerBase/KnockUpLayer" index="0"]
 frames = SubResource( 1 )
-animation = "Omni_NoHealth"
+animation = "Omni"
 
 [node name="ProminenceSword" type="Sprite" parent="TowerBase/KnockUpLayer" index="1"]
+visible = false
 position = Vector2( 0, 4 )
 texture = ExtResource( 4 )
 

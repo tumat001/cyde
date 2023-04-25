@@ -44,7 +44,7 @@ func construct_questions_and_choices_for__virus_Q01(arg_func_source : Object, ar
 	
 	var choice_03_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_03_ques_01.id = 3
-	choice_03_ques_01.display_text = "A type of malware whose primary function\n is to arg_func_source-replicate and infect other computers\n while remaining active on infected systems."
+	choice_03_ques_01.display_text = "A type of malware whose primary function\n is to self-replicate and infect other computers\n while remaining active on infected systems."
 	choice_03_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_03_ques_01.func_source_on_click = arg_func_source
 	choice_03_ques_01.func_name_on_click = arg_func_name_of_wrong

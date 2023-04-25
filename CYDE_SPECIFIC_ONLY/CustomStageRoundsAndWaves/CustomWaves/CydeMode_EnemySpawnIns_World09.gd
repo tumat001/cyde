@@ -7,9 +7,6 @@ extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
 # CHANGE INTO: Mobile Mal
 
 func get_instructions_for_stageround(uuid : String):
-	#todo
-	return []
-	
 	if uuid == "91":
 		return _get_instructions_for_0_1()
 	elif uuid == "92":
@@ -44,7 +41,7 @@ func get_instructions_for_stageround(uuid : String):
 ###
 
 func is_transition_time_in_stageround(uuid : String) -> bool:
-	return uuid == "41" #anything but starting with 5
+	return uuid == "41" #anything but starting with 9
 	
 	#return uuid == "01"  # to transfer to other factions
 
@@ -52,92 +49,80 @@ func is_transition_time_in_stageround(uuid : String) -> bool:
 
 func _get_instructions_for_0_1():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 	]
 
 func _get_instructions_for_0_2():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 		
-		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(6, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 		
 	]
 
 func _get_instructions_for_0_3():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
+		SingleEnemySpawnInstruction.new(4, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 		
-		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		
+		SingleEnemySpawnInstruction.new(9, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 	]
 
 func _get_instructions_for_0_4():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(7, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
+		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 		
-		SingleEnemySpawnInstruction.new(15, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(16, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 		
 	]
 
 func _get_instructions_for_0_5():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.MOBILE_MALWARE__MEMORY_RESIDENT),
 		
-		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(7, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(11, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(15, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.MOBILE_MALWARE__MEMORY_RESIDENT),
+		SingleEnemySpawnInstruction.new(7, EnemyConstants.Enemies.MOBILE_MALWARE__MEMORY_RESIDENT),
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
+		SingleEnemySpawnInstruction.new(11, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 		
 		
 	]
 
 func _get_instructions_for_0_6():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.MOBILE_MALWARE__MEMORY_RESIDENT),
+		SingleEnemySpawnInstruction.new(2.5, EnemyConstants.Enemies.MOBILE_MALWARE__MEMORY_RESIDENT),
+		SingleEnemySpawnInstruction.new(4, EnemyConstants.Enemies.MOBILE_MALWARE__MEMORY_RESIDENT),
 		
-		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(8.25, EnemyConstants.Enemies.FILELESS__PHISHING),
-		SingleEnemySpawnInstruction.new(8.5, EnemyConstants.Enemies.FILELESS__PHISHING),
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.MOBILE_MALWARE__MEMORY_RESIDENT),
+		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.MOBILE_MALWARE__MEMORY_RESIDENT),
 		
 	]
 
 func _get_instructions_for_0_7():
 	return [
-		MultipleEnemySpawnInstruction.new(0, 10, 0.15, EnemyConstants.Enemies.FILELESS__PHISHING),
+		MultipleEnemySpawnInstruction.new(0, 3, 0.3, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
+		
+		MultipleEnemySpawnInstruction.new(12, 3, 0.3, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 	]
 
 func _get_instructions_for_0_8():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(13, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.MOBILE_MALWARE__WINDOWS_REGISTRY),
+		SingleEnemySpawnInstruction.new(5, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
+		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
+		SingleEnemySpawnInstruction.new(13, EnemyConstants.Enemies.MOBILE_MALWARE__WINDOWS_REGISTRY),
 		
 		
 	]
 
 func _get_instructions_for_0_9():
 	return [
-		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__KEYLOG),
-		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.FILELESS__KEYLOG),
+		SingleEnemySpawnInstruction.new(0, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
+		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 		
-		MultipleEnemySpawnInstruction.new(5, 4, 0.5, EnemyConstants.Enemies.FILELESS__PHISHING),
-		
-		SingleEnemySpawnInstruction.new(10, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(12, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(14, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		SingleEnemySpawnInstruction.new(16, EnemyConstants.Enemies.FILELESS__SCAMBOTS),
-		
+		MultipleEnemySpawnInstruction.new(8, 3, 0.5, EnemyConstants.Enemies.MOBILE_MALWARE__SAMSAM),
 		
 	]
 

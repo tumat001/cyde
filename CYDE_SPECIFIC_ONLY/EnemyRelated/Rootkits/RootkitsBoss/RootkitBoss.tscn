@@ -19,7 +19,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 22, 18.5 )
+extents = Vector2( 16, 18.5 )
 
 [node name="RootkitBoss" instance=ExtResource( 3 )]
 script = ExtResource( 4 )

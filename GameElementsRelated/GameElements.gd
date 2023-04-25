@@ -466,9 +466,8 @@ func _ready():
 	
 	# FOR TESTING ------------------------------------
 	
-	#todo
-	gold_manager.increase_gold_by(1000, GoldManager.IncreaseGoldSource.ENEMY_KILLED)
-	level_manager.current_level = LevelManager.LEVEL_2
+#	gold_manager.increase_gold_by(1000, GoldManager.IncreaseGoldSource.ENEMY_KILLED)
+#	level_manager.current_level = LevelManager.LEVEL_2
 #	relic_manager.increase_relic_count_by(3, RelicManager.IncreaseRelicSource.ROUND)
 
 
@@ -485,9 +484,11 @@ func _on_BuySellLevelRollPanel_reroll():
 	
 #	if !even:
 #		panel_buy_sell_level_roll.update_new_rolled_towers([
-#			Towers.MINI_TESLA,
-#			Towers.STRIKER,
-#			Towers.SPRINKLER,
+#			Towers.PAROXYSM,
+#			Towers.PROMINENCE,
+#			Towers.REALMD,
+#
+#
 #		])
 #	else:
 #		panel_buy_sell_level_roll.update_new_rolled_towers([
