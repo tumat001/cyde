@@ -93,8 +93,9 @@ func _summon_towers(arg_stageround):
 		var tower_id_to_summon = game_elements.shop_manager.generate_tower_id_to_be_rolled_from_level_of_roll(game_elements.level_manager.current_level, availa_tier_tower_map)
 		
 		var tower = game_elements.tower_inventory_bench.insert_tower_from_last(tower_id_to_summon)
-		if !game_elements.tower_manager.is_first_time_tower_tier_acquired_status(tower.tower_type_info.tower_tier):
-			game_elements.tower_manager._add_to_tier_aesth_queue__and_attempt_start_display(tower.tower_type_info.tower_tier, tower.global_position, true)
+		if is_instance_valid(tower):
+			if !game_elements.tower_manager.is_first_time_tower_tier_acquired_status(tower.tower_type_info.tower_tier):
+				game_elements.tower_manager._add_to_tier_aesth_queue__and_attempt_start_display(tower.tower_type_info.tower_tier, tower.global_position, true)
 		
 
 

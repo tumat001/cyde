@@ -84,7 +84,7 @@ const tidbit_category_id_to_tidbit_category_name : Dictionary = {
 	TidbitCategory.WORM : "Worm",
 	TidbitCategory.ADWARE : "Adware",
 	TidbitCategory.RANSOMWARE : "Ransomware",
-	TidbitCategory.SPYWARE : "Spyware",
+	#TidbitCategory.SPYWARE : "Spyware",
 	TidbitCategory.ROOTKIT : "Rootkit",
 	TidbitCategory.FILELESS : "Fileless",
 	TidbitCategory.MALWARE_BOTS : "Malware Bots",

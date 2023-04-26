@@ -127,6 +127,7 @@ margin_bottom = 17.0
 mouse_filter = 2
 
 [node name="IngredientIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginerUpper/Upper/TowerAttrContainer/IngredientInfo/HBoxContainer"]
+visible = false
 margin_right = 8.0
 margin_bottom = 16.0
 mouse_filter = 2

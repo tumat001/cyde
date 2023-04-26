@@ -34,7 +34,7 @@ func _apply_map_specific_changes_to_game_elements(arg_game_elements):
 func _configure_mirror_path_curve():
 	var reversed_curve : Curve2D = Curve2D.new()
 	for point in base_enemy_path.curve.get_baked_points():
-		var new_point := Vector2(point.x, 540 - point.y - game_elements.get_bot_right_coordinates_of_playable_map().y)
+		var new_point := Vector2(point.x, game_elements.get_bot_right_coordinates_of_playable_map().y - point.y + game_elements.get_top_left_coordinates_of_playable_map().y) #
 		reversed_curve.add_point(new_point)
 	
 	var curve_id = 2 #could be any

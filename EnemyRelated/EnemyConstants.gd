@@ -168,6 +168,8 @@ enum Enemies {
 	AMALGAMATION_RANSKIT = 1802
 	AMALGAMATION_MALFILEBOT = 1803
 	
+	AMALGAMATION_ADWORM_DISTRACTION = 1804
+	AMALGAMATION_MALFILEBOT_SUMMON = 1805
 	
 }
 
@@ -605,7 +607,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Rootkit Boss"
-			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/MobileMalwareBoss/MobileMalwareBoss_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Rootkits/RootkitsBoss/RootkitBoss_E.png"))
 			info.descriptions = [
 				"The boss of the rootkits." #todo make more inspiring desc LOL
 			]
@@ -672,7 +674,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Keylog"
-			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Fileless/Keylog/Keylog_Omni.png"))
 			info.descriptions = [
 				"A malware that keeps track of your keypresses."
 			]
@@ -685,7 +687,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Phising"
-			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Fileless/Phising/Phishing_Omni.png"))
 			info.descriptions = [
 				"A fileless type of malware that steals user credentials."
 			]
@@ -697,7 +699,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Scambots"
-			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Fileless/Scambots/Scambots_Omni.png"))
 			info.descriptions = [
 				"A fileless type of malware that tricks users to giving crucial information such as credentials."
 			]
@@ -725,7 +727,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		#like an enchantress
 		if arg_include_non_combat_info:
 			info.enemy_name = "Chatter Bot"
-			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MalwareBots/ChatterBot/MalwareBots_ChatterBot_E.png"))
 			info.descriptions = [
 				"A bot that spams messeges and advertisements to forums, chat rooms, message boards, and more."
 			]
@@ -739,7 +741,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		#like PROVIDENCE
 		if arg_include_non_combat_info:
 			info.enemy_name = "Dos Bot"
-			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MalwareBots/DOS/MalwareBots_DOS_Omni.png"))
 			info.descriptions = [
 				"A bot that requests services from service providers. Has little impact alone but with many they can overwhelm a service provider."
 			]
@@ -753,7 +755,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		#like wizard
 		if arg_include_non_combat_info:
 			info.enemy_name = "Spam Bot"
-			info.enemy_atlased_image #todo = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Ransomware/AsAService/Ransomware_AsAService_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MalwareBots/SpamBot/MalwareBots_SpamBot_Omni.png"))
 			info.descriptions = [
 				"A bot that spams or assists with spamming. They usually create accounts for the purpose for spamming."
 			]
@@ -819,12 +821,12 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	elif enemy_id == Enemies.AMALGAMATION_VIRJAN:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
 		info.base_health = 300
-		info.base_movement_speed = 30
+		info.base_movement_speed = 22
 		info.enemy_type = info.EnemyType.BOSS
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Virjan"
-			info.enemy_atlased_image #todo #= _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/WindowsRegistry/MobileMalware_WindowsRegistry_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Virjan/Virjan_E.png"))
 			info.descriptions = [
 				"The amalgamation of a Virus and Trojan."
 			]
@@ -832,12 +834,12 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	elif enemy_id == Enemies.AMALGAMATION_ADWORM:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
 		info.base_health = 375
-		info.base_movement_speed = 35
+		info.base_movement_speed = 22
 		info.enemy_type = info.EnemyType.BOSS
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Adworm"
-			info.enemy_atlased_image #todo #= _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/WindowsRegistry/MobileMalware_WindowsRegistry_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Adworm/Adworm_E.png"))
 			info.descriptions = [
 				"The amalgamation of an Adware and Computer Worm."
 			]
@@ -845,12 +847,12 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	elif enemy_id == Enemies.AMALGAMATION_RANSKIT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
 		info.base_health = 450
-		info.base_movement_speed = 30
+		info.base_movement_speed = 20
 		info.enemy_type = info.EnemyType.BOSS
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Ranskit"
-			info.enemy_atlased_image #todo #= _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/WindowsRegistry/MobileMalware_WindowsRegistry_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Ranskit/Ranskit_E.png"))
 			info.descriptions = [
 				"The amalgamation of a Ransomware and Rootkit."
 			]
@@ -858,17 +860,43 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	elif enemy_id == Enemies.AMALGAMATION_MALFILEBOT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
 		info.base_health = 300
-		info.base_movement_speed = 30
+		info.base_movement_speed = 20
 		info.enemy_type = info.EnemyType.BOSS
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Malfilebot"
-			info.enemy_atlased_image #todo #= _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/WindowsRegistry/MobileMalware_WindowsRegistry_Omni.png"))
+			info.enemy_atlased_image = _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/MalFileBot/MalFileBot_Omni.png"))
 			info.descriptions = [
 				"The amalgamation of a Malware Bot, Fileless and Mobile Malware."
 			]
 		
 		
+	elif enemy_id == Enemies.AMALGAMATION_ADWORM_DISTRACTION:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 30
+		info.base_movement_speed = 0
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Adworm Distraction"
+			info.enemy_atlased_image #todo #= _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/WindowsRegistry/MobileMalware_WindowsRegistry_Omni.png"))
+			info.descriptions = [
+				"A distraction summoned by adworm"
+			]
+		
+	elif enemy_id == Enemies.AMALGAMATION_MALFILEBOT_SUMMON:
+		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
+		info.base_health = 11
+		info.base_movement_speed = 47
+		
+		if arg_include_non_combat_info:
+			info.enemy_name = "Malfilebot summon"
+			info.enemy_atlased_image #todo #= _generate_enemy_image_icon_atlas_texture(preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/MobileMalware/WindowsRegistry/MobileMalware_WindowsRegistry_Omni.png"))
+			info.descriptions = [
+				"A tiny malware summoned by Malfilebot"
+			]
+		
+		
+	
 	
 #	elif enemy_id == Enemies.BRUTE:
 #		info = EnemyTypeInformation.new(Enemies.BRUTE, EnemyFactions.BASIC)
@@ -1932,12 +1960,17 @@ static func get_enemy_scene(enemy_id : int):
 	# AMALGAMATIONS
 		
 	elif enemy_id == Enemies.AMALGAMATION_VIRJAN:
-		return preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Virjan/Virjan.tscn")
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Virjan/Virjan.tscn")
 	elif enemy_id == Enemies.AMALGAMATION_MALFILEBOT:
-		return preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/MalFileBot/MalFileBot.tscn")
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/MalFileBot/MalFileBot.tscn")
 	elif enemy_id == Enemies.AMALGAMATION_RANSKIT:
-		return preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Ranskit/Ranskit.tscn")
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Ranskit/Ranskit.tscn")
 	elif enemy_id == Enemies.AMALGAMATION_ADWORM:
-		return preload("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Adworm/Adworm.tscn")
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Adworm/Adworm.tscn")
+	elif enemy_id == Enemies.AMALGAMATION_ADWORM_DISTRACTION:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/Adworm_Distraction/Adworm_Distraction.tscn")
+	elif enemy_id == Enemies.AMALGAMATION_MALFILEBOT_SUMMON:
+		return load("res://CYDE_SPECIFIC_ONLY/EnemyRelated/Amalgamations/MalFileBot_Summon/MalFileBot_Summon.tscn")
 		
+	
 	

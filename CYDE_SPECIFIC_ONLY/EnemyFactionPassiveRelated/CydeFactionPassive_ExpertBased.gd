@@ -19,14 +19,14 @@ var non_essential_rng : RandomNumberGenerator
 var enemy_id_to_method_call_map : Dictionary = {
 	EnemyConstants.Enemies.AMALGAMATION_VIRJAN : "_before_enemy_is_spawned__virjan",
 	#EnemyConstants.Enemies.GRANDMASTER : "_before_enemy_is_spawned__grandmaster",
-	#EnemyConstants.Enemies.ENCHANTRESS : "_before_enemy_is_spawned__enchantress"
+	EnemyConstants.Enemies.AMALGAMATION_ADWORM : "_before_enemy_is_spawned__adworm"
 }
 
 #
 
 var trail_for_charge_speed_boost_component : MultipleTrailsForNodeComponent
-const charge_trail_color := Color(254/255.0, 224/255.0, 134/255.0, 0.65)
-const trail_for_charge_offset := Vector2(0, -6)
+const charge_trail_color := Color(154/255.0, 124/255.0, 84/255.0, 0.65)
+const trail_for_charge_offset := Vector2(0, -12)
 
 
 var trail_for_grandmaster_speed_boost_component : MultipleTrailsForNodeComponent
@@ -58,14 +58,12 @@ func _apply_faction_to_game_elements(arg_game_elements):
 	
 	if !enemy_manager.is_connected("before_enemy_spawned", self, "_before_enemy_is_spawned"):
 		enemy_manager.connect("before_enemy_spawned", self, "_before_enemy_is_spawned", [], CONNECT_PERSIST)
-	
 
 #
 
 func _remove_faction_from_game_elements(arg_game_elements):
 	if enemy_manager.is_connected("before_enemy_spawned", self, "_before_enemy_is_spawned"):
 		enemy_manager.disconnect("before_enemy_spawned", self, "_before_enemy_is_spawned")
-	
 
 #######
 
@@ -81,8 +79,8 @@ func _on_trail_for_charge_constructed(arg_trail):
 	arg_trail.set_to_idle_and_available_if_node_is_not_visible = true
 	
 	arg_trail.trail_color = charge_trail_color
-	arg_trail.max_trail_length = 14
-	arg_trail.width = 4
+	arg_trail.max_trail_length = 20
+	arg_trail.width = 10
 	
 	arg_trail.z_index_modifier = -1
 
@@ -111,6 +109,9 @@ func _on_trail_for_grandmaster_constructed(arg_trail):
 ##
 
 func _before_enemy_is_spawned(arg_enemy):
+	#print("before enemy is spawned: %s" % [arg_enemy.enemy_id])
+	
+	
 	if enemy_id_to_method_call_map.has(arg_enemy.enemy_id):
 		call(enemy_id_to_method_call_map[arg_enemy.enemy_id], arg_enemy)
 
@@ -308,7 +309,7 @@ func create_shield_for_enchantress_target(arg_enemy):
 
 
 
-func _before_enemy_is_spawned__enchantress(arg_enemy):
+func _before_enemy_is_spawned__adworm(arg_enemy):
 	arg_enemy.expert_faction_passive = self
 
 func connect_enemy_shielded_by_enchantress(arg_enemy, arg_shield_effect):
@@ -353,7 +354,7 @@ func _create_enchantress_shield_break_fragment_particle():
 	particle.texture_to_use = preload("res://EnemyRelated/EnemyTypes/Type_Expert/Enchantress(Healer)/Assets/Enchantress_ShieldParticle_Break.png")
 	
 	particle.speed_accel_towards_center = 240
-	particle.initial_speed_towards_center = non_essential_rng.randf_range(-80, -130)
+	particle.initial_speed_towards_center = non_essential_rng.randf_range(-140, -180)
 	
 	particle.max_speed_towards_center = -5
 	
@@ -367,7 +368,7 @@ func _create_enchantress_shield_break_fragment_particle():
 
 
 func _play_enchantress_shield_break_particles(arg_pos):
-	for i in 6:
+	for i in 12:
 		var particle = enchantress_shield_break_fragment_particle_pool_component.get_or_create_attack_sprite_from_pool()
 		
 		particle.center_pos_of_basis = arg_pos

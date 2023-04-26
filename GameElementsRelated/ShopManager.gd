@@ -583,8 +583,9 @@ func _on_tower_being_absorbed(tower):
 
 
 func _remove_stock_of_tower_id(tower_id : int, amount : int):
-	current_tower_stock_inventory[tower_id] -= amount
-	_update_tier_has_tower_map_tower_id_affected(tower_id, false)
+	if current_tower_stock_inventory.has(tower_id):
+		current_tower_stock_inventory[tower_id] -= amount
+		_update_tier_has_tower_map_tower_id_affected(tower_id, false)
 
 # 
 

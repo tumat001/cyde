@@ -175,6 +175,10 @@ var _enemy_to_blocker_entered_count_map : Dictionary
 
 #
 
+var _default_instant_texture_transition_val : bool
+
+#
+
 func _init(arg_id, arg_breakpoint, arg_name).(arg_id, arg_breakpoint, arg_name):
 	pass
 	
@@ -206,6 +210,12 @@ func play_dialog_segment_or_advance_or_finish_elements(arg_segment : DialogSegme
 	dialog_whole_screen_panel.current_dialog_segment = _current_dialog_segment
 	
 	emit_signal("current_dialog_segment_changed", _current_dialog_segment)
+	
+	
+	call_deferred("_deferred_update_default_instant_texture_transition_val")
+
+func _deferred_update_default_instant_texture_transition_val(arg_new_val):
+	_default_instant_texture_transition_val = arg_new_val
 
 
 #############
@@ -846,6 +856,15 @@ class BackgroundElementAdvParams:
 	
 	var func_name_to_call_on_element_constructed : String
 	
+	var func_source__instant_texture_transition : Object = self
+	var func_name__instant_texture_transition : String = "_default_func__instant_texture_transition"
+	
+	
+
+func _default_func__instant_texture_transition():
+	return _default_instant_texture_transition_val
+
+
 
 func _configure_dia_seg_to_default_templated_background_ele_dia_texture_image(arg_seg : DialogSegment, arg_image, arg_ending_pos, arg_starting_pos = BackDialogImagePanel.VECTOR_UNDEFINED, 
 		arg_persistence_id = DialogSegment.BackgroundElementsConstructionIns.NO_PERSISTENCE_ID,

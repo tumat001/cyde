@@ -411,8 +411,8 @@ func _construct_map_type_info__map_world_09(info : MapTypeInformation):
 
 func _construct_map_type_info__map_world_10(info : MapTypeInformation):
 	info.map_name = "World 10"  #name todo
-	info.map_display_texture = Map_Glade_PreviewImage #img todo
-	info.map_tier = 5
+	info.map_display_texture = preload("res://CYDE_SPECIFIC_ONLY/MapRelated/MapList/Map_World10/Map_World10_PreviewImage.png")
+	info.map_tier = 6
 	info.game_mode_ids_accessible_from_menu = [StoreOfGameMode.Mode.STANDARD_BEGINNER, StoreOfGameMode.Mode.STANDARD_EASY, StoreOfGameMode.Mode.STANDARD_NORMAL]
 	return info
 

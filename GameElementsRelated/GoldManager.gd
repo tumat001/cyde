@@ -91,6 +91,8 @@ func decrease_gold_by(decrease : int, decrease_source : int):
 	set_gold_value(current_gold - decrease)
 
 func set_gold_value(val : int):
+	if val < 0:
+		val = 0
 	current_gold = val
 	call_deferred("emit_signal", "current_gold_changed", current_gold)
 

@@ -558,7 +558,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	
 	var dia_seg__comic_sequence_008__descs = [
-		"Lorem Ipsum Yada Yada"
+		"Dr. Asi started his plan to create a malicious software to breach the data of cyberland."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_008, dia_seg__comic_sequence_008__descs, comic_style_descs_adv_param)
 	
@@ -579,16 +579,18 @@ func _construct_and_play__comic_sequence_dialogs():
 	var dia_seg__comic_sequence_009 = DialogSegment.new()
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_008, dia_seg__comic_sequence_009)
 	
-	var dia_seg__comic_sequence_009__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_009, dia_seg__comic_sequence_009__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_009_pos := Vector2(180, -120)
-	var seg_comic_sequence_009_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_009, seg_comic_sequence_009_pos, seg_comic_sequence_009_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_009)
-	
+#	var dia_seg__comic_sequence_009__descs = [
+#		"Dr. Asi spent many days fully developing the malwares.",
+#		"He is very happy about that since he thinks that his plan is nearly fulfilled."
+#		#Dr. Asi spent many days fully developing the malwares. He is very happy about that since he thinks that his plan is nearly fulfilled.
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_009, dia_seg__comic_sequence_009__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_009_pos := Vector2(180, -120)
+#	var seg_comic_sequence_009_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_009, seg_comic_sequence_009_pos, seg_comic_sequence_009_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_009)
+#
 	
 	if show_skip:
 		configure_dia_seg_to_skip_to_next_on_player_skip__next_seg_as_func(dia_seg__comic_sequence_009, self, "_set_up_actions__to_construct_and_play__enter_name_or_intro_01", SKIP_BUTTON__SKIP_DIALOG_TEXT, skip_adv_params__bot_right)
@@ -601,15 +603,15 @@ func _construct_and_play__comic_sequence_dialogs():
 	var dia_seg__comic_sequence_010 = DialogSegment.new()
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_009, dia_seg__comic_sequence_010)
 	
-	var dia_seg__comic_sequence_010__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_010, dia_seg__comic_sequence_010__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_010_pos := Vector2(-150, 150)
-	var seg_comic_sequence_010_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_010, seg_comic_sequence_010_pos, seg_comic_sequence_010_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_010)
+#	var dia_seg__comic_sequence_010__descs = [
+#		"Lorem Ipsum Yada Yada"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_010, dia_seg__comic_sequence_010__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_010_pos := Vector2(-150, 150)
+#	var seg_comic_sequence_010_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_010, seg_comic_sequence_010_pos, seg_comic_sequence_010_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_010)
 	
 	
 	if show_skip:
@@ -670,15 +672,15 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	dia_seg__comic_sequence_013 = DialogSegment.new()
 	
-	var dia_seg__comic_sequence_013__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_013, dia_seg__comic_sequence_013__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_013_pos := Vector2(-180, -120)
-	var seg_comic_sequence_013_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_013, seg_comic_sequence_013_pos, seg_comic_sequence_013_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_013)
+#	var dia_seg__comic_sequence_013__descs = [
+#		"Lorem Ipsum Yada Yada"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_013, dia_seg__comic_sequence_013__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_013_pos := Vector2(-180, -120)
+#	var seg_comic_sequence_013_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_013, seg_comic_sequence_013_pos, seg_comic_sequence_013_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_013)
 	
 	
 	if show_skip:
@@ -692,15 +694,15 @@ func _construct_and_play__comic_sequence_dialogs():
 	var dia_seg__comic_sequence_014 = DialogSegment.new()
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_013, dia_seg__comic_sequence_014)
 	
-	var dia_seg__comic_sequence_014__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_014, dia_seg__comic_sequence_014__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_014_pos := Vector2(180, -120)
-	var seg_comic_sequence_014_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_014, seg_comic_sequence_014_pos, seg_comic_sequence_014_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_014)
+#	var dia_seg__comic_sequence_014__descs = [
+#		"Lorem Ipsum Yada Yada"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_014, dia_seg__comic_sequence_014__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_014_pos := Vector2(180, -120)
+#	var seg_comic_sequence_014_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_014, seg_comic_sequence_014_pos, seg_comic_sequence_014_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_014)
 	
 	
 	if show_skip:
@@ -715,7 +717,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_014, dia_seg__comic_sequence_015)
 	
 	var dia_seg__comic_sequence_015__descs = [
-		"Lorem Ipsum Yada Yada"
+		"Hidden in a secret basement, a helpful robot built by the late Dr. Murphy was awakened by the malicious threats that Dr. Asi has created."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_015, dia_seg__comic_sequence_015__descs, comic_style_descs_adv_param)
 	
@@ -738,15 +740,15 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	dia_seg__comic_sequence_016 = DialogSegment.new()
 	
-	var dia_seg__comic_sequence_016__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_016, dia_seg__comic_sequence_016__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_016_pos := Vector2(-180, -120)
-	var seg_comic_sequence_016_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_016, seg_comic_sequence_016_pos, seg_comic_sequence_016_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_016)
+#	var dia_seg__comic_sequence_016__descs = [
+#		"Lorem Ipsum Yada Yada"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_016, dia_seg__comic_sequence_016__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_016_pos := Vector2(-180, -120)
+#	var seg_comic_sequence_016_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_016, seg_comic_sequence_016_pos, seg_comic_sequence_016_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_016)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_016, Comics_07_aa, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__07_aa, adv_params__0_to_1__1_to_0)
 	
@@ -759,15 +761,15 @@ func _construct_and_play__comic_sequence_dialogs():
 	var dia_seg__comic_sequence_017 = DialogSegment.new()
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_016, dia_seg__comic_sequence_017)
 	
-	var dia_seg__comic_sequence_017__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_017, dia_seg__comic_sequence_017__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_017_pos := Vector2(180, -120)
-	var seg_comic_sequence_017_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_017, seg_comic_sequence_017_pos, seg_comic_sequence_017_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_017)
+#	var dia_seg__comic_sequence_017__descs = [
+#		"Lorem Ipsum Yada Yada"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_017, dia_seg__comic_sequence_017__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_017_pos := Vector2(180, -120)
+#	var seg_comic_sequence_017_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_017, seg_comic_sequence_017_pos, seg_comic_sequence_017_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_017)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_017, Comics_07_ab, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__07_ab, adv_params__0_to_1__1_to_0)
 	
@@ -782,7 +784,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_017, dia_seg__comic_sequence_018)
 	
 	var dia_seg__comic_sequence_018__descs = [
-		"Lorem Ipsum Yada Yada"
+		"Dr Murphy programmed Cyde to prevent the data from being breached. That's why when Cyde awakened, Cyde decided to roam towards the city to find the cyberland heroes to help the city in the hands of Dr Asi."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_018, dia_seg__comic_sequence_018__descs, comic_style_descs_adv_param)
 	
@@ -806,15 +808,15 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	dia_seg__comic_sequence_019 = DialogSegment.new()
 	
-	var dia_seg__comic_sequence_019__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_019, dia_seg__comic_sequence_019__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_019_pos := Vector2(-180, -120)
-	var seg_comic_sequence_019_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_019, seg_comic_sequence_019_pos, seg_comic_sequence_019_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_019)
+#	var dia_seg__comic_sequence_019__descs = [
+#		"Lorem Ipsum Yada Yada"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_019, dia_seg__comic_sequence_019__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_019_pos := Vector2(-180, -120)
+#	var seg_comic_sequence_019_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_019, seg_comic_sequence_019_pos, seg_comic_sequence_019_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_019)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_019, Comics_08_aa, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__08_aa, adv_params__0_to_1__1_to_0)
 	
@@ -830,15 +832,15 @@ func _construct_and_play__comic_sequence_dialogs():
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__comic_sequence_019, dia_seg__comic_sequence_020)
 	
 	
-	var dia_seg__comic_sequence_020__descs = [
-		"Lorem Ipsum Yada Yada"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_020, dia_seg__comic_sequence_020__descs, comic_style_descs_adv_param)
-	
-	var seg_comic_sequence_020_pos := Vector2(180, -120)
-	var seg_comic_sequence_020_size := Vector2(250, 100)
-	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_020, seg_comic_sequence_020_pos, seg_comic_sequence_020_size)
-	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_020)
+#	var dia_seg__comic_sequence_020__descs = [
+#		"Lorem Ipsum Yada Yada"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_020, dia_seg__comic_sequence_020__descs, comic_style_descs_adv_param)
+#
+#	var seg_comic_sequence_020_pos := Vector2(180, -120)
+#	var seg_comic_sequence_020_size := Vector2(250, 100)
+#	_configure_dia_set_to_pos_and_size(dia_seg__comic_sequence_020, seg_comic_sequence_020_pos, seg_comic_sequence_020_size)
+#	_configure_dia_set_to_pos_and_size__to_instant_transition_times(dia_seg__comic_sequence_020)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__comic_sequence_020, Comics_08_ab, custom_pos_0_0, custom_pos_0_0, persistence_id_for_comics__08_ab, adv_params__0_to_1__1_to_0)
 	
@@ -854,7 +856,7 @@ func _construct_and_play__comic_sequence_dialogs():
 	
 	
 	var dia_seg__comic_sequence_021__descs = [
-		"Lorem Ipsum Yada Yada"
+		"When Cyde roamed in the city he found an interesting fellow that studying about security then Cyde ask if this fellow want to help the cyberland city; and that’s how Cyde find the new heroes "
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__comic_sequence_021, dia_seg__comic_sequence_021__descs, comic_style_descs_adv_param)
 	
