@@ -26,9 +26,9 @@ enum AudioIds {
 	
 	####
 	
-	CYDE_SPEAK_01 = 1600,
-	PLAYER_SPEAK_01 = 1601,
-	DR_ASI_SPEAK_01 = 1602,
+#	CYDE_SPEAK_01 = 1600,
+#	PLAYER_SPEAK_01 = 1601,
+#	DR_ASI_SPEAK_01 = 1602,
 	
 	BLOCKER_DROP = 1603,
 	
@@ -61,18 +61,18 @@ const _audio_id_to_sound_file_path = {
 	AudioIds.DROP_TOWER : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/DropTower.wav",
 	
 	# todo enable when available
-	AudioIds.CYDE_SPEAK_01 : "",
-	AudioIds.PLAYER_SPEAK_01 : "",
-	AudioIds.DR_ASI_SPEAK_01 : "",
+#	AudioIds.CYDE_SPEAK_01 : "",
+#	AudioIds.PLAYER_SPEAK_01 : "",
+#	AudioIds.DR_ASI_SPEAK_01 : "",
 	
-	AudioIds.BLOCKER_DROP : "",
+	AudioIds.BLOCKER_DROP : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/WoodblockDrop.wav",
 	
-	AudioIds.ALTER_TRIGGERED : "",
-	AudioIds.REDUCTION_TRIGGERED : "",
+	AudioIds.ALTER_TRIGGERED : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/ChangeQuestion.wav",
+	AudioIds.REDUCTION_TRIGGERED : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/MinusChoices.wav",
 	
-	AudioIds.PLAYER_SHIELD_DAMAGED : "",
+	AudioIds.PLAYER_SHIELD_DAMAGED : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/HealthDeplete.wav",
 	
-	AudioIds.ENEMY_DEATH : "",
+	AudioIds.ENEMY_DEATH : "res://CYDE_SPECIFIC_ONLY/Audio/Sound_FX/EnemyDefeat.wav",
 	
 }
 

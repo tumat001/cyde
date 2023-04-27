@@ -177,7 +177,7 @@ func construct_questions_and_choices_for__virus_Q02(arg_func_source : Object, ar
 	
 	
 	var question_01_desc = [
-		"What phase is the virus where they arg_func_source-replicate, stashing copies of itself in files, programs, or other parts of your disk?"
+		"What phase is the virus where they self-replicate, stashing copies of itself in files, programs, or other parts of your disk?"
 	]
 	
 	var question_info__01 = QuestionInfoForChoicesPanel.new()

@@ -441,7 +441,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	######## WORM
 	elif enemy_id == Enemies.WORM__EMAIL:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 22
+		info.base_health = 18
 		info.base_movement_speed = 45
 		
 		if arg_include_non_combat_info:
@@ -454,7 +454,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.WORM__I_LOVE_U:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 70
+		info.base_health = 45
 		info.base_movement_speed = 37
 		
 		if arg_include_non_combat_info:
@@ -466,7 +466,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.WORM__NETWORK:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 11
+		info.base_health = 9
 		info.base_movement_speed = 75
 		
 		if arg_include_non_combat_info:
@@ -494,7 +494,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	##### ADWARE
 	elif enemy_id == Enemies.ADWARE_BOSS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 250
+		info.base_health = 220
 		info.base_movement_speed = 28
 		info.enemy_type == info.EnemyType.ELITE
 		
@@ -508,7 +508,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.ADWARE__APPEARCH:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 36
+		info.base_health = 20
 		info.base_movement_speed = 50
 		
 		if arg_include_non_combat_info:
@@ -520,7 +520,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.ADWARE__DESK_AD:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 32
+		info.base_health = 26
 		info.base_movement_speed = 55
 		
 		if arg_include_non_combat_info:
@@ -532,7 +532,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.ADWARE__DOLLAR_REVENUE:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 120
+		info.base_health = 80
 		info.base_movement_speed = 38
 		
 		if arg_include_non_combat_info:
@@ -547,7 +547,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	# RANSOMWARE
 	elif enemy_id == Enemies.RANSOMWARE_BOSS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 325
+		info.base_health = 260
 		info.base_movement_speed = 24
 		info.enemy_type == info.EnemyType.ELITE
 		
@@ -561,7 +561,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.RANSOMWARE__ENCRYPTORS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 30
+		info.base_health = 15
 		info.base_movement_speed = 70
 		
 		if arg_include_non_combat_info:
@@ -574,7 +574,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.RANSOMWARE__LOCKERSWARE:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 140
+		info.base_health = 80
 		info.base_movement_speed = 31
 		
 		if arg_include_non_combat_info:
@@ -587,7 +587,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.RANSOMWARE__AS_A_SERVICE:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 88
+		info.base_health = 44
 		info.base_movement_speed = 50
 		
 		if arg_include_non_combat_info:
@@ -601,7 +601,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	# ROOTKIT
 	elif enemy_id == Enemies.ROOTKIT_BOSS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 375
+		info.base_health = 300
 		info.base_movement_speed = 28
 		info.enemy_type == info.EnemyType.ELITE
 		
@@ -615,7 +615,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.ROOTKIT_KERNEL_MODE:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 50
+		info.base_health = 25
 		info.base_movement_speed = 55
 		
 		if arg_include_non_combat_info:
@@ -627,7 +627,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.ROOTKIT_MEMORY:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 60
+		info.base_health = 35
 		info.base_movement_speed = 50
 		
 		if arg_include_non_combat_info:
@@ -640,7 +640,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.ROOTKIT_VIRTUAL:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 40
+		info.base_health = 20
 		info.base_movement_speed = 70
 		
 		if arg_include_non_combat_info:
@@ -655,7 +655,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	# FILELESS
 	elif enemy_id == Enemies.FILELESS_BOSS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 285
+		info.base_health = 245
 		info.base_movement_speed = 40
 		info.enemy_type == info.EnemyType.ELITE
 		
@@ -669,8 +669,8 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.FILELESS__KEYLOG:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 45
-		info.base_movement_speed = 60
+		info.base_health = 14
+		info.base_movement_speed = 55
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Keylog"
@@ -682,8 +682,8 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.FILELESS__PHISHING:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 35
-		info.base_movement_speed = 85
+		info.base_health = 11.5
+		info.base_movement_speed = 75
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Phising"
@@ -694,7 +694,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.FILELESS__SCAMBOTS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 25
+		info.base_health = 8
 		info.base_movement_speed = 100
 		
 		if arg_include_non_combat_info:
@@ -721,7 +721,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.MALWARE_BOT__CHATTER_BOT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 25 # low because many and healing
+		info.base_health = 16 # low because many and healing
 		info.base_movement_speed = 55
 		
 		#like an enchantress
@@ -735,7 +735,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.MALWARE_BOT__DOS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 75
+		info.base_health = 30
 		info.base_movement_speed = 45
 		
 		#like PROVIDENCE
@@ -749,7 +749,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.MALWARE_BOT__SPAM_BOT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 35
+		info.base_health = 20
 		info.base_movement_speed = 50
 		
 		#like wizard
@@ -764,7 +764,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	# MALWARE BOTS
 	elif enemy_id == Enemies.MOBILE_MALWARE_BOSS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 500
+		info.base_health = 300
 		info.base_movement_speed = 28
 		info.enemy_type == info.EnemyType.ELITE
 		
@@ -778,7 +778,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.MOBILE_MALWARE__MEMORY_RESIDENT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 60
+		info.base_health = 40
 		info.base_movement_speed = 60
 		
 		
@@ -792,7 +792,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.MOBILE_MALWARE__SAMSAM:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 95
+		info.base_health = 70
 		info.base_movement_speed = 50
 		
 		# no ability -> the basic enemy
@@ -805,9 +805,8 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.MOBILE_MALWARE__WINDOWS_REGISTRY:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 150
+		info.base_health = 90
 		info.base_movement_speed = 40
-		
 		
 		# like deity knockup
 		if arg_include_non_combat_info:
@@ -820,7 +819,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.AMALGAMATION_VIRJAN:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 300
+		info.base_health = 120
 		info.base_movement_speed = 22
 		info.enemy_type = info.EnemyType.BOSS
 		
@@ -833,7 +832,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.AMALGAMATION_ADWORM:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 375
+		info.base_health = 185
 		info.base_movement_speed = 22
 		info.enemy_type = info.EnemyType.BOSS
 		
@@ -846,7 +845,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.AMALGAMATION_RANSKIT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 450
+		info.base_health = 220
 		info.base_movement_speed = 20
 		info.enemy_type = info.EnemyType.BOSS
 		
@@ -859,7 +858,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.AMALGAMATION_MALFILEBOT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 300
+		info.base_health = 250
 		info.base_movement_speed = 20
 		info.enemy_type = info.EnemyType.BOSS
 		

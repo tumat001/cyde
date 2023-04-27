@@ -13,16 +13,15 @@ signal can_roll_changed(can_roll)
 signal shop_rolled_with_towers(arg_tower_ids)
 
 
-#TODO Put appropriate probabilities soon
 const base_level_tier_roll_probabilities : Dictionary = {
 	LevelManager.LEVEL_1 : [100, 0, 0, 0, 0, 0],
 	LevelManager.LEVEL_2 : [100, 0, 0, 0, 0, 0],
 	LevelManager.LEVEL_3 : [90, 10, 0, 0, 0, 0],
 	LevelManager.LEVEL_4 : [65, 25, 10, 0, 0, 0],
 	LevelManager.LEVEL_5 : [50, 25, 25, 0, 0, 0],
-	LevelManager.LEVEL_6 : [20, 40, 40, 0, 0, 0],
-	LevelManager.LEVEL_7 : [15, 30, 45, 10, 0, 0],
-	LevelManager.LEVEL_8 : [10, 20, 50, 20, 0, 0],
+	LevelManager.LEVEL_6 : [20, 35, 40, 5, 0, 0],
+	LevelManager.LEVEL_7 : [15, 30, 40, 15, 0, 0],
+	LevelManager.LEVEL_8 : [10, 20, 40, 30, 0, 0],
 	
 #	LevelManager.LEVEL_1 : [100, 0, 0, 0, 0, 0],
 #	LevelManager.LEVEL_2 : [90, 10, 0, 0, 0, 0],

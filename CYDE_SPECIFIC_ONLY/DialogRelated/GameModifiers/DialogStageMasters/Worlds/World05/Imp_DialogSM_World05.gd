@@ -157,6 +157,7 @@ func _on_game_elements_before_game_start__base_class():
 	
 	game_elements.game_result_manager.show_main_menu_button = false
 	
+	_initialize_blocker_ability()
 
 ########
 

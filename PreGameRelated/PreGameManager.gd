@@ -18,7 +18,6 @@ func _add_pre_game_modifier(arg_modifier : BasePreGameModifier):
 
 func _ready():
 	#Note: add pre game modifiers to apply here
-	# TODO. Remove this then Cyde is over...
 	var modi = Cyde_CommonPreGameModis.new()
 	_add_pre_game_modifier(modi)
 	

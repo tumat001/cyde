@@ -133,7 +133,7 @@ func _get_instructions_for_0_9():
 		
 		MultipleEnemySpawnInstruction.new(5, 4, 0.5, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
-		MultipleEnemySpawnInstruction.new(10, 18, 0.3, EnemyConstants.Enemies.FILELESS__PHISHING),
+		MultipleEnemySpawnInstruction.new(10, 11, 0.3, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
 	]
 
@@ -143,7 +143,7 @@ func _get_instructions_for_0_10():
 		SingleEnemySpawnInstruction.new(1, EnemyConstants.Enemies.FILELESS__PHISHING),
 		SingleEnemySpawnInstruction.new(2, EnemyConstants.Enemies.FILELESS__PHISHING),
 		
-		LinearEnemySpawnInstruction.new(6, 23, 0.5, 0.060, EnemyConstants.Enemies.FILELESS__KEYLOG, 0.1),
+		LinearEnemySpawnInstruction.new(6, 15, 0.5, 0.060, EnemyConstants.Enemies.FILELESS__KEYLOG, 0.1),
 		
 	]
 

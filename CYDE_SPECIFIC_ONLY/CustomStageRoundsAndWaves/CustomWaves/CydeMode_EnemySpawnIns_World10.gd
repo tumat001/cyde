@@ -1,12 +1,8 @@
 extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
 
-# TODO, change enemy spawn styles.
-# THIS is same as in stage 04
-
-
-# CHANGE INTO: Boss style waves
-
 func get_instructions_for_stageround(uuid : String):
+	return []
+	
 	if uuid == "101":
 		return _get_instructions_for_0_1()
 	elif uuid == "102":

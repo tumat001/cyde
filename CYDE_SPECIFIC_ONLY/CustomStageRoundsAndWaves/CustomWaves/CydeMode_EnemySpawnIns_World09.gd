@@ -1,11 +1,5 @@
 extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
 
-# TODO, change enemy spawn styles.
-# THIS is same as in stage 04
-
-
-# CHANGE INTO: Mobile Mal
-
 func get_instructions_for_stageround(uuid : String):
 	if uuid == "91":
 		return _get_instructions_for_0_1()

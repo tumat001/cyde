@@ -366,29 +366,28 @@ func unlock_map_id(arg_map_id):
 ##############
 
 
-# TODO CHANGE THESE!!!!!!!!!
 func if_enemy_killed_by_damage_count_is_at_least_x(arg_enemy_id, arg_count):
-	return true
-	#return enemy_id_to_killed_by_dmg_count_map[arg_enemy_id] >= arg_count
+	#return true
+	return enemy_id_to_killed_by_dmg_count_map[arg_enemy_id] >= arg_count
 
 func if_tower_played_count_per_round_is_at_least_x(arg_id, arg_count):
-	return true
-	#return tower_id_to_play_per_round_count_map[arg_id] >= arg_count
+	#return true
+	return tower_id_to_play_per_round_count_map[arg_id] >= arg_count
 
 func if_synergy_id_has_at_least_x_play_count(arg_syn_id, arg_count):
-	return true
-#	var total : int = 0
-#
-#	for id_tier_compo in synergy_compo_id_tier_to_play_per_round_count.keys():
-#		var separated = id_tier_compo.split("-")
-#
-#		if separated[0] == str(arg_syn_id):
-#			total += synergy_compo_id_tier_to_play_per_round_count[id_tier_compo]
-#
-#			if total >= arg_count:
-#				return true
-#
-#	return false
+	#return true
+	var total : int = 0
+
+	for id_tier_compo in synergy_compo_id_tier_to_play_per_round_count.keys():
+		var separated = id_tier_compo.split("-")
+
+		if separated[0] == str(arg_syn_id):
+			total += synergy_compo_id_tier_to_play_per_round_count[id_tier_compo]
+
+			if total >= arg_count:
+				return true
+
+	return false
 
 func if_tidbit_id_has_at_least_x_val(arg_tidbit_id, arg_min_val):
 	#return true

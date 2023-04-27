@@ -54,7 +54,7 @@ const SalvoBurst_AttackModule_Icon = preload("res://TowerRelated/Color_Blue/Accu
 
 signal current_siphon_stacks_changed()
 
-const base_siphon_stacks_to_cast_salvo : int = 12
+const base_siphon_stacks_to_cast_salvo : int = 6
 const base_delay_per_burst_in_salvo : float = 0.2
 const base_salvo_cooldown : float = 5.0
 
@@ -63,7 +63,7 @@ const base_enemy_ap_reduction_of_siphon : float = -0.35
 
 #const base_ap_per_siphon_stack : float = 0.25
 
-const base_spell_burst_damage : float = 7.0
+const base_spell_burst_damage : float = 8.0
 
 # clause for attk module
 const lob_attk_module_not_yet_casted_clause : int = -10

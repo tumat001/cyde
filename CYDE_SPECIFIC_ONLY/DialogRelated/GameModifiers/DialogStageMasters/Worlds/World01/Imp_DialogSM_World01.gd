@@ -151,17 +151,14 @@ var dia_seg__on_lose_01_sequence_001 : DialogSegment
 
 #
 
-#TODO once the offical towers are added, change this
 var tower_id_to_buy_at_intro_tutorial = Towers.SPRINKLER
 var tower_name_to_buy_at_intro_tutorial = "Sprinkler"
 var tower_instance_bought_at_intro_tutorial
 
-#TODO once the offical towers are added, change this
 var tower_id_to_buy_at_intro_tutorial__002 = Towers.STRIKER
 var tower_name_to_buy_at_intro_tutorial__002 = "Striker"
 var tower_instance_bought_at_intro_tutorial__002
 
-#TODO once the offical towers are added, change this
 var tower_id_to_buy_at_intro_tutorial__003 = Towers.MINI_TESLA
 var tower_name_to_buy_at_intro_tutorial__003 = "Mini Tesla"
 var tower_instance_bought_at_intro_tutorial__003
@@ -262,8 +259,7 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	
 	# OLD
 #	if !flag_is_enabled(world_completion_num_state, World01_States.SHOWN_COMIC_SEQUENCE):
-#		# TODO - SHOW COMIC SEQUENCE STYLE SEQUENCE
-#
+#		
 #		_construct_and_play__comic_sequence_dialogs()
 #
 #

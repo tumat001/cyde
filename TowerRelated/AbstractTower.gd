@@ -3871,12 +3871,12 @@ func get_cyde_current_star_level():
 ##
 
 func _construct_and_add_cyde_2_star_effects():
-	var base_dmg_effect = _construct_base_dmg_effect_for_star_effect(30, StoreOfTowerEffectsUUID.CYDE_STAR_2_EFFECTS_01)
+	var base_dmg_effect = _construct_base_dmg_effect_for_star_effect(50, StoreOfTowerEffectsUUID.CYDE_STAR_2_EFFECTS_01)
 	add_tower_effect(base_dmg_effect)
 
 
 func _construct_and_add_cyde_3_star_effects():
-	var base_dmg_effect = _construct_base_dmg_effect_for_star_effect(120, StoreOfTowerEffectsUUID.CYDE_STAR_2_EFFECTS_01)
+	var base_dmg_effect = _construct_base_dmg_effect_for_star_effect(250, StoreOfTowerEffectsUUID.CYDE_STAR_2_EFFECTS_01)
 	add_tower_effect(base_dmg_effect)
 
 

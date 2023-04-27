@@ -54,10 +54,10 @@ const base_level_up_costs : Dictionary = {
 	LEVEL_1 : [2, Currency.GOLD],
 	LEVEL_2 : [2, Currency.GOLD],
 	LEVEL_3 : [6, Currency.GOLD],
-	LEVEL_4 : [18, Currency.GOLD],
-	LEVEL_5 : [36, Currency.GOLD],
-	LEVEL_6 : [44, Currency.GOLD],
-	LEVEL_7 : [60, Currency.GOLD],
+	LEVEL_4 : [14, Currency.GOLD],
+	LEVEL_5 : [26, Currency.GOLD],
+	LEVEL_6 : [34, Currency.GOLD],
+	LEVEL_7 : [45, Currency.GOLD],
 	LEVEL_8 : [0, Currency.GOLD],
 	
 	#LEVEL_8 : [90, Currency.GOLD], #88

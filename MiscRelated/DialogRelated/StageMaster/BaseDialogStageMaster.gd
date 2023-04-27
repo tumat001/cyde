@@ -212,7 +212,7 @@ func play_dialog_segment_or_advance_or_finish_elements(arg_segment : DialogSegme
 	emit_signal("current_dialog_segment_changed", _current_dialog_segment)
 	
 	
-	call_deferred("_deferred_update_default_instant_texture_transition_val")
+	call_deferred("_deferred_update_default_instant_texture_transition_val", arg_segment == null)
 
 func _deferred_update_default_instant_texture_transition_val(arg_new_val):
 	_default_instant_texture_transition_val = arg_new_val
@@ -856,7 +856,7 @@ class BackgroundElementAdvParams:
 	
 	var func_name_to_call_on_element_constructed : String
 	
-	var func_source__instant_texture_transition : Object = self
+	var func_source__instant_texture_transition : Object
 	var func_name__instant_texture_transition : String = "_default_func__instant_texture_transition"
 	
 	
@@ -869,6 +869,8 @@ func _default_func__instant_texture_transition():
 func _configure_dia_seg_to_default_templated_background_ele_dia_texture_image(arg_seg : DialogSegment, arg_image, arg_ending_pos, arg_starting_pos = BackDialogImagePanel.VECTOR_UNDEFINED, 
 		arg_persistence_id = DialogSegment.BackgroundElementsConstructionIns.NO_PERSISTENCE_ID,
 		arg_adv_param : BackgroundElementAdvParams = BackgroundElementAdvParams.new()):
+	
+	arg_adv_param.func_source__instant_texture_transition = self
 	
 	var diag_construction_ins := DialogSegment.BackgroundElementsConstructionIns.new()
 	diag_construction_ins.func_source = self
@@ -893,6 +895,8 @@ func _construct_default_templated_background_ele_dia_texture_image_for_dia_seg(a
 	arg_background_element.final_top_left_pos = ending_pos
 	arg_background_element.initial_top_left_pos = starting_pos
 	
+	arg_background_element.instant_transition_and_ignore_tween_procedure = adv_params.func_source__instant_texture_transition.call(adv_params.func_name__instant_texture_transition)
+	
 	arg_background_element.texture_to_use = texture
 	
 	arg_background_element.starting_initial_mod_a = adv_params.starting_initial_mod_a
@@ -907,7 +911,6 @@ func _construct_default_templated_background_ele_dia_texture_image_for_dia_seg(a
 	arg_background_element.ignored_for_wait_for_all_background_elements_to_fade_out = adv_params.ignored_for_wait_for_all_background_elements_to_fade_out
 	
 	arg_background_element.fade_out_on_next_dia_seg = adv_params.fade_out_on_next_dia_seg
-	
 	
 	##
 	

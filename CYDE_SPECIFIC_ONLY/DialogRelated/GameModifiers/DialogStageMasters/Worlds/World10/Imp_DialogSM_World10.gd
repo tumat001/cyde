@@ -131,6 +131,7 @@ func _apply_game_modifier_to_elements(arg_elements : GameElements):
 	
 	#todo if there is beyond 10, then change this
 	#_map_ids_to_make_available_when_completed.append(StoreOfMaps.MapsId_World10)
+	
 	game_elements.game_result_manager.show_main_menu_button = false
 	
 	listen_for_game_result_window_close(self, "_on_game_result_window_closed__on_win", "_on_game_result_window_closed__on_lose")
@@ -179,13 +180,11 @@ func _on_game_elements_before_game_start__base_class():
 	#add_shop_per_refresh_modifier(-5)
 	add_gold_amount(30)
 	
-	#todo
-	add_gold_amount(700)
-	
 	set_player_level(4)
 	
 	game_elements.game_result_manager.show_main_menu_button = false
 	
+	_initialize_blocker_ability()
 	
 	######
 	
@@ -412,7 +411,10 @@ func _construct_dia_seg__question_01_sequence_001():
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_sequence_001, dia_seg__question_01_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_sequence_001)
 	
-	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	var custom_pos = dia_portrait__pos__standard_left
+	custom_pos.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	
 	
 	###
 	
@@ -420,20 +422,39 @@ func _construct_dia_seg__question_01_sequence_001():
 	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001, dia_seg__question_01_sequence_001_ab)
 	
 	var dia_seg__question_01_sequence_001_ab__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Viruses and The Trojans[/b].",
-		"Proceed to test your knowledge."
+		generate_colored_text__asi_name__as_line(),
+		"Behold my first amalgamation: Virjan. A combination of Virus and Trojan created by me. This is not just your typical malware. Towers that strike this malware have their attack speed reduced! Additionally, Virjan gains movement speed when reaching certain health thresholds."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_sequence_001_ab, dia_seg__question_01_sequence_001_ab__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_sequence_001_ab)
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001_ab, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
+	var custom_pos__for_right = dia_portrait__pos__standard_right
+	custom_pos__for_right.x = 960
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001_ab, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.STANDARD_001], dia_portrait__pos__standard_right, custom_pos__for_right, persistence_id_for_portrait__asi)
+	
+	
+	###
+	
+	var dia_seg__question_01_sequence_001_ac = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001_ab, dia_seg__question_01_sequence_001_ac)
+	
+	var dia_seg__question_01_sequence_001_ac__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz? The buff will greatly help us take down the amalgamation.",#The malwares this phase is [b]The Viruses and The Trojans[/b].",
+		"Proceed to test your knowledge."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_01_sequence_001_ac, dia_seg__question_01_sequence_001_ac__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_01_sequence_001_ac)
+	
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_01_sequence_001_ac, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
+	
 	
 	###
 	
 	var dia_seg__question_01_sequence_002 = _construct_and_configure_choices_for_question_01_questions()[0]
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001_ab, dia_seg__question_01_sequence_002)
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_01_sequence_001_ac, dia_seg__question_01_sequence_002)
 	dia_seg__question_01_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_01_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
 	dia_seg__question_01_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_01_sequence_02__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
 	
@@ -487,8 +508,6 @@ func _on_Q01_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.C
 	
 	apply_tower_power_up_effects()
 	do_all_related_audios__for_correct_choice()
-	
-	
 
 
 func _on_Q01_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
@@ -569,17 +588,39 @@ func _construct_dia_seg__question_02_sequence_001():
 	dia_seg__question_02_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__question_02_sequence_001__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Adwares and The Computer Worms[/b].",
-		"Proceed to test your knowledge."
+		generate_colored_text__asi_name__as_line(),
+		"Behold my second amalgamation: Adworm. A combination of Adware and Computer Worm created by me. This malware shields itself periodically. Adworm also regenerate health over time. Let’s see if you can even bring it down!"
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_02_sequence_001, dia_seg__question_02_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_02_sequence_001)
 	
+	var custom_pos__for_right = dia_portrait__pos__standard_right
+	custom_pos__for_right.x = 960
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_02_sequence_001, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.STANDARD_001], dia_portrait__pos__standard_right, custom_pos__for_right, persistence_id_for_portrait__asi)
+	
+	
+	####
+	
+	var dia_seg__question_x_sequence_001_ab = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_02_sequence_001, dia_seg__question_x_sequence_001_ab)
+	
+	var dia_seg__question_x_sequence_001_ab__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz?", #The malwares this phase is [b]The Adwares and The Computer Worms[/b].",
+		"Proceed to test your knowledge."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_x_sequence_001_ab, dia_seg__question_x_sequence_001_ab__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_x_sequence_001_ab)
+	
+	var custom_pos = dia_portrait__pos__standard_left
+	custom_pos.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_x_sequence_001_ab, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__question_02_sequence_002 = _construct_and_configure_choices_for_question_02_questions()[0]
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_02_sequence_001, dia_seg__question_02_sequence_002)
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_x_sequence_001_ab, dia_seg__question_02_sequence_002)
 	dia_seg__question_02_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_02_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
 	dia_seg__question_02_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_02_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
 	
@@ -714,17 +755,39 @@ func _construct_dia_seg__question_03_sequence_001():
 	dia_seg__question_03_sequence_001 = DialogSegment.new()
 	
 	var dia_seg__question_03_sequence_001__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Ransomwares and The Rootkits[/b].",
-		"Proceed to test your knowledge."
+		generate_colored_text__asi_name__as_line(),
+		"Ranskit is a combination of Ransomware and Rootkits. Ranskit steals your gold and disables one of your towers periodically."
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_03_sequence_001, dia_seg__question_03_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_03_sequence_001)
 	
+	var custom_pos__for_right = dia_portrait__pos__standard_right
+	custom_pos__for_right.x = 960
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_03_sequence_001, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.STANDARD_001], dia_portrait__pos__standard_right, custom_pos__for_right, persistence_id_for_portrait__asi)
+	
+	
+	####
+	
+	var dia_seg__question_x_sequence_001_ab = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_03_sequence_001, dia_seg__question_x_sequence_001_ab)
+	
+	var dia_seg__question_x_sequence_001_ab__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz?", #The malwares this phase is [b]The Adwares and The Computer Worms[/b].",
+		"Proceed to test your knowledge."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_x_sequence_001_ab, dia_seg__question_x_sequence_001_ab__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_x_sequence_001_ab)
+	
+	var custom_pos = dia_portrait__pos__standard_left
+	custom_pos.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_x_sequence_001_ab, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__question_03_sequence_002 = _construct_and_configure_choices_for_question_03_questions()[0]
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_03_sequence_001, dia_seg__question_03_sequence_002)
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_x_sequence_001_ab, dia_seg__question_03_sequence_002)
 	dia_seg__question_03_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_03_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
 	dia_seg__question_03_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_03_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
 	
@@ -856,32 +919,57 @@ func _construct_dia_seg__question_04_sequence_001():
 	var dia_seg__question_xx_sequence_001 = dia_seg__question_04_sequence_001
 	
 	var dia_seg__question_xx_sequence_001__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"Ready for the Icebreaker quiz? The malwares this phase is [b]The Malware Bots, The Fileless and The Mobile Malwares.[/b].",
-		"Proceed to test your knowledge."
+		generate_colored_text__asi_name__as_line(),
+		"MalFileBot, my ultimate creation! You will not stand a chance against its combined powers!",
+		"It is a combination of Fileless, Malware Bots and Mobile Malware. This malware summons countless bots periodically. When it reaches critical health, it also becomes invisible for a brief duration.",
+		"I bet you're not even strong enough to kill its minions!"
 	]
 	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_001__descs)
 	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_001)
 	
+	var custom_pos__for_right = dia_portrait__pos__standard_right
+	custom_pos__for_right.x = 960
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_001, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.TEMPTING_001], dia_portrait__pos__standard_right, custom_pos__for_right, persistence_id_for_portrait__asi)
+	
+	
+	##
+	
+	var dia_seg__question_x_sequence_001_ab = DialogSegment.new()
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_001, dia_seg__question_x_sequence_001_ab)
+	
+	var dia_seg__question_x_sequence_001_ab__descs = [
+		generate_colored_text__cyde_name__as_line(),
+		"Ready for the Icebreaker quiz?", #The malwares this phase is [b]The Adwares and The Computer Worms[/b].",
+		"Proceed to test your knowledge."
+	]
+	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_x_sequence_001_ab, dia_seg__question_x_sequence_001_ab__descs)
+	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_x_sequence_001_ab)
+	
+	var custom_pos = dia_portrait__pos__standard_left
+	custom_pos.x = 0
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_x_sequence_001_ab, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.STANDARD_001], dia_portrait__pos__standard_left, custom_pos, persistence_id_for_portrait__cyde)
+	
+	
 	###
 	
 	var dia_seg__question_xx_sequence_002 = _construct_and_configure_choices_for_question_xx_questions(all_possible_ques_and_ans__04)[0]
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_001, dia_seg__question_xx_sequence_002)
+	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_x_sequence_001_ab, dia_seg__question_xx_sequence_002)
 	dia_seg__question_xx_sequence_002.connect("fully_displayed", self, "_on_dia_seg__question_04_sequence_002__fully_displayed", [], CONNECT_ONESHOT)
 	dia_seg__question_xx_sequence_002.connect("setted_into_whole_screen_panel", self, "_on_dia_seg__question_04_sequence_002__setted_into_whole_screen_panel", [], CONNECT_ONESHOT)
 	
 	###
 	
-	dia_seg__question_04_sequence_003 = DialogSegment.new()
-	var dia_seg__question_xx_sequence_003 = dia_seg__question_04_sequence_003
+#	dia_seg__question_04_sequence_003 = DialogSegment.new()
+#	var dia_seg__question_xx_sequence_003 = dia_seg__question_04_sequence_003
+#
+#	var dia_seg__question_xx_sequence_003__descs = [
+#		generate_colored_text__cyde_name__as_line(),
+#		"Get ready for the final fight!"
+#	]
+#	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_003, dia_seg__question_xx_sequence_003__descs)
+#	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_003)
 	
-	var dia_seg__question_xx_sequence_003__descs = [
-		generate_colored_text__cyde_name__as_line(),
-		"Get ready for the final fight!"
-	]
-	_configure_dia_seg_to_default_templated_dialog_with_descs_only(dia_seg__question_xx_sequence_003, dia_seg__question_xx_sequence_003__descs)
-	_configure_dia_set_to_standard_pos_and_size(dia_seg__question_xx_sequence_003)
-	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_003, self, "_on_dia_seg__question_04_sequence_003__ended", null)
+	#configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_002, self, "_on_dia_seg__question_04_sequence_003__ended", null)
 	
 
 func _play_dia_seg__question_04_sequence_001():
@@ -923,6 +1011,7 @@ func _on_Q04_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.C
 	do_all_related_audios__for_correct_choice()
 	
 	
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_002, self, "_on_dia_seg__question_04_sequence_003__ended", null)
 
 func _on_Q04_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.ChoiceButtonInfo, arg_panel : DialogChoicesPanel):
 	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
@@ -947,6 +1036,8 @@ func _on_Q04_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.C
 	apply_enemy_power_up_effects()
 	do_all_related_audios__for_wrong_choice()
 	
+	
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_002, self, "_on_dia_seg__question_04_sequence_003__ended", null)
 
 func _on_Q04_timeout(arg_params):
 	var plain_fragment__enemies = PlainTextFragment.new(PlainTextFragment.STAT_TYPE.ENEMY, "enemies")
@@ -971,6 +1062,8 @@ func _on_Q04_timeout(arg_params):
 	apply_enemy_power_up_effects()
 	do_all_related_audios__for_quiz_timer_timeout()
 	
+	
+	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_002, self, "_on_dia_seg__question_04_sequence_003__ended", null)
 
 func _on_dia_seg__question_04_sequence_003__ended(arg_seg, arg_param):
 	set_round_is_startable(true)
@@ -2111,7 +2204,7 @@ func _construct_dia_seg__on_win_01_sequence_001():
 	custom_pos__for_left.x = 0
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, custom_pos__for_left, persistence_id_for_portrait__cyde)
 	
-	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_002, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.STANDARD_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_002, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.SAD_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
 	
 	
 	#######
@@ -2129,7 +2222,7 @@ func _construct_dia_seg__on_win_01_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_003, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
-	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_003, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.ANGRY_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_003, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.SAD_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
 	
 	
 	####
@@ -2147,7 +2240,7 @@ func _construct_dia_seg__on_win_01_sequence_001():
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_004, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.ANGRY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
-	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_004, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.TEMPTING_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
+	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__on_win_01_sequence_004, CydeSingleton.dr_asi_state_to_image_map[CydeSingleton.DR_ASI_STATES.SAD_001], dia_portrait__pos__standard_right, dia_portrait__pos__standard_right, persistence_id_for_portrait__asi)
 	
 	
 	####

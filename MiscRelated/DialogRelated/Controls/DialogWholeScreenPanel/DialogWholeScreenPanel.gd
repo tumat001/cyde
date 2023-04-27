@@ -370,8 +370,9 @@ func _configure_and_build_background_elements(arg_segment : DialogSegment):
 	
 	# Displaying
 	for construction_ins in construction_inses:
-		if construction_ins.has_persistence_id() and existing_persistence_id_to_ele_map.has(construction_ins.persistence_id):
+		if construction_ins.has_persistence_id() and existing_persistence_id_to_ele_map.has(construction_ins.persistence_id) and is_instance_valid(existing_persistence_id_to_ele_map[construction_ins.persistence_id]) and !existing_persistence_id_to_ele_map[construction_ins.persistence_id].is_queued_for_deletion():
 			var existing_ele = existing_persistence_id_to_ele_map[construction_ins.persistence_id]
+			
 			construction_ins.build_element(existing_ele)
 			
 			#
