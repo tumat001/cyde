@@ -15,8 +15,8 @@ var invis_ability : BaseAbility
 
 var _summon_timer : Timer
 
-const summon_cd : float = 13.0
-const summon_count : int = 9
+const summon_cd : float = 9.0
+const summon_count : int = 8
 
 ##
 

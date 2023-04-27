@@ -22,7 +22,7 @@ const _shield_duration : float = 5.0
 var shield_effect : EnemyShieldEffect
 
 var _shield_timer : Timer
-const _shield_cd : float = 22.0
+const _shield_cd : float = 16.0
 
 #######
 

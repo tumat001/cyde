@@ -67,7 +67,7 @@ func _construct_and_start_ability_timer():
 	add_child(_ability_timer)
 	_ability_timer.connect("timeout", self, "_ability_timer_expired")
 	
-	_ability_timer.start(8)
+	_ability_timer.start(6)
 
 
 func _ability_timer_expired():

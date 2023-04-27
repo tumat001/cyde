@@ -1003,7 +1003,7 @@ func _on_Q04_choice_right_clicked(arg_id, arg_button_info : DialogChoicesPanel.C
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.HAPPY_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
+	#configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
 	#
 	
@@ -1029,7 +1029,7 @@ func _on_Q04_choice_wrong_clicked(arg_id, arg_button_info : DialogChoicesPanel.C
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
+	#configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
 	#
 	
@@ -1055,7 +1055,7 @@ func _on_Q04_timeout(arg_params):
 	
 	_configure_dia_seg_to_default_templated_background_ele_dia_texture_image(dia_seg__question_xx_sequence_002, CydeSingleton.cyde_state_to_image_map[CydeSingleton.CYDE_STATE.SAD_001], dia_portrait__pos__standard_left, dia_portrait__pos__standard_left, persistence_id_for_portrait__cyde)
 	
-	configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
+	#configure_dia_seg_to_progress_to_next_on_player_click_or_enter(dia_seg__question_xx_sequence_002, dia_seg__question_04_sequence_003)
 	play_dialog_segment_or_advance_or_finish_elements(dia_seg__question_xx_sequence_002)
 	#
 	
@@ -1066,8 +1066,8 @@ func _on_Q04_timeout(arg_params):
 	configure_dia_seg_to_call_func_on_player_click_or_enter(dia_seg__question_xx_sequence_002, self, "_on_dia_seg__question_04_sequence_003__ended", null)
 
 func _on_dia_seg__question_04_sequence_003__ended(arg_seg, arg_param):
-	set_round_is_startable(true)
-	play_dialog_segment_or_advance_or_finish_elements(null)
+	#set_round_is_startable(true)
+	#play_dialog_segment_or_advance_or_finish_elements(null)
 	
 	#_construct_dia_seg__intro_11_sequence_001()
 	
