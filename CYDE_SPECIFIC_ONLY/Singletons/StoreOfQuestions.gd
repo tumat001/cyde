@@ -28,7 +28,7 @@ func _init():
 func construct_questions_and_choices_for__virus_Q01(arg_func_source : Object, arg_func_name_of_correct : String, arg_func_name_of_wrong : String, arg_func_name_for_timeout : String):
 	var choice_01__ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_01__ques_01.id = 1
-	choice_01__ques_01.display_text = "Particular kind of software that, when run,\ncopies itself by altering other programs\n and incorporating its own code into those programs."
+	choice_01__ques_01.display_text = "Particular kind of software that, when run, copies itself by altering other programs\n and incorporating its own code into those programs."
 	choice_01__ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_01__ques_01.func_source_on_click = arg_func_source
 	choice_01__ques_01.func_name_on_click = arg_func_name_of_correct
@@ -44,7 +44,7 @@ func construct_questions_and_choices_for__virus_Q01(arg_func_source : Object, ar
 	
 	var choice_03_ques_01 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_03_ques_01.id = 3
-	choice_03_ques_01.display_text = "A type of malware whose primary function\n is to self-replicate and infect other computers\n while remaining active on infected systems."
+	choice_03_ques_01.display_text = "A type of malware whose primary function is to self-replicate\nand infect other computers while remaining active on infected systems."
 	choice_03_ques_01.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_03_ques_01.func_source_on_click = arg_func_source
 	choice_03_ques_01.func_name_on_click = arg_func_name_of_wrong
@@ -652,7 +652,7 @@ func construct_questions_and_choices_for__trojan_Q04(arg_func_source : Object, a
 
 	var choice_02__ques_02 = DialogChoicesPanel.ChoiceButtonInfo.new()
 	choice_02__ques_02.id = 2
-	choice_02__ques_02.display_text = "Use a password manager,\nwhich will automatically enter a saved password into a recognized site\n(but not a spoofed site)."
+	choice_02__ques_02.display_text = "Use a password manager, which will automatically enter a saved password\ninto a recognized site (but not a spoofed site)."
 	choice_02__ques_02.choice_type = DialogChoicesPanel.ChoiceButtonInfo.ChoiceType.STANDARD
 	choice_02__ques_02.func_source_on_click = arg_func_source
 	choice_02__ques_02.func_name_on_click = arg_func_name_of_wrong
@@ -1789,7 +1789,7 @@ func construct_questions_and_choices_for__rootkit_Q01(arg_func_source : Object, 
 	
 	
 	var question_01_desc = [
-		"In rootkit, the word “root” refers to the admin or superuser, who, by default,\nhas access to all files and commands on a Linux system.\n“Kit” is the software that grants ______?"
+		"In rootkit, the word “root” refers to the admin or superuser, who, by default, has access to all files and commands on a Linux system.\n“Kit” is the software that grants ______?"
 	]
 	
 	var question_info__01 = QuestionInfoForChoicesPanel.new()
@@ -1899,7 +1899,7 @@ func construct_questions_and_choices_for__rootkit_Q02(arg_func_source : Object, 
 	
 	
 	var question_01_desc = [
-		"Rootkits contain malicious ________, including banking credential stealers,\npassword stealers, keyloggers, antivirus disablers\n and bots for distributed denial-of-service attacks."
+		"Rootkits contain malicious ________, including banking credential stealers, password stealers, keyloggers,\nantivirus disablers and bots for distributed denial-of-service attacks."
 	]
 	
 	var question_info__01 = QuestionInfoForChoicesPanel.new()

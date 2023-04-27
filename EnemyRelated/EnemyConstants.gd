@@ -655,7 +655,7 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 	# FILELESS
 	elif enemy_id == Enemies.FILELESS_BOSS:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 245
+		info.base_health = 265
 		info.base_movement_speed = 40
 		info.enemy_type == info.EnemyType.ELITE
 		
@@ -819,9 +819,10 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.AMALGAMATION_VIRJAN:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 120
+		info.base_health = 280
 		info.base_movement_speed = 22
 		info.enemy_type = info.EnemyType.BOSS
+		info.base_player_damage = 30
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Virjan"
@@ -832,9 +833,10 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.AMALGAMATION_ADWORM:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 185
+		info.base_health = 385
 		info.base_movement_speed = 22
 		info.enemy_type = info.EnemyType.BOSS
+		info.base_player_damage = 30
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Adworm"
@@ -845,9 +847,10 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.AMALGAMATION_RANSKIT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 220
+		info.base_health = 420
 		info.base_movement_speed = 20
 		info.enemy_type = info.EnemyType.BOSS
+		info.base_player_damage = 30
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Ranskit"
@@ -858,9 +861,10 @@ static func get_enemy_info(enemy_id : int, arg_include_non_combat_info : bool = 
 		
 	elif enemy_id == Enemies.AMALGAMATION_MALFILEBOT:
 		info = EnemyTypeInformation.new(enemy_id, EnemyFactions.BASIC)
-		info.base_health = 250
-		info.base_movement_speed = 20
+		info.base_health = 520
+		info.base_movement_speed = 15
 		info.enemy_type = info.EnemyType.BOSS
+		info.base_player_damage = 100
 		
 		if arg_include_non_combat_info:
 			info.enemy_name = "Malfilebot"

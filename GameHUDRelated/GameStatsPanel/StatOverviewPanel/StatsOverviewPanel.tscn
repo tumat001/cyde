@@ -43,7 +43,8 @@ margin_right = 312.0
 margin_bottom = 168.0
 
 [node name="TierRelatedStatsPanel" parent="VBoxContainer/MarginContainer/HBoxContainer2" instance=ExtResource( 7 )]
-margin_left = 435.0
+visible = false
+margin_left = 537.0
 margin_right = 725.0
 margin_bottom = 168.0
 size_flags_horizontal = 10

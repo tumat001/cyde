@@ -75,7 +75,7 @@ static func get_color_name_on_card(tower_color : int) -> String:
 	elif tower_color == INTEGRITY:
 		return "Integ"
 	elif tower_color == AVAILABILITY:
-		return "Availa"
+		return "Acces"
 	else:
 		return "nan"
 	

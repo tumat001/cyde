@@ -1,8 +1,6 @@
 extends "res://GameplayRelated/EnemiesInRounds/BaseMode_EnemySpawnIns.gd"
 
 func get_instructions_for_stageround(uuid : String):
-	return []
-	
 	if uuid == "101":
 		return _get_instructions_for_0_1()
 	elif uuid == "102":

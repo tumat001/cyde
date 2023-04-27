@@ -187,7 +187,7 @@ func _get_instructions_for_0_13():
 	return [
 		MultipleEnemySpawnInstruction.new(0, 2, 0.75, EnemyConstants.Enemies.ROOTKIT_VIRTUAL),
 		
-		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.FILELESS_BOSS),
+		SingleEnemySpawnInstruction.new(8, EnemyConstants.Enemies.ROOTKIT_BOSS),
 		
 		MultipleEnemySpawnInstruction.new(10, 10, 0.5, EnemyConstants.Enemies.ROOTKIT_KERNEL_MODE),
 		

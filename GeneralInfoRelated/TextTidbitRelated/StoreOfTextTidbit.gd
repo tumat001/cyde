@@ -90,7 +90,7 @@ const tidbit_category_id_to_tidbit_category_name : Dictionary = {
 	TidbitCategory.MALWARE_BOTS : "Malware Bots",
 	TidbitCategory.MOBILE_MALWARE : "Mobile Malware",
 	
-	TidbitCategory.LETTERS : "Others",
+	#TidbitCategory.LETTERS : "Others",
 	
 }
 
